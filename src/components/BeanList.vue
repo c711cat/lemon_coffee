@@ -13,6 +13,10 @@
               <span class="price-title">一磅</span>
               <span class="price-num">${{ product.one_pound_price }}</span>
             </div>
+            <div>
+              <span class="price-title">耳掛</span
+              ><span class="price-num">${{ product.drip_bag_price }} /包</span>
+            </div>
           </div>
         </div>
         <div class="unit-down">
@@ -123,7 +127,7 @@ a {
   border-bottom: solid 1px black;
 }
 .bean-name {
-  min-width: 80%;
+  min-width: 50%;
   font-size: 18px;
   line-height: 25px;
   padding-bottom: 10px;
@@ -132,12 +136,13 @@ a {
   display: flex;
   padding-bottom: 10px;
 }
-.half-pound-container {
-  margin-right: 23px;
-}
 .price-title {
   color: #4aa378;
   margin-right: 5px;
+}
+.price-num {
+  width: 56px;
+  display: inline-block;
 }
 .unit-down {
   display: flex;
