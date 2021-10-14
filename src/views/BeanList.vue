@@ -27,7 +27,6 @@
                 <div
                   class="round fill-light-roast"
                   v-if="i < product.roast"
-                  :class="{ active: true }"
                 ></div>
                 <div class="round unfill-light-roast" v-else></div>
               </div>
@@ -35,7 +34,6 @@
                 <div
                   class="round fill-cinnamon-roast"
                   v-if="i < product.roast"
-                  :class="{ active: true }"
                 ></div>
                 <div class="round unfill-cinnamon-roast" v-else></div>
               </div>
@@ -43,7 +41,6 @@
                 <div
                   class="round fill-medium-roast"
                   v-if="i < product.roast"
-                  :class="{ active: true }"
                 ></div>
                 <div class="round unfill-medium-roast" v-else></div>
               </div>
@@ -51,7 +48,6 @@
                 <div
                   class="round fill-city-roast"
                   v-if="i < product.roast"
-                  :class="{ active: true }"
                 ></div>
                 <div class="round unfill-city-roast" v-else></div>
               </div>
@@ -59,7 +55,6 @@
                 <div
                   class="round fill-french-roast"
                   v-if="i < product.roast"
-                  :class="{ active: true }"
                 ></div>
                 <div class="round unfill-french-roast" v-else></div>
               </div>
