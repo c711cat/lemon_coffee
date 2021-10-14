@@ -208,7 +208,7 @@ a {
 .roast-wrap {
   display: flex;
   align-items: center;
-  min-width: 90%;
+  min-width: 74%;
   padding-top: 10px;
 }
 .flavor-container {
