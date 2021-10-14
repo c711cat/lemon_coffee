@@ -1,81 +1,75 @@
 <template>
   <div class="wrap">
-    <div class="bean-list-container">
-      <div
-        class="bean-list-unit"
-        v-for="product in products"
-        :key="product.name"
-      >
-        <a href="#"
-          ><div class="unit-up">
-            <div class="bean-name">{{ product.name }}</div>
-            <div class="bean-price-type">
-              <div class="half-pound-container">
-                <span class="price-title">半磅</span
-                ><span class="price-num">${{ product.half_pound_price }}</span>
+    <div class="bean-list-unit" v-for="product in products" :key="product.name">
+      <a href="#"
+        ><div class="unit-up">
+          <div class="bean-name">{{ product.name }}</div>
+          <div class="bean-price-type">
+            <div class="half-pound-container">
+              <span class="price-title">半磅</span
+              ><span class="price-num">${{ product.half_pound_price }}</span>
+            </div>
+            <div>
+              <span class="price-title">一磅</span
+              ><span class="price-num">${{ product.one_pound_price }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="unit-down">
+          <div class="roast-wrap">
+            <div class="level-title" v-if="product.roast === 1">淺焙</div>
+            <div class="level-title" v-if="product.roast === 2">中淺焙</div>
+            <div class="level-title" v-if="product.roast === 3">中焙</div>
+            <div class="level-title" v-if="product.roast === 4">中深焙</div>
+            <div class="level-title" v-if="product.roast === 5">深焙</div>
+            <div class="roast-degree" v-for="(item, i) in round" :key="i">
+              <div v-if="product.roast === 1">
+                <div
+                  class="round fill-light-roast"
+                  v-if="i < product.roast"
+                  :class="{ active: true }"
+                ></div>
+                <div class="round unfill-light-roast" v-else></div>
               </div>
-              <div>
-                <span class="price-title">一磅</span
-                ><span class="price-num">${{ product.one_pound_price }}</span>
+              <div v-if="product.roast === 2">
+                <div
+                  class="round fill-cinnamon-roast"
+                  v-if="i < product.roast"
+                  :class="{ active: true }"
+                ></div>
+                <div class="round unfill-cinnamon-roast" v-else></div>
+              </div>
+              <div v-if="product.roast === 3">
+                <div
+                  class="round fill-medium-roast"
+                  v-if="i < product.roast"
+                  :class="{ active: true }"
+                ></div>
+                <div class="round unfill-medium-roast" v-else></div>
+              </div>
+              <div v-if="product.roast === 4">
+                <div
+                  class="round fill-city-roast"
+                  v-if="i < product.roast"
+                  :class="{ active: true }"
+                ></div>
+                <div class="round unfill-city-roast" v-else></div>
+              </div>
+              <div v-if="product.roast === 5">
+                <div
+                  class="round fill-french-roast"
+                  v-if="i < product.roast"
+                  :class="{ active: true }"
+                ></div>
+                <div class="round unfill-french-roast" v-else></div>
               </div>
             </div>
           </div>
-          <div class="unit-down">
-            <div class="roast-wrap">
-              <div class="level-title" v-if="product.roast === 1">淺焙</div>
-              <div class="level-title" v-if="product.roast === 2">中淺焙</div>
-              <div class="level-title" v-if="product.roast === 3">中焙</div>
-              <div class="level-title" v-if="product.roast === 4">中深焙</div>
-              <div class="level-title" v-if="product.roast === 5">深焙</div>
-              <div class="roast-degree" v-for="(item, i) in round" :key="i">
-                <div v-if="product.roast === 1">
-                  <div
-                    class="round fill-light-roast"
-                    v-if="i < product.roast"
-                    :class="{ active: true }"
-                  ></div>
-                  <div class="round unfill-light-roast" v-else></div>
-                </div>
-                <div v-if="product.roast === 2">
-                  <div
-                    class="round fill-cinnamon-roast"
-                    v-if="i < product.roast"
-                    :class="{ active: true }"
-                  ></div>
-                  <div class="round unfill-cinnamon-roast" v-else></div>
-                </div>
-                <div v-if="product.roast === 3">
-                  <div
-                    class="round fill-medium-roast"
-                    v-if="i < product.roast"
-                    :class="{ active: true }"
-                  ></div>
-                  <div class="round unfill-medium-roast" v-else></div>
-                </div>
-                <div v-if="product.roast === 4">
-                  <div
-                    class="round fill-city-roast"
-                    v-if="i < product.roast"
-                    :class="{ active: true }"
-                  ></div>
-                  <div class="round unfill-city-roast" v-else></div>
-                </div>
-                <div v-if="product.roast === 5">
-                  <div
-                    class="round fill-french-roast"
-                    v-if="i < product.roast"
-                    :class="{ active: true }"
-                  ></div>
-                  <div class="round unfill-french-roast" v-else></div>
-                </div>
-              </div>
-            </div>
-            <div class="flavor-container">
-              <div class="flavor">風味 : {{ product.flavor.join("、") }}</div>
-            </div>
-          </div></a
-        >
-      </div>
+          <div class="flavor-container">
+            <div class="flavor">風味 : {{ product.flavor.join("、") }}</div>
+          </div>
+        </div></a
+      >
     </div>
   </div>
 </template>
@@ -120,10 +114,7 @@ a {
   max-width: 1200px;
   margin: 0 auto;
   font-family: system-ui;
-}
-.bean-list-container {
-  margin: 0 auto;
-  padding: 0% 10%;
+  padding: 2% 5%;
 }
 .bean-list-unit {
   padding: 15px 20px;
