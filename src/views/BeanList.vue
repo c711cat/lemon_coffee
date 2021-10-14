@@ -1,17 +1,17 @@
 <template>
   <div class="wrap">
     <div class="bean-list-unit" v-for="product in products" :key="product.name">
-      <a href="#"
-        ><div class="unit-up">
+      <a href="#">
+        <div class="unit-up">
           <div class="bean-name">{{ product.name }}</div>
           <div class="bean-price-type">
             <div class="half-pound-container">
-              <span class="price-title">半磅</span
-              ><span class="price-num">${{ product.half_pound_price }}</span>
+              <span class="price-title">半磅</span>
+              <span class="price-num">${{ product.half_pound_price }}</span>
             </div>
             <div>
-              <span class="price-title">一磅</span
-              ><span class="price-num">${{ product.one_pound_price }}</span>
+              <span class="price-title">一磅</span>
+              <span class="price-num">${{ product.one_pound_price }}</span>
             </div>
           </div>
         </div>
@@ -68,8 +68,8 @@
           <div class="flavor-container">
             <div class="flavor">風味 : {{ product.flavor.join("、") }}</div>
           </div>
-        </div></a
-      >
+        </div>
+      </a>
     </div>
   </div>
 </template>
