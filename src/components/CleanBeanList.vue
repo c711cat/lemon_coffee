@@ -30,7 +30,7 @@
           </div>
         </a>
       </div>
-      <div class="bean-list-unit-right" v-if="btn">
+      <div class="bean-list-unit-right" v-if="btnState">
         <div class="btn-edit-container">
           <button class="btn-body edit">編輯</button>
         </div>
@@ -47,17 +47,17 @@ export default {
   data() {
     return {
       round: [1, 2, 3, 4, 5],
-      btn: false,
     };
   },
   props: {
     products: {
       type: Array,
     },
+    btnState: {
+      type: Boolean,
+    },
   },
   components: { Roast },
-  methods: {},
-  created() {},
 };
 </script>
 <style lang="scss" scoped>
@@ -136,14 +136,22 @@ a {
   height: 30px;
   background: none;
   margin: 0px 1px;
-  border-radius: 10%;
+  border-radius: 3px;
 }
 .edit {
-  color: #1ec5a1;
-  border: 1.5px solid #1ec5a1;
+  color: #aaa;
+  border: 1px solid #aaa;
+}
+.edit:hover {
+  background: #aaa;
+  color: #fff;
 }
 .del {
   color: rgb(235, 72, 72);
   border: 1.5px solid rgb(235, 72, 72);
+}
+.del:hover {
+  background: rgb(235, 72, 72);
+  color: #fff;
 }
 </style>
