@@ -6,6 +6,10 @@ const routes = [
     component: () => import("@/components/BeanList.vue"),
   },
   {
+    path: "/manager",
+    component: () => import("@/views/Manager/Manager_BeanList.vue"),
+  },
+  {
     path: "/about",
     name: "About",
     // route level code-splitting
