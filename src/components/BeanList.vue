@@ -20,50 +20,7 @@
           </div>
         </div>
         <div class="unit-down">
-          <div class="roast-wrap">
-            <div class="level-title" v-if="product.roast === 1">淺焙</div>
-            <div class="level-title" v-if="product.roast === 2">中淺焙</div>
-            <div class="level-title" v-if="product.roast === 3">中焙</div>
-            <div class="level-title" v-if="product.roast === 4">中深焙</div>
-            <div class="level-title" v-if="product.roast === 5">深焙</div>
-            <div class="roast-degree" v-for="(item, i) in round" :key="i">
-              <div v-if="product.roast === 1">
-                <div
-                  class="round fill-light-roast"
-                  v-if="i < product.roast"
-                ></div>
-                <div class="round unfill-light-roast" v-else></div>
-              </div>
-              <div v-if="product.roast === 2">
-                <div
-                  class="round fill-cinnamon-roast"
-                  v-if="i < product.roast"
-                ></div>
-                <div class="round unfill-cinnamon-roast" v-else></div>
-              </div>
-              <div v-if="product.roast === 3">
-                <div
-                  class="round fill-medium-roast"
-                  v-if="i < product.roast"
-                ></div>
-                <div class="round unfill-medium-roast" v-else></div>
-              </div>
-              <div v-if="product.roast === 4">
-                <div
-                  class="round fill-city-roast"
-                  v-if="i < product.roast"
-                ></div>
-                <div class="round unfill-city-roast" v-else></div>
-              </div>
-              <div v-if="product.roast === 5">
-                <div
-                  class="round fill-french-roast"
-                  v-if="i < product.roast"
-                ></div>
-                <div class="round unfill-french-roast" v-else></div>
-              </div>
-            </div>
-          </div>
+          <Roast :roast="product.roast"></Roast>
           <div class="flavor-container">
             <div class="flavor">風味 : {{ product.flavor.join("、") }}</div>
           </div>
@@ -74,6 +31,7 @@
 </template>
 <script>
 import axios from "axios";
+import Roast from "@/components/Roast.vue";
 export default {
   data() {
     return {
@@ -81,6 +39,7 @@ export default {
       products: [],
     };
   },
+  components: { Roast },
   methods: {
     getProducts() {
       const api = `${process.env.VUE_APP_API}/products`;
@@ -148,58 +107,6 @@ a {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-}
-.level-title {
-  width: 57px;
-  text-align: left;
-}
-.round {
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  margin-right: 7px;
-}
-.fill-light-roast {
-  background: #e1d8d6;
-  border: 1px solid #e1d8d6;
-}
-.unfill-light-roast {
-  border: 1px solid #e1d8d6;
-}
-
-.fill-cinnamon-roast {
-  background: #c3b1ab;
-  border: 1px solid #c3b1ab;
-}
-.unfill-cinnamon-roast {
-  border: 1px solid #c3b1ab;
-}
-.fill-medium-roast {
-  background: #a58a82;
-  border: 1px solid #a58a82;
-}
-.unfill-medium-roast {
-  border: 1px solid #a58a82;
-}
-.fill-city-roast {
-  background: #886358;
-  border: 1px solid #886358;
-}
-.unfill-city-roast {
-  border: 1px solid #886358;
-}
-.fill-french-roast {
-  background: #6b3c2e;
-  border: 1px solid #6b3c2e;
-}
-.unfill-french-roast {
-  border: 1px solid #6b3c2e;
-}
-.roast-wrap {
-  display: flex;
-  align-items: center;
-  min-width: 74%;
-  padding-top: 10px;
 }
 .flavor-container {
   display: flex;
