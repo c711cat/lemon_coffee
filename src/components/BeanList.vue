@@ -14,8 +14,8 @@
               <span class="price-num">${{ product.one_pound_price }}</span>
             </div>
             <div>
-              <span class="price-title">耳掛</span
-              ><span class="price-num">${{ product.drip_bag_price }} /包</span>
+              <span class="price-title">耳掛</span>
+              <span class="price-num">${{ product.drip_bag_price }} /包</span>
             </div>
           </div>
         </div>
