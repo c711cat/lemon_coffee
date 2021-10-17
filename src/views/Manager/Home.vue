@@ -1,7 +1,9 @@
 <template>
   <div class="products-wrap">
     <div class="add-btn-container">
-      <button type="button" class="add-btn">新增產品</button>
+      <button type="button" class="add-btn" @click.prevent="toAddProduct">
+        新增產品
+      </button>
     </div>
     <CleanBeanList
       :products="products"
@@ -29,6 +31,9 @@ export default {
       axios.get(api).then((response) => {
         this.products = [...response.data];
       });
+    },
+    toAddProduct() {
+      this.$router.push("/addproduct");
     },
   },
   created() {
