@@ -15,10 +15,8 @@
                 <span class="price-num">${{ product.one_pound_price }}</span>
               </div>
               <div>
-                <span class="price-title">耳掛</span
-                ><span class="price-num"
-                  >${{ product.drip_bag_price }} /包</span
-                >
+                <span class="price-title">耳掛</span>
+                <span class="price-num">${{ product.drip_bag_price }} /包</span>
               </div>
             </div>
           </div>
@@ -30,11 +28,11 @@
           </div>
         </a>
       </div>
-      <div class="bean-list-unit-right" v-if="btnState">
-        <div class="btn-edit-container">
+      <div class="bean-list-unit-right" v-if="showEditButton">
+        <div>
           <button class="btn-body edit">編輯</button>
         </div>
-        <div class="btn-del-container">
+        <div>
           <button class="btn-body del">刪除</button>
         </div>
       </div>
@@ -53,7 +51,7 @@ export default {
     products: {
       type: Array,
     },
-    btnState: {
+    showEditButton: {
       type: Boolean,
     },
   },
