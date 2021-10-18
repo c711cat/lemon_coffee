@@ -1,85 +1,79 @@
 <template>
-  <div class="add-product-wrap">
+  <div class="add-product-wrap ui form">
     <h4 class="ui dividing header">新增產品</h4>
-    <div class="ui form">
-      <div class="fields">
-        <div class="ten wide field">
-          <label>產品名稱</label>
-          <input
-            class="input-body"
-            type="text"
-            placeholder="請輸入產品名稱"
-            v-model="product.name"
-          />
-        </div>
-        <div class="two wide field">
-          <label for="roast">烘焙度</label>
-          <select id="roast" v-model="product.roast">
-            <option value="" disabled>請選擇烘焙度</option>
-            <option :value="item" v-for="item in [1, 2, 3, 4, 5]" :key="item">
-              {{ item }}
-            </option>
-          </select>
-        </div>
+    <div class="fields">
+      <div class="nine wide field field-content">
+        <label>產品名稱</label>
+        <input
+          class="input-body"
+          type="text"
+          placeholder="請輸入產品名稱"
+          v-model="product.name"
+        />
+      </div>
+      <div class="three wide field field-content">
+        <label for="roast">烘焙度</label>
+        <select id="roast" v-model="product.roast">
+          <option value="" disabled>請選擇烘焙度</option>
+          <option :value="item" v-for="item in [1, 2, 3, 4, 5]" :key="item">
+            {{ item }}
+          </option>
+        </select>
       </div>
     </div>
-    <div class="ui form">
-      <div class="fields">
-        <div class="four wide field">
-          <label>半磅價格</label>
-          <input
-            type="number"
-            placeholder="請輸入半磅價格"
-            min="0"
-            v-model="product.half_pound_price"
-          />
-        </div>
-        <div class="four wide field">
-          <label>一磅價格</label>
-          <input
-            type="number"
-            placeholder="請輸入一磅價格"
-            min="0"
-            v-model="product.one_pound_price"
-          />
-        </div>
-        <div class="four wide field">
-          <label>耳掛價格</label>
-          <input
-            type="number"
-            placeholder="請輸入耳掛價格"
-            min="0"
-            v-model="product.drip_bag_price"
-          />
-        </div>
+    <div class="fields">
+      <div class="four wide field field-content">
+        <label>半磅價格</label>
+        <input
+          type="number"
+          placeholder="請輸入半磅價格"
+          min="0"
+          v-model="product.half_pound_price"
+        />
+      </div>
+      <div class="four wide field field-content">
+        <label>一磅價格</label>
+        <input
+          type="number"
+          placeholder="請輸入一磅價格"
+          min="0"
+          v-model="product.one_pound_price"
+        />
+      </div>
+      <div class="four wide field field-content">
+        <label>耳掛價格</label>
+        <input
+          type="number"
+          placeholder="請輸入耳掛價格"
+          min="0"
+          v-model="product.drip_bag_price"
+        />
       </div>
     </div>
-    <div class="ui form">
-      <div class="fields">
-        <div class="four wide field">
-          <label>風味 1 </label>
-          <input
-            type="text"
-            placeholder="請輸入風味"
-            v-model="product.flavor[0]"
-          />
-        </div>
-        <div class="four wide field">
-          <label>風味 2 </label>
-          <input
-            type="text"
-            placeholder="請輸入風味"
-            v-model="product.flavor[1]"
-          />
-        </div>
-        <div class="four wide field">
-          <label>風味 3 </label>
-          <input
-            type="text"
-            placeholder="請輸入風味"
-            v-model="product.flavor[2]"
-          />
-        </div>
+    <div class="fields">
+      <div class="four wide field field-content">
+        <label>風味 1 </label>
+        <input
+          type="text"
+          placeholder="請輸入風味"
+          v-model="product.flavor[0]"
+        />
+      </div>
+      <div class="four wide field field-content">
+        <label>風味 2 </label>
+        <input
+          type="text"
+          placeholder="請輸入風味"
+          v-model="product.flavor[1]"
+        />
+      </div>
+      <div class="four wide field field-content">
+        <label>風味 3 </label>
+        <input
+          type="text"
+          placeholder="請輸入風味"
+          v-model="product.flavor[2]"
+        />
       </div>
     </div>
     <h4 class="ui dividing header"></h4>
@@ -115,15 +109,15 @@ export default {
 .fields {
   justify-content: center;
 }
-.ui.dividing.header {
+.dividing.header {
   margin-bottom: 30px;
-}
-.form .fields:last-child .field {
-  margin-bottom: 10px;
 }
 .btn-container {
   display: flex;
   flex-direction: row-reverse;
   margin-top: -15px;
+}
+.wide.field.field-content {
+  margin-bottom: 20px;
 }
 </style>
