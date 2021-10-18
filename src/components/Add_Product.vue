@@ -107,7 +107,8 @@ export default {
 <style lang="scss" scoped>
 .add-product-wrap {
   max-width: 1200px;
-  margin: 50px 25px;
+  margin: 50px auto;
+  padding: 0 25px;
   text-align: left;
   letter-spacing: 1.3px;
 }
