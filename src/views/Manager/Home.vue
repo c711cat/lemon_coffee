@@ -1,5 +1,8 @@
 <template>
-  <CleanBeanList :products="products" :btnState="btnState"></CleanBeanList>
+  <CleanBeanList
+    :products="products"
+    :showEditButton="showEditButton"
+  ></CleanBeanList>
 </template>
 <script>
 import axios from "axios";
@@ -9,7 +12,7 @@ export default {
   data() {
     return {
       products: [],
-      btnState: true,
+      showEditButton: true,
     };
   },
   components: {
@@ -17,10 +20,9 @@ export default {
   },
   methods: {
     getProducts() {
-      const api = `${process.env.VUE_APP_API}/admin`;
+      const api = `${process.env.VUE_APP_API}/products`;
       axios.get(api).then((response) => {
-        console.log(response);
-        this.products = response.data;
+        this.products = [...response.data];
       });
     },
   },

@@ -6,8 +6,8 @@ const routes = [
     component: () => import("@/components/BeanList.vue"),
   },
   {
-    path: "/manager",
-    component: () => import("@/views/Manager/Manager_BeanList.vue"),
+    path: "/admin",
+    component: () => import("@/views/Manager/Home.vue"),
   },
   {
     path: "/about",
