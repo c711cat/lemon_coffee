@@ -33,7 +33,7 @@ export default {
       });
     },
     toAddProduct() {
-      this.$router.push("/addproduct");
+      this.$router.push("/admin/products/new");
     },
   },
   created() {
