@@ -7,7 +7,6 @@ import CleanBeanList from "@/components/CleanBeanList.vue";
 export default {
   data() {
     return {
-      round: [1, 2, 3, 4, 5],
       products: [],
     };
   },
