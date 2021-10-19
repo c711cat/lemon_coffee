@@ -11,7 +11,7 @@ const routes = [
   },
   {
     path: "/addproduct",
-    component: () => import("@/components/Add_Product.vue"),
+    component: () => import("@/components/AddProduct.vue"),
   },
   {
     path: "/about",
