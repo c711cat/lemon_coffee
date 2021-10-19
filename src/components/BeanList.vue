@@ -15,7 +15,7 @@ export default {
     getProducts() {
       const api = `${process.env.VUE_APP_API}/products`;
       axios.get(api).then((response) => {
-        this.products = response.data;
+        this.products = [...response.data];
       });
     },
   },
