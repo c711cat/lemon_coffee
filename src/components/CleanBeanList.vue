@@ -135,6 +135,7 @@ a {
   background: none;
   margin: 0px 1px;
   border-radius: 3px;
+  cursor: pointer;
 }
 .edit {
   color: #aaa;

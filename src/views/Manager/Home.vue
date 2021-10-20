@@ -55,13 +55,17 @@ export default {
   flex-direction: row-reverse;
 }
 .add-btn {
-  background: #337ab7;
+  background: #2185d0;
   padding: 10px 15px;
   border-radius: 3px;
   font-size: 16px;
   color: #fff;
-  border: 1px solid #337ab7;
+  border: 1px solid #2185d0;
   margin-right: 15px;
   margin-top: 15px;
+  cursor: pointer;
+}
+.add-btn:hover {
+  background: #1678c2;
 }
 </style>
