@@ -1,6 +1,6 @@
 import { shallowMount, mount } from "@vue/test-utils";
 import BeanList from "@/components/BeanList.vue";
-import axios from "axios"
+import axios from "axios";
 jest.mock("axios");
 const products = [
   {
@@ -10,18 +10,14 @@ const products = [
     one_pound_price: 810,
     drip_bag_price: 40,
     roast: 1,
-    flavor: [
-      "藍莓",
-      "柑橘",
-      "花香"
-    ]
+    flavor: ["藍莓", "柑橘", "花香"],
   },
 ];
 describe("BeanList", () => {
   it("從這裡定義的 products 取得資料並 rander 出豆單", async () => {
     axios.get.mockResolvedValue({ data: products });
     const wrapper = await shallowMount(BeanList);
-    expect(wrapper.element).toMatchSnapshot();
+    expect(wrapper.vm.products).toEqual(products);
   });
   it("randers 豆單", async () => {
     axios.get.mockResolvedValue({ data: products });
