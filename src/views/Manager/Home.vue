@@ -8,7 +8,7 @@
     <CleanBeanList
       :products="products"
       :showEditButton="showEditButton"
-      :offDrag="offDrag"
+      :disableDrag="disableDrag"
     ></CleanBeanList>
   </div>
 </template>
@@ -21,7 +21,7 @@ export default {
     return {
       products: [],
       showEditButton: true,
-      offDrag: false,
+      disableDrag: false,
     };
   },
   components: {

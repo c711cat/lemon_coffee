@@ -2,7 +2,7 @@
   <div class="wrap">
     <Draggable
       :list="products"
-      :disabled="offDrag"
+      :disabled="disableDrag"
       item-key="name"
       @start="dragging = true"
       @end="onEnd"
@@ -73,7 +73,7 @@ export default {
     showEditButton: {
       type: Boolean,
     },
-    offDrag: {
+    disableDrag: {
       type: Boolean,
       default() {
         return true;
