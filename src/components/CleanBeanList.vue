@@ -75,9 +75,7 @@ export default {
     },
     disableDrag: {
       type: Boolean,
-      default() {
-        return true;
-      },
+      default: true,
     },
   },
   components: { Roast, Draggable },
