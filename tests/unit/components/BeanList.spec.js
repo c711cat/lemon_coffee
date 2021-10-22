@@ -14,7 +14,7 @@ const products = [
   },
 ];
 describe("BeanList", () => {
-  it("從這裡定義的 products 取得資料並 rander 出豆單", async () => {
+  it("從模擬的遠端取得豆單資料，是否成功存進 BeanList 的 this.products 中", async () => {
     axios.get.mockResolvedValue({ data: products });
     const wrapper = await shallowMount(BeanList);
     expect(wrapper.vm.products).toEqual(products);
