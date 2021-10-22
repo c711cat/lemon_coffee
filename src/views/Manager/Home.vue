@@ -8,6 +8,7 @@
     <CleanBeanList
       :products="products"
       :showEditButton="showEditButton"
+      :offDrag="offDrag"
     ></CleanBeanList>
   </div>
 </template>
@@ -20,6 +21,7 @@ export default {
     return {
       products: [],
       showEditButton: true,
+      offDrag: false,
     };
   },
   components: {
