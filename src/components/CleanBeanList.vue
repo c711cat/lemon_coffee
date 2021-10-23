@@ -5,7 +5,7 @@
       :disabled="disableDrag"
       item-key="name"
       @start="dragging = true"
-      @end="onEnd"
+      @end="dragging = false"
     >
       <template #item="{ element }">
         <div class="bean-list-unit">
@@ -79,14 +79,6 @@ export default {
     },
   },
   components: { Roast, Draggable },
-  methods: {
-    onEnd() {
-      this.dragging = false;
-      this.products.forEach((item, index) => {
-        item.order = index + 1;
-      });
-    },
-  },
 };
 </script>
 <style lang="scss" scoped>
