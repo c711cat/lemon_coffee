@@ -49,21 +49,29 @@
               <button class="btn-body edit">編輯</button>
             </div>
             <div>
-              <button class="btn-body del">刪除</button>
+              <button
+                class="btn-body del"
+                @click.prevent="openDelModal(element)"
+              >
+                刪除
+              </button>
             </div>
           </div>
         </div>
       </template>
     </Draggable>
   </div>
+  <DelModal ref="del" :delItem="delItem" />
 </template>
 <script>
 import Roast from "@/components/Roast.vue";
 import Draggable from "vuedraggable";
+import DelModal from "@/components/DeleteModal.vue";
 export default {
   data() {
     return {
       dragging: false,
+      delItem: {},
     };
   },
   props: {
@@ -78,7 +86,14 @@ export default {
       default: true,
     },
   },
-  components: { Roast, Draggable },
+  components: { Roast, Draggable, DelModal },
+  methods: {
+    openDelModal(element) {
+      this.delItem = element;
+      console.log(this.delItem);
+      this.$refs.del.openModal();
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
