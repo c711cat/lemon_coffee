@@ -14,6 +14,10 @@ const routes = [
     component: () => import("@/components/AddProduct.vue"),
   },
   {
+    path: "/admin/products/edit/:productId",
+    component: () => import("@/components/AddProduct.vue"),
+  },
+  {
     path: "/about",
     name: "About",
     // route level code-splitting

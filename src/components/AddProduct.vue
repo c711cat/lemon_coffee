@@ -97,6 +97,7 @@ export default {
         roast: "",
         flavor: [],
       },
+      id: "",
     };
   },
   methods: {
@@ -109,6 +110,19 @@ export default {
       });
       this.$router.push("/admin");
     },
+    editProduct() {
+      if (this.id) {
+        const api = `${process.env.VUE_APP_API}/admin/products/edit/${this.id}`;
+        axios.get(api).then((response) => {
+          this.product = response.data;
+          console.log(response);
+        });
+      }
+    },
+  },
+  created() {
+    this.id = this.$route.params.productId;
+    this.editProduct();
   },
 };
 </script>
