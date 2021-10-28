@@ -1,50 +1,69 @@
 <template>
   <div class="wrap">
-    <div class="bean-list-unit" v-for="product in products" :key="product.name">
-      <div class="bean-list-unit-left">
-        <a href="#">
-          <div class="unit-up">
-            <div class="bean-name">{{ product.name }}</div>
-            <div class="bean-price-type">
-              <div class="half-pound-container">
-                <span class="price-title">半磅</span>
-                <span class="price-num">${{ product.half_pound_price }}</span>
+    <Draggable
+      :list="products"
+      :disabled="disableDrag"
+      item-key="name"
+      @start="dragging = true"
+      @end="dragging = false"
+    >
+      <template #item="{ element }">
+        <div class="bean-list-unit">
+          <div class="bean-list-unit-left">
+            <a href="#">
+              <div class="unit-up">
+                <div class="bean-name">{{ element.name }}</div>
+                <div class="bean-price-type">
+                  <div class="half-pound-container">
+                    <span class="price-title">半磅</span>
+                    <span class="price-num"
+                      >${{ element.half_pound_price }}
+                    </span>
+                  </div>
+                  <div>
+                    <span class="price-title">一磅</span>
+                    <span class="price-num"
+                      >${{ element.one_pound_price }}
+                    </span>
+                  </div>
+                  <div>
+                    <span class="price-title">耳掛</span>
+                    <span class="price-num"
+                      >${{ element.drip_bag_price }} /包
+                    </span>
+                  </div>
+                </div>
               </div>
-              <div>
-                <span class="price-title">一磅</span>
-                <span class="price-num">${{ product.one_pound_price }}</span>
+              <div class="unit-down">
+                <Roast :roast="element.roast"></Roast>
+                <div class="flavor-container">
+                  <div class="flavor">
+                    風味 : {{ element.flavor.join("、") }}
+                  </div>
+                </div>
               </div>
-              <div>
-                <span class="price-title">耳掛</span>
-                <span class="price-num">${{ product.drip_bag_price }} /包</span>
-              </div>
+            </a>
+          </div>
+          <div class="bean-list-unit-right" v-if="showEditButton">
+            <div>
+              <button class="btn-body edit">編輯</button>
+            </div>
+            <div>
+              <button class="btn-body del">刪除</button>
             </div>
           </div>
-          <div class="unit-down">
-            <Roast :roast="product.roast"></Roast>
-            <div class="flavor-container">
-              <div class="flavor">風味 : {{ product.flavor.join("、") }}</div>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div class="bean-list-unit-right" v-if="showEditButton">
-        <div>
-          <button class="btn-body edit">編輯</button>
         </div>
-        <div>
-          <button class="btn-body del">刪除</button>
-        </div>
-      </div>
-    </div>
+      </template>
+    </Draggable>
   </div>
 </template>
 <script>
 import Roast from "@/components/Roast.vue";
+import Draggable from "vuedraggable";
 export default {
   data() {
     return {
-      round: [1, 2, 3, 4, 5],
+      dragging: false,
     };
   },
   props: {
@@ -54,8 +73,12 @@ export default {
     showEditButton: {
       type: Boolean,
     },
+    disableDrag: {
+      type: Boolean,
+      default: true,
+    },
   },
-  components: { Roast },
+  components: { Roast, Draggable },
 };
 </script>
 <style lang="scss" scoped>
