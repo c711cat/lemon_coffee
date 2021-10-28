@@ -36,6 +36,31 @@
                         "enabled": true,
                         "randomResponse": false,
                         "sequentialResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "",
+                        "method": "post",
+                        "endpoint": "admin/products",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\r\n  \"id\": {{ faker 'datatype.number' }},\r\n  \"order\": {{ faker 'datatype.number' }},\r\n  \"name\": \"{{ body 'products.name' }}\",\r\n  \"half_pound_price\": {{ body 'products.half_pound_price' }},\r\n  \"one_pound_price\": {{ body 'products.one_pound_price' }},\r\n  \"drip_bag_price\": {{ body 'products.drip_bag_price' }},\r\n  \"roast\": {{ body 'products.roast' }},\r\n  \"flavor\": {{ body 'products.flavor' }}\r\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false,
+                                "fallbackTo404": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false,
+                        "sequentialResponse": false
                     }
                 ],
                 "proxyMode": false,

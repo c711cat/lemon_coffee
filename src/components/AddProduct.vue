@@ -78,11 +78,14 @@
     </div>
     <h4 class="ui dividing header"></h4>
     <div class="btn-container">
-      <button class="ui primary button">送出</button>
+      <button class="ui primary button" @click.prevent="addProduct">
+        送出
+      </button>
     </div>
   </div>
 </template>
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -95,6 +98,17 @@ export default {
         flavor: [],
       },
     };
+  },
+  methods: {
+    addProduct() {
+      const api = `${process.env.VUE_APP_API}/admin/products`;
+      axios.post(api, { products: this.product }).then((response) => {
+        if (response.status === 200) {
+          return;
+        }
+      });
+      this.$router.push("/admin");
+    },
   },
 };
 </script>
