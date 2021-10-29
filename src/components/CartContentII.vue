@@ -1,51 +1,49 @@
 <template>
   <div class="cart-list-wrap">
     <span class="list-title">購物車清單</span>
-    <div class="cart-warp" v-for="item in products" :key="item.id">
-      <div class="cart-list-left">
-        <div class="icon-container">
-          <i class="trash alternate outline icon"></i>
-        </div>
-        <div class="img-container">
-          <img :src="item.img" />
-        </div>
-        <div class="item-text-container">
-          <div class="text-left">
-            <div>{{ item.name }}</div>
-            <div>{{ item.status }}</div>
-          </div>
-          <div>
-            <div class="unit-price-container">
-              <span class="unit-price"
-                >NT$ {{ item.unit_price }} / {{ item.unit }}</span
-              >
-            </div>
-          </div>
-        </div>
+    <div class="inner-warp" v-for="item in products" :key="item.id">
+      <div class="icon-container">
+        <i class="trash alternate outline icon"></i>
       </div>
-      <div>
-        <input
-          class="input-body"
-          type="number"
-          min="1"
-          v-model.number="item.qty"
-        />
+      <div class="img-container">
+        <img :src="item.img" />
       </div>
-      <div class="cart-list-right">
-        <div>
+      <div class="item-text-container">
+        <div class="name-status-container">
+          <div>{{ item.name }}</div>
+          <div>{{ item.status }}</div>
+        </div>
+
+        <div class="unit-price-container">
           <div>
-            <del class="del-text" v-if="item.origin_price"
-              >NT$ {{ item.origin_price }}</del
+            <span class="unit-price"
+              >NT$ {{ item.unit_price }} / {{ item.unit }}</span
             >
           </div>
+
           <div>
-            <span class="subtotal">NT$ {{ item.subtotal }}</span>
+            <input
+              class="input-body"
+              type="number"
+              min="1"
+              v-model.number="item.qty"
+            />
           </div>
-          <div>
-            <span class="discount-content" v-if="item.discount_content">{{
-              item.discount_content
-            }}</span>
-          </div>
+        </div>
+      </div>
+      <div class="subtotal-container">
+        <div>
+          <del class="del-text" v-if="item.origin_price"
+            >NT$ {{ item.origin_price }}</del
+          >
+        </div>
+        <div>
+          <span class="subtotal">NT$ {{ item.subtotal }}</span>
+        </div>
+        <div>
+          <span class="discount-content" v-if="item.discount_content">{{
+            item.discount_content
+          }}</span>
         </div>
       </div>
     </div>
@@ -99,8 +97,11 @@ export default {
 
 <style lang="scss" scoped>
 * {
-  border: 1px solid black;
+  box-sizing: border-box;
 }
+// * {
+//   border: 1px solid black;
+// }
 .cart-list-wrap {
   max-width: 955px;
   height: auto;
@@ -117,23 +118,25 @@ export default {
   color: #444;
   padding-left: 10px;
   border-bottom: 1px solid #cecece;
+  margin: 0 20px;
 }
-.cart-warp {
+.inner-warp {
   width: 100%;
   height: auto;
-  margin: 0 auto;
+  margin: 0 20px;
   padding: 10px;
   display: flex;
-  flex-wrap: wrap;
   border-bottom: 1px solid #cecece;
+  text-align: left;
+  justify-content: space-around;
+  align-items: center;
 }
 .icon-container {
   display: inline-flex;
-  justify-content: center;
   align-items: center;
-  margin-right: 5px;
   font-size: 23px;
   cursor: pointer;
+  color: #cecece;
 }
 .icon-container:hover {
   color: #db2828;
@@ -143,32 +146,27 @@ export default {
   height: 130px;
   display: flex;
   align-items: center;
-  margin-right: 20px;
+  margin-right: inherit;
 }
-.cart-list-left {
-  display: flex;
-  text-align: left;
-}
-.cart-list-right {
-  // width: 350px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: end;
-}
+
 .item-text-container {
-  max-width: 450px;
-  margin-right: 20px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
 }
-.text-left {
-  width: 200px;
-  margin-right: 30px;
+.name-status-container {
+  width: 150px;
+  margin-right: 20px;
+}
+.subtotal-container {
+  margin-left: -30px;
+}
+.unit-price-container {
+  display: flex;
+  flex-wrap: wrap;
 }
 .unit-price {
   display: inline-block;
-  width: 100px;
+  width: 150px;
 }
 .input-body {
   max-width: 60px;
@@ -176,20 +174,20 @@ export default {
   // margin-left: 78px;
   // margin-right: 35px;
 }
+
 .del-text {
   text-align: right;
-
-  width: 100px;
+  width: 75px;
   color: #888;
   display: inline-block;
 }
 .subtotal {
   display: inline-block;
-  width: 100px;
+  width: 75px;
   text-align: right;
 }
 .discount-content {
-  width: 100px;
+  width: 75px;
   text-align: right;
   display: inline-block;
   color: #db2828;
