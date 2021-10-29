@@ -47,6 +47,35 @@
         </div>
       </div>
     </div>
+    <div class="total-price-wrap">
+      <div class="subtotal-first-row">
+        <div class="first-row-left">
+          <div class="discount-body">優惠</div>
+          <span class="over-thousand-span">滿 NT$ 1000 免運費</span>
+        </div>
+        <div class="first-row-right">
+          <span class="subtotal-text">小計</span
+          ><span class="subtotal-num">NT$ 3490</span>
+        </div>
+      </div>
+
+      <div class="after-first-row">
+        <span class="subtotal-text">多件優惠</span>
+        <span class="subtotal-num">- NT$ 600</span>
+      </div>
+      <div class="after-first-row">
+        <span class="subtotal-text">運費</span>
+        <span class="subtotal-num">NT$ 100</span>
+      </div>
+      <div class="after-first-row">
+        <span class="subtotal-text">滿千免運</span>
+        <del class="subtotal-num">NT$ 100</del>
+      </div>
+      <div class="after-first-row final-total">
+        <span class="subtotal-text">總付款金額</span>
+        <span class="subtotal-num">NT$ 2890</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -128,7 +157,7 @@ export default {
   display: flex;
   border-bottom: 1px solid #cecece;
   text-align: left;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 }
 .icon-container {
@@ -158,7 +187,7 @@ export default {
   margin-right: 20px;
 }
 .subtotal-container {
-  margin-left: -30px;
+  margin-left: -38px;
 }
 .unit-price-container {
   display: flex;
@@ -171,10 +200,7 @@ export default {
 .input-body {
   max-width: 60px;
   text-align: center;
-  // margin-left: 78px;
-  // margin-right: 35px;
 }
-
 .del-text {
   text-align: right;
   width: 75px;
@@ -191,5 +217,64 @@ export default {
   text-align: right;
   display: inline-block;
   color: #db2828;
+}
+//下方結帳區塊
+.total-price-wrap {
+  width: 100%;
+  margin: 0 20px;
+  padding: 10px;
+}
+.subtotal-first-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.first-row-left {
+  width: 220px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.discount-body {
+  width: 70px;
+  height: 30px;
+  background: #db2828;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bolder;
+  letter-spacing: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.over-thousand-span {
+  display: inline-block;
+  max-width: 150px;
+  font-size: 16px;
+  font-weight: bolder;
+  color: #db2828;
+}
+.first-row-right {
+  display: flex;
+  justify-content: space-between;
+  text-align: right;
+}
+.subtotal-text {
+  width: 100px;
+}
+.subtotal-num {
+  width: 90px;
+}
+.after-first-row {
+  display: flex;
+  justify-content: flex-end;
+  text-align: right;
+}
+.final-total {
+  font-weight: bolder;
+  font-size: 16px;
+  color: #337ab7;
+  line-height: 2.3;
 }
 </style>
