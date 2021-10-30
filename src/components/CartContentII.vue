@@ -1,8 +1,22 @@
 <template>
-  <div class="cart-list-wrap">
+  <div class="ui grid cart-list-wrap">
     <span class="list-title">購物車清單</span>
     <div class="inner-warp" v-for="item in products" :key="item.id">
-      <div class="icon-container">
+      <div
+        class="
+          three
+          wide
+          computer
+          nine
+          wide
+          tablet
+          two
+          wide
+          mobile
+          column
+          icon-container
+        "
+      >
         <i class="trash alternate outline icon"></i>
       </div>
       <div class="img-container">
@@ -150,7 +164,7 @@ export default {
   margin: 0 20px;
 }
 .inner-warp {
-  width: 100%;
+  width: 90%;
   height: auto;
   margin: 0 20px;
   padding: 10px;
@@ -192,10 +206,6 @@ export default {
 .unit-price-container {
   display: flex;
   flex-wrap: wrap;
-}
-.unit-price {
-  display: inline-block;
-  width: 150px;
 }
 .input-body {
   max-width: 60px;
