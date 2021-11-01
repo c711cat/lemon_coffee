@@ -3,7 +3,9 @@
     <CartContent></CartContent>
 
     <div class="ui form grid inner-wrap">
-      <div class="ten wide computer eleven wide tablet sixteen wide mobile column">
+      <div
+        class="ten wide computer eleven wide tablet sixteen wide mobile column"
+      >
         <div class="inner-wrap-left">
           <h3 class="form-title">收件人資料</h3>
           <div class="inline fields">
@@ -26,14 +28,36 @@
           </div>
           <div class="inline fields">
             <div class="sixteen wide field">
-              <div class="input-title field"><label>送貨方式</label></div>
-              <input type="text" placeholder="請選擇送貨方式" />
+              <div class="input-title field">
+                <label for="shipping">送貨方式</label>
+              </div>
+              <select id="shipping" v-model="form.user.shipping_method">
+                <option value="" disabled>請選擇送貨方式</option>
+                <option
+                  :value="item"
+                  v-for="item in shipping_methods"
+                  :key="item"
+                >
+                  {{ item }}
+                </option>
+              </select>
             </div>
           </div>
           <div class="inline fields">
             <div class="sixteen wide field">
-              <div class="input-title field"><label>付款方式</label></div>
-              <input type="text" placeholder="請選擇付款方式" />
+              <div class="input-title field">
+                <label for="payment">付款方式</label>
+              </div>
+              <select id="payment" v-model="form.user.payment_method">
+                <option value="" disabled>請選擇付款方式</option>
+                <option
+                  :value="item"
+                  v-for="item in payment_methods"
+                  :key="item"
+                >
+                  {{ item }}
+                </option>
+              </select>
             </div>
           </div>
           <div class="inline fields">
@@ -73,7 +97,20 @@ import CartContent from "@/components/CartContent.vue";
 
 export default {
   data() {
-    return {};
+    return {
+      shipping_methods: ["7-11取貨", "全家取貨", "宅配 ( 限台灣本島 )"],
+      payment_methods: ["貨到付款", "信用卡"],
+      form: {
+        user: {
+          name: "",
+          tel: "",
+          email: "",
+          shipping_method: "",
+          payment_method: "",
+        },
+        message: "",
+      },
+    };
   },
   components: { CartContent },
 };
@@ -125,4 +162,5 @@ export default {
   margin-right: 20px;
   margin-bottom: 12px;
 }
+
 </style>
