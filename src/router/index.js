@@ -23,6 +23,10 @@ const routes = [
   },
   {
     path: "/cart",
+    component: () => import("@/views/Cart.vue"),
+  },
+  {
+    path: "/cart-content",
     component: () => import("@/components/CartContent.vue"),
   },
   {

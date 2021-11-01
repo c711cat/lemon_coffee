@@ -1,119 +1,113 @@
 <template>
-  <div class="wrap">
-    <h3 class="ui aligned header inner-wrap name-status-unit-price-container">
-      購物車清單
-    </h3>
+  <h3 class="ui aligned header inner-wrap name-status-unit-price-container">
+    購物車清單
+  </h3>
+  <div
+    class="ui grid inner-wrap inner-wrap-up"
+    v-for="item in cart_list.products"
+    :key="item.id"
+  >
+    <div class="one wide computer one wide tablet one wide mobile column">
+      <div class="icon-container">
+        <i class="trash alternate outline icon"></i>
+      </div>
+    </div>
+    <div class="two wide computer two wide tablet six wide mobile column">
+      <div class="img-container">
+        <img :src="item.img" />
+      </div>
+    </div>
+    <div class="three wide computer three wide tablet seven wide mobile column">
+      <div class="name-status-unit-price-container">
+        <div>{{ item.name }}</div>
+        <div>{{ item.status }}</div>
+      </div>
+    </div>
+    <div class="two wide computer two wide tablet six wide mobile column">
+      <div class="name-status-unit-price-container">
+        <span>NT$ {{ item.unit_price }} / {{ item.unit }}</span>
+      </div>
+    </div>
+    <div class="three wide computer three wide tablet three wide mobile column">
+      <div class="ui input input-body">
+        <input
+          class="input-body"
+          type="number"
+          min="1"
+          v-model.number="item.qty"
+        />
+      </div>
+    </div>
+    <div class="two wide computer two wide tablet six wide mobile column">
+      <div class="item-subtotal-container">
+        <div>
+          <del class="del-text" v-if="item.origin_price"
+            >NT$ {{ item.origin_price }}</del
+          >
+        </div>
+        <div>
+          <span class="item-subtotal">NT$ {{ item.subtotal }}</span>
+        </div>
+        <div>
+          <span class="discount-span" v-if="item.discount_content">{{
+            item.discount_content
+          }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ui grid inner-wrap inner-wrap-down">
+    <div class="six wide computer six wide tablet six wide mobile column">
+      <div class="inner-wrap-down-first-row-left">
+        <div class="discount-body">優惠</div>
+        <div class="over-thousand-body">滿 NT$ 1000 免運費</div>
+      </div>
+    </div>
+    <div class="nine wide computer ten wide tablet ten wide mobile column">
+      <div class="inner-wrap-down-first-row-right">
+        <span class="calculate-detail-text">小計</span>
+        <span class="calculate-detail-num">NT$ {{ cart_list.subtotal }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="ui grid inner-wrap inner-wrap-down">
     <div
-      class="ui grid inner-wrap inner-wrap-up"
-      v-for="item in cart_list.products"
-      :key="item.id"
+      class="
+        fifteen
+        wide
+        computer
+        sixteen
+        wide
+        tablet
+        sixteen
+        wide
+        mobile
+        column
+      "
     >
-      <div class="one wide computer one wide tablet one wide mobile column">
-        <div class="icon-container">
-          <i class="trash alternate outline icon"></i>
-        </div>
+      <div class="after-first-row">
+        <span class="calculate-detail-text">多件優惠</span>
+        <span class="calculate-detail-num"
+          >- NT$ {{ cart_list.buy_more_discount }}</span
+        >
       </div>
-      <div class="two wide computer two wide tablet six wide mobile column">
-        <div class="img-container">
-          <img :src="item.img" />
-        </div>
+      <div class="after-first-row">
+        <span class="calculate-detail-text">運費</span>
+        <span class="calculate-detail-num"
+          >NT$ {{ cart_list.freight_cost }}</span
+        >
       </div>
-      <div
-        class="three wide computer three wide tablet seven wide mobile column"
-      >
-        <div class="name-status-unit-price-container">
-          <div>{{ item.name }}</div>
-          <div>{{ item.status }}</div>
-        </div>
+      <div class="after-first-row">
+        <span class="calculate-detail-text">滿千免運</span>
+        <del class="calculate-detail-num"
+          >NT$ {{ cart_list.thousand_free_shipping }}</del
+        >
       </div>
-      <div class="two wide computer two wide tablet six wide mobile column">
-        <div class="name-status-unit-price-container">
-          <span>NT$ {{ item.unit_price }} / {{ item.unit }}</span>
-        </div>
-      </div>
-      <div
-        class="three wide computer three wide tablet three wide mobile column"
-      >
-        <div class="ui input input-body">
-          <input
-            class="input-body"
-            type="number"
-            min="1"
-            v-model.number="item.qty"
-          />
-        </div>
-      </div>
-      <div class="two wide computer two wide tablet six wide mobile column">
-        <div class="item-subtotal-container">
-          <div>
-            <del class="del-text" v-if="item.origin_price"
-              >NT$ {{ item.origin_price }}</del
-            >
-          </div>
-          <div>
-            <span class="item-subtotal">NT$ {{ item.subtotal }}</span>
-          </div>
-          <div>
-            <span class="discount-span" v-if="item.discount_content">{{
-              item.discount_content
-            }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="ui grid inner-wrap inner-wrap-down">
-      <div class="six wide computer three wide tablet six wide mobile column">
-        <div class="inner-wrap-down-first-row-left">
-          <div class="discount-body">優惠</div>
-          <div class="over-thousand-body">滿 NT$ 1000 免運費</div>
-        </div>
-      </div>
-      <div class="nine wide computer three wide tablet ten wide mobile column">
-        <div class="inner-wrap-down-first-row-right">
-          <span class="calculate-detail-text">小計</span>
-          <span class="calculate-detail-num">NT$ {{ cart_list.subtotal }}</span>
-        </div>
-      </div>
-    </div>
-    <div class="ui grid inner-wrap inner-wrap-down">
-      <div
-        class="
-          fifteen
-          wide
-          computer
-          three
-          wide
-          tablet
-          sixteen
-          wide
-          mobile
-          column
-        "
-      >
-        <div class="after-first-row">
-          <span class="calculate-detail-text">多件優惠</span>
-          <span class="calculate-detail-num"
-            >- NT$ {{ cart_list.buy_more_discount }}</span
-          >
-        </div>
-        <div class="after-first-row">
-          <span class="calculate-detail-text">運費</span>
-          <span class="calculate-detail-num"
-            >NT$ {{ cart_list.freight_cost }}</span
-          >
-        </div>
-        <div class="after-first-row">
-          <span class="calculate-detail-text">滿千免運</span>
-          <del class="calculate-detail-num"
-            >NT$ {{ cart_list.thousand_free_shipping }}</del
-          >
-        </div>
-        <div class="after-first-row final-total">
-          <span class="calculate-detail-text">總付款金額</span>
-          <span class="calculate-detail-num"
-            >NT$ {{ cart_list.final_total }}</span
-          >
-        </div>
+      <div class="after-first-row final-total">
+        <span class="calculate-detail-text">總付款金額</span>
+        <span class="calculate-detail-num"
+          >NT$ {{ cart_list.final_total }}</span
+        >
       </div>
     </div>
   </div>
