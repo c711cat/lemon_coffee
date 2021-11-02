@@ -30,6 +30,10 @@ const routes = [
     component: () => import("@/components/CartContent.vue"),
   },
   {
+    path: "/menu",
+    component: () => import("@/views/Menu.vue"),
+  },
+  {
     path: "/about",
     name: "About",
     // route level code-splitting
