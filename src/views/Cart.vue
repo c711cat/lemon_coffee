@@ -1,7 +1,6 @@
 <template>
   <div class="wrap">
     <CartContent></CartContent>
-
     <div class="ui form grid inner-wrap">
       <div
         class="ten wide computer eleven wide tablet sixteen wide mobile column"
@@ -31,8 +30,14 @@
               <div class="input-title field">
                 <label for="shipping">送貨方式</label>
               </div>
-              <select id="shipping" v-model="form.user.shipping_method">
-                <option value="" disabled>請選擇送貨方式</option>
+              <select
+                class="ui dropdown"
+                id="shipping"
+                v-model="form.user.shipping_method"
+              >
+                <option class="default text" value="" disabled>
+                  請選擇送貨方式
+                </option>
                 <option
                   :value="item"
                   v-for="item in shipping_methods"
@@ -48,7 +53,11 @@
               <div class="input-title field">
                 <label for="payment">付款方式</label>
               </div>
-              <select id="payment" v-model="form.user.payment_method">
+              <select
+                class="ui dropdown"
+                id="payment"
+                v-model="form.user.payment_method"
+              >
                 <option value="" disabled>請選擇付款方式</option>
                 <option
                   :value="item"
@@ -162,5 +171,4 @@ export default {
   margin-right: 20px;
   margin-bottom: 12px;
 }
-
 </style>
