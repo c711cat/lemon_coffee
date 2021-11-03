@@ -11,11 +11,11 @@ const routes = [
   },
   {
     path: "/admin/products/new",
-    component: () => import("@/components/AddProduct.vue"),
+    component: () => import("@/views/Manager/AddProduct.vue"),
   },
   {
     path: "/admin/products/edit/:productId",
-    component: () => import("@/components/AddProduct.vue"),
+    component: () => import("@/views/Manager/EditProduct.vue"),
   },
   {
     path: "/about",
