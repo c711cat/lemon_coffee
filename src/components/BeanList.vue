@@ -1,5 +1,5 @@
 <template>
-  <CleanBeanList :products="products"></CleanBeanList>
+  <div><CleanBeanList :products="products"></CleanBeanList></div>
 </template>
 <script>
 import axios from "axios";

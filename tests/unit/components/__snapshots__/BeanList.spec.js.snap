@@ -1,269 +1,169 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BeanList randers 豆單 1`] = `
-<div
-  class="wrap"
->
+<div>
   
   <div
-    class="bean-list-unit"
+    class="wrap"
   >
-    <div
-      class="bean-list-unit-left"
-    >
-      <a
-        href="#"
+    <div>
+      <div
+        class="bean-list-unit"
+        data-draggable="true"
       >
         <div
-          class="unit-up"
+          class="bean-list-unit-left"
         >
-          <div
-            class="bean-name"
-          >
-            耶家雪菲 日曬 古吉 夏奇索 魔魔拉單一莊園 G1
-          </div>
-          <div
-            class="bean-price-type"
+          <a
+            href="#"
           >
             <div
-              class="half-pound-container"
+              class="unit-up"
             >
-              <span
-                class="price-title"
+              <div
+                class="bean-name"
               >
-                半磅
-              </span>
-              <span
-                class="price-num"
+                耶家雪菲 日曬 古吉 夏奇索 魔魔拉單一莊園 G1
+              </div>
+              <div
+                class="bean-price-type"
               >
-                $450
-              </span>
+                <div
+                  class="half-pound-container"
+                >
+                  <span
+                    class="price-title"
+                  >
+                    半磅
+                  </span>
+                  <span
+                    class="price-num"
+                  >
+                    $450
+                  </span>
+                </div>
+                <div>
+                  <span
+                    class="price-title"
+                  >
+                    一磅
+                  </span>
+                  <span
+                    class="price-num"
+                  >
+                    $810
+                  </span>
+                </div>
+                <div>
+                  <span
+                    class="price-title"
+                  >
+                    耳掛
+                  </span>
+                  <span
+                    class="price-num"
+                  >
+                    $40 /包 
+                  </span>
+                </div>
+              </div>
             </div>
-            <div>
-              <span
-                class="price-title"
+            <div
+              class="unit-down"
+            >
+              <div
+                class="roast-wrap"
               >
-                一磅
-              </span>
-              <span
-                class="price-num"
+                <div
+                  class="level-title"
+                >
+                  淺焙
+                </div>
+                
+                <div>
+                  <div
+                    class="round"
+                    style="background-color: rgb(225, 216, 214);"
+                  />
+                </div>
+                <div>
+                  <div
+                    class="round"
+                    style="border: 1px solid #e1d8d6;"
+                  />
+                </div>
+                <div>
+                  <div
+                    class="round"
+                    style="border: 1px solid #e1d8d6;"
+                  />
+                </div>
+                <div>
+                  <div
+                    class="round"
+                    style="border: 1px solid #e1d8d6;"
+                  />
+                </div>
+                <div>
+                  <div
+                    class="round"
+                    style="border: 1px solid #e1d8d6;"
+                  />
+                </div>
+                
+              </div>
+              <div
+                class="flavor-container"
               >
-                $810
-              </span>
+                <div
+                  class="flavor"
+                >
+                   風味 : 藍莓、柑橘、花香
+                </div>
+              </div>
             </div>
-            <div>
-              <span
-                class="price-title"
-              >
-                耳掛
-              </span>
-              <span
-                class="price-num"
-              >
-                $40 /包
-              </span>
-            </div>
-          </div>
+          </a>
         </div>
-        <div
-          class="unit-down"
-        >
-          <div
-            class="roast-wrap"
-          >
-            <div
-              class="level-title"
-            >
-              淺焙
-            </div>
-            
-            <div>
-              <div
-                class="round"
-                style="background-color: rgb(225, 216, 214);"
-              />
-            </div>
-            <div>
-              <div
-                class="round"
-                style="border: 1px solid #e1d8d6;"
-              />
-            </div>
-            <div>
-              <div
-                class="round"
-                style="border: 1px solid #e1d8d6;"
-              />
-            </div>
-            <div>
-              <div
-                class="round"
-                style="border: 1px solid #e1d8d6;"
-              />
-            </div>
-            <div>
-              <div
-                class="round"
-                style="border: 1px solid #e1d8d6;"
-              />
-            </div>
-            
-          </div>
-          <div
-            class="flavor-container"
-          >
-            <div
-              class="flavor"
-            >
-              風味 : 藍莓、柑橘、花香
-            </div>
-          </div>
-        </div>
-      </a>
+        <!--v-if-->
+      </div>
     </div>
-    <!--v-if-->
+  </div>
+  <div
+    class="ui tiny modal"
+  >
+    <div
+      class="header"
+    >
+      刪除產品
+    </div>
+    <div
+      class="content"
+    >
+      <p>
+        是否刪除 :
+      </p>
+      <p
+        class="del-item-text"
+      />
+      <p>
+        刪除後將無法復原
+      </p>
+    </div>
+    <div
+      class="actions"
+    >
+      <div
+        class="ui cancel button"
+      >
+        取消
+      </div>
+      <div
+        class="ui red button"
+      >
+        確定刪除
+      </div>
+    </div>
   </div>
   
 </div>
-`;
-
-exports[`BeanList 取得的資料渲染到豆單畫面中 1`] = `
-<div
-  class="wrap"
->
-  
-  <div
-    class="bean-list-unit"
-  >
-    <div
-      class="bean-list-unit-left"
-    >
-      <a
-        href="#"
-      >
-        <div
-          class="unit-up"
-        >
-          <div
-            class="bean-name"
-          >
-            耶家雪菲 日曬 古吉 夏奇索 魔魔拉單一莊園 G1
-          </div>
-          <div
-            class="bean-price-type"
-          >
-            <div
-              class="half-pound-container"
-            >
-              <span
-                class="price-title"
-              >
-                半磅
-              </span>
-              <span
-                class="price-num"
-              >
-                $450
-              </span>
-            </div>
-            <div>
-              <span
-                class="price-title"
-              >
-                一磅
-              </span>
-              <span
-                class="price-num"
-              >
-                $810
-              </span>
-            </div>
-            <div>
-              <span
-                class="price-title"
-              >
-                耳掛
-              </span>
-              <span
-                class="price-num"
-              >
-                $40 /包
-              </span>
-            </div>
-          </div>
-        </div>
-        <div
-          class="unit-down"
-        >
-          <div
-            class="roast-wrap"
-          >
-            <div
-              class="level-title"
-            >
-              淺焙
-            </div>
-            
-            <div>
-              <div
-                class="round"
-                style="background-color: rgb(225, 216, 214);"
-              />
-            </div>
-            <div>
-              <div
-                class="round"
-                style="border: 1px solid #e1d8d6;"
-              />
-            </div>
-            <div>
-              <div
-                class="round"
-                style="border: 1px solid #e1d8d6;"
-              />
-            </div>
-            <div>
-              <div
-                class="round"
-                style="border: 1px solid #e1d8d6;"
-              />
-            </div>
-            <div>
-              <div
-                class="round"
-                style="border: 1px solid #e1d8d6;"
-              />
-            </div>
-            
-          </div>
-          <div
-            class="flavor-container"
-          >
-            <div
-              class="flavor"
-            >
-              風味 : 藍莓、柑橘、花香
-            </div>
-          </div>
-        </div>
-      </a>
-    </div>
-    <!--v-if-->
-  </div>
-  
-</div>
-`;
-
-exports[`BeanList 從這裡定義的 products 取得資料並 rander 出豆單 1`] = `
-<clean-bean-list-stub
-  products="[object Object]"
-  showeditbutton="false"
-/>
-`;
-
-exports[`BeanList 從這裡定義的products取得的資料傳到豆單元件中 1`] = `
-<clean-bean-list-stub
-  products="[object Object]"
-  showeditbutton="false"
-/>
 `;
