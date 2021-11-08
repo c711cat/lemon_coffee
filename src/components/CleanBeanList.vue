@@ -66,13 +66,14 @@
       </template>
     </Draggable>
   </div>
-  <DelModal ref="del" :delItem="delItem" />
+  <DelModal ref="del" :delItem="delItem" @del="delProduct" />
 </template>
 
 <script>
 import Roast from "@/components/Roast.vue";
 import Draggable from "vuedraggable";
 import DelModal from "@/components/DeleteModal.vue";
+import axios from "axios";
 export default {
   data() {
     return {
@@ -93,6 +94,7 @@ export default {
     },
   },
   components: { Roast, Draggable, DelModal },
+  emits: ["update"],
   methods: {
     openDelModal(element) {
       this.delItem = element;
@@ -100,6 +102,14 @@ export default {
     },
     editProduct(item) {
       this.$router.push(`/admin/products/edit/${item.id}`);
+    },
+    delProduct(id) {
+      const api = `${process.env.VUE_APP_API}/admin/products/${id}`;
+      axios.delete(api).then((response) => {
+        if (response.status === 204) {
+          this.$emit("update");
+        }
+      });
     },
   },
 };

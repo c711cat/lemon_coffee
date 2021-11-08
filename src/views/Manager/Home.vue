@@ -9,6 +9,7 @@
       :products="products"
       :showEditButton="showEditButton"
       :disableDrag="disableDrag"
+      @update="getProducts"
     ></CleanBeanList>
   </div>
 </template>

@@ -8,7 +8,9 @@
     </div>
     <div class="actions">
       <div class="ui cancel button">取消</div>
-      <div class="ui red button" @click.prevent="closeModal">確定刪除</div>
+      <div class="ui red button" @click.prevent="closeModal(delItem.id)">
+        確定刪除
+      </div>
     </div>
   </div>
 </template>
@@ -29,8 +31,9 @@ export default {
     openModal() {
       jQuery(".ui.tiny.modal").modal("show");
     },
-    closeModal() {
+    closeModal(delId) {
       jQuery(".ui.tiny.modal").modal("hide");
+      this.$emit("del", delId);
     },
   },
 };
