@@ -115,6 +115,16 @@ export default {
   watch: {
     editItem() {
       this.product = { ...this.editItem };
+  },
+  methods: {
+    addProduct() {
+      const api = `${process.env.VUE_APP_API}/admin/products`;
+      axios.post(api, { product: this.product }).then((response) => {
+        if (response.status === 200) {
+          return;
+        }
+      });
+      this.$router.push("/admin");
     },
   },
 };
@@ -146,4 +156,5 @@ export default {
 .wide.field.field-content {
   margin-bottom: 20px;
 }
+
 </style>
