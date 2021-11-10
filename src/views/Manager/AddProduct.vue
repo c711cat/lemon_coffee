@@ -1,5 +1,5 @@
 <template>
-  <ProductForm @add="addProduct" :onSubmit="addProduct"></ProductForm>
+  <ProductForm :onSubmit="addProduct"></ProductForm>
 </template>
 
 <script>
