@@ -1,5 +1,5 @@
 <template>
-  <ProductForm @add="addProduct"></ProductForm>
+  <ProductForm @add="addProduct" :onSubmit="addProduct"></ProductForm>
 </template>
 
 <script>
@@ -19,12 +19,11 @@ export default {
     addProduct(addItem) {
       this.product = { ...addItem };
       const api = `${process.env.VUE_APP_API}/admin/products`;
-      axios.post(api, { products: this.product }).then((response) => {
+      axios.post(api, { product: this.product }).then((response) => {
         if (response.status === 200) {
-          return;
+          this.$router.push("/admin");
         }
       });
-      this.$router.push("/admin");
     },
   },
 };

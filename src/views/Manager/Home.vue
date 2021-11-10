@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     getProducts() {
-      const api = `${process.env.VUE_APP_API}/products`;
+      const api = `${process.env.VUE_APP_API}/admin/products`;
       axios.get(api).then((response) => {
         this.products = [...response.data];
       });

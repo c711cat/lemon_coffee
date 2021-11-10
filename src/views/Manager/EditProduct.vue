@@ -1,5 +1,5 @@
 <template>
-  <ProductForm :editItem="product" @edit="updateProduct"></ProductForm>
+  <ProductForm :editItem="product" :onSubmit="updateProduct"></ProductForm>
 </template>
 
 <script>
@@ -10,7 +10,6 @@ export default {
   data() {
     return {
       product: {},
-      id: "",
     };
   },
 
@@ -18,7 +17,7 @@ export default {
 
   methods: {
     getProduct() {
-      const api = `${process.env.VUE_APP_API}/admin/products/edit/${this.id}`;
+      const api = `${process.env.VUE_APP_API}/admin/products/${this.$route.params.productId}/edit`;
       axios.get(api).then((response) => {
         this.product = response.data;
       });
@@ -26,18 +25,17 @@ export default {
 
     updateProduct(updateItem) {
       this.product = { ...updateItem };
-      const api = `${process.env.VUE_APP_API}/admin/products`;
-      axios.post(api, { products: this.product }).then((response) => {
+      const api = `${process.env.VUE_APP_API}/admin/products/${this.product.id}`;
+      axios.put(api, { product: this.product }).then((response) => {
         if (response.status === 200) {
-          return;
+          this.getProduct();
+          this.$router.push("/admin");
         }
       });
-      this.$router.push("/admin");
     },
   },
 
   created() {
-    this.id = this.$route.params.productId;
     this.getProduct();
   },
 };

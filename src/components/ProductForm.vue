@@ -1,6 +1,7 @@
 <template>
   <div class="add-product-wrap ui form">
-    <h4 class="ui dividing header">新增產品</h4>
+    <h4 class="ui dividing header" v-if="editItem">編輯產品</h4>
+    <h4 class="ui dividing header" v-else>新增產品</h4>
     <div class="fields">
       <div class="nine wide field field-content">
         <label>產品名稱</label>
@@ -78,12 +79,7 @@
     </div>
     <h4 class="ui dividing header"></h4>
     <div class="btn-container">
-      <button
-        class="ui primary button"
-        @click.prevent="
-          $emit('add', this.product) || $emit('edit', this.product)
-        "
-      >
+      <button class="ui primary button" @click.prevent="onSubmit(this.product)">
         送出
       </button>
     </div>
@@ -110,6 +106,10 @@ export default {
       default() {
         return {};
       },
+    },
+    onSubmit: {
+      typeof: Function,
+      required: true,
     },
   },
   watch: {
