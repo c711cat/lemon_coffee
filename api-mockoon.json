@@ -61,6 +61,31 @@
                         "enabled": true,
                         "randomResponse": false,
                         "sequentialResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "",
+                        "method": "get",
+                        "endpoint": "admin/products/edit/:id",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{ \r\n    \"id\":1,\r\n    \"order\":1,\r\n    \"name\":\"耶家雪菲 日曬 古吉 夏奇索 魔魔拉單一莊園 G1\",\r\n    \"half_pound_price\":450,\r\n    \"one_pound_price\":810,\r\n    \"drip_bag_price\":40,\r\n    \"roast\":1,\r\n    \"flavor\":[\r\n      \"藍莓\",\r\n      \"柑橘\",\r\n      \"花香\"\r\n    ]\r\n  }",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false,
+                                "fallbackTo404": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false,
+                        "sequentialResponse": false
                     }
                 ],
                 "proxyMode": false,

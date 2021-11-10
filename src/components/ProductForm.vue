@@ -1,6 +1,7 @@
 <template>
   <div class="add-product-wrap ui form">
-    <h4 class="ui dividing header">新增產品</h4>
+    <h4 class="ui dividing header" v-if="editItem">編輯產品</h4>
+    <h4 class="ui dividing header" v-else>新增產品</h4>
     <div class="fields">
       <div class="nine wide field field-content">
         <label>產品名稱</label>
@@ -78,14 +79,14 @@
     </div>
     <h4 class="ui dividing header"></h4>
     <div class="btn-container">
-      <button class="ui primary button" @click.prevent="addProduct">
+      <button class="ui primary button" @click.prevent="onSubmit(this.product)">
         送出
       </button>
     </div>
   </div>
 </template>
+
 <script>
-import axios from "axios";
 export default {
   data() {
     return {
@@ -99,19 +100,26 @@ export default {
       },
     };
   },
-  methods: {
-    addProduct() {
-      const api = `${process.env.VUE_APP_API}/admin/products`;
-      axios.post(api, { products: this.product }).then((response) => {
-        if (response.status === 200) {
-          return;
-        }
-      });
-      this.$router.push("/admin");
+  props: {
+    editItem: {
+      typeof: Object,
+      default() {
+        return {};
+      },
+    },
+    onSubmit: {
+      typeof: Function,
+      required: true,
+    },
+  },
+  watch: {
+    editItem() {
+      this.product = { ...this.editItem };
     },
   },
 };
 </script>
+
 <style lang="scss" scoped>
 .add-product-wrap {
   max-width: 1200px;
@@ -120,17 +128,21 @@ export default {
   text-align: left;
   letter-spacing: 1.3px;
 }
+
 .fields {
   justify-content: center;
 }
+
 .dividing.header {
   margin-bottom: 30px;
 }
+
 .btn-container {
   display: flex;
   flex-direction: row-reverse;
   margin-top: -15px;
 }
+
 .wide.field.field-content {
   margin-bottom: 20px;
 }

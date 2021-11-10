@@ -46,7 +46,12 @@
           </div>
           <div class="bean-list-unit-right" v-if="showEditButton">
             <div>
-              <button class="btn-body edit">編輯</button>
+              <button
+                class="btn-body edit"
+                @click.prevent="editProduct(element)"
+              >
+                編輯
+              </button>
             </div>
             <div>
               <button
@@ -92,6 +97,9 @@ export default {
     openDelModal(element) {
       this.delItem = element;
       this.$refs.del.openModal();
+    },
+    editProduct(item) {
+      this.$router.push(`/admin/products/edit/${item.id}`);
     },
   },
 };
