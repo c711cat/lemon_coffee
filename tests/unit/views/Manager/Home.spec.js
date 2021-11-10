@@ -36,4 +36,21 @@ describe("Manager/Home", () => {
     const wrapper = await mount(Home);
     expect(wrapper.get(".del").text()).toBe("刪除");
   });
+
+  it("按下新增按鈕，會跳轉到新增產品頁面", async () => {
+    const $router = {
+      push: jest.fn(),
+    };
+    axios.get.mockResolvedValue({ data: products });
+    const wrapper = shallowMount(Home, {
+      global: {
+        mocks: {
+          $router: $router,
+        },
+      },
+    });
+    const addBtn = wrapper.get(".add-btn");
+    await addBtn.trigger("click");
+    expect($router.push).toHaveBeenCalledWith("/admin/products/new");
+  });
 });
