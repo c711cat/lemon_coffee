@@ -28,7 +28,6 @@ export default {
       const api = `${process.env.VUE_APP_API}/admin/products/${this.product.id}`;
       axios.put(api, { product: this.product }).then((response) => {
         if (response.status === 200) {
-          this.getProduct();
           this.$router.push("/admin");
         }
       });
