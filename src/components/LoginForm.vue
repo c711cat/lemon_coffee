@@ -1,9 +1,13 @@
 <template>
   <div class="ui big attached tabular menu">
-    <a class="active item"> 註冊會員 </a>
-    <a class="item"> 登入 </a>
+    <a class="item" :class="{ active: register }" @click.prevent="change">
+      註冊會員
+    </a>
+    <a class="item" :class="{ active: sign_in }" @click.prevent="change">
+      登入
+    </a>
   </div>
-  <div class="ui big bottom attached segment">
+  <div v-if="register" class="ui big bottom attached segment">
     <h3>註冊 E-mail</h3>
     <form class="ui big form">
       <div class="field">
@@ -33,10 +37,6 @@
           </div>
         </div>
       </div>
-      <div class="field">
-        <input type="date" name="date" placeholder="請輸入生日" />
-      </div>
-
       <div class="field" @click="choose">
         <div class="ui dropdown selection">
           <input type="hidden" />
@@ -54,7 +54,6 @@
           </div>
         </div>
       </div>
-
       <div class="field" @click="choose">
         <div class="ui dropdown selection">
           <input type="hidden" />
@@ -72,7 +71,6 @@
           </div>
         </div>
       </div>
-
       <div class="field">
         <input type="text" name="phone" placeholder="推薦人手機號碼" />
       </div>
@@ -85,7 +83,7 @@
       <button class="ui button blue big" type="submit">註冊</button>
     </form>
   </div>
-  <div v-if="false" class="ui big bottom attached segment">
+  <div v-if="sign_in" class="ui big bottom attached segment">
     <h3>登入 E-mail</h3>
     <form class="ui big form">
       <div class="field">
@@ -104,6 +102,8 @@
 export default {
   data() {
     return {
+      register: true,
+      sign_in: false,
       gender: ["男", "女", "不透露"],
       ways: ["FaceBook", "Google", "蝦皮", "親友", "百貨公司美食展", "其他"],
       brewing_methods: [
@@ -114,12 +114,19 @@ export default {
         "半自動咖啡機",
         "其他",
       ],
+      personal_information: {},
     };
   },
   methods: {
-    change() {},
+    change() {
+      this.register = !this.register;
+      this.sign_in = !this.sign_in;
+    },
     choose() {
       jQuery(".ui.dropdown").dropdown("set selected");
+    },
+    date() {
+      jQuery(".ui.calendar").calendar();
     },
   },
 };
