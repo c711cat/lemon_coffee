@@ -1,146 +1,165 @@
 <template>
-  <div class="ui big attached tabular menu">
-    <a class="item" :class="{ active: register }" @click.prevent="change">
-      註冊會員
-    </a>
-    <a class="item" :class="{ active: sign_in }" @click.prevent="change">
-      登入
-    </a>
+  <TabMenu :model="items" @click.prevent="change"></TabMenu>
+
+  <div v-if="register">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label for="name">姓名</label>
+        <InputText id="name" type="text" v-model="personal_information.name" />
+      </div>
+      <div class="p-field">
+        <label for="email">Email</label>
+        <InputText
+          id="email"
+          type="text"
+          v-model="personal_information.email"
+        />
+      </div>
+      <div class="p-field">
+        <label for="password">密碼</label>
+        <InputText
+          id="password"
+          type="text"
+          v-model="personal_information.password"
+        />
+      </div>
+      <div class="p-field">
+        <label for="sex">性別</label>
+        <Dropdown
+          id="sex"
+          :options="gender"
+          optionLabel="sex"
+          placeholder="請選擇性別"
+          v-model="personal_information.gender"
+        />
+      </div>
+      <div class="p-field">
+        <label for="birthday">生日</label>
+        <Calendar
+          id="birthday"
+          placeholder="請選擇生日"
+          :showIcon="true"
+          v-model="personal_information.birthday"
+        />
+      </div>
+      <div class="p-field">
+        <label for="way">哪裡認識 Lemon Coffee ?</label>
+        <Dropdown
+          id="way"
+          :options="ways"
+          optionLabel="way"
+          v-model="personal_information.way"
+        />
+      </div>
+      <div class="p-field">
+        <label for="brewing">咖啡主要沖煮方式 ?</label>
+        <Dropdown
+          id="brewing"
+          :options="brewing_methods"
+          optionLabel="brewing"
+          v-model="personal_information.brewing_method"
+        />
+      </div>
+      <div class="p-field">
+        <label for="referrer">推薦人手機號碼</label>
+        <InputText
+          id="referrer"
+          type="text"
+          v-model="personal_information.referrer_cellphone"
+        />
+      </div>
+      <Checkbox
+        name="terms"
+        value="agree"
+        v-model="personal_information.terms"
+      /><span>我同意<a href="#">網站服務條款及隱私政策</a></span>
+      <Button label="註冊" />
+    </div>
   </div>
-  <div v-if="register" class="ui big bottom attached segment">
-    <h3>註冊 E-mail</h3>
-    <form class="ui big form">
-      <div class="field">
-        <input type="text" name="name" placeholder="請輸入姓名" />
+
+  <div v-if="login">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label for="email">Email</label>
+        <InputText id="email" type="text" v-model="login_data.email" />
       </div>
-      <div class="field">
-        <input type="text" name="E-mail" placeholder="請輸入 E-mail" />
-      </div>
-      <div class="field">
-        <input type="text" name="pass-word" placeholder="請設定密碼" />
+      <div class="p-field">
+        <label for="password">密碼</label>
+        <InputText id="password" type="text" v-model="login_data.password" />
       </div>
 
-      <div class="field" @click="choose">
-        <div class="ui dropdown selection">
-          <input type="hidden" name="gender" />
-          <i class="dropdown icon"></i>
-          <div class="default text">性別</div>
-          <div class="menu">
-            <div
-              class="item"
-              :value="index"
-              v-for="(sex, index) in gender"
-              :key="sex"
-            >
-              {{ sex }}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="field" @click="choose">
-        <div class="ui dropdown selection">
-          <input type="hidden" />
-          <i class="dropdown icon"></i>
-          <div class="default text">哪裡認識 Lemon Coffee ?</div>
-          <div class="menu">
-            <div
-              class="item"
-              :value="index"
-              v-for="(way, index) in ways"
-              :key="way"
-            >
-              {{ way }}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="field" @click="choose">
-        <div class="ui dropdown selection">
-          <input type="hidden" />
-          <i class="dropdown icon"></i>
-          <div class="default text">咖啡主要沖煮方式 ?</div>
-          <div class="menu">
-            <div
-              class="item"
-              :value="index"
-              v-for="(brew, index) in brewing_methods"
-              :key="brew"
-            >
-              {{ brew }}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="field">
-        <input type="text" name="phone" placeholder="推薦人手機號碼" />
-      </div>
-      <div class="field">
-        <div class="ui checkbox">
-          <input type="checkbox" tabindex="0" />
-          <label>我同意<a href="#">網站服務條款及隱私政策</a></label>
-        </div>
-      </div>
-      <button class="ui button blue big" type="submit">註冊</button>
-    </form>
+      <Button label="登入" />
+    </div>
+    <a href="#">忘記密碼</a>
   </div>
-  <div v-if="sign_in" class="ui big bottom attached segment">
-    <h3>登入 E-mail</h3>
-    <form class="ui big form">
-      <div class="field">
-        <input type="text" name="E-mail" placeholder="請輸入 E-mail" />
-      </div>
-      <div class="field">
-        <input type="text" name="pass-word" placeholder="請輸入密碼" />
-      </div>
-      <button class="ui button blue big" type="submit">登入</button>
-      <div class=""><a href="#">忘記密碼</a></div>
-    </form>
-  </div>
+
+  <router-view />
 </template>
 
 <script>
+import TabMenu from "primevue/tabmenu";
+import InputText from "primevue/inputtext";
+import Dropdown from "primevue/dropdown";
+import Calendar from "primevue/calendar";
+import Checkbox from "primevue/checkbox";
+import Button from "primevue/button";
 export default {
   data() {
     return {
+      login: false,
       register: true,
-      sign_in: false,
-      gender: ["男", "女", "不透露"],
-      ways: ["FaceBook", "Google", "蝦皮", "親友", "百貨公司美食展", "其他"],
-      brewing_methods: [
-        "手沖",
-        "美式壺",
-        "聰明濾杯",
-        "全自動咖啡機",
-        "半自動咖啡機",
-        "其他",
+      items: [{ label: "註冊會員" }, { label: "登入" }],
+      gender: [{ sex: "男" }, { sex: "女" }, { sex: "不透露" }],
+      ways: [
+        { way: "FaceBook" },
+        { way: "Google" },
+        { way: "蝦皮" },
+        { way: "親友" },
+        { way: "百貨公司美食展" },
+        { way: "其他" },
       ],
-      personal_information: {},
+      brewing_methods: [
+        { brewing: "手沖" },
+        { brewing: "美式壺" },
+        { brewing: "聰明濾杯" },
+        { brewing: "全自動咖啡機" },
+        { brewing: "半自動咖啡機" },
+        { brewing: "其他" },
+      ],
+      personal_information: {
+        name: "",
+        email: "",
+        password: "",
+        gender: "",
+        birthday: "",
+        way: "",
+        brewing_method: "",
+        referrer_cellphone: "",
+        terms: [],
+      },
+      login_data: {
+        email: "",
+        password: "",
+      },
     };
   },
+  components: { TabMenu, InputText, Dropdown, Calendar, Checkbox, Button },
   methods: {
-    change() {
-      this.register = !this.register;
-      this.sign_in = !this.sign_in;
-    },
-    choose() {
-      jQuery(".ui.dropdown").dropdown("set selected");
-    },
-    date() {
-      jQuery(".ui.calendar").calendar();
+    change(e) {
+      if (e.target.innerText === "註冊會員") {
+        this.register = true;
+        this.login = false;
+      } else {
+        this.login = true;
+        this.register = false;
+      }
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-* {
-  letter-spacing: 1px;
-}
-.ui.button.big {
-  margin-bottom: 15px;
-  width: fill-available;
-}
-.ui.checkbox {
-  display: flex;
+.p-fluid {
+  text-align: left;
 }
 </style>
