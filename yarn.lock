@@ -8461,6 +8461,21 @@ pretty@2.0.0:
     extend-shallow "^2.0.1"
     js-beautify "^1.6.12"
 
+primeflex@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/primeflex/-/primeflex-3.1.0.tgz#2beef527e788981b823e5969752a87d7b72447ee"
+  integrity sha512-q8QutEO59eu79nJVyMFDcpdokiCIk79Rn6Y9NwxpiIp5rxRjNCacH2N7gM+ondQjvYnuj6LLOK8dEVx1J2i7Lw==
+
+primeicons@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-5.0.0.tgz#73a0b6028a77c58a9eeb331ad13aaf085e8451ee"
+  integrity sha512-heygWF0X5HFI1otlZE62pp6ye7sZ8om78J9au2BRkg8O7Y8AHTZ9qKMRzchZUHLe8zUAvdi6hZzzm9XxgwIExw==
+
+primevue@3.8.2:
+  version "3.8.2"
+  resolved "https://registry.yarnpkg.com/primevue/-/primevue-3.8.2.tgz#c9c11ef912714e516c5ede19a8256d60848ccf01"
+  integrity sha512-ToJYJad5wvrSydBjyIFHuDZzehor90XVioTzNHGyMqBat23XMwHqQSHsCmbOS91CCxTP9UjaAS8S6m4HjBGceQ==
+
 process-nextick-args@~2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-2.0.1.tgz#7820d9b16120cc55ca9ae7792680ae7dba6d7fe2"
