@@ -29,15 +29,14 @@
           id="sex"
           :options="gender"
           optionLabel="sex"
-          placeholder="請選擇性別"
           v-model="personal_information.gender"
         />
       </div>
       <div class="p-field">
         <label for="birthday">生日</label>
         <Calendar
+          dateFormat="yy.mm.dd"
           id="birthday"
-          placeholder="請選擇生日"
           :showIcon="true"
           v-model="personal_information.birthday"
         />
@@ -68,11 +67,14 @@
           v-model="personal_information.referrer_cellphone"
         />
       </div>
-      <Checkbox
-        name="terms"
-        value="agree"
-        v-model="personal_information.terms"
-      /><span>我同意<a href="#">網站服務條款及隱私政策</a></span>
+      <div class="p-field">
+        <Checkbox
+          name="terms"
+          value="agree"
+          v-model="personal_information.terms"
+        /><span>我同意<a href="#">網站服務條款及隱私政策</a></span>
+      </div>
+
       <Button label="註冊" />
     </div>
   </div>
@@ -92,8 +94,6 @@
     </div>
     <a href="#">忘記密碼</a>
   </div>
-
-  <router-view />
 </template>
 
 <script>
@@ -161,5 +161,9 @@ export default {
 <style lang="scss" scoped>
 .p-fluid {
   text-align: left;
+  margin-top: 35px;
+}
+.p-button {
+  margin-bottom: 10px;
 }
 </style>
