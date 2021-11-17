@@ -1,6 +1,5 @@
 <template>
   <TabMenu :model="items" @click.prevent="change"></TabMenu>
-
   <div v-if="register">
     <div class="p-fluid">
       <div class="p-field">
@@ -28,7 +27,6 @@
         <Dropdown
           id="sex"
           :options="gender"
-          optionLabel="sex"
           v-model="personal_information.gender"
         />
       </div>
@@ -43,19 +41,13 @@
       </div>
       <div class="p-field">
         <label for="way">哪裡認識 Lemon Coffee ?</label>
-        <Dropdown
-          id="way"
-          :options="ways"
-          optionLabel="way"
-          v-model="personal_information.way"
-        />
+        <Dropdown id="way" :options="ways" v-model="personal_information.way" />
       </div>
       <div class="p-field">
         <label for="brewing">咖啡主要沖煮方式 ?</label>
         <Dropdown
           id="brewing"
           :options="brewing_methods"
-          optionLabel="brewing"
           v-model="personal_information.brewing_method"
         />
       </div>
@@ -109,22 +101,15 @@ export default {
       login: false,
       register: true,
       items: [{ label: "註冊會員" }, { label: "登入" }],
-      gender: [{ sex: "男" }, { sex: "女" }, { sex: "不透露" }],
-      ways: [
-        { way: "FaceBook" },
-        { way: "Google" },
-        { way: "蝦皮" },
-        { way: "親友" },
-        { way: "百貨公司美食展" },
-        { way: "其他" },
-      ],
+      gender: ["男", "女", "不透露"],
+      ways: ["FaceBook", "Google", "蝦皮", "親友", "百貨公司美食展", "其他"],
       brewing_methods: [
-        { brewing: "手沖" },
-        { brewing: "美式壺" },
-        { brewing: "聰明濾杯" },
-        { brewing: "全自動咖啡機" },
-        { brewing: "半自動咖啡機" },
-        { brewing: "其他" },
+        "手沖",
+        "美式壺",
+        "聰明濾杯",
+        "全自動咖啡機",
+        "半自動咖啡機",
+        "其他",
       ],
       personal_information: {
         name: "",
