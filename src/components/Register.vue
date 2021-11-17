@@ -61,7 +61,6 @@
       />
       <label for="binary">我同意<a href="#">網站服務條款及隱私政策</a></label>
     </div>
-    {{ personal_information }}
     <Button label="註冊" />
   </div>
 </template>
