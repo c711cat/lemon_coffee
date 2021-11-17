@@ -53,16 +53,15 @@
         v-model="personal_information.referrer_cellphone"
       />
     </div>
-    <div class="p-field">
+    <div class="p-field-checkbox">
       <Checkbox
-        name="terms"
-        value="agree"
-        v-model="personal_information.terms"
+        id="binary"
+        v-model="personal_information.agree"
+        :binary="true"
       />
-      <span class="span-body"
-        >我同意<a href="#">網站服務條款及隱私政策</a>
-      </span>
+      <label for="binary">我同意<a href="#">網站服務條款及隱私政策</a></label>
     </div>
+    {{ personal_information }}
     <Button label="註冊" />
   </div>
 </template>
@@ -90,7 +89,7 @@ export default {
         way: "",
         brewing_method: "",
         referrer_cellphone: "",
-        terms: [],
+        agree: false,
       },
     };
   },
