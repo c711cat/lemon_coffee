@@ -153,6 +153,7 @@ export default {
   text-align: left;
   margin-top: 35px;
 }
+
 .p-button {
   margin-bottom: 10px;
 }
