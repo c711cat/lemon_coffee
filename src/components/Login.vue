@@ -10,7 +10,9 @@
     </div>
     <Button label="登入" />
   </div>
-  <a class="a-body" href="#">忘記密碼</a>
+  <div class="p-field a-container">
+    <a href="#">忘記密碼</a>
+  </div>
 </template>
 
 <script>
@@ -27,11 +29,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.p-fluid {
-  text-align: left;
-}
-
 .p-button {
   margin-bottom: 10px;
+}
+
+.a-container {
+  text-align: center;
 }
 </style>

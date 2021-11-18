@@ -96,10 +96,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.p-fluid {
-  text-align: left;
-}
-
 .p-button {
   margin-bottom: 10px;
 }
