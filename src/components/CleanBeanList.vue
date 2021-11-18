@@ -146,7 +146,7 @@ a {
 }
 
 .bean-name {
-  min-width: 50%;
+  min-width: 45%;
   font-size: 18px;
   line-height: 25px;
   padding-bottom: 10px;
@@ -163,7 +163,7 @@ a {
 }
 
 .price-num {
-  width: 56px;
+  width: 65px;
   display: inline-block;
 }
 
