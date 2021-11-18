@@ -2,11 +2,11 @@
   <div class="p-fluid">
     <div class="p-field">
       <label for="email">Email</label>
-      <InputText id="email" type="text" v-model="login_data.email" />
+      <InputText id="email" type="text" v-model="email" />
     </div>
     <div class="p-field">
       <label for="password">密碼</label>
-      <InputText id="password" type="password" v-model="login_data.password" />
+      <InputText id="password" type="password" v-model="password" />
     </div>
     <Button label="登入" />
   </div>
@@ -19,10 +19,8 @@
 export default {
   data() {
     return {
-      login_data: {
-        email: "",
-        password: "",
-      },
+      email: "",
+      password: "",
     };
   },
 };
