@@ -31,6 +31,10 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/del",
+    component: () => import("@/components/DeleteModal.vue"),
+  },
 ];
 
 const router = createRouter({
