@@ -15,6 +15,7 @@
 <script>
 import axios from "axios";
 import CleanBeanList from "@/components/CleanBeanList.vue";
+import emitter from "@/methods/emitter.js";
 
 export default {
   data() {
@@ -26,6 +27,11 @@ export default {
   },
   components: {
     CleanBeanList,
+  },
+  provide() {
+    return {
+      emitter,
+    };
   },
   methods: {
     getProducts() {
@@ -39,6 +45,9 @@ export default {
     },
   },
   created() {
+    emitter.on("update", () => {
+      this.getProducts();
+    });
     this.getProducts();
   },
 };

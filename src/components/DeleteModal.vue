@@ -1,42 +1,53 @@
 <template>
-  <ConfirmPopup></ConfirmPopup>
+  <ConfirmPopup group="delete"> </ConfirmPopup>
+
   <Toast />
-  <Button
+
+  <!-- <Button
     @click="confirm2($event)"
-    icon="pi pi-times"
-    label="Delete"
+    label="刪除"
     class="p-button-danger p-button-outlined"
-  ></Button>
+  ></Button> -->
 </template>
 <script>
 import ConfirmPopup from "primevue/confirmpopup";
 import Toast from "primevue/toast";
+import axios from "axios";
 
 export default {
   data() {
     return {};
   },
   components: { ConfirmPopup, Toast },
+  inject: ["emitter"],
   methods: {
-    confirm1(event) {
+    confirm2(item, event) {
       this.$confirm.require({
         target: event.currentTarget,
-        message: "Are you sure you want to proceed?",
-        icon: "pi pi-exclamation-triangle",
+        group: "delete",
+        message: "確定刪除此產品?",
+        icon: "pi pi-question-circle",
+        acceptClass: "p-button-danger",
         accept: () => {
-          this.$toast.add({
-            severity: "info",
-            summary: "Confirmed",
-            detail: "You have accepted",
-            life: 3000,
+          const api = `${process.env.VUE_APP_API}/admin/products/${item.id}`;
+          axios.delete(api).then((response) => {
+            if (response.status === 204) {
+              this.emitter.emit("update");
+              this.$toast.add({
+                severity: "success",
+                summary: "已成功刪除",
+                detail: item.name,
+                life: 20000,
+              });
+            }
           });
         },
         reject: () => {
           this.$toast.add({
-            severity: "error",
-            summary: "Rejected",
-            detail: "You have rejected",
-            life: 3000,
+            severity: "info",
+            summary: "已取消刪除",
+            detail: item.name,
+            life: 20000,
           });
         },
       });

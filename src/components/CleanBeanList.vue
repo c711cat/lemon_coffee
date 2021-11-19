@@ -46,38 +46,39 @@
           </div>
           <div class="bean-list-unit-right" v-if="showEditButton">
             <div>
-              <button
-                class="btn-body edit"
+              <Button
+                label="編輯"
+                class="p-button p-button-outlined btn-body edit"
                 @click.prevent="editProduct(element)"
               >
-                編輯
-              </button>
+              </Button>
             </div>
             <div>
-              <button
-                class="btn-body del"
-                @click.prevent="openDelModal(element)"
+              <Button
+                @click="del(element, $event)"
+                label="刪除"
+                class="p-button-danger p-button-outlined"
               >
-                刪除
-              </button>
+              </Button>
             </div>
           </div>
         </div>
       </template>
     </Draggable>
+    <DelModal ref="delModal" />
   </div>
-  <DelModal ref="del" :delItem="delItem" />
 </template>
 
 <script>
 import Roast from "@/components/Roast.vue";
 import Draggable from "vuedraggable";
 import DelModal from "@/components/DeleteModal.vue";
+
+
 export default {
   data() {
     return {
       dragging: false,
-      delItem: {},
     };
   },
   props: {
@@ -94,12 +95,15 @@ export default {
   },
   components: { Roast, Draggable, DelModal },
   methods: {
-    openDelModal(element) {
-      this.delItem = element;
-      this.$refs.del.openModal();
-    },
     editProduct(item) {
       this.$router.push(`/admin/products/edit/${item.id}`);
+    },
+    del(item, event) {
+      this.$refs.delModal.confirm2(item, event);
+    },
+    transfer(name) {
+      console.log(name);
+      this.$emit("updated");
     },
   },
 };
@@ -193,8 +197,10 @@ a {
 }
 
 .btn-body {
-  width: 45px;
+  font-size: 14px;
   height: 30px;
+  padding: 0px;
+  width: 45px;
   background: none;
   margin: 0px 1px;
   border-radius: 3px;
@@ -206,17 +212,23 @@ a {
   border: 1px solid #aaa;
 }
 
-.edit:hover {
+.p-button.p-button-outlined.edit:hover {
   background: #aaa;
   color: #fff;
 }
 
-.del {
-  color: rgb(235, 72, 72);
-  border: 1.5px solid rgb(235, 72, 72);
+.p-button {
+  font-size: 14px;
+  height: 30px;
+  padding: 0px;
+  width: 45px;
+  background: none;
+  margin: 0px 1px;
+  border-radius: 3px;
+  cursor: pointer;
 }
 
-.del:hover {
+.p-button.p-button-danger.p-button-outlined:hover {
   background: rgb(235, 72, 72);
   color: #fff;
 }
