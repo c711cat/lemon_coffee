@@ -12,10 +12,14 @@ import TabMenu from "primevue/tabmenu";
 import Dropdown from "primevue/dropdown";
 import Calendar from "primevue/calendar";
 import Checkbox from "primevue/checkbox";
+import ToastService from "primevue/toastservice";
+import ConfirmationService from "primevue/confirmationservice";
 
 const app = createApp(App);
 app.use(router);
 app.use(PrimeVue);
+app.use(ToastService);
+app.use(ConfirmationService);
 
 app.component("InputText", InputText);
 app.component("Button", Button);
