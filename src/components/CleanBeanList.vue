@@ -55,7 +55,7 @@
             </div>
             <div>
               <Button
-                @click="del(element, $event)"
+                @click="openDelConfirm(element)"
                 label="刪除"
                 class="p-button-danger p-button-outlined"
               >
@@ -65,15 +65,14 @@
         </div>
       </template>
     </Draggable>
-    <DelModal ref="delModal" />
   </div>
+  <DelConfirm ref="delConfirm"></DelConfirm>
 </template>
 
 <script>
 import Roast from "@/components/Roast.vue";
 import Draggable from "vuedraggable";
-import DelModal from "@/components/DeleteModal.vue";
-
+import DelConfirm from "@/components/DelConfirm.vue";
 
 export default {
   data() {
@@ -93,17 +92,13 @@ export default {
       default: true,
     },
   },
-  components: { Roast, Draggable, DelModal },
+  components: { Roast, Draggable, DelConfirm },
   methods: {
     editProduct(item) {
       this.$router.push(`/admin/products/edit/${item.id}`);
     },
-    del(item, event) {
-      this.$refs.delModal.confirm2(item, event);
-    },
-    transfer(name) {
-      console.log(name);
-      this.$emit("updated");
+    openDelConfirm(item) {
+      this.$refs.delConfirm.confirm(item);
     },
   },
 };

@@ -45,10 +45,10 @@ export default {
     },
   },
   created() {
+    this.getProducts();
     emitter.on("update", () => {
       this.getProducts();
     });
-    this.getProducts();
   },
 };
 </script>
