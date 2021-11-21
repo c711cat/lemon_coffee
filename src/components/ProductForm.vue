@@ -1,6 +1,6 @@
 <template>
-  <h3 v-if="editItem.id">編輯產品</h3>
-  <h3 v-else>新增產品</h3>
+  <h3 v-if="editItem.id" class="title">編輯產品</h3>
+  <h3 v-else class="title">新增產品</h3>
   <div class="p-fluid p-formgrid p-grid">
     <div class="p-field p-col-12 p-md-8">
       <label>產品名稱</label>
@@ -86,11 +86,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.title {
+  text-align: center;
+}
+
 .p-fluid.p-formgrid.p-grid {
   max-width: 1000px;
   margin: 30px auto;
   text-align: left;
 }
+
 .p-button {
   margin-top: 20px;
 }
