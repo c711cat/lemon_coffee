@@ -18,7 +18,7 @@ import Toast from "primevue/toast";
 import ConfirmDialog from "primevue/confirmdialog";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
-
+import OrderList from "primevue/orderlist";
 
 const app = createApp(App);
 app.use(router);
@@ -37,5 +37,6 @@ app.component("Toast", Toast);
 app.component("ConfirmDialog", ConfirmDialog);
 app.component("DataTable", DataTable);
 app.component("Column", Column);
+app.component("OrderList", OrderList);
 
 app.mount("#app");
