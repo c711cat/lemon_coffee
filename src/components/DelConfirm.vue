@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Toast />
     <ConfirmDialog></ConfirmDialog>
   </div>
 </template>
@@ -23,21 +22,7 @@ export default {
           axios.delete(api).then((response) => {
             if (response.status === 204) {
               this.emitter.emit("update");
-              this.$toast.add({
-                severity: "success",
-                summary: "已成功刪除",
-                detail: item.name,
-                life: 10000,
-              });
             }
-          });
-        },
-        reject: () => {
-          this.$toast.add({
-            severity: "info",
-            summary: "已取消刪除",
-            detail: item.name,
-            life: 10000,
           });
         },
       });
