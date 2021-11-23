@@ -47,7 +47,7 @@
           <div class="bean-list-unit-right" v-if="showEditButton">
             <Button
               label="編輯"
-              class="p-button p-button-outlined btn-body edit"
+              class="p-button p-button-outlined edit"
               @click.prevent="editProduct(element)"
             >
             </Button>
@@ -183,24 +183,8 @@ a {
   margin-top: 2%;
 }
 
-.btn-container {
-  display: flex;
-}
-
-.btn-body {
-  font-size: 14px;
-  height: 30px;
-  padding: 0px;
-  width: 45px;
-  background: none;
-  margin: 0px 1px;
-  border-radius: 3px;
-  cursor: pointer;
-}
-
 .edit {
   color: #aaa;
-  border: 1px solid #aaa;
 }
 
 .p-button.p-button-outlined.edit:hover {
