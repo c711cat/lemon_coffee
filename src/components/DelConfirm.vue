@@ -21,7 +21,7 @@ export default {
           const api = `${process.env.VUE_APP_API}/admin/products/${item.id}`;
           axios.delete(api).then((response) => {
             if (response.status === 204) {
-              this.emitter.emit("update");
+              this.emitter.emit("refreshBeanList");
             }
           });
         },

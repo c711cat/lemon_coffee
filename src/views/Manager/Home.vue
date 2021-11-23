@@ -46,7 +46,7 @@ export default {
   },
   created() {
     this.getProducts();
-    emitter.on("update", () => {
+    emitter.on("refreshBeanList", () => {
       this.getProducts();
     });
   },
