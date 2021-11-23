@@ -45,22 +45,18 @@
             </a>
           </div>
           <div class="bean-list-unit-right" v-if="showEditButton">
-            <div>
-              <Button
-                label="編輯"
-                class="p-button p-button-outlined btn-body edit"
-                @click.prevent="editProduct(element)"
-              >
-              </Button>
-            </div>
-            <div>
-              <Button
-                @click="openDelConfirm(element)"
-                label="刪除"
-                class="p-button-danger p-button-outlined"
-              >
-              </Button>
-            </div>
+            <Button
+              label="編輯"
+              class="p-button p-button-outlined btn-body edit"
+              @click.prevent="editProduct(element)"
+            >
+            </Button>
+            <Button
+              @click="openDelConfirm(element)"
+              label="刪除"
+              class="p-button-danger p-button-outlined"
+            >
+            </Button>
           </div>
         </div>
       </template>
