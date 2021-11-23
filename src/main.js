@@ -19,13 +19,13 @@ import ConfirmDialog from "primevue/confirmdialog";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import OrderList from "primevue/orderlist";
+import InputNumber from "primevue/inputnumber";
 
 const app = createApp(App);
 app.use(router);
 app.use(PrimeVue);
 app.use(ToastService);
 app.use(ConfirmationService);
-
 
 app.component("InputText", InputText);
 app.component("Button", Button);
@@ -38,5 +38,6 @@ app.component("ConfirmDialog", ConfirmDialog);
 app.component("DataTable", DataTable);
 app.component("Column", Column);
 app.component("OrderList", OrderList);
+app.component("InputNumber", InputNumber);
 
 app.mount("#app");

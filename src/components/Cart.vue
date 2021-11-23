@@ -1,8 +1,8 @@
 <template>
-  <h4>購物車清單</h4>
-  <!-- 分隔線 -->
+  <div class="title"><h4>購物車清單</h4></div>
+
   <div class="p-grid nested-grid" v-for="item in products" :key="item.id">
-    <div class="p-col-1.5 p-lg-1">
+    <div class="p-col-1.5 p-lg-1 trash-container">
       <div class="box">
         <Button
           icon="pi pi-trash"
@@ -12,11 +12,11 @@
       </div>
     </div>
     <div class="p-col-10">
-      <div class="p-grid">
+      <div class="p-grid p-fluid p-jc-around">
         <div class="p-col-3 p-lg-1">
           <div class="box"><img :src="item.image" class="product-image" /></div>
         </div>
-        <div class="p-col-9 p-lg-6">
+        <div class="p-col-9 p-lg-5">
           <div class="box">
             {{ item.name }}<br />
             {{ item.status }}<br />
@@ -24,16 +24,31 @@
           </div>
         </div>
         <div class="p-col-3 p-lg-1">
-          <div class="box">$ {{ item.price }}</div>
+          <div class="box unit-price">$ {{ item.price }}</div>
         </div>
-        <div class="p-col-2 p-lg-1">
-          <div class="box">{{ item.qty }}</div>
+        <div class="p-col-fixed" style="width: 110px">
+          <div class="box">
+            <InputNumber
+              v-model="item.qty"
+              :min="1"
+              showButtons
+              incrementButtonClass="p-button-info"
+              decrementButtonClass="p-button-info"
+            />
+          </div>
         </div>
-        <div class="p-col-4 p-lg-2">
-          <div class="box">{{ item.discount }}</div>
-        </div>
-        <div class="p-col-3 p-lg-1">
-          <div class="box">$ {{ item.price * item.qty }}</div>
+        <div class="p-col-4 p-lg-1">
+          <div class="box subtotal-container unit-price">
+            <div class="discount-content" v-if="item.discount">
+              {{ item.discount }}
+            </div>
+            <del class="del-content" v-if="item.discount"
+              >$ {{ item.price * item.qty }}</del
+            >
+            <div v-if="item.sale_price">$ {{ item.sale_price }}</div>
+
+            <div v-else>$ {{ item.price * item.qty }}</div>
+          </div>
         </div>
       </div>
     </div>
@@ -66,6 +81,7 @@ export default {
           price: 40,
           qty: 40,
           discount: "多件優惠",
+          sale_price: 1000,
         },
         {
           id: 3,
@@ -84,34 +100,45 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+* {
+  border: 1px solid black;
+}
 .wrap {
   max-width: 1000px;
 }
-
-.table-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.title {
+  border-bottom: 1px solid rgb(235, 233, 233);
 }
-
+.p-grid.nested-grid {
+  border-bottom: 1px solid rgb(235, 233, 233);
+}
+.trash-container {
+  padding-top: 23px;
+  text-align: center;
+}
 .product-image {
   width: 50px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
-.body-container {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.name-container {
-  max-width: 400px;
-}
-
 .box {
-  // background-color: var(--surface-e);
-  // text-align: center;
   padding-top: 1rem;
-  padding-bottom: 1rem;
+}
+
+.box.subtotal-container {
+  text-align: right;
+  line-height: 1.5;
+}
+
+.unit-price {
+  padding-top: 18px;
+}
+
+.del-content {
+  color: #999;
+}
+
+.discount-content {
+  color: #db2828;
 }
 </style>
