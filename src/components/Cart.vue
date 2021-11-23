@@ -1,53 +1,60 @@
 <template>
-  <div class="title"><h4>購物車清單</h4></div>
-
-  <div class="p-grid nested-grid" v-for="item in products" :key="item.id">
-    <div class="p-col-1.5 p-lg-1 trash-container">
-      <div class="box">
-        <Button
-          icon="pi pi-trash"
-          class="p-button-rounded p-button-text p-button-danger"
-        >
-        </Button>
+  <div class="wrap">
+    <div class="divider title"><h4>購物車清單</h4></div>
+    <div
+      class="p-grid nested-grid divider"
+      v-for="item in products"
+      :key="item.id"
+    >
+      <div class="p-col-1.5 p-lg-1 trash-container">
+        <div class="box">
+          <Button
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-text p-button-danger"
+          >
+          </Button>
+        </div>
       </div>
-    </div>
-    <div class="p-col-10">
-      <div class="p-grid p-fluid p-jc-around">
-        <div class="p-col-3 p-lg-1">
-          <div class="box"><img :src="item.image" class="product-image" /></div>
-        </div>
-        <div class="p-col-9 p-lg-5">
-          <div class="box">
-            {{ item.name }}<br />
-            {{ item.status }}<br />
-            {{ item.unit }}
-          </div>
-        </div>
-        <div class="p-col-3 p-lg-1">
-          <div class="box unit-price">$ {{ item.price }}</div>
-        </div>
-        <div class="p-col-fixed" style="width: 110px">
-          <div class="box">
-            <InputNumber
-              v-model="item.qty"
-              :min="1"
-              showButtons
-              incrementButtonClass="p-button-info"
-              decrementButtonClass="p-button-info"
-            />
-          </div>
-        </div>
-        <div class="p-col-4 p-lg-1">
-          <div class="box subtotal-container unit-price">
-            <div class="discount-content" v-if="item.discount">
-              {{ item.discount }}
+      <div class="p-col-10">
+        <div class="p-grid p-fluid p-jc-around">
+          <div class="p-col-3 p-lg-1">
+            <div class="box">
+              <img :src="item.image" class="product-image" />
             </div>
-            <del class="del-content" v-if="item.discount"
-              >$ {{ item.price * item.qty }}</del
-            >
-            <div v-if="item.sale_price">$ {{ item.sale_price }}</div>
+          </div>
+          <div class="p-col-9 p-lg-5">
+            <div class="box">
+              {{ item.name }}<br />
+              {{ item.status }}<br />
+              {{ item.unit }}
+            </div>
+          </div>
+          <div class="p-col-3 p-lg-1">
+            <div class="box unit-price">$ {{ item.price }}</div>
+          </div>
+          <div class="p-col-fixed" style="width: 110px">
+            <div class="box">
+              <InputNumber
+                v-model="item.qty"
+                :min="1"
+                showButtons
+                incrementButtonClass="p-button-info"
+                decrementButtonClass="p-button-info"
+              />
+            </div>
+          </div>
+          <div class="p-col-4 p-lg-2">
+            <div class="box subtotal-container unit-price">
+              <div class="discount-content" v-if="item.discount">
+                {{ item.discount }}
+              </div>
+              <del class="del-content" v-if="item.discount"
+                >$ {{ item.price * item.qty }}</del
+              >
+              <div v-if="item.sale_price">$ {{ item.sale_price }}</div>
 
-            <div v-else>$ {{ item.price * item.qty }}</div>
+              <div v-else>$ {{ item.price * item.qty }}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -75,7 +82,7 @@ export default {
           id: 2,
           name: "肯亞 AA FAQ 159 批次",
           image:
-            "https://images.unsplash.com/photo-1562051036-e0eea191d42f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLWxpa2VkfDI3fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+            "https://images.unsplash.com/photo-1584736286179-e3d10ebcdc3e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NjR8fGNvZmZlZSUyMGJhZ3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
           status: "耳掛",
           unit: "一包",
           price: 40,
@@ -87,7 +94,7 @@ export default {
           id: 3,
           name: "哥倫比亞 娜玲瓏 山塔那小農協會 水洗",
           image:
-            "https://images.unsplash.com/photo-1562051036-e0eea191d42f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLWxpa2VkfDI3fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+            "https://images.unsplash.com/photo-1563873915107-12674ca562df?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLWxpa2VkfDEwfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
           status: "磨粉",
           unit: "一磅",
           price: 720,
@@ -100,25 +107,34 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-* {
-  border: 1px solid black;
-}
+// * {
+//   border: 1px solid black;
+// }
 .wrap {
-  max-width: 1000px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px;
 }
-.title {
+
+.divider {
   border-bottom: 1px solid rgb(235, 233, 233);
 }
+
 .p-grid.nested-grid {
-  border-bottom: 1px solid rgb(235, 233, 233);
+  margin: 0px;
 }
+
+.title {
+  padding-left: 15px;
+}
+
 .trash-container {
   padding-top: 23px;
   text-align: center;
 }
+
 .product-image {
-  width: 50px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  width: 60px;
 }
 
 .box {
