@@ -10,7 +10,7 @@ import axios from "axios";
 export default {
   inject: ["emitter"],
   methods: {
-    confirm(item) {
+    openConfirm(item) {
       this.$confirm.require({
         message: item.name + " ?",
         header: "確定刪除",

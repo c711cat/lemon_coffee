@@ -98,7 +98,7 @@ export default {
       this.$router.push(`/admin/products/edit/${item.id}`);
     },
     openDelConfirm(item) {
-      this.$refs.delConfirm.confirm(item);
+      this.$refs.delConfirm.openConfirm(item);
     },
   },
 };
