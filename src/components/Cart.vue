@@ -59,6 +59,28 @@
         </div>
       </div>
     </div>
+    <div class="p-grid nested-grid cart-lower-part">
+      <div class="p-col-5">
+        <div class="p-grid discount-container">
+          <div class="p-col-6 p-lg-2 discount-mark">優惠</div>
+          <div class="p-col-12 p-lg-4 discount-content overthousand-text">
+            滿 $1000 免運費
+          </div>
+        </div>
+      </div>
+      <div class="p-col-7 p-lg-6">
+        <div class="p-grid p-jc-around calculate-price">
+          <div class="p-col-6 p-lg-8">小計</div>
+          <div class="p-col-6 p-lg-3">$ 3490</div>
+          <div class="p-col-6 p-lg-8">多件優惠</div>
+          <div class="p-col-6 p-lg-3">- $ 600</div>
+          <div class="p-col-6 p-lg-8">滿千免運</div>
+          <div class="p-col-6 p-lg-3"><del>$ 100</del></div>
+          <div class="p-col-6 p-lg-8 checkout-price">總付款金額</div>
+          <div class="p-col-6 p-lg-3 checkout-price">$ 2890</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -154,7 +176,32 @@ export default {
   color: #999;
 }
 
+.discount-container {
+  padding-left: 10px;
+  font-size: 15px;
+}
+
 .discount-content {
   color: #db2828;
+}
+.overthousand-text {
+  padding-left: 0px;
+}
+.discount-mark {
+  text-align: center;
+  background: #db2828;
+  color: #fff;
+  margin-right: 10px;
+}
+.calculate-price {
+  text-align: right;
+  align-items: center;
+}
+.cart-lower-part.p-grid.nested-grid {
+  margin-top: 5px;
+}
+.checkout-price {
+  font-weight: bolder;
+  color: #0288d1;
 }
 </style>
