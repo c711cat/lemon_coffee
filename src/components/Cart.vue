@@ -81,10 +81,13 @@
         </div>
       </div>
     </div>
+    <AddresseeForm></AddresseeForm>
   </div>
+  
 </template>
 
 <script>
+import AddresseeForm from "@/components/AddresseeForm.vue";
 export default {
   data() {
     return {
@@ -125,6 +128,7 @@ export default {
       ],
     };
   },
+  components: { AddresseeForm },
 };
 </script>
 
@@ -184,22 +188,27 @@ export default {
 .discount-content {
   color: #db2828;
 }
+
 .overthousand-text {
   padding-left: 0px;
 }
+
 .discount-mark {
   text-align: center;
   background: #db2828;
   color: #fff;
   margin-right: 10px;
 }
+
 .calculate-price {
   text-align: right;
   align-items: center;
 }
+
 .cart-lower-part.p-grid.nested-grid {
   margin-top: 5px;
 }
+
 .checkout-price {
   font-weight: bolder;
   color: #0288d1;
