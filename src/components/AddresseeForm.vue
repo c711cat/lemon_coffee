@@ -46,7 +46,7 @@
       </div>
     </div>
 
-    <div class="p-grid p-ai-end p-jc-end p-col-12 p-lg-4 p-pb-3">
+    <div class="p-grid p-ai-end p-jc-end p-col-12 p-lg-5 p-pb-3 p-m-0">
       <Button class="p-button-lg" label="前往結帳"></Button>
     </div>
   </div>

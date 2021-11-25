@@ -6,14 +6,14 @@
       v-for="item in products"
       :key="item.id"
     >
-      <div class="p-col-1.5 p-lg-1 p-text-center">
+      <div class="p-col-2 p-lg-1 p-text-center">
         <Button
           icon="pi pi-trash"
           class="p-button-rounded p-button-text p-button-danger p-mt-4"
         >
         </Button>
       </div>
-      <div class="p-col-10">
+      <div class="p-col-10 p-lg-11">
         <div class="p-grid p-fluid p-jc-around">
           <div class="p-col-3 p-lg-1">
             <img :src="item.image" class="product-image p-mt-1" />
@@ -24,7 +24,7 @@
             {{ item.unit }}
           </div>
           <div class="p-col-3 p-lg-1 p-pt-4">$ {{ item.price }}</div>
-          <div class="p-col-fixed" style="width: 110px">
+          <div class="p-col-fixed" style="width: 115px">
             <InputNumber
               class="p-mt-1"
               v-model="item.qty"
@@ -50,7 +50,7 @@
     </div>
     <div class="p-grid nested-grid p-m-1">
       <div class="p-col-5">
-        <div class="p-grid discount-container">
+        <div class="p-grid p-ml-1 discount-container">
           <div class="p-col-6 p-lg-2 p-text-center p-mr-2 discount-mark">
             優惠
           </div>
@@ -59,7 +59,7 @@
           </div>
         </div>
       </div>
-      <div class="p-col-7 p-lg-6">
+      <div class="p-col-7 p-lg-7">
         <div class="p-grid p-jc-around p-text-right p-ai-center">
           <div class="p-col-6 p-lg-8">小計</div>
           <div class="p-col-6 p-lg-3">$ 3490</div>
