@@ -18,7 +18,6 @@
 
       <div class="p-col-10 p-lg-11">
         <div class="p-grid p-fluid p-jc-around">
-
           <div class="p-col-3 p-lg-1">
             <img :src="item.image" class="product-image p-mt-1" />
           </div>
@@ -74,21 +73,35 @@
       <div class="p-col-7 p-lg-7">
         <div class="p-grid p-jc-around p-text-right p-ai-center">
           <div class="p-col-6 p-lg-8">小計</div>
-          <div class="p-col-6 p-lg-3">$ 3490</div>
+          <div class="p-col-6 p-lg-3">$ {{ price_detail.subtotal }}</div>
 
-          <div class="p-col-6 p-lg-8">多件優惠</div>
-          <div class="p-col-6 p-lg-3">- $ 600</div>
+          <div v-if="price_detail.buy_more_discount" class="p-col-6 p-lg-8">
+            多件優惠
+          </div>
+          <div v-if="price_detail.buy_more_discount" class="p-col-6 p-lg-3">
+            - $ {{ price_detail.buy_more_discount }}
+          </div>
 
-          <div class="p-col-6 p-lg-8">運費</div>
-          <div class="p-col-6 p-lg-3">$ 100</div>
+          <div v-if="price_detail.freight_cost" class="p-col-6 p-lg-8">
+            運費
+          </div>
+          <div v-if="price_detail.freight_cost" class="p-col-6 p-lg-3">
+            $ {{ price_detail.freight_cost }}
+          </div>
 
-          <div class="p-col-6 p-lg-8">滿千免運</div>
-          <div class="p-col-6 p-lg-3"><del>$ 100</del></div>
-          
+          <div v-if="price_detail.free_shipping" class="p-col-6 p-lg-8">
+            滿千免運
+          </div>
+          <div v-if="price_detail.free_shipping" class="p-col-6 p-lg-3">
+            <del>$ {{ price_detail.free_shipping }}</del>
+          </div>
+
           <div class="p-col-6 p-lg-8 p-text-bold checkout-price">
             總付款金額
           </div>
-          <div class="p-col-6 p-lg-3 p-text-bold checkout-price">$ 2890</div>
+          <div class="p-col-6 p-lg-3 p-text-bold checkout-price">
+            $ {{ price_detail.total_payment_price }}
+          </div>
         </div>
       </div>
     </div>
@@ -101,7 +114,13 @@ import AddresseeForm from "@/components/AddresseeForm.vue";
 export default {
   data() {
     return {
-      productService: null,
+      price_detail: {
+        subtotal: 3490,
+        buy_more_discount: 600,
+        freight_cost: 100,
+        free_shipping: 100,
+        total_payment_price: 2890,
+      },
       products: [
         {
           id: 1,
@@ -143,9 +162,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-* {
-  border: 1px solid black;
-}
 .wrap {
   max-width: 1200px;
 }
