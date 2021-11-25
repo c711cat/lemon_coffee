@@ -3,42 +3,42 @@
     <h4>收件人資料</h4>
   </div>
 
-  <div class="p-grid nested-grid p-m-3">
+  <div class="p-grid nested-grid p-m-1 p-pl-2">
     <div class="p-col-12 p-lg-7">
       <div class="p-grid p-fluid p-ai-center">
-        <div class="p-col-3 p-lg-2 p-text-bold">姓名</div>
-        <div class="p-col-9 p-lg-10">
+        <div class="p-col-4 p-lg-2 p-text-bold">姓名</div>
+        <div class="p-col-8 p-lg-10">
           <InputText type="text" v-model="buyer.required.name" />
         </div>
 
-        <div class="p-col-3 p-lg-2 p-text-bold">電話</div>
-        <div class="p-col-9 p-lg-10">
+        <div class="p-col-4 p-lg-2 p-text-bold">電話</div>
+        <div class="p-col-8 p-lg-10">
           <InputText type="text" v-model="buyer.required.phone_number" />
         </div>
 
-        <div class="p-col-3 p-lg-2 p-text-bold">Email</div>
-        <div class="p-col-9 p-lg-10">
+        <div class="p-col-4 p-lg-2 p-text-bold">Email</div>
+        <div class="p-col-8 p-lg-10">
           <InputText type="text" v-model="buyer.required.email" />
         </div>
 
-        <div class="p-col-3 p-lg-2 p-text-bold">送貨方式</div>
-        <div class="p-col-9 p-lg-10">
+        <div class="p-col-4 p-lg-2 p-text-bold">送貨方式</div>
+        <div class="p-col-8 p-lg-10">
           <Dropdown
             v-model="buyer.required.delivery_method"
             :options="delivery_methods"
           />
         </div>
 
-        <div class="p-col-3 p-lg-2 p-text-bold">付款方式</div>
-        <div class="p-col-9 p-lg-10">
+        <div class="p-col-4 p-lg-2 p-text-bold">付款方式</div>
+        <div class="p-col-8 p-lg-10">
           <Dropdown
             v-model="buyer.required.payment_method"
             :options="payment_methods"
           />
         </div>
 
-        <div class="p-col-3 p-lg-2 p-text-bold">備註</div>
-        <div class="p-col-9 p-lg-10">
+        <div class="p-col-4 p-lg-2 p-text-bold">備註</div>
+        <div class="p-col-8 p-lg-10">
           <Textarea
             :autoResize="true"
             v-model="buyer.message"
