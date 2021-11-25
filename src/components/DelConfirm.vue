@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <ConfirmDialog></ConfirmDialog>
-  </div>
+  <Toast />
+  <ConfirmDialog></ConfirmDialog>
 </template>
 
 <script>
@@ -22,6 +21,12 @@ export default {
           axios.delete(api).then((response) => {
             if (response.status === 204) {
               this.emitter.emit("refreshBeanList");
+              this.$toast.add({
+                severity: "success",
+                summary: "已成功刪除",
+                detail: item.name,
+                life: 10000,
+              });
             }
           });
         },
