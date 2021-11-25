@@ -1,5 +1,8 @@
 <template>
-  <div class="divider p-pl-3"><h4>收件人資料</h4></div>
+  <div class="divider p-pl-3">
+    <h4>收件人資料</h4>
+  </div>
+
   <div class="p-grid nested-grid p-m-3">
     <div class="p-col-12 p-lg-7">
       <div class="p-grid p-fluid p-ai-center">
@@ -74,10 +77,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-* {
-  border: 1px solid black;
-}
-
 .divider {
   border-bottom: 1px solid rgb(235, 233, 233);
 }

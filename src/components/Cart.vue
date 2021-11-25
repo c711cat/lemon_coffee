@@ -1,6 +1,9 @@
 <template>
   <div class="wrap p-my-0 p-mx-auto p-p-3">
-    <div class="divider p-pl-3"><h4>購物車清單</h4></div>
+    <div class="divider p-pl-3">
+      <h4>購物車清單</h4>
+    </div>
+
     <div
       class="p-grid nested-grid p-m-0 divider"
       v-for="item in products"
@@ -10,20 +13,24 @@
         <Button
           icon="pi pi-trash"
           class="p-button-rounded p-button-text p-button-danger p-mt-4"
-        >
-        </Button>
+        />
       </div>
+
       <div class="p-col-10 p-lg-11">
         <div class="p-grid p-fluid p-jc-around">
+
           <div class="p-col-3 p-lg-1">
             <img :src="item.image" class="product-image p-mt-1" />
           </div>
+
           <div class="p-col-9 p-lg-5 p-mt-1">
             {{ item.name }}<br />
             {{ item.status }}<br />
             {{ item.unit }}
           </div>
+
           <div class="p-col-3 p-lg-1 p-pt-4">$ {{ item.price }}</div>
+
           <div class="p-col-fixed" style="width: 115px">
             <InputNumber
               class="p-mt-1"
@@ -34,13 +41,16 @@
               decrementButtonClass="p-button-info"
             />
           </div>
+
           <div class="p-col-4 p-lg-2 p-text-right p-pt-4 subtotal-container">
             <div class="discount-content" v-if="item.discount">
               {{ item.discount }}
             </div>
+
             <del class="del-content" v-if="item.discount"
               >$ {{ item.price * item.qty }}
             </del>
+
             <div v-if="item.sale_price">$ {{ item.sale_price }}</div>
 
             <div v-else>$ {{ item.price * item.qty }}</div>
@@ -48,6 +58,7 @@
         </div>
       </div>
     </div>
+
     <div class="p-grid nested-grid p-m-1">
       <div class="p-col-5">
         <div class="p-grid p-ml-1 discount-container">
@@ -59,14 +70,21 @@
           </div>
         </div>
       </div>
+
       <div class="p-col-7 p-lg-7">
         <div class="p-grid p-jc-around p-text-right p-ai-center">
           <div class="p-col-6 p-lg-8">小計</div>
           <div class="p-col-6 p-lg-3">$ 3490</div>
+
           <div class="p-col-6 p-lg-8">多件優惠</div>
           <div class="p-col-6 p-lg-3">- $ 600</div>
+
+          <div class="p-col-6 p-lg-8">運費</div>
+          <div class="p-col-6 p-lg-3">$ 100</div>
+
           <div class="p-col-6 p-lg-8">滿千免運</div>
           <div class="p-col-6 p-lg-3"><del>$ 100</del></div>
+          
           <div class="p-col-6 p-lg-8 p-text-bold checkout-price">
             總付款金額
           </div>
