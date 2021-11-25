@@ -20,6 +20,7 @@ import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import OrderList from "primevue/orderlist";
 import InputNumber from "primevue/inputnumber";
+import Textarea from "primevue/textarea";
 
 const app = createApp(App);
 app.use(router);
@@ -39,5 +40,6 @@ app.component("DataTable", DataTable);
 app.component("Column", Column);
 app.component("OrderList", OrderList);
 app.component("InputNumber", InputNumber);
+app.component("Textarea", Textarea);
 
 app.mount("#app");

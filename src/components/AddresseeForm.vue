@@ -1,41 +1,52 @@
 <template>
-  <div class="divider title"><h4>收件人資料</h4></div>
-  <div class="p-grid nested-grid form">
-    <div class="p-col-12 p-lg-7 form-left">
-      <div class="p-grid p-fluid vertical-direction">
-        <div class="p-col-3 p-lg-2 field-title"><p>姓名</p></div>
+  <div class="divider p-pl-3"><h4>收件人資料</h4></div>
+  <div class="p-grid nested-grid p-m-3">
+    <div class="p-col-12 p-lg-7">
+      <div class="p-grid p-fluid p-ai-center">
+        <div class="p-col-3 p-lg-2 p-text-bold">姓名</div>
         <div class="p-col-9 p-lg-10">
           <InputText type="text" v-model="buyer.required.name" />
         </div>
 
-        <div class="p-col-3 p-lg-2 field-title"><p>電話</p></div>
+        <div class="p-col-3 p-lg-2 p-text-bold">電話</div>
         <div class="p-col-9 p-lg-10">
           <InputText type="text" v-model="buyer.required.phone_number" />
         </div>
 
-        <div class="p-col-3 p-lg-2 field-title"><p>Email</p></div>
+        <div class="p-col-3 p-lg-2 p-text-bold">Email</div>
         <div class="p-col-9 p-lg-10">
           <InputText type="text" v-model="buyer.required.email" />
         </div>
 
-        <div class="p-col-3 p-lg-2 field-title"><p>送貨方式</p></div>
+        <div class="p-col-3 p-lg-2 p-text-bold">送貨方式</div>
         <div class="p-col-9 p-lg-10">
-          <InputText type="text" v-model="buyer.required.delivery_method" />
+          <Dropdown
+            v-model="buyer.required.delivery_method"
+            :options="delivery_methods"
+          />
         </div>
 
-        <div class="p-col-3 p-lg-2 field-title"><p>付款方式</p></div>
+        <div class="p-col-3 p-lg-2 p-text-bold">付款方式</div>
         <div class="p-col-9 p-lg-10">
-          <InputText type="text" v-model="buyer.required.payment_method" />
+          <Dropdown
+            v-model="buyer.required.payment_method"
+            :options="payment_methods"
+          />
         </div>
 
-        <div class="p-col-3 p-lg-2 field-title"><p>付款方式</p></div>
+        <div class="p-col-3 p-lg-2 p-text-bold">備註</div>
         <div class="p-col-9 p-lg-10">
-          <InputText type="text" v-model="buyer.message" />
+          <Textarea
+            :autoResize="true"
+            v-model="buyer.message"
+            rows="5"
+            cols="30"
+          />
         </div>
       </div>
     </div>
 
-    <div class="p-grid p-ai-end p-jc-end p-col-12 p-lg-4 checkout-btn">
+    <div class="p-grid p-ai-end p-jc-end p-col-12 p-lg-4 p-pb-3">
       <Button class="p-button-lg" label="前往結帳"></Button>
     </div>
   </div>
@@ -55,6 +66,8 @@ export default {
         },
         message: "",
       },
+      delivery_methods: ["7-11 取貨", "全家 取貨", "宅配"],
+      payment_methods: ["貨到付款", "信用卡"],
     };
   },
 };
@@ -67,26 +80,5 @@ export default {
 
 .divider {
   border-bottom: 1px solid rgb(235, 233, 233);
-}
-
-.p-grid.nested-grid {
-  margin: 0px;
-}
-
-.title {
-  padding-left: 15px;
-}
-
-.vertical-direction.p-grid.p-fluid {
-  align-items: center;
-}
-.form.p-grid.nested-grid {
-  margin: 15px;
-}
-.checkout-btn {
-  padding-bottom: 20px;
-}
-.field-title {
-  font-weight: bolder;
 }
 </style>
