@@ -41,7 +41,7 @@ export default {
       });
     },
     toAddProduct() {
-      this.$router.push("/admin/products/new");
+      this.$router.push("/navbar/admin/products/new");
     },
   },
   created() {
