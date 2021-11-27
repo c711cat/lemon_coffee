@@ -22,9 +22,13 @@
         <Button
           icon="pi pi-fw pi-shopping-cart"
           class="p-button-text p-button-plain p-mr-2"
+          @click="visibleRight = true"
         />
       </template>
     </Menubar>
+    <Sidebar v-model:visible="visibleRight" position="right">
+      <h3>Right Sidebar</h3>
+    </Sidebar>
     <router-view />
   </div>
 </template>
@@ -40,6 +44,7 @@ export default {
           to: "/beanlist",
         },
       ],
+      visibleRight: false,
     };
   },
 };
