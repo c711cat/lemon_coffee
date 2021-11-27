@@ -11,6 +11,14 @@
         </router-link>
       </template>
       <template #end>
+        <router-link to="/entrance/login" class="link-content">
+          <Button
+            label="登入 / 註冊"
+            icon="pi pi-fw pi-user"
+            class="p-button-text p-button-plain"
+          >
+          </Button>
+        </router-link>
         <Button
           icon="pi pi-fw pi-shopping-cart"
           class="p-button-text p-button-plain p-mr-2"
@@ -31,11 +39,6 @@ export default {
           icon: "pi pi-fw pi-book",
           to: "/beanlist",
         },
-        {
-          label: "登入 / 註冊",
-          icon: "pi pi-fw pi-user",
-          to: "/entrance/login",
-        },
       ],
     };
   },
@@ -50,36 +53,7 @@ export default {
   background: #e9ecef;
   border-radius: 3px;
 }
-// .p-menubar {
-//   border: none;
-//   background: #000166;
-// }
-
-// #navbar-style {
-//   ::v-deep .p-menubar {
-//     border: none;
-//     background: #000166;
-//   }
-//   ::v-deep .p-menubar-root-list {
-//     color: red;
-//   }
-//   ::v-deep .p-submenu-list {
-//     background: #000166;
-//   }
-//   ::v-deep .p-menuitem {
-//     color: yellow;
-//   }
-//   ::v-deep .p-menuitem-text {
-//     color: #b7b8ad;
-//   }
-//   ::v-deep .p-menuitem-icon {
-//     color: #b7b8ad;
-//   }
-//   ::v-deep .p-submenu-icon {
-//     color: #b7b8ad;
-//   }
-//   ::v-deep .pi-bars {
-//     color: #b7b8ad;
-//   }
-// }
+.link-content {
+  text-decoration: none;
+}
 </style>
