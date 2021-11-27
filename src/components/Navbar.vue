@@ -11,11 +11,6 @@
         </router-link>
       </template>
       <template #end>
-        <InputText placeholder="Search" type="text" />
-        <Button
-          icon="pi pi-search"
-          class="p-button-text p-button-plain p-mr-1"
-        />
         <Button
           icon="pi pi-fw pi-shopping-cart"
           class="p-button-text p-button-plain p-mr-2"
@@ -34,52 +29,13 @@ export default {
         {
           label: "豆單",
           icon: "pi pi-fw pi-book",
-
-          items: [
-            {
-              label: "所有商品",
-              to: "/navbar/beanlist",
-            },
-            {
-              label: "淺焙",
-            },
-            {
-              label: "中淺焙",
-            },
-            {
-              label: "中焙",
-            },
-            {
-              label: "中深焙",
-            },
-            {
-              label: "深焙",
-            },
-          ],
+          to: "/navbar/beanlist",
         },
         {
+          label: "登入 / 註冊",
           icon: "pi pi-fw pi-user",
-          items: [
-            {
-              label: "登入",
-              icon: "pi pi-fw pi-user-plus",
-              to: "/navbar/entrance/login",
-            },
-            {
-              label: "我的最愛",
-              icon: "pi pi-fw pi-heart",
-            },
-            {
-              label: "訂單",
-              icon: "pi pi-fw pi-user-plus",
-            },
-            {
-              label: "登出",
-              icon: "pi pi-fw pi-user-minus",
-            },
-          ],
+          to: "/navbar/entrance/login",
         },
-        
       ],
     };
   },
