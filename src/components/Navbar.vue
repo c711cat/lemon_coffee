@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="navbar-style">
     <Menubar :model="items">
       <template #start>
         <router-link to="/navbar/home"
@@ -34,6 +34,7 @@ export default {
         {
           label: "豆單",
           icon: "pi pi-fw pi-book",
+
           items: [
             {
               label: "所有商品",
@@ -78,11 +79,7 @@ export default {
             },
           ],
         },
-        {
-          label: "管理員",
-          icon: "pi pi-fw pi-cog",
-          to: "/navbar/admin",
-        },
+        
       ],
     };
   },
@@ -97,4 +94,36 @@ export default {
   background: #e9ecef;
   border-radius: 3px;
 }
+// .p-menubar {
+//   border: none;
+//   background: #000166;
+// }
+
+// #navbar-style {
+//   ::v-deep .p-menubar {
+//     border: none;
+//     background: #000166;
+//   }
+//   ::v-deep .p-menubar-root-list {
+//     color: red;
+//   }
+//   ::v-deep .p-submenu-list {
+//     background: #000166;
+//   }
+//   ::v-deep .p-menuitem {
+//     color: yellow;
+//   }
+//   ::v-deep .p-menuitem-text {
+//     color: #b7b8ad;
+//   }
+//   ::v-deep .p-menuitem-icon {
+//     color: #b7b8ad;
+//   }
+//   ::v-deep .p-submenu-icon {
+//     color: #b7b8ad;
+//   }
+//   ::v-deep .pi-bars {
+//     color: #b7b8ad;
+//   }
+// }
 </style>
