@@ -12,11 +12,11 @@ export default {
       items: [
         {
           label: "註冊會員",
-          to: "/navbar/entrance/register",
+          to: "/entrance/register",
         },
         {
           label: "登入",
-          to: "/navbar/entrance/login",
+          to: "/entrance/login",
         },
       ],
     };

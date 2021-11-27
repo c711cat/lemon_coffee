@@ -2,7 +2,7 @@
   <div id="navbar-style">
     <Menubar :model="items">
       <template #start>
-        <router-link to="/navbar/home"
+        <router-link to="/home"
           ><img
             class="logo-img"
             alt="logo"
@@ -29,12 +29,12 @@ export default {
         {
           label: "豆單",
           icon: "pi pi-fw pi-book",
-          to: "/navbar/beanlist",
+          to: "/beanlist",
         },
         {
           label: "登入 / 註冊",
           icon: "pi pi-fw pi-user",
-          to: "/navbar/entrance/login",
+          to: "/entrance/login",
         },
       ],
     };

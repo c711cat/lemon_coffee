@@ -18,7 +18,7 @@ const routes = [
     component: () => import("@/components/Cart.vue"),
   },
   {
-    path: "/navbar",
+    path: "/",
     component: () => import("@/components/Navbar.vue"),
     children: [
       {
@@ -43,7 +43,6 @@ const routes = [
           },
         ],
       },
-      
     ],
   },
 ];
