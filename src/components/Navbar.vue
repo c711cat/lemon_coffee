@@ -26,14 +26,19 @@
         />
       </template>
     </Menubar>
-    <Sidebar v-model:visible="visibleRight" position="right">
-      <h3>Right Sidebar</h3>
+    <Sidebar
+      v-model:visible="visibleRight"
+      position="right"
+      class="sidebar-wrap"
+    >
+      <CartSidebar></CartSidebar>
     </Sidebar>
     <router-view />
   </div>
 </template>
 
 <script>
+import CartSidebar from "@/components/CartSidebar.vue";
 export default {
   data() {
     return {
@@ -47,6 +52,7 @@ export default {
       visibleRight: false,
     };
   },
+  components: { CartSidebar },
 };
 </script>
 
@@ -60,5 +66,8 @@ export default {
 }
 .link-content {
   text-decoration: none;
+}
+.sidebar-wrap {
+  width: 500px;
 }
 </style>
