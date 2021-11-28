@@ -45,39 +45,35 @@
             </a>
           </div>
           <div class="bean-list-unit-right" v-if="showEditButton">
-            <div>
-              <button
-                class="btn-body edit"
-                @click.prevent="editProduct(element)"
-              >
-                編輯
-              </button>
-            </div>
-            <div>
-              <button
-                class="btn-body del"
-                @click.prevent="openDelModal(element)"
-              >
-                刪除
-              </button>
-            </div>
+            <Button
+              label="編輯"
+              class="p-button p-button-outlined edit"
+              @click.prevent="editProduct(element)"
+            >
+            </Button>
+            <Button
+              @click="openDelConfirm(element)"
+              label="刪除"
+              class="p-button-danger p-button-outlined"
+            >
+            </Button>
           </div>
         </div>
       </template>
     </Draggable>
   </div>
-  <DelModal ref="del" :delItem="delItem" />
+  <DelConfirm ref="delConfirm"></DelConfirm>
 </template>
 
 <script>
 import Roast from "@/components/Roast.vue";
 import Draggable from "vuedraggable";
-import DelModal from "@/components/DeleteModal.vue";
+import DelConfirm from "@/components/DelConfirm.vue";
+
 export default {
   data() {
     return {
       dragging: false,
-      delItem: {},
     };
   },
   props: {
@@ -92,14 +88,13 @@ export default {
       default: true,
     },
   },
-  components: { Roast, Draggable, DelModal },
+  components: { Roast, Draggable, DelConfirm },
   methods: {
-    openDelModal(element) {
-      this.delItem = element;
-      this.$refs.del.openModal();
-    },
     editProduct(item) {
       this.$router.push(`/admin/products/edit/${item.id}`);
+    },
+    openDelConfirm(item) {
+      this.$refs.delConfirm.openConfirm(item);
     },
   },
 };
@@ -188,35 +183,27 @@ a {
   margin-top: 2%;
 }
 
-.btn-container {
-  display: flex;
+.edit {
+  color: #aaa;
 }
 
-.btn-body {
-  width: 45px;
+.p-button.p-button-outlined.edit:hover {
+  background: #aaa;
+  color: #fff;
+}
+
+.p-button {
+  font-size: 14px;
   height: 30px;
+  padding: 0px;
+  width: 45px;
   background: none;
   margin: 0px 1px;
   border-radius: 3px;
   cursor: pointer;
 }
 
-.edit {
-  color: #aaa;
-  border: 1px solid #aaa;
-}
-
-.edit:hover {
-  background: #aaa;
-  color: #fff;
-}
-
-.del {
-  color: rgb(235, 72, 72);
-  border: 1.5px solid rgb(235, 72, 72);
-}
-
-.del:hover {
+.p-button.p-button-danger.p-button-outlined:hover {
   background: rgb(235, 72, 72);
   color: #fff;
 }
