@@ -4,7 +4,7 @@
   </div>
 
   <div
-    class="p-grid nested-grid divider"
+    class="p-grid nested-grid divider p-mt-1"
     v-for="item in products"
     :key="item.id"
   >
