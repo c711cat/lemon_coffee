@@ -114,6 +114,11 @@
         </div>
       </div>
     </div>
+
+    <Button
+      label="訂單結帳"
+      class="p-button-info p-button-raised p-col-12 p-lg-12"
+    ></Button>
   </div>
 </template>
 
@@ -168,10 +173,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-* {
-  border: 1px solid black;
-}
-
 .divider {
   border-bottom: 1px solid rgb(235, 233, 233);
 }
