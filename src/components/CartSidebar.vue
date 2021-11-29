@@ -1,116 +1,123 @@
 <template>
-  <div class="wrap p-my-0 p-mx-auto p-p-3">
-    <div class="divider p-pl-3">
-      <h4>購物車清單</h4>
+  <div class="divider p-pl-2">
+    <h4 class="p-mb-2 p-mt-0">購物車清單</h4>
+  </div>
+
+  <div
+    class="p-grid nested-grid divider"
+    v-for="item in products"
+    :key="item.id"
+  >
+    <div class="p-col-2 p-lg-2 p-text-center p-p-0">
+      <Button
+        icon="pi pi-trash"
+        class="p-button-rounded p-button-text p-button-danger p-mt-5"
+      />
     </div>
 
-    <div
-      class="p-grid nested-grid p-m-0 divider"
-      v-for="item in products"
-      :key="item.id"
-    >
-      <div class="p-col-2 p-lg-1 p-text-center">
-        <Button
-          icon="pi pi-trash"
-          class="p-button-rounded p-button-text p-button-danger p-mt-4"
-        />
+    <div class="p-col-10 p-lg-10">
+      <div class="p-grid p-fluid">
+        <div class="p-col-fixed p-pl-0" style="width: 60px">
+          <img :src="item.image" class="product-image p-mt-2" />
+        </div>
+
+        <div class="p-col-fixed p-mt-2 p-ml-3 p-pl-0" style="width: 160px">
+          {{ item.name }}<br />
+          {{ item.status }}<br />
+          {{ item.unit }}
+        </div>
+
+        <div class="p-col-fixed p-pl-0" style="width: 64px">
+          $ {{ item.price }}
+        </div>
+
+        <div class="p-col-fixed p-pr-0 p-pl-1 p-pt-0" style="width: 88px">
+          <InputNumber
+            class=""
+            v-model="item.qty"
+            :min="1"
+            showButtons
+            incrementButtonClass="p-button-info"
+            decrementButtonClass="p-button-info"
+          />
+        </div>
+
+        <div
+          class="p-col-fixed p-text-right p-pt-2 subtotal-container p-pr-0"
+          style="width: 80px"
+        >
+          <div class="discount-content" v-if="item.discount">
+            {{ item.discount }}
+          </div>
+
+          <del class="del-content" v-if="item.discount"
+            >$ {{ item.price * item.qty }}
+          </del>
+
+          <div v-if="item.sale_price">$ {{ item.sale_price }}</div>
+
+          <div v-else>$ {{ item.price * item.qty }}</div>
+        </div>
       </div>
+    </div>
+  </div>
 
-      <div class="p-col-10 p-lg-11">
-        <div class="p-grid p-fluid p-jc-around">
-          <div class="p-col-3 p-lg-1">
-            <img :src="item.image" class="product-image p-mt-1" />
-          </div>
-
-          <div class="p-col-9 p-lg-5 p-mt-1">
-            {{ item.name }}<br />
-            {{ item.status }}<br />
-            {{ item.unit }}
-          </div>
-
-          <div class="p-col-3 p-lg-1 p-pt-4">$ {{ item.price }}</div>
-
-          <div class="p-col-fixed" style="width: 115px">
-            <InputNumber
-              class="p-mt-1"
-              v-model="item.qty"
-              :min="1"
-              showButtons
-              incrementButtonClass="p-button-info"
-              decrementButtonClass="p-button-info"
-            />
-          </div>
-
-          <div class="p-col-4 p-lg-2 p-text-right p-pt-4 subtotal-container">
-            <div class="discount-content" v-if="item.discount">
-              {{ item.discount }}
-            </div>
-
-            <del class="del-content" v-if="item.discount"
-              >$ {{ item.price * item.qty }}
-            </del>
-
-            <div v-if="item.sale_price">$ {{ item.sale_price }}</div>
-
-            <div v-else>$ {{ item.price * item.qty }}</div>
-          </div>
+  <div class="p-grid nested-grid p-mt-1 p-pl-1">
+    <div class="p-col-3 p-lg-3">
+      <div class="p-grid discount-container">
+        <div class="p-col-10 p-lg-10 p-text-center p-mr-2 discount-mark">
+          優惠
+        </div>
+        <div class="p-col-12 p-lg-12 discount-content p-pl-0">
+          滿 $1000 免運費
         </div>
       </div>
     </div>
 
-    <div class="p-grid nested-grid p-m-1">
-      <div class="p-col-5">
-        <div class="p-grid p-ml-1 discount-container">
-          <div class="p-col-6 p-lg-2 p-text-center p-mr-2 discount-mark">
-            優惠
-          </div>
-          <div class="p-col-12 p-lg-4 discount-content p-pl-0">
-            滿 $1000 免運費
-          </div>
+    <div class="p-col-9 p-lg-9">
+      <div class="p-grid p-text-right p-ai-center">
+        <div class="p-col-6 p-lg-6 p-pr-0">小計</div>
+        <div class="p-col-6 p-lg-6 p-pr-4">$ {{ price_detail.subtotal }}</div>
+
+        <div
+          v-if="price_detail.buy_more_discount"
+          class="p-col-6 p-lg-6 p-pr-0"
+        >
+          多件優惠
         </div>
-      </div>
+        <div
+          v-if="price_detail.buy_more_discount"
+          class="p-col-6 p-lg-6 p-pr-4"
+        >
+          - $ {{ price_detail.buy_more_discount }}
+        </div>
 
-      <div class="p-col-7 p-lg-7">
-        <div class="p-grid p-jc-around p-text-right p-ai-center">
-          <div class="p-col-6 p-lg-8">小計</div>
-          <div class="p-col-6 p-lg-3">$ {{ price_detail.subtotal }}</div>
+        <div v-if="price_detail.freight_cost" class="p-col-6 p-lg-6 p-pr-0">
+          運費
+        </div>
+        <div v-if="price_detail.freight_cost" class="p-col-6 p-lg-6 p-pr-4">
+          $ {{ price_detail.freight_cost }}
+        </div>
 
-          <div v-if="price_detail.buy_more_discount" class="p-col-6 p-lg-8">
-            多件優惠
-          </div>
-          <div v-if="price_detail.buy_more_discount" class="p-col-6 p-lg-3">
-            - $ {{ price_detail.buy_more_discount }}
-          </div>
+        <div v-if="price_detail.free_shipping" class="p-col-6 p-lg-6 p-pr-0">
+          滿千免運
+        </div>
+        <div v-if="price_detail.free_shipping" class="p-col-6 p-lg-6 p-pr-4">
+          <del>$ {{ price_detail.free_shipping }}</del>
+        </div>
 
-          <div v-if="price_detail.freight_cost" class="p-col-6 p-lg-8">
-            運費
-          </div>
-          <div v-if="price_detail.freight_cost" class="p-col-6 p-lg-3">
-            $ {{ price_detail.freight_cost }}
-          </div>
-
-          <div v-if="price_detail.free_shipping" class="p-col-6 p-lg-8">
-            滿千免運
-          </div>
-          <div v-if="price_detail.free_shipping" class="p-col-6 p-lg-3">
-            <del>$ {{ price_detail.free_shipping }}</del>
-          </div>
-
-          <div class="p-col-6 p-lg-8 p-text-bold checkout-price">
-            總付款金額
-          </div>
-          <div class="p-col-6 p-lg-3 p-text-bold checkout-price">
-            $ {{ price_detail.total_payment_price }}
-          </div>
+        <div class="p-col-6 p-lg-6 p-text-bold checkout-price p-pr-0">
+          總付款金額
+        </div>
+        <div class="p-col-6 p-lg-6 p-text-bold checkout-price p-pr-4">
+          $ {{ price_detail.total_payment_price }}
         </div>
       </div>
     </div>
-    
   </div>
 </template>
 
 <script>
-
 export default {
   data() {
     return {
@@ -157,13 +164,12 @@ export default {
       ],
     };
   },
-  
 };
 </script>
 
 <style lang="scss" scoped>
-.wrap {
-  max-width: 1200px;
+* {
+  border: 1px solid black;
 }
 
 .divider {
