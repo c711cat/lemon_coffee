@@ -45,6 +45,10 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/detail",
+    component: () => import("@/components/ProductDetail.vue"),
+  },
 ];
 
 const router = createRouter({
