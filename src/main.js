@@ -21,6 +21,8 @@ import Column from "primevue/column";
 import OrderList from "primevue/orderlist";
 import InputNumber from "primevue/inputnumber";
 import Textarea from "primevue/textarea";
+import Menubar from "primevue/menubar";
+import Sidebar from "primevue/sidebar";
 
 const app = createApp(App);
 app.use(router);
@@ -41,5 +43,7 @@ app.component("Column", Column);
 app.component("OrderList", OrderList);
 app.component("InputNumber", InputNumber);
 app.component("Textarea", Textarea);
+app.component("Menubar", Menubar);
+app.component("Sidebar", Sidebar);
 
 app.mount("#app");

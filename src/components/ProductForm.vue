@@ -47,10 +47,6 @@
 </template>
 
 <script>
-import InputText from "primevue/inputtext";
-import Dropdown from "primevue/dropdown";
-import InputNumber from "primevue/inputnumber";
-import Button from "primevue/button";
 export default {
   data() {
     return {
@@ -64,7 +60,6 @@ export default {
       },
     };
   },
-  components: { InputText, Dropdown, InputNumber, Button },
   props: {
     editItem: {
       typeof: Object,
