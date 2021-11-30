@@ -4,112 +4,90 @@
   </div>
 
   <div
-    class="p-grid nested-grid divider p-mt-1"
+    class="p-grid divider p-m-0 p-pt-3 p-jc-between p-ai-center"
     v-for="item in products"
     :key="item.id"
   >
-    <div class="p-col-2 p-lg-2 p-text-center p-p-0">
-      <Button
-        icon="pi pi-trash"
-        class="p-button-rounded p-button-text p-button-danger p-mt-5"
+    <Button
+      icon="pi pi-trash"
+      class="p-col-fixed p-ml-2 p-button-rounded p-button-text p-button-danger"
+      style="width: 30px"
+    />
+
+    <img :src="item.image" class="product-image p-col-3 p-p-0" />
+
+    <div class="p-col-8 p-pl-3">
+      {{ item.name }}<br />
+      {{ item.status }}<br />
+    </div>
+
+    <div class="p-col-fixed p-pl-3" style="width: 125px">
+      $ {{ item.price }} / {{ item.unit }}
+    </div>
+
+    <div class="p-fluid p-col-fixed p-p-0 p-my-3" style="width: 129px">
+      <InputNumber
+        class="p-inputtext-sm"
+        v-model="item.qty"
+        :min="1"
+        showButtons
+        buttonLayout="horizontal"
+        incrementButtonIcon="pi pi-plus"
+        decrementButtonIcon="pi pi-minus"
+        incrementButtonClass="p-button-info"
+        decrementButtonClass="p-button-info"
       />
     </div>
 
-    <div class="p-col-10 p-lg-10">
-      <div class="p-grid p-fluid">
-        <div class="p-col-fixed p-pl-0" style="width: 60px">
-          <img :src="item.image" class="product-image p-mt-2" />
-        </div>
-
-        <div class="p-col-fixed p-mt-2 p-ml-3 p-pl-0" style="width: 160px">
-          {{ item.name }}<br />
-          {{ item.status }}<br />
-          {{ item.unit }}
-        </div>
-
-        <div class="p-col-fixed p-pl-0" style="width: 64px">
-          $ {{ item.price }}
-        </div>
-
-        <div class="p-col-fixed p-pr-0 p-pl-1 p-pt-0" style="width: 88px">
-          <InputNumber
-            class=""
-            v-model="item.qty"
-            :min="1"
-            showButtons
-            incrementButtonClass="p-button-info"
-            decrementButtonClass="p-button-info"
-          />
-        </div>
-
-        <div
-          class="p-col-fixed p-text-right p-pt-2 subtotal-container p-pr-0"
-          style="width: 80px"
-        >
-          <div class="discount-content" v-if="item.discount">
-            {{ item.discount }}
-          </div>
-
-          <del class="del-content" v-if="item.discount"
-            >$ {{ item.price * item.qty }}
-          </del>
-
-          <div v-if="item.sale_price">$ {{ item.sale_price }}</div>
-
-          <div v-else>$ {{ item.price * item.qty }}</div>
-        </div>
+    <div class="p-col-3 p-text-right subtotal-container p-px-1">
+      <div class="discount-content" v-if="item.discount">
+        {{ item.discount }}
       </div>
+
+      <del class="del-content" v-if="item.discount"
+        >$ {{ item.price * item.qty }}
+      </del>
+
+      <div v-if="item.sale_price">$ {{ item.sale_price }}</div>
+
+      <div v-else>$ {{ item.price * item.qty }}</div>
     </div>
   </div>
 
-  <div class="p-grid nested-grid p-mt-1 p-pl-1">
-    <div class="p-col-3 p-lg-3">
+  <div class="p-grid nested-grid p-jc-between p-mx-0 p-my-2 p-p-0">
+    <div class="p-col-3 p-ml-2">
       <div class="p-grid discount-container">
-        <div class="p-col-10 p-lg-10 p-text-center p-mr-2 discount-mark">
-          優惠
-        </div>
-        <div class="p-col-12 p-lg-12 discount-content p-pl-0">
-          滿 $1000 免運費
-        </div>
+        <div class="p-col-10 p-text-center p-mr-2 discount-mark">優惠</div>
+        <div class="p-col-12 discount-content p-pl-0">滿 $1000 免運費</div>
       </div>
     </div>
 
-    <div class="p-col-9 p-lg-9">
-      <div class="p-grid p-text-right p-ai-center">
-        <div class="p-col-6 p-lg-6 p-pr-0">小計</div>
-        <div class="p-col-6 p-lg-6 p-pr-4">$ {{ price_detail.subtotal }}</div>
+    <div class="p-col-8">
+      <div class="p-grid p-text-right p-ai-center p-jc-end">
+        <div class="p-col-6 p-pr-0">小計</div>
+        <div class="p-col-5 p-pr-1">$ {{ price_detail.subtotal }}</div>
 
-        <div
-          v-if="price_detail.buy_more_discount"
-          class="p-col-6 p-lg-6 p-pr-0"
-        >
+        <div v-if="price_detail.buy_more_discount" class="p-col-6 p-pr-0">
           多件優惠
         </div>
-        <div
-          v-if="price_detail.buy_more_discount"
-          class="p-col-6 p-lg-6 p-pr-4"
-        >
+        <div v-if="price_detail.buy_more_discount" class="p-col-5 p-pr-1">
           - $ {{ price_detail.buy_more_discount }}
         </div>
 
-        <div v-if="price_detail.freight_cost" class="p-col-6 p-lg-6 p-pr-0">
-          運費
-        </div>
-        <div v-if="price_detail.freight_cost" class="p-col-6 p-lg-6 p-pr-4">
+        <div v-if="price_detail.freight_cost" class="p-col-6 p-pr-0">運費</div>
+        <div v-if="price_detail.freight_cost" class="p-col-5 p-pr-1">
           $ {{ price_detail.freight_cost }}
         </div>
 
-        <div v-if="price_detail.free_shipping" class="p-col-6 p-lg-6 p-pr-0">
+        <div v-if="price_detail.free_shipping" class="p-col-6 p-pr-0">
           滿千免運
         </div>
-        <div v-if="price_detail.free_shipping" class="p-col-6 p-lg-6 p-pr-4">
+        <div v-if="price_detail.free_shipping" class="p-col-5 p-pr-1">
           <del>$ {{ price_detail.free_shipping }}</del>
         </div>
 
-        <div class="p-col-6 p-lg-6 p-text-bold checkout-price p-pr-0">
-          總付款金額
-        </div>
-        <div class="p-col-6 p-lg-6 p-text-bold checkout-price p-pr-4">
+        <div class="p-col-6 p-text-bold checkout-price p-pr-0">總付款金額</div>
+        <div class="p-col-5 p-text-bold checkout-price p-pr-1">
           $ {{ price_detail.total_payment_price }}
         </div>
       </div>
@@ -117,7 +95,7 @@
 
     <Button
       label="訂單結帳"
-      class="p-button-info p-button-raised p-col-12 p-lg-12"
+      class="p-button-info p-button-raised p-col-12"
     ></Button>
   </div>
 </template>
@@ -150,7 +128,7 @@ export default {
           image:
             "https://images.unsplash.com/photo-1584736286179-e3d10ebcdc3e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NjR8fGNvZmZlZSUyMGJhZ3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
           status: "耳掛",
-          unit: "一包",
+          unit: "包",
           price: 40,
           qty: 40,
           discount: "多件優惠",
@@ -173,6 +151,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+* {
+  border: 1px solid black;
+}
 .divider {
   border-bottom: 1px solid rgb(235, 233, 233);
 }
