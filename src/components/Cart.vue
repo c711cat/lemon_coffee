@@ -143,8 +143,6 @@ export default {
           unit: "包",
           price: 40,
           qty: 40,
-          discount: "多件優惠",
-          sale_price: 1000,
         },
         {
           id: 3,
