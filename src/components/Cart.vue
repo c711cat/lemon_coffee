@@ -21,7 +21,7 @@
 
       <div class="p-col-8 p-lg-4 p-pl-3">
         {{ item.name }}<br />
-        {{ item.status }}<br />
+        {{ item.type }}<br />
       </div>
 
       <div class="p-col-fixed p-pl-4" style="width: 130px">
@@ -129,7 +129,7 @@ export default {
           name: "耶家雪菲 日曬 古吉 夏奇索 魔魔拉單一莊園 G1",
           image:
             "https://images.unsplash.com/photo-1562051036-e0eea191d42f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLWxpa2VkfDI3fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
-          status: "原豆-不磨粉",
+          type: "原豆-不磨粉",
           unit: "半磅",
           price: 450,
           qty: 1,
@@ -139,7 +139,7 @@ export default {
           name: "肯亞 AA FAQ 159 批次",
           image:
             "https://images.unsplash.com/photo-1584736286179-e3d10ebcdc3e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NjR8fGNvZmZlZSUyMGJhZ3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-          status: "耳掛",
+          type: "耳掛",
           unit: "包",
           price: 40,
           qty: 40,
@@ -151,7 +151,7 @@ export default {
           name: "哥倫比亞 娜玲瓏 山塔那小農協會 水洗",
           image:
             "https://images.unsplash.com/photo-1563873915107-12674ca562df?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLWxpa2VkfDEwfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
-          status: "磨粉",
+          type: "磨粉",
           unit: "一磅",
           price: 720,
           qty: 2,
