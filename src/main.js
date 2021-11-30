@@ -16,6 +16,11 @@ import ToastService from "primevue/toastservice";
 import ConfirmationService from "primevue/confirmationservice";
 import Toast from "primevue/toast";
 import ConfirmDialog from "primevue/confirmdialog";
+import DataTable from "primevue/datatable";
+import Column from "primevue/column";
+import OrderList from "primevue/orderlist";
+import InputNumber from "primevue/inputnumber";
+import Textarea from "primevue/textarea";
 
 const app = createApp(App);
 app.use(router);
@@ -31,5 +36,10 @@ app.component("Calendar", Calendar);
 app.component("Checkbox", Checkbox);
 app.component("Toast", Toast);
 app.component("ConfirmDialog", ConfirmDialog);
+app.component("DataTable", DataTable);
+app.component("Column", Column);
+app.component("OrderList", OrderList);
+app.component("InputNumber", InputNumber);
+app.component("Textarea", Textarea);
 
 app.mount("#app");
