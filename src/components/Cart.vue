@@ -1,64 +1,63 @@
 <template>
-  <div class="wrap p-my-0 p-mx-auto p-p-3">
+  <div class="wrap p-my-0 p-mx-auto p-p-2">
     <div class="divider p-pl-3">
       <h4>購物車清單</h4>
     </div>
 
     <div
-      class="p-grid nested-grid p-m-0 divider"
+      class="p-grid p-m-0 p-py-3 divider p-ai-center p-jc-between"
       v-for="item in products"
       :key="item.id"
     >
-      <div class="p-col-2 p-lg-1 p-text-center">
-        <Button
-          icon="pi pi-trash"
-          class="p-button-rounded p-button-text p-button-danger p-mt-4"
+      <Button
+        icon="pi pi-trash"
+        class="
+          p-col-fixed p-pl-1 p-button-rounded p-button-text p-button-danger
+        "
+        style="width: 50px"
+      />
+
+      <img :src="item.image" class="product-image p-col-3 p-lg-1 p-p-0" />
+
+      <div class="p-col-8 p-lg-4 p-pl-3">
+        {{ item.name }}<br />
+        {{ item.status }}<br />
+      </div>
+
+      <div class="p-col-fixed p-pl-4" style="width: 130px">
+        $ {{ item.price }} / {{ item.unit }}
+      </div>
+
+      <div class="p-fluid p-col-fixed p-p-0 p-my-3" style="width: 135px">
+        <InputNumber
+          class="p-inputtext-sm"
+          v-model="item.qty"
+          :min="1"
+          showButtons
+          buttonLayout="horizontal"
+          incrementButtonIcon="pi pi-plus"
+          decrementButtonIcon="pi pi-minus"
+          incrementButtonClass="p-button-info"
+          decrementButtonClass="p-button-info"
         />
       </div>
 
-      <div class="p-col-10 p-lg-11">
-        <div class="p-grid p-fluid p-jc-around">
-          <div class="p-col-3 p-lg-1">
-            <img :src="item.image" class="product-image p-mt-1" />
-          </div>
-
-          <div class="p-col-9 p-lg-5 p-mt-1">
-            {{ item.name }}<br />
-            {{ item.status }}<br />
-            {{ item.unit }}
-          </div>
-
-          <div class="p-col-3 p-lg-1 p-pt-4">$ {{ item.price }}</div>
-
-          <div class="p-col-fixed" style="width: 115px">
-            <InputNumber
-              class="p-mt-1"
-              v-model="item.qty"
-              :min="1"
-              showButtons
-              incrementButtonClass="p-button-info"
-              decrementButtonClass="p-button-info"
-            />
-          </div>
-
-          <div class="p-col-4 p-lg-2 p-text-right p-pt-4 subtotal-container">
-            <div class="discount-content" v-if="item.discount">
-              {{ item.discount }}
-            </div>
-
-            <del class="del-content" v-if="item.discount"
-              >$ {{ item.price * item.qty }}
-            </del>
-
-            <div v-if="item.sale_price">$ {{ item.sale_price }}</div>
-
-            <div v-else>$ {{ item.price * item.qty }}</div>
-          </div>
+      <div class="p-col-3 p-lg-1 p-text-right subtotal-container">
+        <div class="discount-content" v-if="item.discount">
+          {{ item.discount }}
         </div>
+
+        <del class="del-content" v-if="item.discount"
+          >$ {{ item.price * item.qty }}
+        </del>
+
+        <div v-if="item.sale_price">$ {{ item.sale_price }}</div>
+
+        <div v-else>$ {{ item.price * item.qty }}</div>
       </div>
     </div>
 
-    <div class="p-grid nested-grid p-m-1">
+    <div class="p-grid nested-grid p-mx-0 p-my-2">
       <div class="p-col-5">
         <div class="p-grid p-ml-1 discount-container">
           <div class="p-col-6 p-lg-2 p-text-center p-mr-2 discount-mark">
@@ -71,35 +70,38 @@
       </div>
 
       <div class="p-col-7 p-lg-7">
-        <div class="p-grid p-jc-around p-text-right p-ai-center">
-          <div class="p-col-6 p-lg-8">小計</div>
-          <div class="p-col-6 p-lg-3">$ {{ price_detail.subtotal }}</div>
+        <div class="p-grid p-jc-between p-text-right p-ai-center">
+          <div class="p-col-6 p-lg-9 p-ml-3">小計</div>
+          <div class="p-col-5 p-lg-2">$ {{ price_detail.subtotal }}</div>
 
-          <div v-if="price_detail.buy_more_discount" class="p-col-6 p-lg-8">
+          <div
+            v-if="price_detail.buy_more_discount"
+            class="p-col-6 p-lg-9 p-ml-3"
+          >
             多件優惠
           </div>
-          <div v-if="price_detail.buy_more_discount" class="p-col-6 p-lg-3">
+          <div v-if="price_detail.buy_more_discount" class="p-col-5 p-lg-2">
             - $ {{ price_detail.buy_more_discount }}
           </div>
 
-          <div v-if="price_detail.freight_cost" class="p-col-6 p-lg-8">
+          <div v-if="price_detail.freight_cost" class="p-col-6 p-lg-9 p-ml-3">
             運費
           </div>
-          <div v-if="price_detail.freight_cost" class="p-col-6 p-lg-3">
+          <div v-if="price_detail.freight_cost" class="p-col-5 p-lg-2">
             $ {{ price_detail.freight_cost }}
           </div>
 
-          <div v-if="price_detail.free_shipping" class="p-col-6 p-lg-8">
+          <div v-if="price_detail.free_shipping" class="p-col-6 p-lg-9 p-ml-3">
             滿千免運
           </div>
-          <div v-if="price_detail.free_shipping" class="p-col-6 p-lg-3">
+          <div v-if="price_detail.free_shipping" class="p-col-5 p-lg-2">
             <del>$ {{ price_detail.free_shipping }}</del>
           </div>
 
-          <div class="p-col-6 p-lg-8 p-text-bold checkout-price">
+          <div class="p-col-6 p-lg-9 p-text-bold checkout-price p-ml-3">
             總付款金額
           </div>
-          <div class="p-col-6 p-lg-3 p-text-bold checkout-price">
+          <div class="p-col-5 p-lg-2 p-text-bold checkout-price">
             $ {{ price_detail.total_payment_price }}
           </div>
         </div>
@@ -138,7 +140,7 @@ export default {
           image:
             "https://images.unsplash.com/photo-1584736286179-e3d10ebcdc3e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NjR8fGNvZmZlZSUyMGJhZ3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
           status: "耳掛",
-          unit: "一包",
+          unit: "包",
           price: 40,
           qty: 40,
           discount: "多件優惠",
