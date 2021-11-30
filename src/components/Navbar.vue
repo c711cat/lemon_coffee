@@ -30,6 +30,7 @@
       v-model:visible="visibleRight"
       position="right"
       class="sidebar-wrap"
+      style="width: 380px"
     >
       <CartSidebar></CartSidebar>
     </Sidebar>
