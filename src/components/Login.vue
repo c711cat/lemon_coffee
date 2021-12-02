@@ -36,13 +36,21 @@ export default {
     login() {
       const api = `${process.env.VUE_APP_API}/users/sign_in`;
       axios.post(api, this.login_data).then((response) => {
-        console.log(response);
         if (response.status === 201) {
-          this.$router.push("/beanlist");
           this.$toast.add({
             severity: "success",
             summary: "登入成功",
-            life: 5000,
+            life: 2000,
+          });
+          this.$router.push("/beanlist");
+        }
+      });
+      axios.post(api, this.login_data).catch((error) => {
+        if (error) {
+          this.$toast.add({
+            severity: "error",
+            summary: "登入失敗",
+            life: 2000,
           });
         }
       });
