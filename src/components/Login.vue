@@ -38,6 +38,9 @@ export default {
       const api = `${process.env.VUE_APP_API}/users/sign_in`;
       axios.post(api, this.login_data).then((response) => {
         console.log(response);
+        if (response.status === 201) {
+          this.$router.push("/beanlist");
+        }
       });
     },
   },
