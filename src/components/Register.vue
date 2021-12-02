@@ -104,7 +104,30 @@ export default {
           },
         })
         .then((response) => {
-          console.log(response);
+          if (response.status === 201) {
+            this.$toast.add({
+              severity: "success",
+              summary: "註冊成功",
+              life: 2000,
+            });
+            this.$router.push("/entrance/login");
+          }
+        });
+      axios
+        .post(api, {
+          user: {
+            email: this.personal_information.email,
+            password: this.personal_information.password,
+          },
+        })
+        .catch((error) => {
+          if (error) {
+            this.$toast.add({
+              severity: "error",
+              summary: "註冊失敗",
+              life: 2000,
+            });
+          }
         });
     },
   },
