@@ -34,12 +34,16 @@ export default {
   },
   methods: {
     login() {
-      console.log(this.login_data);
       const api = `${process.env.VUE_APP_API}/users/sign_in`;
       axios.post(api, this.login_data).then((response) => {
         console.log(response);
         if (response.status === 201) {
           this.$router.push("/beanlist");
+          this.$toast.add({
+            severity: "success",
+            summary: "登入成功",
+            life: 5000,
+          });
         }
       });
     },
