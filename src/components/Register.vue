@@ -61,11 +61,12 @@
       />
       <label for="binary">我同意<a href="#">網站服務條款及隱私政策</a></label>
     </div>
-    <Button label="註冊" />
+    <Button label="註冊" @click.prevent="register" />
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -91,6 +92,21 @@ export default {
         agree: false,
       },
     };
+  },
+  methods: {
+    register() {
+      const api = `${process.env.VUE_APP_API}/users`;
+      axios
+        .post(api, {
+          user: {
+            email: this.personal_information.email,
+            password: this.personal_information.password,
+          },
+        })
+        .then((response) => {
+          console.log(response);
+        });
+    },
   },
 };
 </script>
