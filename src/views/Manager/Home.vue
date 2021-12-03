@@ -45,10 +45,19 @@ export default {
     },
   },
   created() {
-    this.getProducts();
-    emitter.on("refreshBeanList", () => {
+    const token = document.cookie.replace(
+      /(?:(?:^|.*;\s*)lemonToken\s*=\s*([^;]*).*$)|^.*$/,
+      "$1"
+    );
+    axios.defaults.headers.common["Authorization"] = token;
+    if (token) {
       this.getProducts();
-    });
+      emitter.on("refreshBeanList", () => {
+        this.getProducts();
+      });
+    } else {
+      this.$router.push("/entrance/login");
+    }
   },
 };
 </script>
