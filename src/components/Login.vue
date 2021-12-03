@@ -33,7 +33,11 @@ export default {
       const api = `${process.env.VUE_APP_API}/users/sign_in`;
       axios
         .post(api, { user: this.login_data })
-        .then(() => {
+        .then((response) => {
+          const token = response.headers.authorization;
+          console.log(response);
+          console.log(token);
+          document.cookie = `lemonToken=${token}`;
           this.$toast.add({
             severity: "success",
             summary: "登入成功",
