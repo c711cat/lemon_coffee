@@ -23,6 +23,7 @@ export default {
       products: [],
       showEditButton: true,
       disableDrag: false,
+      token: "",
     };
   },
   components: {
@@ -35,6 +36,7 @@ export default {
   },
   methods: {
     getProducts() {
+      axios.defaults.headers.common.Authorization = this.token;
       const api = `${process.env.VUE_APP_API}/admin/products`;
       axios.get(api).then((response) => {
         this.products = [...response.data];
@@ -45,19 +47,19 @@ export default {
     },
   },
   created() {
-    const token = document.cookie.replace(
+    this.token = document.cookie.replace(
       /(?:(?:^|.*;\s*)lemonToken\s*=\s*([^;]*).*$)|^.*$/,
       "$1"
     );
-    axios.defaults.headers.common["Authorization"] = token;
-    if (token) {
+    console.log(this.token);
+    if (this.token) {
       this.getProducts();
-      emitter.on("refreshBeanList", () => {
-        this.getProducts();
-      });
     } else {
       this.$router.push("/entrance/login");
     }
+    emitter.on("refreshBeanList", () => {
+      this.getProducts();
+    });
   },
 };
 </script>
