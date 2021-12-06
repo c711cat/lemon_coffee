@@ -55,7 +55,10 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {},
+    "ignorePatterns": ["dist/**"],
+    "rules": {
+      "no-console": "warn"
+    },
     "overrides": [
       {
         "files": [
