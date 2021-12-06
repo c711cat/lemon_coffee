@@ -4,15 +4,15 @@
     <div class="p-col-12">
       <Button
         label="耳掛"
-        class="p-button-outlined p-button-info p-mr-4"
+        class="p-button-outlined p-button-info p-mr-4 purchase-type"
       ></Button>
       <Button
         label="半磅"
-        class="p-button-outlined p-button-info p-mr-4"
+        class="p-button-outlined p-button-info p-mr-4 purchase-type"
       ></Button>
       <Button
         label="一磅"
-        class="p-button-outlined p-button-info p-mr-4"
+        class="p-button-outlined p-button-info p-mr-4 purchase-type"
       ></Button>
     </div>
     <div class="p-col-12">
@@ -48,3 +48,9 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+.purchase-type:focus {
+  background-color: #0288d1;
+  color: #fff;
+}
+</style>
