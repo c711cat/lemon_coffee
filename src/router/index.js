@@ -46,7 +46,7 @@ const routes = [
     ],
   },
   {
-    path: "/detail",
+    path: "/products/:id",
     component: () => import("@/components/ProductDetail.vue"),
   },
 ];
