@@ -12,3 +12,6 @@ jobs:
       run: yarn
     - name: Run ESLint
       run: yarn run eslint . --ext .js,.vue
+      with:
+        reporter: github-check
+        eslint_flags: 'src/'
