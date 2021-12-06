@@ -2,20 +2,13 @@
   <div class="p-grid">
     <h3 class="p-col-12">{{ product.name }}</h3>
     <div class="p-col-12">
-      <Button
-        label="耳掛"
-        class="p-button-outlined p-button-info p-mr-4 purchase-type"
-      ></Button>
-      <Button
-        label="半磅"
-        class="p-button-outlined p-button-info p-mr-4 purchase-type"
-      ></Button>
-      <Button
-        label="一磅"
-        class="p-button-outlined p-button-info p-mr-4 purchase-type"
-      ></Button>
+      <SelectButton
+        v-model="product.type"
+        :options="typeOfOptions"
+        class="selected"
+      />
     </div>
-    <div class="p-col-12">
+    <div class="p-col-fixes p-fluid p-ml-2" style="width: 202px">
       <InputNumber
         v-model="product.qty"
         class="p-inputtext-sm"
@@ -39,18 +32,12 @@ export default {
   data() {
     return {
       product: {
-        id: 5,
         name: "瓜地馬拉 阿卡特南果 聖塔費麗莎莊園 藍鑽 水洗",
         qty: 1,
         type: "",
       },
+      typeOfOptions: ["耳掛", "半磅", "一磅"],
     };
   },
 };
 </script>
-<style lang="scss" scoped>
-.purchase-type:focus {
-  background-color: #0288d1;
-  color: #fff;
-}
-</style>
