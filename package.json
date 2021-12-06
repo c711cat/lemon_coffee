@@ -57,7 +57,7 @@
     },
     "ignorePatterns": ["dist/**"],
     "rules": {
-      "no-console": "warn"
+      "no-console": "error"
     },
     "overrides": [
       {
