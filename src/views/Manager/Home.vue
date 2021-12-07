@@ -24,7 +24,6 @@ export default {
       products: [],
       showEditButton: true,
       disableDrag: false,
-      token: "",
     };
   },
   components: {
@@ -38,9 +37,8 @@ export default {
   methods: {
     getProducts() {
       const api = `${process.env.VUE_APP_API}/admin/products`;
-      const headers = { Authorization: this.token };
+      const headers = { Authorization: Cookies.get("lemonToken") };
       axios.get(api, { headers }).then((response) => {
-        console.log(response);
         this.products = [...response.data];
       });
     },
@@ -49,9 +47,7 @@ export default {
     },
   },
   created() {
-    this.token = Cookies.get("lemonToken");
-    console.log(this.token);
-    if (this.token) {
+    if (Cookies.get("lemonToken")) {
       this.getProducts();
     } else {
       this.$router.push("/entrance/login");
