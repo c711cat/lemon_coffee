@@ -67,6 +67,7 @@
 
 <script>
 import axios from "axios";
+
 export default {
   data() {
     return {
@@ -111,7 +112,6 @@ export default {
           });
           this.$router.push("/entrance/login");
         })
-
         .catch(() => {
           this.$toast.add({
             severity: "error",
