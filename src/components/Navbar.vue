@@ -12,21 +12,16 @@
         </router-link>
       </template>
       <template #end>
-        <router-link to="/entrance/login" class="link-content">
+        <router-link v-if="!is_login" to="/entrance/login" class="link-content">
           <Button
-            v-if="!member"
             label="登入 / 註冊"
             icon="pi pi-fw pi-user"
             class="p-button-text p-button-plain"
           >
           </Button>
         </router-link>
-        <router-link to="/beanlist" class="link-content">
-          <Button
-            v-if="member"
-            icon="pi pi-fw pi-user"
-            class="p-button-text p-button-plain"
-          >
+        <router-link v-if="is_login" to="/beanlist" class="link-content">
+          <Button icon="pi pi-fw pi-user" class="p-button-text p-button-plain">
           </Button>
         </router-link>
         <Button
@@ -51,6 +46,7 @@
 <script>
 import CartSidebar from "@/components/CartSidebar.vue";
 import emitter from "@/methods/emitter.js";
+
 export default {
   data() {
     return {
@@ -62,7 +58,7 @@ export default {
         },
       ],
       visibleRight: false,
-      member: false,
+      is_login: false,
     };
   },
   components: { CartSidebar },
@@ -71,9 +67,10 @@ export default {
       emitter,
     };
   },
+
   created() {
     emitter.on("refreshIdentity", () => {
-      this.member = true;
+      this.is_login = true;
     });
   },
 };
