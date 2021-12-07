@@ -31,8 +31,9 @@ export default {
   methods: {
     login() {
       const api = `${process.env.VUE_APP_API}/users/sign_in`;
-      axios.post(api, { user: this.login_data }).then((response) => {
-        if (response.status === 201) {
+      axios
+        .post(api, { user: this.login_data })
+        .then(() => {
           this.$toast.add({
             severity: "success",
             summary: "登入成功",
@@ -40,17 +41,14 @@ export default {
           });
           this.emitter.emit("refreshIdentity");
           this.$router.push("/beanlist");
-        }
-      });
-      axios.post(api, { user: this.login_data }).catch((error) => {
-        if (error) {
+        })
+        .catch(() => {
           this.$toast.add({
             severity: "error",
             summary: "登入失敗",
             life: 2000,
           });
-        }
-      });
+        });
     },
   },
 };
