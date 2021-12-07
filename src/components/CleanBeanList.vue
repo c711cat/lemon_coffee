@@ -10,7 +10,7 @@
       <template #item="{ element }">
         <div class="bean-list-unit">
           <div class="bean-list-unit-left">
-            <a href="#">
+            <a href="#" @click.prevent="goToProduct(element.id)">
               <div class="unit-up">
                 <div class="bean-name">{{ element.name }}</div>
                 <div class="bean-price-type">
@@ -95,6 +95,9 @@ export default {
     },
     openDelConfirm(item) {
       this.$refs.delConfirm.openConfirm(item);
+    },
+    goToProduct(id) {
+      this.$router.push(`/products/${id}`);
     },
   },
 };

@@ -43,8 +43,13 @@ const routes = [
           },
         ],
       },
+      {
+        path: "products/:id",
+        component: () => import("@/components/ProductDetail.vue"),
+      },
     ],
   },
+  
 ];
 
 const router = createRouter({
