@@ -37,9 +37,10 @@ export default {
   },
   methods: {
     getProducts() {
-      axios.defaults.headers.common.Authorization = this.token;
       const api = `${process.env.VUE_APP_API}/admin/products`;
-      axios.get(api).then((response) => {
+      const headers = { Authorization: this.token };
+      axios.get(api, { headers }).then((response) => {
+        console.log(response);
         this.products = [...response.data];
       });
     },
