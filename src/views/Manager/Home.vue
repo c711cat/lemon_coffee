@@ -16,6 +16,7 @@
 import axios from "axios";
 import CleanBeanList from "@/components/CleanBeanList.vue";
 import emitter from "@/methods/emitter.js";
+import Cookies from "js-cookie";
 
 export default {
   data() {
@@ -36,7 +37,8 @@ export default {
   methods: {
     getProducts() {
       const api = `${process.env.VUE_APP_API}/admin/products`;
-      axios.get(api).then((response) => {
+      const headers = { Authorization: Cookies.get("lemonToken") };
+      axios.get(api, { headers }).then((response) => {
         this.products = [...response.data];
       });
     },
@@ -45,7 +47,11 @@ export default {
     },
   },
   created() {
-    this.getProducts();
+    if (Cookies.get("lemonToken")) {
+      this.getProducts();
+    } else {
+      this.$router.push("/entrance/login");
+    }
     emitter.on("refreshBeanList", () => {
       this.getProducts();
     });
