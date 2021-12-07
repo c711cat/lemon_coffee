@@ -34,7 +34,7 @@ export default {
       product: {
         name: "瓜地馬拉 阿卡特南果 聖塔費麗莎莊園 藍鑽 水洗",
         qty: 1,
-        type: "",
+        type: "半磅",
       },
       typeOfOptions: ["耳掛", "半磅", "一磅"],
     };
