@@ -35,8 +35,6 @@ export default {
         .post(api, { user: this.login_data })
         .then((response) => {
           const token = response.headers.authorization;
-          console.log(response);
-          console.log(token);
           document.cookie = `lemonToken=${token}`;
           this.$toast.add({
             severity: "success",
