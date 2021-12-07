@@ -2,15 +2,11 @@
   <div class="p-fluid">
     <div class="p-field">
       <label for="email">Email</label>
-      <InputText id="email" type="text" v-model="login_data.user.email" />
+      <InputText id="email" type="text" v-model="login_data.email" />
     </div>
     <div class="p-field">
       <label for="password">密碼</label>
-      <InputText
-        id="password"
-        type="password"
-        v-model="login_data.user.password"
-      />
+      <InputText id="password" type="password" v-model="login_data.password" />
     </div>
     <Button label="登入" @click.prevent="login" />
   </div>
@@ -25,10 +21,8 @@ export default {
   data() {
     return {
       login_data: {
-        user: {
-          email: "",
-          password: "",
-        },
+        email: "",
+        password: "",
       },
     };
   },
@@ -36,7 +30,7 @@ export default {
   methods: {
     login() {
       const api = `${process.env.VUE_APP_API}/users/sign_in`;
-      axios.post(api, this.login_data).then((response) => {
+      axios.post(api, { user: this.login_data }).then((response) => {
         if (response.status === 201) {
           this.$toast.add({
             severity: "success",
@@ -47,7 +41,7 @@ export default {
           this.$router.push("/beanlist");
         }
       });
-      axios.post(api, this.login_data).catch((error) => {
+      axios.post(api, { user: this.login_data }).catch((error) => {
         if (error) {
           this.$toast.add({
             severity: "error",
