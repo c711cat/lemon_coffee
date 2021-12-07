@@ -16,6 +16,7 @@
 import axios from "axios";
 import CleanBeanList from "@/components/CleanBeanList.vue";
 import emitter from "@/methods/emitter.js";
+import Cookies from "js-cookie";
 
 export default {
   data() {
@@ -47,10 +48,7 @@ export default {
     },
   },
   created() {
-    this.token = document.cookie.replace(
-      /(?:(?:^|.*;\s*)lemonToken\s*=\s*([^;]*).*$)|^.*$/,
-      "$1"
-    );
+    this.token = Cookies.get("lemonToken");
     console.log(this.token);
     if (this.token) {
       this.getProducts();
