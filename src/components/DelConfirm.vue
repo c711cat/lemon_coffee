@@ -5,6 +5,7 @@
 
 <script>
 import axios from "axios";
+import Cookies from "js-cookie";
 
 export default {
   inject: ["emitter"],
@@ -18,7 +19,8 @@ export default {
         rejectLabel: "取消",
         accept: () => {
           const api = `${process.env.VUE_APP_API}/admin/products/${item.id}`;
-          axios.delete(api).then((response) => {
+          const headers = { Authorization: Cookies.get("lemonToken") };
+          axios.delete(api, { headers }).then((response) => {
             if (response.status === 204) {
               this.emitter.emit("refreshBeanList");
               this.$toast.add({
