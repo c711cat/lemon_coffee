@@ -38,9 +38,14 @@ export default {
     getProducts() {
       const api = `${process.env.VUE_APP_API}/admin/products`;
       const headers = { Authorization: Cookies.get("lemonToken") };
-      axios.get(api, { headers }).then((response) => {
-        this.products = [...response.data];
-      });
+      axios
+        .get(api, { headers })
+        .then((response) => {
+          this.products = [...response.data];
+        })
+        .catch(() => {
+          this.$router.push("/entrance/login");
+        });
     },
     toAddProduct() {
       this.$router.push("/admin/products/new");
