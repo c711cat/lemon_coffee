@@ -6,6 +6,10 @@ const routes = [
     component: () => import("@/views/Manager/Root.vue"),
     children: [
       {
+        path: "home",
+        component: () => import("@/components/Home.vue"),
+      },
+      {
         path: "products",
         component: () => import("@/views/Manager/Home.vue"),
       },

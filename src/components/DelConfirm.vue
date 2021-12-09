@@ -38,7 +38,7 @@ export default {
           }
         })
         .catch(() => {
-          this.$router.push("/entrance/login");
+          this.$router.push("/m-admin/login");
         });
     },
   },

@@ -35,12 +35,7 @@ export default {
           }
         })
         .catch(() => {
-          this.$toast.add({
-            severity: "error",
-            summary: "新增失敗",
-            life: 2000,
-          });
-          this.$router.push("/entrance/login");
+          this.$router.push("/m-admin/login");
         });
     },
   },
