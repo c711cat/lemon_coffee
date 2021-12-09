@@ -11,7 +11,7 @@
         </router-link>
       </template>
       <template #end>
-        <router-link v-if="!is_login" to="/m-admin/login" class="link-content">
+        <router-link v-if="!token" to="/m-admin/login" class="link-content">
           <Button
             label="登入"
             icon="pi pi-fw pi-user"
@@ -19,11 +19,7 @@
           >
           </Button>
         </router-link>
-        <router-link
-          v-if="is_login"
-          to="/m-admin/products"
-          class="link-content"
-        >
+        <router-link v-if="token" to="/m-admin/products" class="link-content">
           <Button icon="pi pi-fw pi-user" class="p-button-text p-button-plain">
           </Button>
         </router-link>
@@ -33,7 +29,7 @@
 </template>
 
 <script>
-import emitter from "@/methods/emitter.js";
+import Cookies from "js-cookie";
 
 export default {
   data() {
@@ -47,13 +43,11 @@ export default {
       ],
       visibleRight: false,
       is_login: false,
+      token: "",
     };
   },
-  inject: ["emitter"],
   created() {
-    emitter.on("refreshIdentity", () => {
-      this.is_login = true;
-    });
+    this.token = Cookies.get("lemonToken");
   },
 };
 </script>

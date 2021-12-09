@@ -27,7 +27,6 @@ export default {
       },
     };
   },
-  inject: ["emitter"],
   methods: {
     login() {
       const api = `${process.env.VUE_APP_API}/users/sign_in`;
@@ -41,7 +40,6 @@ export default {
             summary: "登入成功",
             life: 2000,
           });
-          this.emitter.emit("refreshIdentity");
           if (this.$route.path === "/m-admin/login") {
             this.$router.push("/m-admin/products");
           } else {
