@@ -20,9 +20,14 @@ export default {
     getProduct() {
       const api = `${process.env.VUE_APP_API}/admin/products/${this.$route.params.productId}/edit`;
       const headers = { Authorization: Cookies.get("lemonToken") };
-      axios.get(api, { headers }).then((response) => {
-        this.product = response.data;
-      });
+      axios
+        .get(api, { headers })
+        .then((response) => {
+          this.product = response.data;
+        })
+        .catch(() => {
+          this.$router.push("/entrance/login");
+        });
     },
 
     updateProduct(updateItem) {
@@ -35,6 +40,9 @@ export default {
           if (response.status === 200) {
             this.$router.push("/admin");
           }
+        })
+        .catch(() => {
+          this.$router.push("/entrance/login");
         });
     },
   },
