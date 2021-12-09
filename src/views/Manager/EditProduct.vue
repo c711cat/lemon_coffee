@@ -26,7 +26,7 @@ export default {
           this.product = response.data;
         })
         .catch(() => {
-          this.$router.push("/entrance/login");
+          this.$router.push("/m-admin/login");
         });
     },
 
@@ -38,11 +38,11 @@ export default {
         .put(api, { product: this.product }, { headers })
         .then((response) => {
           if (response.status === 200) {
-            this.$router.push("/admin");
+            this.$router.push("/m-admin/products");
           }
         })
         .catch(() => {
-          this.$router.push("/entrance/login");
+          this.$router.push("/m-admin/login");
         });
     },
   },

@@ -6,8 +6,20 @@ const routes = [
     component: () => import("@/views/Manager/Root.vue"),
     children: [
       {
+        path: "home",
+        component: () => import("@/components/Home.vue"),
+      },
+      {
         path: "products",
         component: () => import("@/views/Manager/Home.vue"),
+      },
+      {
+        path: "products/new",
+        component: () => import("@/views/Manager/AddProduct.vue"),
+      },
+      {
+        path: "products/edit/:productId",
+        component: () => import("@/views/Manager/EditProduct.vue"),
       },
       {
         path: "login",

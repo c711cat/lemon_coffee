@@ -44,18 +44,18 @@ export default {
           this.products = [...response.data];
         })
         .catch(() => {
-          this.$router.push("/entrance/login");
+          this.$router.push("/m-admin/login");
         });
     },
     toAddProduct() {
-      this.$router.push("/admin/products/new");
+      this.$router.push("/m-admin/products/new");
     },
   },
   created() {
     if (Cookies.get("lemonToken")) {
       this.getProducts();
     } else {
-      this.$router.push("/entrance/login");
+      this.$router.push("/m-admin/login");
     }
     emitter.on("refreshBeanList", () => {
       this.getProducts();
