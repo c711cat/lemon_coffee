@@ -26,7 +26,7 @@ export default {
           this.product = response.data;
         })
         .catch(() => {
-          this.$router.push("/entrance/login");
+          this.$router.push("/m-admin/login");
         });
     },
 
@@ -42,7 +42,7 @@ export default {
           }
         })
         .catch(() => {
-          this.$router.push("/entrance/login");
+          this.$router.push("/m-admin/login");
         });
     },
   },
