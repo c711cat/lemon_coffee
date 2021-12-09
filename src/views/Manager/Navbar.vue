@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import emitter from "@/methods/emitter.js";
+
 export default {
   data() {
     return {
@@ -38,6 +40,12 @@ export default {
       visibleRight: false,
       is_login: false,
     };
+  },
+  inject: ["emitter"],
+  created() {
+    emitter.on("refreshIdentity", () => {
+      this.is_login = true;
+    });
   },
 };
 </script>

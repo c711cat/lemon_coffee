@@ -42,7 +42,11 @@ export default {
             life: 2000,
           });
           this.emitter.emit("refreshIdentity");
-          this.$router.push("/beanlist");
+          if (this.$route.path === "/m-admin/login") {
+            this.$router.push("/m-admin/products");
+          } else {
+            this.$router.push("/beanlist");
+          }
         })
         .catch(() => {
           this.$toast.add({
