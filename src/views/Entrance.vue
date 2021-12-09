@@ -1,7 +1,7 @@
 <template>
-  <div class="wrap">
+  <div class="p-my-0 p-mx-auto p-p-4 wrap">
     <TabMenu :model="items" />
-    <div class="inner-wrap"><router-view /></div>
+    <router-view />
   </div>
 </template>
 
@@ -27,11 +27,5 @@ export default {
 <style lang="scss" scoped>
 .wrap {
   max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.inner-wrap {
-  margin-top: 35px;
 }
 </style>
