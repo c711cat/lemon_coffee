@@ -11,12 +11,20 @@
         </router-link>
       </template>
       <template #end>
-        <router-link to="/entrance/login" class="link-content">
+        <router-link v-if="!is_login" to="/m-admin/login" class="link-content">
           <Button
-            label="登入 / 註冊"
+            label="登入"
             icon="pi pi-fw pi-user"
             class="p-button-text p-button-plain"
           >
+          </Button>
+        </router-link>
+        <router-link
+          v-if="is_login"
+          to="/m-admin/products"
+          class="link-content"
+        >
+          <Button icon="pi pi-fw pi-user" class="p-button-text p-button-plain">
           </Button>
         </router-link>
       </template>
@@ -34,7 +42,7 @@ export default {
         {
           label: "豆單",
           icon: "pi pi-fw pi-book",
-          to: "/admin",
+          to: "/m-admin/products",
         },
       ],
       visibleRight: false,
