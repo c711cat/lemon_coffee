@@ -11,6 +11,7 @@ export default {
   inject: ["emitter"],
   methods: {
     openConfirm(item) {
+      this.getTokenExpiryTime();
       this.$confirm.require({
         message: item.name + " ?",
         header: "確定刪除",
@@ -18,21 +19,39 @@ export default {
         acceptLabel: "確定",
         rejectLabel: "取消",
         accept: () => {
-          const api = `${process.env.VUE_APP_API}/admin/products/${item.id}`;
-          const headers = { Authorization: Cookies.get("lemonToken") };
-          axios.delete(api, { headers }).then((response) => {
-            if (response.status === 204) {
-              this.emitter.emit("refreshBeanList");
-              this.$toast.add({
-                severity: "success",
-                summary: "已成功刪除",
-                detail: item.name,
-                life: 10000,
-              });
-            }
-          });
+          this.delProduct(item);
         },
       });
+    },
+    getTokenExpiryTime() {
+      const api = `${process.env.VUE_APP_API}/admin/products`;
+      const headers = { Authorization: Cookies.get("lemonToken") };
+      axios
+        .get(api, { headers })
+        .then(() => {})
+        .catch(() => {
+          this.$router.push("/entrance/login");
+        });
+    },
+    delProduct(item) {
+      const api = `${process.env.VUE_APP_API}/admin/products/${item.id}`;
+      const headers = { Authorization: Cookies.get("lemonToken") };
+      axios
+        .delete(api, { headers })
+        .then((response) => {
+          if (response.status === 204) {
+            this.emitter.emit("refreshBeanList");
+            this.$toast.add({
+              severity: "success",
+              summary: "已成功刪除",
+              detail: item.name,
+              life: 10000,
+            });
+          }
+        })
+        .catch(() => {
+          this.$router.push("/entrance/login");
+        });
     },
   },
 };
