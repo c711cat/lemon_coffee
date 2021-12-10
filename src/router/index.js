@@ -21,6 +21,10 @@ const routes = [
         path: "products/edit/:productId",
         component: () => import("@/views/Manager/EditProduct.vue"),
       },
+      {
+        path: "products/:id",
+        component: () => import("@/components/ProductDetail.vue"),
+      },
       
     ],
   },
