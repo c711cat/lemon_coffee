@@ -91,7 +91,7 @@ export default {
   components: { Roast, Draggable, DelConfirm },
   methods: {
     editProduct(item) {
-      this.$router.push(`/admin/products/edit/${item.id}`);
+      this.$router.push(`/m-admin/products/edit/${item.id}`);
     },
     openDelConfirm(item) {
       this.$refs.delConfirm.openConfirm(item);
