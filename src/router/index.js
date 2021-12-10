@@ -41,7 +41,7 @@ const routes = [
   },
   {
     path: "/",
-    component: () => import("@/components/Navbar.vue"),
+    component: () => import("@/views/UserRoot.vue"),
     children: [
       {
         path: "home",
