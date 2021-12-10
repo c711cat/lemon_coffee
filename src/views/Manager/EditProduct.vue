@@ -38,10 +38,21 @@ export default {
         .put(api, { product: this.product }, { headers })
         .then((response) => {
           if (response.status === 200) {
+            this.$toast.add({
+              severity: "success",
+              summary: "成功編輯",
+              detail: updateItem.name,
+              life: 2000,
+            });
             this.$router.push("/m-admin/products");
           }
         })
         .catch(() => {
+          this.$toast.add({
+            severity: "error",
+            summary: "編輯失敗",
+            life: 2000,
+          });
           this.$router.push("/m-admin/login");
         });
     },
