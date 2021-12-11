@@ -5,6 +5,7 @@
 <script>
 import axios from "axios";
 import ProductForm from "@/components/ProductForm.vue";
+import Cookies from "js-cookie";
 
 export default {
   data() {
@@ -19,11 +20,17 @@ export default {
     addProduct(addItem) {
       this.product = { ...addItem };
       const api = `${process.env.VUE_APP_API}/admin/products`;
-      axios.post(api, { product: this.product }).then((response) => {
-        if (response.status === 200) {
-          this.$router.push("/admin");
-        }
-      });
+      const headers = { Authorization: Cookies.get("lemonToken") };
+      axios
+        .post(api, { product: this.product }, { headers })
+        .then((response) => {
+          if (response.status === 200) {
+            this.$router.push("/admin");
+          }
+        })
+        .catch(() => {
+          this.$router.push("/entrance/login");
+        });
     },
   },
 };
