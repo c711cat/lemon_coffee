@@ -2,7 +2,7 @@
   <div id="navbar-style">
     <Menubar :model="items">
       <template #start>
-        <router-link to="/m-admin/home"
+        <router-link to="/home"
           ><img
             class="logo-img"
             alt="logo"
