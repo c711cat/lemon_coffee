@@ -32,19 +32,6 @@ export default {
           this.$router.push("/entrance/login");
         });
     },
-    getTokenExpiryTime() {
-      const api = `${process.env.VUE_APP_API}/admin/products`;
-      const headers = { Authorization: Cookies.get("lemonToken") };
-      axios
-        .get(api, { headers })
-        .then(() => {})
-        .catch(() => {
-          this.$router.push("/entrance/login");
-        });
-    },
-  },
-  created() {
-    this.getTokenExpiryTime();
   },
 };
 </script>
