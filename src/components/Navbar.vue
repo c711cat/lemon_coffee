@@ -27,23 +27,14 @@
         <Button
           icon="pi pi-fw pi-shopping-cart"
           class="p-button-text p-button-plain p-mr-2"
-          @click="visibleRight = true"
+          @click.prevent="$emit('change-visible')"
         />
       </template>
     </Menubar>
-    <Sidebar
-      v-model:visible="visibleRight"
-      position="right"
-      class="sidebar-wrap"
-      style="width: 380px"
-    >
-      <CartSidebar></CartSidebar>
-    </Sidebar>
   </div>
 </template>
 
 <script>
-import CartSidebar from "@/components/CartSidebar.vue";
 import Cookies from "js-cookie";
 
 export default {
@@ -56,12 +47,10 @@ export default {
           to: "/beanlist",
         },
       ],
-      visibleRight: false,
       token: "",
     };
   },
-  components: { CartSidebar },
-
+  emits: ["change-visible"],
   created() {
     this.token = Cookies.get("lemonToken");
   },
@@ -78,8 +67,5 @@ export default {
 }
 .link-content {
   text-decoration: none;
-}
-.sidebar-wrap {
-  width: 500px;
 }
 </style>
