@@ -17,10 +17,7 @@ const routes = [
         path: "products/edit/:productId",
         component: () => import("@/views/Manager/EditProduct.vue"),
       },
-      {
-        path: "login",
-        component: () => import("@/components/Login.vue"),
-      },
+      
     ],
   },
   {
