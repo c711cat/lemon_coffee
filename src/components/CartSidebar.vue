@@ -5,8 +5,8 @@
 
   <div
     class="p-grid divider p-m-0 p-pt-3 p-jc-between p-ai-center"
-    v-for="item in products"
-    :key="item.id"
+    v-for="(item, index) in cartItems"
+    :key="index + item.product_id"
   >
     <Button
       icon="pi pi-trash"
@@ -17,18 +17,18 @@
     <img :src="item.image" class="product-image p-col-3 p-p-0" />
 
     <div class="p-col-8 p-pl-3">
-      {{ item.name }}<br />
+      {{ item.product_name }}<br />
       {{ item.status }}<br />
     </div>
 
     <div class="p-col-fixed p-pl-3" style="width: 125px">
-      $ {{ item.price }} / {{ item.unit }}
+      $ {{ item.unit_price }} / {{ item.package_type }}
     </div>
 
     <div class="p-fluid p-col-fixed p-p-0 p-my-3" style="width: 129px">
       <InputNumber
         class="p-inputtext-sm"
-        v-model="item.qty"
+        v-model="item.quantity"
         :min="1"
         showButtons
         buttonLayout="horizontal"
@@ -45,12 +45,12 @@
       </div>
 
       <del class="del-content" v-if="item.discount"
-        >$ {{ item.price * item.qty }}
+        >$ {{ item.unit_price * item.quantity }}
       </del>
 
       <div v-if="item.sale_price">$ {{ item.sale_price }}</div>
 
-      <div v-else>$ {{ item.price * item.qty }}</div>
+      <div v-else>$ {{ item.unit_price * item.quantity }}</div>
     </div>
   </div>
 
@@ -160,6 +160,10 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.cartItems = [...response.data];
+            console.log(this.cartItems);
+            // if (this.cartItems.package_type === "half_pound") {
+            //   this.cartItems.package_type = "半磅";
+            // }
           }
         })
         .catch(() => {
