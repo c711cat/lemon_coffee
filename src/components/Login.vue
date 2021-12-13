@@ -46,11 +46,7 @@ export default {
             summary: "登入成功",
             life: 2000,
           });
-          if (this.$route.path === "/m-admin/login") {
-            this.$router.push("/m-admin/products");
-          } else {
-            this.$router.push("/beanlist");
-          }
+          history.back();
         })
         .catch(() => {
           this.$toast.add({
