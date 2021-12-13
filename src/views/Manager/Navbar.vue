@@ -11,7 +11,7 @@
         </router-link>
       </template>
       <template #end>
-        <router-link v-if="!token" to="/m-admin/login" class="link-content">
+        <router-link v-if="!token" to="/entrance/login" class="link-content">
           <Button
             label="登入"
             icon="pi pi-fw pi-user"
