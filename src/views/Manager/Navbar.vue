@@ -2,8 +2,8 @@
   <div id="admin-navbar">
     <Menubar :model="items">
       <template #start>
-        <router-link to="/home"
-          ><img
+        <router-link to="/home">
+          <img
             class="logo-img"
             alt="logo"
             src="@/assets/img/LemonCoffee/logo1.png"
