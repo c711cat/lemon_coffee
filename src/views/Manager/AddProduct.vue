@@ -25,7 +25,7 @@ export default {
         .post(api, { product: this.product }, { headers })
         .then((response) => {
           if (response.status === 200) {
-            this.$router.push("/admin");
+            this.$router.push("/m-admin/products");
           }
         })
         .catch(() => {

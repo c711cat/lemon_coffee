@@ -2,6 +2,25 @@ import { createRouter, createWebHashHistory } from "vue-router";
 
 const routes = [
   {
+    path: "/m-admin",
+    component: () => import("@/views/Manager/Root.vue"),
+    children: [
+      {
+        path: "products",
+        component: () => import("@/views/Manager/Home.vue"),
+      },
+      {
+        path: "products/new",
+        component: () => import("@/views/Manager/AddProduct.vue"),
+      },
+      {
+        path: "products/edit/:productId",
+        component: () => import("@/views/Manager/EditProduct.vue"),
+      },
+      
+    ],
+  },
+  {
     path: "/admin",
     component: () => import("@/views/Manager/Home.vue"),
   },
