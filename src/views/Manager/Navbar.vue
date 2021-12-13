@@ -56,13 +56,16 @@ export default {
 .logo-img {
   width: 60px;
 }
+
 .logo-img:hover {
   background: #e9ecef;
   border-radius: 3px;
 }
+
 .link-content {
   text-decoration: none;
 }
+
 .sidebar-wrap {
   width: 500px;
 }
