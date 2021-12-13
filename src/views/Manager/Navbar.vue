@@ -1,5 +1,5 @@
 <template>
-  <div id="navbar-style">
+  <div id="admin-navbar">
     <Menubar :model="items">
       <template #start>
         <router-link to="/home"
