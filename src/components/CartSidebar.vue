@@ -101,6 +101,9 @@
 </template>
 
 <script>
+import axios from "axios";
+import Cookies from "js-cookie";
+
 export default {
   data() {
     return {
@@ -145,7 +148,27 @@ export default {
           qty: 2,
         },
       ],
+      cartItems: [],
     };
+  },
+  methods: {
+    getCart() {
+      const api = `${process.env.VUE_APP_API}/users/cart_items`;
+      const headers = { Authorization: Cookies.get("lemonToken") };
+      axios
+        .get(api, { headers })
+        .then((response) => {
+          if (response.status === 200) {
+            this.cartItems = [...response.data];
+          }
+        })
+        .catch(() => {
+          this.$router.push("/entrance/login");
+        });
+    },
+  },
+  created() {
+    this.getCart();
   },
 };
 </script>
