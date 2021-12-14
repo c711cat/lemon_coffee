@@ -22,7 +22,7 @@
       磨粉不磨粉?<br />
     </div>
 
-    <div class="p-col-fixed p-pl-3" style="width: 125px">
+    <div class="p-col-fixed p-pl-3">
       $ {{ item.unit_price }} / {{ item.package_type }}
     </div>
 
@@ -41,7 +41,10 @@
       />
     </div>
 
-    <div class="p-col-3 p-text-right subtotal-container p-px-1">
+    <div
+      class="p-col-fixed p-text-right subtotal-container p-px-1"
+      style="width: 80px"
+    >
       <div class="discount-content" v-if="item.discount">
         {{ item.discount }}
       </div>
