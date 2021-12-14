@@ -130,6 +130,7 @@ export default {
         });
     },
     calculatePrice() {
+      this.subtotal = 0;
       this.cartItems.forEach((item) => {
         this.subtotal += item.unit_price * item.quantity;
       });
