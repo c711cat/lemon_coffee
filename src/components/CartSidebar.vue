@@ -104,7 +104,7 @@ export default {
   data() {
     return {
       subtotal: 0,
-      freight_cost: 100,
+      freight_cost: 0,
       total_payment_price: 0,
       buy_more_discount: 0,
       free_shipping: 0,
@@ -132,7 +132,7 @@ export default {
       this.cartItems.forEach((item) => {
         this.subtotal += item.unit_price * item.quantity;
       });
-      this.total_payment_price = this.subtotal + this.freight_cost;
+      this.total_payment_price = this.subtotal;
     },
   },
   created() {
