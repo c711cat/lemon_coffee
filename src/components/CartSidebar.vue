@@ -28,6 +28,7 @@
 
     <div class="p-fluid p-col-fixed p-p-0 p-my-3" style="width: 129px">
       <InputNumber
+        @input="updateCart(item)"
         class="p-inputtext-sm"
         v-model="item.quantity"
         :min="1"
@@ -121,7 +122,6 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.cartItems = [...response.data];
-            console.log(this.cartItems);
             this.calculatePrice();
           }
         })
@@ -147,6 +147,21 @@ export default {
               summary: "已刪除商品",
               life: 2000,
             });
+            this.getCart();
+          }
+        })
+        .catch(() => {
+          this.$router.push("/entrance/login");
+        });
+    },
+    updateCart(item) {
+      const data = { quantity: item.quantity };
+      const api = `${process.env.VUE_APP_API}/users/cart_items/${item.product_id}`;
+      const headers = { Authorization: Cookies.get("lemonToken") };
+      axios
+        .put(api, { cart_item: data }, { headers })
+        .then((response) => {
+          if (response.status === 200) {
             this.getCart();
           }
         })
