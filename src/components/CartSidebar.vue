@@ -29,6 +29,7 @@
     <div class="p-fluid p-col-fixed p-p-0 p-my-3" style="width: 129px">
       <InputNumber
         @input="updateCart(item)"
+        @change="updateCart(item)"
         class="p-inputtext-sm"
         v-model="item.quantity"
         :min="1"
