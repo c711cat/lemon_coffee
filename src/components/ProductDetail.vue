@@ -87,8 +87,29 @@ export default {
             history.back();
           }
         })
-        .catch(() => {
-          this.$router.push("/entrance/login");
+        .catch((error) => {
+          if (error.response.data === "Invalid segment encoding") {
+            this.$toast.add({
+              severity: "error",
+              summary: "請重新登入",
+              life: 5000,
+            });
+            this.$router.push("/entrance/login");
+          }
+          if (error.response.data.quantity[0] === "must be greater than 0") {
+            this.$toast.add({
+              severity: "error",
+              summary: "最小購買量為 1",
+              life: 5000,
+            });
+          }
+          if (error.response.data.product) {
+            this.$toast.add({
+              severity: "error",
+              summary: "此商品不存在",
+              life: 5000,
+            });
+          }
         });
     },
   },
