@@ -181,7 +181,7 @@ export default {
         .put(api, { cart_item: data }, { headers })
         .then((response) => {
           if (response.status === 200) {
-            this.getCart();
+            this.calculatePrice();
           }
         })
         .catch(() => {
