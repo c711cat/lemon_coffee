@@ -199,7 +199,6 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error.response);
           if (error.response.data === "Invalid segment encoding") {
             this.$toast.add({
               severity: "error",
