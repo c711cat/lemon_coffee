@@ -97,11 +97,7 @@ export default {
       this.$refs.delConfirm.openConfirm(item);
     },
     goToProduct(id) {
-      if (this.$route.path === "/m-admin/products") {
-        this.$router.push(`/m-admin/products/${id}`);
-      } else {
-        this.$router.push(`/products/${id}`);
-      }
+      this.$router.push(`/products/${id}`);
     },
   },
 };
