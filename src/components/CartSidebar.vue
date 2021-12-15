@@ -130,8 +130,15 @@ export default {
             this.changeTypeText();
           }
         })
-        .catch(() => {
-          this.$router.push("/entrance/login");
+        .catch((error) => {
+          if (error.response.data === "Invalid segment encoding") {
+            this.$toast.add({
+              severity: "error",
+              summary: "請重新登入",
+              life: 5000,
+            });
+            this.$router.push("/entrance/login");
+          }
         });
     },
     calculatePrice() {
@@ -169,8 +176,15 @@ export default {
             this.getCart();
           }
         })
-        .catch(() => {
-          this.$router.push("/entrance/login");
+        .catch((error) => {
+          if (error.response.data === "Invalid segment encoding") {
+            this.$toast.add({
+              severity: "error",
+              summary: "請重新登入",
+              life: 5000,
+            });
+            this.$router.push("/entrance/login");
+          }
         });
     },
     updateCart(item) {
@@ -184,8 +198,23 @@ export default {
             this.calculatePrice();
           }
         })
-        .catch(() => {
-          this.$router.push("/entrance/login");
+        .catch((error) => {
+          console.log(error.response);
+          if (error.response.data === "Invalid segment encoding") {
+            this.$toast.add({
+              severity: "error",
+              summary: "請重新登入",
+              life: 5000,
+            });
+            this.$router.push("/entrance/login");
+          }
+          if (error.response.data.quantity[0] === "must be greater than 0") {
+            this.$toast.add({
+              severity: "error",
+              summary: "最小購買量為 1",
+              life: 5000,
+            });
+          }
         });
     },
   },
