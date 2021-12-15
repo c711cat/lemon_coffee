@@ -40,7 +40,7 @@ export default {
             summary: "新增失敗",
             life: 2000,
           });
-          this.$router.push("/m-admin/login");
+          this.$router.push("/entrance/login");
         });
     },
   },

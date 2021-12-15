@@ -12,6 +12,7 @@
     ></CleanBeanList>
   </div>
 </template>
+
 <script>
 import axios from "axios";
 import CleanBeanList from "@/components/CleanBeanList.vue";
@@ -44,7 +45,7 @@ export default {
           this.products = [...response.data];
         })
         .catch(() => {
-          this.$router.push("/m-admin/login");
+          this.$router.push("/entrance/login");
         });
     },
     toAddProduct() {
@@ -55,7 +56,7 @@ export default {
     if (Cookies.get("lemonToken")) {
       this.getProducts();
     } else {
-      this.$router.push("/m-admin/login");
+      this.$router.push("/entrance/login");
     }
     emitter.on("refreshBeanList", () => {
       this.getProducts();
@@ -63,19 +64,23 @@ export default {
   },
 };
 </script>
+
 <style lang="scss" scoped>
 * {
   box-sizing: border-box;
   font-family: system-ui;
 }
+
 .products-wrap {
   max-width: 1200px;
   margin: auto;
 }
+
 .add-btn-container {
   display: flex;
   flex-direction: row-reverse;
 }
+
 .add-btn {
   background: #2185d0;
   padding: 10px 15px;
@@ -87,6 +92,7 @@ export default {
   margin-top: 15px;
   cursor: pointer;
 }
+
 .add-btn:hover {
   background: #1678c2;
 }

@@ -26,7 +26,7 @@ export default {
           this.product = response.data;
         })
         .catch(() => {
-          this.$router.push("/m-admin/login");
+          this.$router.push("/entrance/login");
         });
     },
 
@@ -53,7 +53,7 @@ export default {
             summary: "編輯失敗",
             life: 2000,
           });
-          this.$router.push("/m-admin/login");
+          this.$router.push("/entrance/login");
         });
     },
   },
