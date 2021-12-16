@@ -92,11 +92,9 @@
         </div>
       </div>
     </div>
-
-    <Button
-      label="訂單結帳"
-      class="p-button-info p-button-raised p-col-12"
-    ></Button>
+    <router-link to="/cart" class="p-fluid p-col-12 p-p-0 link-content">
+      <Button label="訂單結帳" class="p-button-info p-button-raised"> </Button>
+    </router-link>
   </div>
 </template>
 
@@ -243,5 +241,9 @@ export default {
 
 .checkout-price {
   color: #0288d1;
+}
+
+.link-content {
+  text-decoration: none;
 }
 </style>
