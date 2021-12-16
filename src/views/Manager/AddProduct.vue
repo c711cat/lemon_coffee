@@ -25,10 +25,21 @@ export default {
         .post(api, { product: this.product }, { headers })
         .then((response) => {
           if (response.status === 200) {
+            this.$toast.add({
+              severity: "success",
+              summary: "成功新增",
+              detail: addItem.name,
+              life: 2000,
+            });
             this.$router.push("/m-admin/products");
           }
         })
         .catch(() => {
+          this.$toast.add({
+            severity: "error",
+            summary: "新增失敗",
+            life: 2000,
+          });
           this.$router.push("/entrance/login");
         });
     },
