@@ -40,15 +40,35 @@ export default {
           if (response.status === 200) {
             this.$toast.add({
               severity: "success",
-              summary: "成功編輯",
-              detail: updateItem.name,
+              summary: "編輯成功",
               life: 2000,
             });
             this.$router.push("/m-admin/products");
           }
         })
-        .catch(() => {
-          this.$router.push("/entrance/login");
+        .catch((error) => {
+          if (error.response.data === "Invalid segment encoding") {
+            this.$toast.add({
+              severity: "error",
+              summary: "請重新登入",
+              life: 5000,
+            });
+            this.$router.push("/entrance/login");
+          }
+          if (error.response.data.name) {
+            this.$toast.add({
+              severity: "error",
+              summary: "產品名稱不可空白",
+              life: 5000,
+            });
+          }
+          if (error.response.data.roast) {
+            this.$toast.add({
+              severity: "error",
+              summary: "烘焙度不可空白",
+              life: 5000,
+            });
+          }
         });
     },
   },
