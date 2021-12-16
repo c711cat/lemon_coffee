@@ -24,6 +24,8 @@ import Textarea from "primevue/textarea";
 import Menubar from "primevue/menubar";
 import Sidebar from "primevue/sidebar";
 import SelectButton from "primevue/selectbutton";
+import Accordion from "primevue/accordion";
+import AccordionTab from "primevue/accordiontab";
 
 const app = createApp(App);
 app.use(router);
@@ -47,5 +49,7 @@ app.component("Textarea", Textarea);
 app.component("Menubar", Menubar);
 app.component("Sidebar", Sidebar);
 app.component("SelectButton", SelectButton);
+app.component("Accordion", Accordion);
+app.component("AccordionTab", AccordionTab);
 
 app.mount("#app");

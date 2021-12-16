@@ -67,7 +67,10 @@ const routes = [
       },
     ],
   },
-  
+  {
+    path: "/orderlist",
+    component: () => import("@/components/UserOrderList.vue"),
+  },
 ];
 
 const router = createRouter({
