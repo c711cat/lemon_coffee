@@ -176,7 +176,7 @@ export default {
           }
         })
         .catch((error) => {
-          if (error.response.data === "Invalid segment encoding") {
+          if (error.response.status === 401) {
             this.$toast.add({
               severity: "error",
               summary: "請重新登入",
