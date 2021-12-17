@@ -5,8 +5,8 @@
 
   <div
     class="p-grid divider p-m-0 p-pt-3 p-jc-between p-ai-center"
-    v-for="(item, index) in cartItems"
-    :key="index"
+    v-for="item in cartItems"
+    :key="item.product_id + item.package_type"
   >
     <Button
       @click.prevent="delProduct(item)"
