@@ -41,7 +41,7 @@ export default {
           this.products = [...response.data];
         })
         .catch(() => {
-          this.$router.push("/m-admin/login");
+          this.$router.push("/entrance/login");
         });
     },
     toAddProduct() {
@@ -52,7 +52,7 @@ export default {
     if (Cookies.get("lemonToken")) {
       this.getProducts();
     } else {
-      this.$router.push("/m-admin/login");
+      this.$router.push("/entrance/login");
     }
     emitter.on("refreshBeanList", () => {
       this.getProducts();
