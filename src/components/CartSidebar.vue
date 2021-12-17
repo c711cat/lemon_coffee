@@ -5,11 +5,11 @@
 
   <div
     class="p-grid divider p-m-0 p-pt-3 p-jc-between p-ai-center"
-    v-for="item in cartItems"
+    v-for="(item, index) in cartItems"
     :key="item.product_id + item.package_type"
   >
     <Button
-      @click.prevent="delProduct(item)"
+      @click.prevent="delProduct(item, index)"
       icon="pi pi-trash"
       class="p-col-fixed p-ml-2 p-button-rounded p-button-text p-button-danger"
       style="width: 30px"
@@ -161,7 +161,7 @@ export default {
         }
       });
     },
-    delProduct(item) {
+    delProduct(item, index) {
       const api = `${process.env.VUE_APP_API}/users/cart_items/${item.product_id}`;
       const headers = { Authorization: Cookies.get("lemonToken") };
       axios
@@ -173,7 +173,8 @@ export default {
               summary: "已刪除商品",
               life: 2000,
             });
-            this.getCart();
+            this.cartItems.splice(index, 1);
+            this.calculatePrice();
           }
         })
         .catch((error) => {
