@@ -2,7 +2,13 @@
   <div class="p-grid" v-if="!is_error">
     <h3 class="p-col-12">{{ product.name }}</h3>
     <div class="p-col-12">
-      <SelectButton v-model="type" :options="typeOfOptions" class="selected" />
+      <SelectButton
+        v-model="type"
+        :options="typeOfOptions"
+        optionValue="value"
+        optionLabel="label"
+        class="selected"
+      />
     </div>
     <div class="p-col-fixes p-fluid p-ml-2" style="width: 202px">
       <InputNumber
@@ -39,9 +45,13 @@ export default {
         name: "",
         id: 0,
       },
-      typeOfOptions: ["耳掛", "半磅", "一磅"],
+      typeOfOptions: [
+        { value: "drip_bag", label: "耳掛" },
+        { value: "half_pound", label: "半磅" },
+        { value: "one_pound", label: "一磅" },
+      ],
       qty: 1,
-      type: "半磅",
+      type: "half_pound",
       is_error: false,
       typeData: "",
     };
@@ -59,18 +69,9 @@ export default {
         });
     },
     addToCart() {
-      if (this.type === "半磅") {
-        this.typeData = "half_pound";
-      }
-      if (this.type === "一磅") {
-        this.typeData = "one_pound";
-      }
-      if (this.type === "耳掛") {
-        this.typeData = "drip_bag";
-      }
       const cart = {
         product_id: this.product.id,
-        package_type: this.typeData,
+        package_type: this.type,
         quantity: this.qty,
       };
       const api = `${process.env.VUE_APP_API}/users/cart_items`;
