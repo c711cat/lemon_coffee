@@ -85,7 +85,6 @@ export default {
               summary: "已加入購物車",
               life: 2000,
             });
-            history.back();
           }
         })
         .catch((error) => {
