@@ -54,8 +54,6 @@
         >$ {{ item.unit_price * item.quantity }}
       </del>
 
-      <div v-if="item.sale_price">$ {{ item.sale_price }}</div>
-
       <div v-else>$ {{ item.unit_price * item.quantity }}</div>
     </div>
   </div>
