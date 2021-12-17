@@ -12,7 +12,7 @@
         </router-link>
       </template>
       <template #end>
-        <router-link v-if="!is_login" to="/entrance/login" class="link-content">
+        <router-link v-if="!token" to="/entrance/login" class="link-content">
           <Button
             label="登入 / 註冊"
             icon="pi pi-fw pi-user"
@@ -20,32 +20,22 @@
           >
           </Button>
         </router-link>
-        <router-link v-if="is_login" to="/beanlist" class="link-content">
+        <router-link v-if="token" to="/beanlist" class="link-content">
           <Button icon="pi pi-fw pi-user" class="p-button-text p-button-plain">
           </Button>
         </router-link>
         <Button
           icon="pi pi-fw pi-shopping-cart"
           class="p-button-text p-button-plain p-mr-2"
-          @click="visibleRight = true"
+          @click.prevent="$emit('change-visible')"
         />
       </template>
     </Menubar>
-    <Sidebar
-      v-model:visible="visibleRight"
-      position="right"
-      class="sidebar-wrap"
-      style="width: 380px"
-    >
-      <CartSidebar></CartSidebar>
-    </Sidebar>
-    <router-view />
   </div>
 </template>
 
 <script>
-import CartSidebar from "@/components/CartSidebar.vue";
-import emitter from "@/methods/emitter.js";
+import Cookies from "js-cookie";
 
 export default {
   data() {
@@ -57,21 +47,12 @@ export default {
           to: "/beanlist",
         },
       ],
-      visibleRight: false,
-      is_login: false,
+      token: "",
     };
   },
-  components: { CartSidebar },
-  provide() {
-    return {
-      emitter,
-    };
-  },
-
+  emits: ["change-visible"],
   created() {
-    emitter.on("refreshIdentity", () => {
-      this.is_login = true;
-    });
+    this.token = Cookies.get("lemonToken");
   },
 };
 </script>
@@ -86,8 +67,5 @@ export default {
 }
 .link-content {
   text-decoration: none;
-}
-.sidebar-wrap {
-  width: 500px;
 }
 </style>

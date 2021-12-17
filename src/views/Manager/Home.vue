@@ -30,11 +30,7 @@ export default {
   components: {
     CleanBeanList,
   },
-  provide() {
-    return {
-      emitter,
-    };
-  },
+  inject: ["emitter"],
   methods: {
     getProducts() {
       const api = `${process.env.VUE_APP_API}/admin/products`;
