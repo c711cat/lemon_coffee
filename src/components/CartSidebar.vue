@@ -129,12 +129,9 @@ export default {
           }
         })
         .catch((error) => {
-          if (error.response.data === 401) {
-            this.$toast.add({
-              severity: "error",
-              summary: "請重新登入",
-              life: 5000,
-            });
+          console.log(error.response);
+          if (error.response.status === 401) {
+            this.showErrorToast("請重新登入");
             this.$router.push("/entrance/login");
           }
         });
@@ -177,11 +174,7 @@ export default {
         })
         .catch((error) => {
           if (error.response.status === 401) {
-            this.$toast.add({
-              severity: "error",
-              summary: "請重新登入",
-              life: 5000,
-            });
+            this.showErrorToast("請重新登入");
             this.$router.push("/entrance/login");
           }
         });
@@ -198,22 +191,21 @@ export default {
           }
         })
         .catch((error) => {
-          if (error.response.data === 401) {
-            this.$toast.add({
-              severity: "error",
-              summary: "請重新登入",
-              life: 5000,
-            });
+          if (error.response.status === 401) {
+            this.showErrorToast("請重新登入");
             this.$router.push("/entrance/login");
           }
-          if (error.response.data.quantity[0] === "must be greater than 0") {
-            this.$toast.add({
-              severity: "error",
-              summary: "最小購買量為 1",
-              life: 5000,
-            });
+          if (error.response.status === 400) {
+            this.showErrorToast("最小購買量為 1");
           }
         });
+    },
+    showErrorToast(text) {
+      this.$toast.add({
+        severity: "error",
+        summary: text,
+        life: 5000,
+      });
     },
   },
   created() {
