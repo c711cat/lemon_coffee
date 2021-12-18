@@ -80,37 +80,35 @@ export default {
         .post(api, { cart_item: cart }, { headers })
         .then((response) => {
           if (response.status === 200) {
-            this.$toast.add({
-              severity: "success",
-              summary: "已加入購物車",
-              life: 2000,
-            });
+            this.showSuccessToast("已加入購物車");
           }
         })
         .catch((error) => {
-          if (error.response.data === "Invalid segment encoding") {
-            this.$toast.add({
-              severity: "error",
-              summary: "請重新登入",
-              life: 5000,
-            });
+          if (error.response.status === 401) {
+            this.showErrorToast("請重新登入");
             this.$router.push("/entrance/login");
           }
           if (error.response.data.quantity[0] === "must be greater than 0") {
-            this.$toast.add({
-              severity: "error",
-              summary: "最小購買量為 1",
-              life: 5000,
-            });
+            this.showErrorToast("最小購買量為 1");
           }
           if (error.response.data.product) {
-            this.$toast.add({
-              severity: "error",
-              summary: "此商品不存在",
-              life: 5000,
-            });
+            this.showErrorToast("此商品不存在");
           }
         });
+    },
+    showErrorToast(text) {
+      this.$toast.add({
+        severity: "error",
+        summary: text,
+        life: 5000,
+      });
+    },
+    showSuccessToast(text) {
+      this.$toast.add({
+        severity: "success",
+        summary: text,
+        life: 2000,
+      });
     },
   },
   created() {
