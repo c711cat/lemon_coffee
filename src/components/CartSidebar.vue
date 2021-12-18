@@ -88,7 +88,7 @@
 
         <div class="p-col-6 p-text-bold checkout-price p-pr-0">總付款金額</div>
         <div class="p-col-5 p-text-bold checkout-price p-pr-1">
-          $ {{ total_payment_price }}
+          $ {{ subtotal }}
         </div>
       </div>
     </div>
@@ -107,9 +107,7 @@ import Cookies from "js-cookie";
 export default {
   data() {
     return {
-      subtotal: 0,
       freight_cost: 0,
-      total_payment_price: 0,
       buy_more_discount: 0,
       free_shipping: 0,
       cartItems: [],
@@ -124,7 +122,6 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.cartItems = [...response.data];
-            this.calculatePrice();
           }
         })
         .catch((error) => {
@@ -133,13 +130,6 @@ export default {
             this.$router.push("/entrance/login");
           }
         });
-    },
-    calculatePrice() {
-      this.subtotal = 0;
-      this.cartItems.forEach((item) => {
-        this.subtotal += item.unit_price * item.quantity;
-      });
-      this.total_payment_price = this.subtotal;
     },
     delProduct(item, index) {
       const api = `${process.env.VUE_APP_API}/users/cart_items/${item.product_id}`;
@@ -150,7 +140,6 @@ export default {
           if (response.status === 204) {
             this.showSuccessToast("已刪除商品");
             this.cartItems.splice(index, 1);
-            this.calculatePrice();
           }
         })
         .catch((error) => {
@@ -168,7 +157,7 @@ export default {
         .put(api, { cart_item: data }, { headers })
         .then((response) => {
           if (response.status === 200) {
-            this.calculatePrice();
+            return;
           }
         })
         .catch((error) => {
@@ -205,6 +194,15 @@ export default {
       if (package_type === "one_pound") {
         return "一磅";
       }
+    },
+  },
+  computed: {
+    subtotal() {
+      let total = 0;
+      this.cartItems.forEach((item) => {
+        total += item.unit_price * item.quantity;
+      });
+      return total;
     },
   },
   created() {
