@@ -23,7 +23,7 @@
     </div>
 
     <div class="p-col-fixed p-pl-3">
-      $ {{ item.unit_price }} / {{ item.package_type }}
+      $ {{ item.unit_price }} / {{ typeText(item.package_type) }}
     </div>
 
     <div class="p-fluid p-col-fixed p-p-0 p-my-3" style="width: 129px">
@@ -125,7 +125,6 @@ export default {
           if (response.status === 200) {
             this.cartItems = [...response.data];
             this.calculatePrice();
-            this.changeTypeText();
           }
         })
         .catch((error) => {
@@ -141,19 +140,6 @@ export default {
         this.subtotal += item.unit_price * item.quantity;
       });
       this.total_payment_price = this.subtotal;
-    },
-    changeTypeText() {
-      this.cartItems.forEach((item) => {
-        if (item.package_type === "drip_bag") {
-          item.package_type = "耳掛";
-        }
-        if (item.package_type === "half_pound") {
-          item.package_type = "半磅";
-        }
-        if (item.package_type === "one_pound") {
-          item.package_type = "一磅";
-        }
-      });
     },
     delProduct(item, index) {
       const api = `${process.env.VUE_APP_API}/users/cart_items/${item.product_id}`;
@@ -208,6 +194,17 @@ export default {
         summary: text,
         life: 2000,
       });
+    },
+    typeText(package_type) {
+      if (package_type === "drip_bag") {
+        return "耳掛";
+      }
+      if (package_type === "half_pound") {
+        return "半磅";
+      }
+      if (package_type === "one_pound") {
+        return "一磅";
+      }
     },
   },
   created() {
