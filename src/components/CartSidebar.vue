@@ -129,7 +129,6 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error.response);
           if (error.response.status === 401) {
             this.showErrorToast("請重新登入");
             this.$router.push("/entrance/login");
@@ -163,11 +162,7 @@ export default {
         .delete(api, { headers })
         .then((response) => {
           if (response.status === 204) {
-            this.$toast.add({
-              severity: "success",
-              summary: "已刪除商品",
-              life: 2000,
-            });
+            this.showSuccessToast("已刪除商品");
             this.cartItems.splice(index, 1);
             this.calculatePrice();
           }
@@ -205,6 +200,13 @@ export default {
         severity: "error",
         summary: text,
         life: 5000,
+      });
+    },
+    showSuccessToast(text) {
+      this.$toast.add({
+        severity: "success",
+        summary: text,
+        life: 2000,
       });
     },
   },
