@@ -1,34 +1,42 @@
 <template>
-  <div class="p-grid" v-if="!is_error">
-    <h3 class="p-col-12">{{ product.name }}</h3>
-    <div class="p-col-12">
-      <SelectButton
-        v-model="type"
-        :options="typeOfOptions"
-        optionValue="value"
-        optionLabel="label"
-        class="selected"
-      />
+  <div class="p-grid nested-grid wrap p-my-0 p-mx-auto" v-if="!is_error">
+    <div class="p-col-4">
+      <img class="product-image p-col-4 p-py-3" :src="product.image_url" />
     </div>
-    <div class="p-col-fixes p-fluid p-ml-2" style="width: 202px">
-      <InputNumber
-        v-model="qty"
-        class="p-inputtext-sm"
-        :min="1"
-        showButtons
-        buttonLayout="horizontal"
-        incrementButtonClass="p-button-outlined p-button-info"
-        decrementButtonClass="p-button-outlined p-button-info"
-        incrementButtonIcon="pi pi-plus"
-        decrementButtonIcon="pi pi-minus"
-      />
-    </div>
-    <div class="p-col-12">
-      <Button
-        label="加入購物車"
-        class="p-button-info p-col-12 p-lg-4"
-        @click.prevent="addToCart"
-      ></Button>
+    <div class="p-col-8">
+      <div class="p-grid">
+        <h3 class="p-col-12">{{ product.name }}</h3>
+        <div class="p-col-12">
+          <SelectButton
+            v-model="type"
+            :options="typeOfOptions"
+            optionValue="value"
+            optionLabel="label"
+            class="selected"
+          />
+        </div>
+        <div class="p-col-fixes p-fluid p-ml-2" style="width: 202px">
+          <InputNumber
+            v-model="qty"
+            class="p-inputtext-sm"
+            :min="1"
+            showButtons
+            buttonLayout="horizontal"
+            incrementButtonClass="p-button-outlined p-button-info"
+            decrementButtonClass="p-button-outlined p-button-info"
+            incrementButtonIcon="pi pi-plus"
+            decrementButtonIcon="pi pi-minus"
+          />
+        </div>
+        <div class="p-col-12">
+          <Button
+            label="加入購物車"
+            class="p-button-info p-col-12 p-lg-4"
+            @click.prevent="addToCart"
+          >
+          </Button>
+        </div>
+      </div>
     </div>
   </div>
   <div v-if="is_error">無此商品</div>
@@ -63,6 +71,7 @@ export default {
         .get(api)
         .then((response) => {
           this.product = { ...response.data };
+          console.log(this.product);
         })
         .catch(() => {
           this.is_error = !this.is_error;
@@ -116,3 +125,16 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+* {
+  border: 1px solid black;
+}
+.wrap {
+  max-width: 1200px;
+}
+
+.product-image {
+  width: 350px;
+}
+</style>
