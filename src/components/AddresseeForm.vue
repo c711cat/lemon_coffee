@@ -29,6 +29,19 @@
           />
         </div>
 
+        <div
+          v-if="buyer.required.delivery_method === '宅配'"
+          class="p-col-4 p-lg-2 p-text-bold"
+        >
+          收件地址
+        </div>
+        <div
+          v-if="buyer.required.delivery_method === '宅配'"
+          class="p-col-8 p-lg-10"
+        >
+          <InputText type="text" v-model="buyer.required.address" />
+        </div>
+
         <div class="p-col-4 p-lg-2 p-text-bold">付款方式</div>
         <div class="p-col-8 p-lg-10">
           <Dropdown
@@ -66,11 +79,12 @@ export default {
           email: "",
           delivery_method: "",
           payment_method: "",
+          address: "",
         },
         message: "",
       },
-      delivery_methods: ["7-11 取貨", "全家 取貨", "宅配"],
-      payment_methods: ["貨到付款", "信用卡"],
+      delivery_methods: ["宅配"],
+      payment_methods: ["貨到付款"],
     };
   },
 };
