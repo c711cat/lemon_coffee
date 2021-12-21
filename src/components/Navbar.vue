@@ -26,9 +26,10 @@
         </router-link>
         <Button
           icon="pi pi-fw pi-shopping-cart"
-          class="p-button-text p-button-plain p-mr-2"
+          class="p-button-text p-button-plain p-mr-2 cart-body"
           @click.prevent="$emit('change-visible')"
         />
+        <Badge value="5" severity="danger" class="cart-badge"></Badge>
       </template>
     </Menubar>
   </div>
@@ -61,11 +62,23 @@ export default {
 .logo-img {
   width: 60px;
 }
+
 .logo-img:hover {
   background: #e9ecef;
   border-radius: 3px;
 }
+
 .link-content {
   text-decoration: none;
+}
+
+.cart-body {
+  position: inherit;
+}
+
+.cart-badge {
+  position: absolute;
+  right: 21px;
+  top: 26px;
 }
 </style>
