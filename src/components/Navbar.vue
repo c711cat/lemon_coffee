@@ -29,7 +29,12 @@
           class="p-button-text p-button-plain p-mr-2 cart-body"
           @click.prevent="$emit('change-visible')"
         />
-        <Badge value="5" severity="danger" class="cart-badge"></Badge>
+        <Badge
+          v-if="cartDadge"
+          :value="cartDadge"
+          severity="danger"
+          class="cart-badge"
+        ></Badge>
       </template>
     </Menubar>
   </div>
@@ -37,6 +42,7 @@
 
 <script>
 import Cookies from "js-cookie";
+import axios from "axios";
 
 export default {
   data() {
@@ -49,12 +55,44 @@ export default {
         },
       ],
       token: "",
+      cartDadge: "",
     };
   },
   inject: ["emitter"],
   emits: ["change-visible"],
+  methods: {
+    getCart() {
+      const api = `${process.env.VUE_APP_API}/users/cart_items`;
+      const headers = { Authorization: Cookies.get("lemonToken") };
+      axios
+        .get(api, { headers })
+        .then((response) => {
+          if (response.status === 200) {
+            this.cartDadge = response.data.length;
+          }
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            this.showErrorToast("請重新登入");
+            this.$router.push("/entrance/login");
+          }
+        });
+    },
+  },
+  watch: {
+    cartDadge() {
+      this.emitter.on("cartnum", (data) => {
+        this.cartDadge = data;
+      });
+    },
+  },
   created() {
     this.token = Cookies.get("lemonToken");
+    this.getCart();
+    this.emitter.on("cartnum", (data) => {
+      this.cartDadge = data;
+      console.log("data", this.cartDadge);
+    });
   },
 };
 </script>

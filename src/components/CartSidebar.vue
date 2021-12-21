@@ -109,7 +109,6 @@ export default {
       buy_more_discount: 0,
       free_shipping: 0,
       cartItems: [],
-      cartDadge: "",
     };
   },
   inject: ["emitter"],
@@ -207,10 +206,8 @@ export default {
   },
   watch: {
     cartItems() {
-      let cartItemNum = 0;
-      cartItemNum = this.cartItems.length;
-      console.log(cartItemNum);
-      return cartItemNum;
+      console.log(this.cartItems);
+      this.emitter.emit("cartnum", this.cartItems.length);
     },
   },
   created() {

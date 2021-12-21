@@ -62,8 +62,10 @@ export default {
       qty: 1,
       type: "half_pound",
       is_error: false,
+      cartDadge: "",
     };
   },
+  inject: ["emitter"],
   methods: {
     getProduct() {
       const api = `${process.env.VUE_APP_API}/products/${this.$route.params.id}`;
@@ -89,6 +91,7 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.showSuccessToast("已加入購物車");
+            this.getCart();
           }
         })
         .catch((error) => {
@@ -117,6 +120,24 @@ export default {
         summary: text,
         life: 2000,
       });
+    },
+    getCart() {
+      const api = `${process.env.VUE_APP_API}/users/cart_items`;
+      const headers = { Authorization: Cookies.get("lemonToken") };
+      axios
+        .get(api, { headers })
+        .then((response) => {
+          if (response.status === 200) {
+            this.cartDadge = response.data.length;
+            this.emitter.emit("cartnum", this.cartDadge);
+          }
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            this.showErrorToast("請重新登入");
+            this.$router.push("/entrance/login");
+          }
+        });
     },
   },
   computed: {
