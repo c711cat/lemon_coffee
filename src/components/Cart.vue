@@ -7,11 +7,11 @@
     <div
       class="p-grid p-m-0 p-py-3 divider p-ai-center p-jc-between"
       v-for="(item, index) in cartItems"
-      :key="index"
+      :key="item.product_id + item.package_type"
     >
       <div class="p-col-2 p-lg-1 p-text-center">
         <Button
-          @click.prevent="delProduct(item)"
+          @click.prevent="delProduct(item, index)"
           icon="pi pi-trash"
           class="p-button-rounded p-button-text p-button-danger"
         />
@@ -28,7 +28,7 @@
       </div>
 
       <div class="p-col-fixed p-pl-4" style="width: 130px">
-        $ {{ item.unit_price }} / {{ item.package_type }}
+        $ {{ item.unit_price }} / {{ typeText(item.package_type) }}
       </div>
 
       <div class="p-fluid p-col-fixed p-p-0 p-my-3" style="width: 135px">
@@ -100,7 +100,7 @@
             總付款金額
           </div>
           <div class="p-col-6 p-lg-3 p-text-bold checkout-price">
-            $ {{ total_payment_price }}
+            $ {{ subtotal }}
           </div>
         </div>
       </div>
@@ -117,9 +117,7 @@ import Cookies from "js-cookie";
 export default {
   data() {
     return {
-      subtotal: 0,
       freight_cost: 0,
-      total_payment_price: 0,
       buy_more_discount: 0,
       free_shipping: 0,
       cartItems: [],
@@ -135,63 +133,29 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.cartItems = [...response.data];
-            this.calculatePrice();
-            this.changeTypeText();
           }
         })
         .catch((error) => {
-          if (error.response.data === "Invalid segment encoding") {
-            this.$toast.add({
-              severity: "error",
-              summary: "請重新登入",
-              life: 5000,
-            });
+          if (error.response.status === 401) {
+            this.showErrorToast("請重新登入");
             this.$router.push("/entrance/login");
           }
         });
     },
-    calculatePrice() {
-      this.subtotal = 0;
-      this.cartItems.forEach((item) => {
-        this.subtotal += item.unit_price * item.quantity;
-      });
-      this.total_payment_price = this.subtotal;
-    },
-    changeTypeText() {
-      this.cartItems.forEach((item) => {
-        if (item.package_type === "drip_bag") {
-          item.package_type = "耳掛";
-        }
-        if (item.package_type === "half_pound") {
-          item.package_type = "半磅";
-        }
-        if (item.package_type === "one_pound") {
-          item.package_type = "一磅";
-        }
-      });
-    },
-    delProduct(item) {
+    delProduct(item, index) {
       const api = `${process.env.VUE_APP_API}/users/cart_items/${item.product_id}`;
       const headers = { Authorization: Cookies.get("lemonToken") };
       axios
         .delete(api, { headers })
         .then((response) => {
           if (response.status === 204) {
-            this.$toast.add({
-              severity: "success",
-              summary: "已刪除商品",
-              life: 2000,
-            });
-            this.getCart();
+            this.showSuccessToast("已刪除商品");
+            this.cartItems.splice(index, 1);
           }
         })
         .catch((error) => {
-          if (error.response.data === "Invalid segment encoding") {
-            this.$toast.add({
-              severity: "error",
-              summary: "請重新登入",
-              life: 5000,
-            });
+          if (error.response.status === 401) {
+            this.showErrorToast("請重新登入");
             this.$router.push("/entrance/login");
           }
         });
@@ -204,28 +168,55 @@ export default {
         .put(api, { cart_item: data }, { headers })
         .then((response) => {
           if (response.status === 200) {
-            this.calculatePrice();
+            return;
           }
         })
         .catch((error) => {
-          if (error.response.data === "Invalid segment encoding") {
-            this.$toast.add({
-              severity: "error",
-              summary: "請重新登入",
-              life: 5000,
-            });
+          if (error.response.status === 401) {
+            this.showErrorToast("請重新登入");
             this.$router.push("/entrance/login");
           }
-          if (error.response.data.quantity[0] === "must be greater than 0") {
-            this.$toast.add({
-              severity: "error",
-              summary: "最小購買量為 1",
-              life: 5000,
-            });
+          if (error.response.status === 400) {
+            this.showErrorToast("最小購買量為 1");
           }
         });
     },
+    showErrorToast(text) {
+      this.$toast.add({
+        severity: "error",
+        summary: text,
+        life: 5000,
+      });
+    },
+    showSuccessToast(text) {
+      this.$toast.add({
+        severity: "success",
+        summary: text,
+        life: 2000,
+      });
+    },
+    typeText(package_type) {
+      if (package_type === "drip_bag") {
+        return "耳掛";
+      }
+      if (package_type === "half_pound") {
+        return "半磅";
+      }
+      if (package_type === "one_pound") {
+        return "一磅";
+      }
+    },
   },
+  computed: {
+    subtotal() {
+      let total = 0;
+      this.cartItems.forEach((item) => {
+        total += item.unit_price * item.quantity;
+      });
+      return total;
+    },
+  },
+
   created() {
     this.getCart();
   },
