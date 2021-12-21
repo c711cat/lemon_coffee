@@ -1,12 +1,27 @@
 <template>
-  <div class="p-grid nested-grid wrap p-my-0 p-mx-auto" v-if="!is_error">
-    <div class="p-col-4">
-      <img class="product-image p-col-4 p-py-3" :src="product.image_url" />
+  <div class="p-grid nested-grid wrap p-my-4 p-mx-auto" v-if="!is_error">
+    <div class="p-col-12 p-lg-5">
+      <img class="product-image p-d-block p-mx-auto" :src="product.image_url" />
     </div>
-    <div class="p-col-8">
-      <div class="p-grid">
+    <div class="p-col-12 p-lg-7">
+      <div class="p-grid p-px-3">
         <h3 class="p-col-12">{{ product.name }}</h3>
-        <div class="p-col-12">
+        <div v-if="type === 'drip_bag'" class="p-col-12 p-text-bold price-size">
+          NT$ {{ product.drip_bag_price }}
+        </div>
+        <div
+          v-if="type === 'half_pound'"
+          class="p-col-12 p-text-bold price-size"
+        >
+          NT$ {{ product.half_pound_price }}
+        </div>
+        <div
+          v-if="type === 'one_pound'"
+          class="p-col-12 p-text-bold price-size"
+        >
+          NT$ {{ product.one_pound_price }}
+        </div>
+        <div class="p-col-12 p-mt-7">
           <SelectButton
             v-model="type"
             :options="typeOfOptions"
@@ -22,8 +37,8 @@
             :min="1"
             showButtons
             buttonLayout="horizontal"
-            incrementButtonClass="p-button-outlined p-button-info"
-            decrementButtonClass="p-button-outlined p-button-info"
+            incrementButtonClass="p-button-outlined"
+            decrementButtonClass="p-button-outlined"
             incrementButtonIcon="pi pi-plus"
             decrementButtonIcon="pi pi-minus"
           />
@@ -31,7 +46,7 @@
         <div class="p-col-12">
           <Button
             label="加入購物車"
-            class="p-button-info p-col-12 p-lg-4"
+            class="p-button-raised p-col-12 p-lg-5"
             @click.prevent="addToCart"
           >
           </Button>
@@ -131,10 +146,14 @@ export default {
   border: 1px solid black;
 }
 .wrap {
-  max-width: 1200px;
+  max-width: 950px;
 }
 
 .product-image {
-  width: 350px;
+  max-width: 350px;
+}
+
+.price-size {
+  font-size: 18px;
 }
 </style>
