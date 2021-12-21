@@ -86,7 +86,6 @@ export default {
         .get(api)
         .then((response) => {
           this.product = { ...response.data };
-          console.log(this.product);
         })
         .catch(() => {
           this.is_error = !this.is_error;
