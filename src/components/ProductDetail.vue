@@ -142,9 +142,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-* {
-  border: 1px solid black;
-}
 .wrap {
   max-width: 950px;
 }
