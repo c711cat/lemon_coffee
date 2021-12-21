@@ -29,7 +29,6 @@ export default {
       emitter,
     };
   },
-  
 };
 </script>
 

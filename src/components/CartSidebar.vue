@@ -109,8 +109,10 @@ export default {
       buy_more_discount: 0,
       free_shipping: 0,
       cartItems: [],
+      cartDadge: "",
     };
   },
+  inject: ["emitter"],
   methods: {
     getCart() {
       const api = `${process.env.VUE_APP_API}/users/cart_items`;
@@ -201,6 +203,14 @@ export default {
         total += item.unit_price * item.quantity;
       });
       return total;
+    },
+  },
+  watch: {
+    cartItems() {
+      let cartItemNum = 0;
+      cartItemNum = this.cartItems.length;
+      console.log(cartItemNum);
+      return cartItemNum;
     },
   },
   created() {

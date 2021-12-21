@@ -51,6 +51,7 @@ export default {
       token: "",
     };
   },
+  inject: ["emitter"],
   emits: ["change-visible"],
   created() {
     this.token = Cookies.get("lemonToken");
@@ -79,6 +80,6 @@ export default {
 .cart-badge {
   position: absolute;
   right: 21px;
-  top: 26px;
+  top: 25px;
 }
 </style>
