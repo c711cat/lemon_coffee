@@ -98,8 +98,9 @@ export default {
           if (error.response.status === 401) {
             this.showErrorToast("請重新登入");
             this.$router.push("/entrance/login");
+            this.emitter.emit("cartBadge", 0);
           }
-          if (error.response.data.quantity[0] === "must be greater than 0") {
+          if (error.response.data.quantity) {
             this.showErrorToast("最小購買量為 1");
           }
           if (error.response.data.product) {
@@ -135,6 +136,7 @@ export default {
           if (error.response.status === 401) {
             this.showErrorToast("請重新登入");
             this.$router.push("/entrance/login");
+            this.emitter.emit("cartBadge", 0);
           }
         });
     },

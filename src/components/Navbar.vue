@@ -75,8 +75,8 @@ export default {
         .catch((error) => {
           if (error.response.status === 401) {
             this.showErrorToast("請重新登入");
+            this.updateBadge = 0;
             this.$router.push("/entrance/login");
-            console.log("5");
           }
         });
     },
@@ -88,7 +88,6 @@ export default {
       });
     },
   },
-
   created() {
     this.token = Cookies.get("lemonToken");
     this.getCart();
