@@ -139,6 +139,7 @@ export default {
           if (response.status === 204) {
             this.showSuccessToast("已刪除商品");
             this.cartItems.splice(index, 1);
+            this.emitter.emit("cartBadge", this.cartItems.length);
           }
         })
         .catch((error) => {
@@ -202,12 +203,6 @@ export default {
         total += item.unit_price * item.quantity;
       });
       return total;
-    },
-  },
-  watch: {
-    cartItems() {
-      console.log(this.cartItems);
-      this.emitter.emit("cartnum", this.cartItems.length);
     },
   },
   created() {

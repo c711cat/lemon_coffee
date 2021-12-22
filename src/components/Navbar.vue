@@ -30,11 +30,12 @@
           @click.prevent="$emit('change-visible')"
         />
         <Badge
-          v-if="cartDadge"
-          :value="cartDadge"
+          v-if="updateBadge"
+          :value="updateBadge"
           severity="danger"
           class="cart-badge"
-        ></Badge>
+        >
+        </Badge>
       </template>
     </Menubar>
   </div>
@@ -55,7 +56,7 @@ export default {
         },
       ],
       token: "",
-      cartDadge: "",
+      updateBadge: "",
     };
   },
   inject: ["emitter"],
@@ -68,7 +69,7 @@ export default {
         .get(api, { headers })
         .then((response) => {
           if (response.status === 200) {
-            this.cartDadge = response.data.length;
+            this.updateBadge = response.data.length;
           }
         })
         .catch((error) => {
@@ -79,19 +80,12 @@ export default {
         });
     },
   },
-  watch: {
-    cartDadge() {
-      this.emitter.on("cartnum", (data) => {
-        this.cartDadge = data;
-      });
-    },
-  },
+
   created() {
     this.token = Cookies.get("lemonToken");
     this.getCart();
-    this.emitter.on("cartnum", (data) => {
-      this.cartDadge = data;
-      console.log("data", this.cartDadge);
+    this.emitter.on("cartBadge", (data) => {
+      this.updateBadge = data;
     });
   },
 };
@@ -117,7 +111,7 @@ export default {
 
 .cart-badge {
   position: absolute;
-  right: 21px;
-  top: 25px;
+  right: 19px;
+  top: 24px;
 }
 </style>

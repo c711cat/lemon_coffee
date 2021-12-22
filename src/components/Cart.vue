@@ -124,6 +124,7 @@ export default {
     };
   },
   components: { AddresseeForm },
+  inject: ["emitter"],
   methods: {
     getCart() {
       const api = `${process.env.VUE_APP_API}/users/cart_items`;
@@ -151,6 +152,7 @@ export default {
           if (response.status === 204) {
             this.showSuccessToast("已刪除商品");
             this.cartItems.splice(index, 1);
+            this.emitter.emit("cartBadge", this.cartItems.length);
           }
         })
         .catch((error) => {

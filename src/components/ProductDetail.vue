@@ -128,8 +128,7 @@ export default {
         .get(api, { headers })
         .then((response) => {
           if (response.status === 200) {
-            this.cartDadge = response.data.length;
-            this.emitter.emit("cartnum", this.cartDadge);
+            this.emitter.emit("cartBadge", response.data.length);
           }
         })
         .catch((error) => {
