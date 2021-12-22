@@ -32,10 +32,6 @@ const routes = [
     component: () => import("@/views/Manager/EditProduct.vue"),
   },
   {
-    path: "/cart",
-    component: () => import("@/components/Cart.vue"),
-  },
-  {
     path: "/",
     component: () => import("@/views/UserRoot.vue"),
     children: [
@@ -64,6 +60,10 @@ const routes = [
       {
         path: "products/:id",
         component: () => import("@/components/ProductDetail.vue"),
+      },
+      {
+        path: "/cart",
+        component: () => import("@/components/Cart.vue"),
       },
     ],
   },
