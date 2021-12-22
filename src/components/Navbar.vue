@@ -76,8 +76,16 @@ export default {
           if (error.response.status === 401) {
             this.showErrorToast("請重新登入");
             this.$router.push("/entrance/login");
+            console.log("5");
           }
         });
+    },
+    showErrorToast(text) {
+      this.$toast.add({
+        severity: "error",
+        summary: text,
+        life: 5000,
+      });
     },
   },
 
@@ -111,7 +119,7 @@ export default {
 
 .cart-badge {
   position: absolute;
-  right: 19px;
+  right: 19.5px;
   top: 24px;
 }
 </style>
