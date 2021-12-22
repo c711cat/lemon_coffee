@@ -25,7 +25,10 @@ export default {
         .then((response) => {
           this.product = response.data;
         })
-        .catch(() => {
+        .catch((error) => {
+          if (error.response.status === 401) {
+            this.showErrorToast("請重新登入");
+          }
           this.$router.push("/entrance/login");
         });
     },
@@ -38,18 +41,36 @@ export default {
         .put(api, { product: this.product }, { headers })
         .then((response) => {
           if (response.status === 200) {
-            this.$toast.add({
-              severity: "success",
-              summary: "成功編輯",
-              detail: updateItem.name,
-              life: 2000,
-            });
+            this.showSuccessToast("編輯成功");
             this.$router.push("/m-admin/products");
           }
         })
-        .catch(() => {
-          this.$router.push("/entrance/login");
+        .catch((error) => {
+          if (error.response.status === 401) {
+            this.showErrorToast("請重新登入");
+            this.$router.push("/entrance/login");
+          }
+          if (error.response.data.name) {
+            this.showErrorToast("產品名稱不可空白");
+          }
+          if (error.response.data.roast) {
+            this.showErrorToast("烘焙度不可空白");
+          }
         });
+    },
+    showErrorToast(text) {
+      this.$toast.add({
+        severity: "error",
+        summary: text,
+        life: 5000,
+      });
+    },
+    showSuccessToast(text) {
+      this.$toast.add({
+        severity: "success",
+        summary: text,
+        life: 2000,
+      });
     },
   },
 
