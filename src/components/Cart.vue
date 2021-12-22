@@ -140,6 +140,7 @@ export default {
           if (error.response.status === 401) {
             this.showErrorToast("請重新登入");
             this.$router.push("/entrance/login");
+            this.emitter.emit("cartBadge", 0);
           }
         });
     },
@@ -159,6 +160,7 @@ export default {
           if (error.response.status === 401) {
             this.showErrorToast("請重新登入");
             this.$router.push("/entrance/login");
+            this.emitter.emit("cartBadge", 0);
           }
         });
     },
@@ -177,6 +179,7 @@ export default {
           if (error.response.status === 401) {
             this.showErrorToast("請重新登入");
             this.$router.push("/entrance/login");
+            this.emitter.emit("cartBadge", 0);
           }
           if (error.response.status === 400) {
             this.showErrorToast("最小購買量為 1");
