@@ -1,7 +1,7 @@
 <template>
   <div class="wrap p-my-0 p-mx-auto p-p-2">
     <div class="divider p-pl-3">
-      <h4>訂單成立時間 2021/12/20 18:45</h4>
+      <h4>購買清單</h4>
     </div>
     <div
       class="p-grid p-m-0 p-py-3 divider p-ai-center p-jc-between"
@@ -25,7 +25,7 @@
       <div class="p-col-12">
         <div class="p-grid p-jc-between p-text-right p-ai-center">
           <div class="p-col-7 p-lg-9 p-pr-0">小計</div>
-          <div class="p-col-5 p-lg-3">$ 37750</div>
+          <div class="p-col-5 p-lg-3">$ {{ subtotal }}</div>
 
           <div class="p-col-7 p-lg-9 p-pr-0">運費</div>
           <div class="p-col-5 p-lg-3">$ 0</div>
@@ -33,7 +33,9 @@
           <div class="p-col-7 p-lg-9 p-text-bold checkout-price p-pr-0">
             總付款金額
           </div>
-          <div class="p-col-5 p-lg-3 p-text-bold checkout-price">$ 37750</div>
+          <div class="p-col-5 p-lg-3 p-text-bold checkout-price">
+            $ {{ subtotal }}
+          </div>
         </div>
       </div>
     </div>
@@ -91,38 +93,13 @@
 </template>
 
 <script>
+import axios from "axios";
+import Cookies from "js-cookie";
+
 export default {
   data() {
     return {
-      cartItems: [
-        {
-          product_id: 4,
-          quantity: 3,
-          package_type: "half_pound",
-          product_name: "巴布亞新幾內亞 奇邁爾莊園 珍珠圓豆",
-          unit_price: 400,
-          product_image_url:
-            "https://images.unsplash.com/photo-1562051036-e0eea191d42f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLWxpa2VkfDI3fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
-        },
-        {
-          product_id: 10,
-          quantity: 3,
-          package_type: "half_pound",
-          product_name: "耶家雪菲 水洗 西達摩 班莎 龐貝村 G1",
-          unit_price: 450,
-          product_image_url:
-            "https://images.unsplash.com/photo-1562051036-e0eea191d42f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLWxpa2VkfDI3fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
-        },
-        {
-          product_id: 3,
-          quantity: 88,
-          package_type: "half_pound",
-          product_name: "哥倫比亞 娜玲瓏 山塔那小農協會 水洗",
-          unit_price: 400,
-          product_image_url:
-            "https://images.unsplash.com/photo-1562051036-e0eea191d42f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLWxpa2VkfDI3fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
-        },
-      ],
+      cartItems: [],
       buyer: {
         required: {
           name: "jgpoegjpeor",
@@ -137,6 +114,23 @@ export default {
     };
   },
   methods: {
+    getCart() {
+      const api = `${process.env.VUE_APP_API}/users/cart_items`;
+      const headers = { Authorization: Cookies.get("lemonToken") };
+      axios
+        .get(api, { headers })
+        .then((response) => {
+          if (response.status === 200) {
+            this.cartItems = [...response.data];
+          }
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            this.showErrorToast("請重新登入");
+            this.$router.push("/entrance/login");
+          }
+        });
+    },
     typeText(package_type) {
       if (package_type === "drip_bag") {
         return "耳掛";
@@ -148,6 +142,18 @@ export default {
         return "一磅";
       }
     },
+  },
+  computed: {
+    subtotal() {
+      let total = 0;
+      this.cartItems.forEach((item) => {
+        total += item.unit_price * item.quantity;
+      });
+      return total;
+    },
+  },
+  created() {
+    this.getCart();
   },
 };
 </script>
