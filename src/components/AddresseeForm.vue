@@ -62,13 +62,15 @@
       </div>
     </div>
     <router-link
+      @click.prevent="toCheckout"
       to="/checkout"
       class="p-grid p-ai-end p-jc-end p-col-12 p-lg-5 p-pb-3 p-m-0 link-content"
     >
       <Button
         class="p-button-lg p-button-info p-button-raised"
         label="前往結帳"
-      ></Button>
+      >
+      </Button>
     </router-link>
   </div>
 </template>
@@ -91,6 +93,21 @@ export default {
       delivery_methods: ["宅配"],
       payment_methods: ["貨到付款"],
     };
+  },
+  methods: {
+    getPersonalData() {
+      if (localStorage.getItem("personalData")) {
+        this.buyer = JSON.parse(localStorage.getItem("personalData"));
+      } else {
+        return;
+      }
+    },
+    toCheckout() {
+      localStorage.setItem("personalData", JSON.stringify(this.buyer));
+    },
+  },
+  created() {
+    this.getPersonalData();
   },
 };
 </script>
