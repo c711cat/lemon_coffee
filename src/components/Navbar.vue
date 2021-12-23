@@ -3,8 +3,8 @@
   <div id="navbar-style">
     <Menubar :model="items">
       <template #start>
-        <router-link to="/home"
-          ><img
+        <router-link to="/home">
+          <img
             class="logo-img"
             alt="logo"
             src="../assets/img/LemonCoffee/logo1.png"
@@ -26,7 +26,7 @@
         </router-link>
         <Button
           icon="pi pi-fw pi-shopping-cart"
-          class="p-button-text p-button-plain p-mr-2 cart-body"
+          class="p-button-text p-button-plain p-mr-2"
           @click.prevent="$emit('change-visible')"
         />
         <Badge
@@ -112,13 +112,9 @@ export default {
   text-decoration: none;
 }
 
-.cart-body {
-  position: inherit;
-}
-
 .cart-badge {
-  position: absolute;
-  right: 19.5px;
-  top: 24px;
+  position: relative;
+  bottom: 18px;
+  right: 30px;
 }
 </style>
