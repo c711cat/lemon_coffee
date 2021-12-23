@@ -66,8 +66,8 @@ const routes = [
         component: () => import("@/components/Cart.vue"),
       },
       {
-        path: "order",
-        component: () => import("@/components/UserOrder.vue"),
+        path: "checkout",
+        component: () => import("@/components/Checkout.vue"),
       },
     ],
   },
