@@ -82,11 +82,25 @@
         </div>
       </div>
 
-      <div class="p-grid p-ai-end p-jc-end p-col-12 p-lg-5 p-pb-3 p-m-0">
-        <Button
-          class="p-button-lg p-button-raised p-button-danger"
-          label="結帳"
-        ></Button>
+      <div
+        class="
+          p-grid p-jc-end p-ai-end p-col-12 p-pb-3 p-m-0 p-text-right p-pr-0
+        "
+      >
+        <router-link to="/cart" class="p-lg-2 link-content">
+          <Button
+            class="p-button-lg p-button-info p-button-raised"
+            label="修改"
+          >
+          </Button>
+        </router-link>
+
+        <div class="p-col-fixed" style="width: 100px">
+          <Button
+            class="p-button-lg p-button-raised p-button-danger"
+            label="結帳"
+          ></Button>
+        </div>
       </div>
     </div>
   </div>
@@ -122,6 +136,7 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.cartItems = [...response.data];
+            this.buyer = JSON.parse(localStorage.getItem("personalData") || {});
           }
         })
         .catch((error) => {
@@ -173,5 +188,9 @@ export default {
 
 .checkout-price {
   color: #0288d1;
+}
+
+.link-content {
+  text-decoration: none;
 }
 </style>
