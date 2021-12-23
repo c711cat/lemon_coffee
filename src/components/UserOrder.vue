@@ -5,8 +5,8 @@
     </div>
     <div
       class="p-grid p-m-0 p-py-3 divider p-ai-center p-jc-between"
-      v-for="(item, index) in cartItems"
-      :key="index"
+      v-for="item in cartItems"
+      :key="item.product_id + item.package_type"
     >
       <div class="p-col-12 p-lg-5 p-pl-3">
         {{ item.product_name }}<br />
