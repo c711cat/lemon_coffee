@@ -61,10 +61,15 @@
         </div>
       </div>
     </div>
-
-    <div class="p-grid p-ai-end p-jc-end p-col-12 p-lg-5 p-pb-3 p-m-0">
-      <Button class="p-button-lg" label="前往結帳"></Button>
-    </div>
+    <router-link
+      to="/checkout"
+      class="p-grid p-ai-end p-jc-end p-col-12 p-lg-5 p-pb-3 p-m-0 link-content"
+    >
+      <Button
+        class="p-button-lg p-button-info p-button-raised"
+        label="前往結帳"
+      ></Button>
+    </router-link>
   </div>
 </template>
 
@@ -93,5 +98,9 @@ export default {
 <style lang="scss" scoped>
 .divider {
   border-bottom: 1px solid rgb(235, 233, 233);
+}
+
+.link-content {
+  text-decoration: none;
 }
 </style>
