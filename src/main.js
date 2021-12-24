@@ -26,6 +26,7 @@ import Sidebar from "primevue/sidebar";
 import SelectButton from "primevue/selectbutton";
 import Badge from "primevue/badge";
 import BadgeDirective from "primevue/badgedirective";
+import Galleria from "primevue/galleria";
 
 const app = createApp(App);
 app.use(router);
@@ -52,5 +53,6 @@ app.component("Menubar", Menubar);
 app.component("Sidebar", Sidebar);
 app.component("SelectButton", SelectButton);
 app.component("Badge", Badge);
+app.component("Galleria", Galleria);
 
 app.mount("#app");
