@@ -98,8 +98,6 @@ export default {
     getPersonalData() {
       if (localStorage.getItem("personalData")) {
         this.buyer = JSON.parse(localStorage.getItem("personalData"));
-      } else {
-        return;
       }
     },
     toCheckout() {
