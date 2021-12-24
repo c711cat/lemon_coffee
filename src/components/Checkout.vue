@@ -75,7 +75,7 @@
           <div class="p-col-8 p-lg-10">{{ buyer.payment_method }}</div>
 
           <div class="p-col-4 p-lg-2 p-text-bold">備註</div>
-          <div class="p-col-8 p-lg-10">{{ buyer.message }}</div>
+          <div class="p-col-8 p-lg-10">{{ buyer.note }}</div>
         </div>
       </div>
 
@@ -118,7 +118,7 @@ export default {
         shipping_method: "",
         payment_method: "",
         address: "",
-        message: "",
+        note: "",
       },
     };
   },

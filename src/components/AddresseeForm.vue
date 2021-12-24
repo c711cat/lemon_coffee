@@ -48,7 +48,7 @@
         <div class="p-col-8 p-lg-10">
           <Textarea
             :autoResize="true"
-            v-model="buyer.message"
+            v-model="buyer.note"
             rows="5"
             cols="30"
           />
@@ -80,7 +80,7 @@ export default {
         shipping_method: "",
         payment_method: "",
         address: "",
-        message: "",
+        note: "",
       },
       shipping_methods: ["宅配"],
       payment_methods: ["貨到付款"],
