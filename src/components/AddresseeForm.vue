@@ -8,46 +8,40 @@
       <div class="p-grid p-fluid p-ai-center">
         <div class="p-col-4 p-lg-2 p-text-bold">姓名</div>
         <div class="p-col-8 p-lg-10">
-          <InputText type="text" v-model="buyer.required.name" />
+          <InputText type="text" v-model="buyer.name" />
         </div>
 
         <div class="p-col-4 p-lg-2 p-text-bold">電話</div>
         <div class="p-col-8 p-lg-10">
-          <InputText type="text" v-model="buyer.required.phone_number" />
+          <InputText type="text" v-model="buyer.phone_number" />
         </div>
 
         <div class="p-col-4 p-lg-2 p-text-bold">Email</div>
         <div class="p-col-8 p-lg-10">
-          <InputText type="text" v-model="buyer.required.email" />
+          <InputText type="text" v-model="buyer.email" />
         </div>
 
         <div class="p-col-4 p-lg-2 p-text-bold">送貨方式</div>
         <div class="p-col-8 p-lg-10">
           <Dropdown
-            v-model="buyer.required.delivery_method"
+            v-model="buyer.delivery_method"
             :options="delivery_methods"
           />
         </div>
 
         <div
-          v-if="buyer.required.delivery_method === '宅配'"
+          v-if="buyer.delivery_method === '宅配'"
           class="p-col-4 p-lg-2 p-text-bold"
         >
           收件地址
         </div>
-        <div
-          v-if="buyer.required.delivery_method === '宅配'"
-          class="p-col-8 p-lg-10"
-        >
-          <InputText type="text" v-model="buyer.required.address" />
+        <div v-if="buyer.delivery_method === '宅配'" class="p-col-8 p-lg-10">
+          <InputText type="text" v-model="buyer.address" />
         </div>
 
         <div class="p-col-4 p-lg-2 p-text-bold">付款方式</div>
         <div class="p-col-8 p-lg-10">
-          <Dropdown
-            v-model="buyer.required.payment_method"
-            :options="payment_methods"
-          />
+          <Dropdown v-model="buyer.payment_method" :options="payment_methods" />
         </div>
 
         <div class="p-col-4 p-lg-2 p-text-bold">備註</div>
@@ -80,14 +74,12 @@ export default {
   data() {
     return {
       buyer: {
-        required: {
-          name: "",
-          phone_number: "",
-          email: "",
-          delivery_method: "",
-          payment_method: "",
-          address: "",
-        },
+        name: "",
+        phone_number: "",
+        email: "",
+        delivery_method: "",
+        payment_method: "",
+        address: "",
         message: "",
       },
       delivery_methods: ["宅配"],
