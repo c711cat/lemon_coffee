@@ -58,16 +58,16 @@
 
           <div class="p-col-4 p-lg-2 p-text-bold">送貨方式</div>
           <div class="p-col-8 p-lg-10">
-            {{ buyer.delivery_method }}
+            {{ buyer.shipping_method }}
           </div>
 
           <div
-            v-if="buyer.delivery_method === '宅配'"
+            v-if="buyer.shipping_method === '宅配'"
             class="p-col-4 p-lg-2 p-text-bold"
           >
             收件地址
           </div>
-          <div v-if="buyer.delivery_method === '宅配'" class="p-col-8 p-lg-10">
+          <div v-if="buyer.shipping_method === '宅配'" class="p-col-8 p-lg-10">
             {{ buyer.address }}
           </div>
 
@@ -115,7 +115,7 @@ export default {
         name: "",
         phone_number: "",
         email: "",
-        delivery_method: "",
+        shipping_method: "",
         payment_method: "",
         address: "",
         message: "",

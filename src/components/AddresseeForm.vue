@@ -24,18 +24,18 @@
         <div class="p-col-4 p-lg-2 p-text-bold">送貨方式</div>
         <div class="p-col-8 p-lg-10">
           <Dropdown
-            v-model="buyer.delivery_method"
-            :options="delivery_methods"
+            v-model="buyer.shipping_method"
+            :options="shipping_methods"
           />
         </div>
 
         <div
-          v-if="buyer.delivery_method === '宅配'"
+          v-if="buyer.shipping_method === '宅配'"
           class="p-col-4 p-lg-2 p-text-bold"
         >
           收件地址
         </div>
-        <div v-if="buyer.delivery_method === '宅配'" class="p-col-8 p-lg-10">
+        <div v-if="buyer.shipping_method === '宅配'" class="p-col-8 p-lg-10">
           <InputText type="text" v-model="buyer.address" />
         </div>
 
@@ -77,12 +77,12 @@ export default {
         name: "",
         phone_number: "",
         email: "",
-        delivery_method: "",
+        shipping_method: "",
         payment_method: "",
         address: "",
         message: "",
       },
-      delivery_methods: ["宅配"],
+      shipping_methods: ["宅配"],
       payment_methods: ["貨到付款"],
     };
   },
