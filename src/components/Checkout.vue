@@ -112,13 +112,13 @@ export default {
     return {
       cartItems: [],
       buyer: {
-        name: "jgpoegjpeor",
-        phone_number: "0912345678",
-        email: "abc@abc.abc",
-        delivery_method: "宅配",
-        payment_method: "貨到付款",
-        address: "地址1236877",
-        message: "無",
+        name: "",
+        phone_number: "",
+        email: "",
+        delivery_method: "",
+        payment_method: "",
+        address: "",
+        message: "",
       },
     };
   },
