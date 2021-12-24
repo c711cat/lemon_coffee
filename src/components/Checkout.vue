@@ -48,34 +48,31 @@
       <div class="p-col-12 p-lg-7">
         <div class="p-grid p-fluid p-ai-center">
           <div class="p-col-4 p-lg-2 p-text-bold">姓名</div>
-          <div class="p-col-8 p-lg-10">{{ buyer.required.name }}</div>
+          <div class="p-col-8 p-lg-10">{{ buyer.name }}</div>
 
           <div class="p-col-4 p-lg-2 p-text-bold">電話</div>
-          <div class="p-col-8 p-lg-10">{{ buyer.required.phone_number }}</div>
+          <div class="p-col-8 p-lg-10">{{ buyer.phone_number }}</div>
 
           <div class="p-col-4 p-lg-2 p-text-bold">Email</div>
-          <div class="p-col-8 p-lg-10">{{ buyer.required.email }}</div>
+          <div class="p-col-8 p-lg-10">{{ buyer.email }}</div>
 
           <div class="p-col-4 p-lg-2 p-text-bold">送貨方式</div>
           <div class="p-col-8 p-lg-10">
-            {{ buyer.required.delivery_method }}
+            {{ buyer.delivery_method }}
           </div>
 
           <div
-            v-if="buyer.required.delivery_method === '宅配'"
+            v-if="buyer.delivery_method === '宅配'"
             class="p-col-4 p-lg-2 p-text-bold"
           >
             收件地址
           </div>
-          <div
-            v-if="buyer.required.delivery_method === '宅配'"
-            class="p-col-8 p-lg-10"
-          >
-            {{ buyer.required.address }}
+          <div v-if="buyer.delivery_method === '宅配'" class="p-col-8 p-lg-10">
+            {{ buyer.address }}
           </div>
 
           <div class="p-col-4 p-lg-2 p-text-bold">付款方式</div>
-          <div class="p-col-8 p-lg-10">{{ buyer.required.payment_method }}</div>
+          <div class="p-col-8 p-lg-10">{{ buyer.payment_method }}</div>
 
           <div class="p-col-4 p-lg-2 p-text-bold">備註</div>
           <div class="p-col-8 p-lg-10">{{ buyer.message }}</div>
@@ -115,14 +112,12 @@ export default {
     return {
       cartItems: [],
       buyer: {
-        required: {
-          name: "jgpoegjpeor",
-          phone_number: "0912345678",
-          email: "abc@abc.abc",
-          delivery_method: "宅配",
-          payment_method: "貨到付款",
-          address: "地址1236877",
-        },
+        name: "jgpoegjpeor",
+        phone_number: "0912345678",
+        email: "abc@abc.abc",
+        delivery_method: "宅配",
+        payment_method: "貨到付款",
+        address: "地址1236877",
         message: "無",
       },
     };
