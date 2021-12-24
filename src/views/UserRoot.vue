@@ -9,12 +9,14 @@
     <CartSidebar></CartSidebar>
   </Sidebar>
   <router-view />
+  <Footer></Footer>
 </template>
 
 <script>
 import Navbar from "@/components/Navbar.vue";
 import emitter from "@/methods/emitter.js";
 import CartSidebar from "@/components/CartSidebar.vue";
+import Footer from "@/components/Footer.vue";
 
 export default {
   data() {
@@ -22,7 +24,7 @@ export default {
       visibleRight: false,
     };
   },
-  components: { Navbar, CartSidebar },
+  components: { Navbar, CartSidebar, Footer },
 
   provide() {
     return {
