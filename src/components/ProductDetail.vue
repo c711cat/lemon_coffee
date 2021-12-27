@@ -6,21 +6,7 @@
     <div class="p-col-12 p-lg-7">
       <div class="p-grid p-px-3">
         <h3 class="p-col-12">{{ product.name }}</h3>
-        <div v-if="type === 'drip_bag'" class="p-col-12 p-text-bold price-size">
-          NT$ {{ product.drip_bag_price }}
-        </div>
-        <div
-          v-if="type === 'half_pound'"
-          class="p-col-12 p-text-bold price-size"
-        >
-          NT$ {{ product.half_pound_price }}
-        </div>
-        <div
-          v-if="type === 'one_pound'"
-          class="p-col-12 p-text-bold price-size"
-        >
-          NT$ {{ product.one_pound_price }}
-        </div>
+        <div class="p-col-12 p-text-bold price-size">NT$ {{ typePrice }}</div>
         <div class="p-col-12 p-mt-7">
           <SelectButton
             v-model="type"
@@ -76,7 +62,6 @@ export default {
       qty: 1,
       type: "half_pound",
       is_error: false,
-      typeData: "",
     };
   },
   methods: {
@@ -132,6 +117,21 @@ export default {
         summary: text,
         life: 2000,
       });
+    },
+  },
+  computed: {
+    typePrice() {
+      let price = 0;
+      if (this.type === "drip_bag") {
+        price = this.product.drip_bag_price;
+      }
+      if (this.type === "half_pound") {
+        price = this.product.half_pound_price;
+      }
+      if (this.type === "one_pound") {
+        price = this.product.one_pound_price;
+      }
+      return price;
     },
   },
   created() {
