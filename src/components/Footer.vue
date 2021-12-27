@@ -1,25 +1,40 @@
 <template>
-  <div class="p-grid p-jc-between footer-body">
-    <div class="p-col-12 p-lg-6 p-d-flex p-jc-center">
-      <img
-        style="width: 70px"
-        class=""
-        alt="logo"
-        src="../assets/img/LemonCoffee/logo-footer.png"
-      />
-      <div class="p-lg-4 p-pl-0">
-        <div class="eng-text">LEMON COFFEE</div>
-        <div class="chinese-logo">— 寧 蒙 咖 啡 —</div>
-      </div>
-    </div>
-    <div
-      class="
-        p-grid p-col-12 p-lg-5 p-text-center p-d-flex p-jc-center p-ai-center
-      "
+  <div class="p-grid nested-grid p-jc-center p-ai-center footer-body p-py-6">
+    <router-link
+      to="/home"
+      class="link-content p-col-12 p-lg-2 p-jc-center p-ai-center"
     >
-      <div class="p-col-12 eng-text">TUE－SUN 10:00－22:00</div>
-      <div class="p-col-12">0983-732-995</div>
-      <div class="p-col-12">臺南市南區明興路1151巷10-2號</div>
+      <div class="box box-stretched p-d-flex p-jc-center p-ai-center">
+        <img
+          style="width: 70px; display: block"
+          alt="logo"
+          src="../assets/img/LemonCoffee/logo-footer.png"
+        />
+
+        <div>
+          <div class="eng-text p-col-12 p-pl-0 p-pb-0">LEMON COFFEE</div>
+          <div class="chinese-logo p-col-12 p-pt-0">— 寧 蒙 咖 啡 —</div>
+        </div>
+      </div>
+    </router-link>
+
+    <div class="p-col-12 p-lg-2 p-text-center p-jc-center p-ai-center">
+      <div class="p-col-12 eng-text p-pb-0">TUE－SUN 10:00－22:00</div>
+
+      <div class="p-col-12 p-pb-0">
+        <a
+          class="link-content"
+          href="https://www.google.com/maps/place/%E5%AF%A7%E8%92%99%E5%92%96%E5%95%A1/@22.9268643,120.1866136,15z/data=!4m5!3m4!1s0x0:0x823a5a6d873727a5!8m2!3d22.9268642!4d120.1866136"
+          >臺南市南區明興路1151巷10-2號</a
+        >
+      </div>
+      <div class="p-col-12 p-pb-0">0983-732-995</div>
+    </div>
+
+    <div class="p-col-12 p-lg-1 p-jc-center p-ai-center p-text-center p-py-5">
+      <a class="link-content" href="https://www.facebook.com/LemonCafes/">
+        <i class="pi pi-facebook" style="font-size: 2rem"></i>
+      </a>
     </div>
   </div>
 </template>
@@ -32,7 +47,6 @@
 .footer-body {
   background: #f8f9fa;
   color: #495057;
-  font-size: 18px;
 }
 
 .eng-text {
@@ -41,5 +55,10 @@
 
 .chinese-logo {
   padding-left: 3px;
+}
+
+.link-content {
+  color: #495057;
+  text-decoration: none;
 }
 </style>
