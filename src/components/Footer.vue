@@ -12,8 +12,14 @@
         <div class="chinese-logo">— 寧 蒙 咖 啡 —</div>
       </div>
     </div>
-    <div class="p-col-12 p-lg-5 p-text-center p-d-flex p-jc-center p-ai-center">
-      <div class="eng-text">TUE－SUN 10:00－22:00</div>
+    <div
+      class="
+        p-grid p-col-12 p-lg-5 p-text-center p-d-flex p-jc-center p-ai-center
+      "
+    >
+      <div class="p-col-12 eng-text">TUE－SUN 10:00－22:00</div>
+      <div class="p-col-12">0983-732-995</div>
+      <div class="p-col-12">臺南市南區明興路1151巷10-2號</div>
     </div>
   </div>
 </template>
