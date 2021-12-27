@@ -18,7 +18,7 @@
       </div>
     </router-link>
 
-    <div class="p-col-12 p-lg-2 p-text-center p-jc-center p-ai-center">
+    <div class="p-col-12 p-lg-3 p-text-center p-jc-center p-ai-center">
       <div class="p-col-12 eng-text p-pb-0">TUE－SUN 10:00－22:00</div>
 
       <div class="p-col-12 p-pb-0">
