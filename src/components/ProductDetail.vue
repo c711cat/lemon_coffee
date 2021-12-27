@@ -1,34 +1,43 @@
 <template>
-  <div class="p-grid" v-if="!is_error">
-    <h3 class="p-col-12">{{ product.name }}</h3>
-    <div class="p-col-12">
-      <SelectButton
-        v-model="type"
-        :options="typeOfOptions"
-        optionValue="value"
-        optionLabel="label"
-        class="selected"
-      />
+  <div class="p-grid nested-grid wrap p-my-4 p-mx-auto" v-if="!is_error">
+    <div class="p-col-12 p-lg-5">
+      <img class="product-image p-d-block p-mx-auto" :src="product.image_url" />
     </div>
-    <div class="p-col-fixes p-fluid p-ml-2" style="width: 202px">
-      <InputNumber
-        v-model="qty"
-        class="p-inputtext-sm"
-        :min="1"
-        showButtons
-        buttonLayout="horizontal"
-        incrementButtonClass="p-button-outlined p-button-info"
-        decrementButtonClass="p-button-outlined p-button-info"
-        incrementButtonIcon="pi pi-plus"
-        decrementButtonIcon="pi pi-minus"
-      />
-    </div>
-    <div class="p-col-12">
-      <Button
-        label="加入購物車"
-        class="p-button-info p-col-12 p-lg-4"
-        @click.prevent="addToCart"
-      ></Button>
+    <div class="p-col-12 p-lg-7">
+      <div class="p-grid p-px-3">
+        <h3 class="p-col-12">{{ product.name }}</h3>
+        <div class="p-col-12 p-text-bold price-size">NT$ {{ unitPrice }}</div>
+        <div class="p-col-12 p-mt-7">
+          <SelectButton
+            v-model="type"
+            :options="typeOfOptions"
+            optionValue="value"
+            optionLabel="label"
+            class="selected"
+          />
+        </div>
+        <div class="p-col-fixes p-fluid p-ml-2" style="width: 202px">
+          <InputNumber
+            v-model="qty"
+            class="p-inputtext-sm"
+            :min="1"
+            showButtons
+            buttonLayout="horizontal"
+            incrementButtonClass="p-button-outlined"
+            decrementButtonClass="p-button-outlined"
+            incrementButtonIcon="pi pi-plus"
+            decrementButtonIcon="pi pi-minus"
+          />
+        </div>
+        <div class="p-col-12">
+          <Button
+            label="加入購物車"
+            class="p-button-raised p-col-12 p-lg-5"
+            @click.prevent="addToCart"
+          >
+          </Button>
+        </div>
+      </div>
     </div>
   </div>
   <div v-if="is_error">無此商品</div>
@@ -53,7 +62,6 @@ export default {
       qty: 1,
       type: "half_pound",
       is_error: false,
-      typeData: "",
     };
   },
   methods: {
@@ -111,8 +119,37 @@ export default {
       });
     },
   },
+  computed: {
+    unitPrice() {
+      let price = 0;
+      if (this.type === "drip_bag") {
+        price = this.product.drip_bag_price;
+      }
+      if (this.type === "half_pound") {
+        price = this.product.half_pound_price;
+      }
+      if (this.type === "one_pound") {
+        price = this.product.one_pound_price;
+      }
+      return price;
+    },
+  },
   created() {
     this.getProduct();
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.wrap {
+  max-width: 950px;
+}
+
+.product-image {
+  max-width: 350px;
+}
+
+.price-size {
+  font-size: 18px;
+}
+</style>
