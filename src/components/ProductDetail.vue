@@ -6,7 +6,7 @@
     <div class="p-col-12 p-lg-7">
       <div class="p-grid p-px-3">
         <h3 class="p-col-12">{{ product.name }}</h3>
-        <div class="p-col-12 p-text-bold price-size">NT$ {{ typePrice }}</div>
+        <div class="p-col-12 p-text-bold price-size">NT$ {{ unitPrice }}</div>
         <div class="p-col-12 p-mt-7">
           <SelectButton
             v-model="type"
@@ -120,7 +120,7 @@ export default {
     },
   },
   computed: {
-    typePrice() {
+    unitPrice() {
       let price = 0;
       if (this.type === "drip_bag") {
         price = this.product.drip_bag_price;
