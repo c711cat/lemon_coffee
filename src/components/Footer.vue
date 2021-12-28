@@ -1,5 +1,5 @@
 <template>
-  <div class="p-grid nested-grid p-jc-evenly p-ai-center footer-body p-py-6">
+  <div class="p-grid nested-grid p-jc-evenly p-ai-center footer-body p-py-5">
     <router-link
       to="/home"
       class="
@@ -23,7 +23,7 @@
       </div>
     </router-link>
 
-    <div class="p-lg-6 p-grid p-jc-end">
+    <div class="p-lg-6 p-grid p-jc-end p-m-0">
       <div>
         <a
           style="display: block"
@@ -34,7 +34,7 @@
         <div class="p-col-12 eng-text">TUE－SUN 10:00－22:00</div>
 
         <div class="p-col-12 p-pt-2">0983-732-995</div>
-        <div class="p-grid p-jc-end">
+        <div class="p-grid p-jc-end p-m-0">
           <a
             style="display: block"
             class="link-content"
