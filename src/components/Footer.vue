@@ -19,16 +19,16 @@
     </router-link>
 
     <div class="p-col-12 p-lg-3 p-text-center p-jc-center p-ai-center">
-      <div class="p-col-12 eng-text p-pb-0">TUE－SUN 10:00－22:00</div>
+      <div class="p-col-12 eng-text">TUE－SUN 10:00－22:00</div>
 
-      <div class="p-col-12 p-pb-0">
-        <a
-          class="link-content"
-          href="https://www.google.com/maps/place/%E5%AF%A7%E8%92%99%E5%92%96%E5%95%A1/@22.9268643,120.1866136,15z/data=!4m5!3m4!1s0x0:0x823a5a6d873727a5!8m2!3d22.9268642!4d120.1866136"
-          >臺南市南區明興路1151巷10-2號</a
-        >
-      </div>
-      <div class="p-col-12 p-pb-0">0983-732-995</div>
+      <a
+        style="display: block"
+        class="link-content p-col-12"
+        href="https://www.google.com/maps/place/%E5%AF%A7%E8%92%99%E5%92%96%E5%95%A1/@22.9268643,120.1866136,15z/data=!4m5!3m4!1s0x0:0x823a5a6d873727a5!8m2!3d22.9268642!4d120.1866136"
+        >臺南市南區明興路1151巷10-2號
+      </a>
+
+      <div class="p-col-12 p-pt-2">0983-732-995</div>
     </div>
 
     <div class="p-col-12 p-lg-1 p-jc-center p-ai-center p-text-center p-py-5">
