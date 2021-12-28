@@ -1,12 +1,12 @@
 <template>
   <div id="admin-navbar">
-    <Menubar :model="items">
+    <Menubar :model="items" class="p-pl-5 p-pr-3 p-py-3">
       <template #start>
         <router-link to="/home">
           <img
             class="logo-img"
             alt="logo"
-            src="@/assets/img/LemonCoffee/logo1.png"
+            src="@/assets/img/LemonCoffee/logo.png"
           />
         </router-link>
       </template>
@@ -68,5 +68,10 @@ export default {
 
 .sidebar-wrap {
   width: 500px;
+}
+
+.p-menubar {
+  border: none;
+  margin: -10px;
 }
 </style>
