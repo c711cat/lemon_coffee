@@ -30,8 +30,8 @@
           @click.prevent="$emit('change-visible')"
         />
         <Badge
-          v-if="updateBadge"
-          :value="updateBadge"
+          v-if="numberOfCartItems"
+          :value="numberOfCartItems"
           severity="danger"
           class="cart-badge"
         >
@@ -56,7 +56,7 @@ export default {
         },
       ],
       token: "",
-      updateBadge: "",
+      numberOfCartItems: "",
     };
   },
   inject: ["emitter"],
@@ -69,13 +69,13 @@ export default {
         .get(api, { headers })
         .then((response) => {
           if (response.status === 200) {
-            this.updateBadge = response.data.length;
+            this.numberOfCartItems = response.data.length;
           }
         })
         .catch((error) => {
           if (error.response.status === 401) {
             this.showErrorToast("請重新登入");
-            this.updateBadge = 0;
+            this.numberOfCartItems = 0;
             this.$router.push("/entrance/login");
           }
         });
@@ -92,7 +92,7 @@ export default {
     this.token = Cookies.get("lemonToken");
     this.getCart();
     this.emitter.on("changeCartBadgeCount", (data) => {
-      this.updateBadge = data;
+      this.numberOfCartItems = data;
     });
   },
 };
