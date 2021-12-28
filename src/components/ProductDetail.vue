@@ -62,7 +62,6 @@ export default {
       qty: 1,
       type: "half_pound",
       is_error: false,
-      cartDadge: "",
     };
   },
   inject: ["emitter"],
