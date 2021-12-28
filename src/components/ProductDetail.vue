@@ -98,7 +98,7 @@ export default {
           if (error.response.status === 401) {
             this.showErrorToast("請重新登入");
             this.$router.push("/entrance/login");
-            this.emitter.emit("cartBadge", 0);
+            this.emitter.emit("changeCartBadgeCount", 0);
           }
           if (error.response.data.quantity) {
             this.showErrorToast("最小購買量為 1");
@@ -129,14 +129,14 @@ export default {
         .get(api, { headers })
         .then((response) => {
           if (response.status === 200) {
-            this.emitter.emit("cartBadge", response.data.length);
+            this.emitter.emit("changeCartBadgeCount", response.data.length);
           }
         })
         .catch((error) => {
           if (error.response.status === 401) {
             this.showErrorToast("請重新登入");
             this.$router.push("/entrance/login");
-            this.emitter.emit("cartBadge", 0);
+            this.emitter.emit("changeCartBadgeCount", 0);
           }
         });
     },
