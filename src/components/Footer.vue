@@ -2,7 +2,7 @@
   <div class="p-grid nested-grid p-jc-center p-ai-center footer-body p-py-6">
     <router-link
       to="/home"
-      class="link-content p-col-12 p-lg-2 p-jc-center p-ai-center"
+      class="link-content logo-hover p-col-12 p-lg-2 p-jc-center p-ai-center"
     >
       <div class="box box-stretched p-d-flex p-jc-center p-ai-center">
         <img
@@ -23,19 +23,27 @@
 
       <a
         style="display: block"
-        class="link-content p-col-12"
+        class="link-content logo-hover p-col-12"
         href="https://www.google.com/maps/place/%E5%AF%A7%E8%92%99%E5%92%96%E5%95%A1/@22.9268643,120.1866136,15z/data=!4m5!3m4!1s0x0:0x823a5a6d873727a5!8m2!3d22.9268642!4d120.1866136"
-        >臺南市南區明興路1151巷10-2號
+        >台南市南區明興路1151巷10-2號
       </a>
 
       <div class="p-col-12 p-pt-2">0983-732-995</div>
     </div>
 
-    <div class="p-col-12 p-lg-1 p-jc-center p-ai-center p-text-center p-py-5">
-      <a class="link-content" href="https://www.facebook.com/LemonCafes/">
+    <a
+      style="display: block"
+      class="link-content"
+      href="https://www.facebook.com/LemonCafes/"
+    >
+      <Button
+        class="
+          p-button-rounded p-button-text p-button-plain p-col-12 p-jc-center
+        "
+      >
         <i class="pi pi-facebook" style="font-size: 2rem"></i>
-      </a>
-    </div>
+      </Button>
+    </a>
   </div>
 </template>
 
@@ -62,7 +70,7 @@
   text-decoration: none;
 }
 
-.link-content:hover {
+.logo-hover:hover {
   background: #e9ecef;
 }
 </style>
