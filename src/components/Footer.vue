@@ -2,7 +2,12 @@
   <div class="p-grid nested-grid p-jc-center p-ai-center footer-body p-py-6">
     <router-link
       to="/home"
-      class="link-content logo-hover p-col-12 p-lg-2 p-jc-center p-ai-center"
+      class="
+        link-content
+        logo-hover
+        p-col-12 p-lg-fixed p-jc-center p-ai-center
+      "
+      style="width: 240px"
     >
       <div class="box box-stretched p-d-flex p-jc-center p-ai-center">
         <img
