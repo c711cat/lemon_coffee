@@ -124,6 +124,7 @@ export default {
     };
   },
   components: { AddresseeForm },
+  inject: ["emitter"],
   methods: {
     getCart() {
       const api = `${process.env.VUE_APP_API}/users/cart_items`;
@@ -139,6 +140,7 @@ export default {
           if (error.response.status === 401) {
             this.showErrorToast("請重新登入");
             this.$router.push("/entrance/login");
+            this.emitter.emit("changeCartBadgeCount", 0);
           }
         });
     },
@@ -151,12 +153,14 @@ export default {
           if (response.status === 204) {
             this.showSuccessToast("已刪除商品");
             this.cartItems.splice(index, 1);
+            this.emitter.emit("changeCartBadgeCount", this.cartItems.length);
           }
         })
         .catch((error) => {
           if (error.response.status === 401) {
             this.showErrorToast("請重新登入");
             this.$router.push("/entrance/login");
+            this.emitter.emit("changeCartBadgeCount", 0);
           }
         });
     },
@@ -175,6 +179,7 @@ export default {
           if (error.response.status === 401) {
             this.showErrorToast("請重新登入");
             this.$router.push("/entrance/login");
+            this.emitter.emit("changeCartBadgeCount", 0);
           }
           if (error.response.status === 400) {
             this.showErrorToast("最小購買量為 1");

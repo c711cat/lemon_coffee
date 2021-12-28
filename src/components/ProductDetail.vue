@@ -64,6 +64,7 @@ export default {
       is_error: false,
     };
   },
+  inject: ["emitter"],
   methods: {
     getProduct() {
       const api = `${process.env.VUE_APP_API}/products/${this.$route.params.id}`;
@@ -89,14 +90,16 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.showSuccessToast("已加入購物車");
+            this.getCart();
           }
         })
         .catch((error) => {
           if (error.response.status === 401) {
             this.showErrorToast("請重新登入");
             this.$router.push("/entrance/login");
+            this.emitter.emit("changeCartBadgeCount", 0);
           }
-          if (error.response.data.quantity[0] === "must be greater than 0") {
+          if (error.response.data.quantity) {
             this.showErrorToast("最小購買量為 1");
           }
           if (error.response.data.product) {
@@ -117,6 +120,24 @@ export default {
         summary: text,
         life: 2000,
       });
+    },
+    getCart() {
+      const api = `${process.env.VUE_APP_API}/users/cart_items`;
+      const headers = { Authorization: Cookies.get("lemonToken") };
+      axios
+        .get(api, { headers })
+        .then((response) => {
+          if (response.status === 200) {
+            this.emitter.emit("changeCartBadgeCount", response.data.length);
+          }
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            this.showErrorToast("請重新登入");
+            this.$router.push("/entrance/login");
+            this.emitter.emit("changeCartBadgeCount", 0);
+          }
+        });
     },
   },
   computed: {

@@ -24,12 +24,16 @@ import Textarea from "primevue/textarea";
 import Menubar from "primevue/menubar";
 import Sidebar from "primevue/sidebar";
 import SelectButton from "primevue/selectbutton";
+import Badge from "primevue/badge";
+import BadgeDirective from "primevue/badgedirective";
 
 const app = createApp(App);
 app.use(router);
 app.use(PrimeVue);
 app.use(ToastService);
 app.use(ConfirmationService);
+
+app.directive("badge", BadgeDirective);
 
 app.component("InputText", InputText);
 app.component("Button", Button);
@@ -47,5 +51,6 @@ app.component("Textarea", Textarea);
 app.component("Menubar", Menubar);
 app.component("Sidebar", Sidebar);
 app.component("SelectButton", SelectButton);
+app.component("Badge", Badge);
 
 app.mount("#app");

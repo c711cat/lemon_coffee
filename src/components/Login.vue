@@ -23,6 +23,7 @@
 
 <script>
 import axios from "axios";
+import Cookies from "js-cookie";
 
 export default {
   data() {
@@ -33,6 +34,7 @@ export default {
       },
     };
   },
+  inject: ["emitter"],
   methods: {
     login() {
       const api = `${process.env.VUE_APP_API}/users/sign_in`;
@@ -41,20 +43,48 @@ export default {
         .then((response) => {
           const token = response.headers.authorization;
           document.cookie = `lemonToken=${token}`;
-          this.$toast.add({
-            severity: "success",
-            summary: "登入成功",
-            life: 2000,
-          });
-          history.back();
+          if (response.status === 201) {
+            this.showSuccessToast("登入成功");
+            this.getCart();
+            history.back();
+          }
         })
-        .catch(() => {
-          this.$toast.add({
-            severity: "error",
-            summary: "登入失敗",
-            life: 2000,
-          });
+        .catch((error) => {
+          if (error.response.status === 401) {
+            this.showErrorToast("請重新登入");
+          }
         });
+    },
+    getCart() {
+      const api = `${process.env.VUE_APP_API}/users/cart_items`;
+      const headers = { Authorization: Cookies.get("lemonToken") };
+      axios
+        .get(api, { headers })
+        .then((response) => {
+          if (response.status === 200) {
+            this.emitter.emit("changeCartBadgeCount", response.data.length);
+          }
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            this.showErrorToast("請重新登入");
+            this.$router.push("/entrance/login");
+          }
+        });
+    },
+    showErrorToast(text) {
+      this.$toast.add({
+        severity: "error",
+        summary: text,
+        life: 5000,
+      });
+    },
+    showSuccessToast(text) {
+      this.$toast.add({
+        severity: "success",
+        summary: text,
+        life: 2000,
+      });
     },
   },
 };
