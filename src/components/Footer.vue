@@ -61,4 +61,8 @@
   color: #495057;
   text-decoration: none;
 }
+
+.link-content:hover {
+  background: #e9ecef;
+}
 </style>
