@@ -42,7 +42,7 @@ export default {
         .post(api, { user: this.login_data })
         .then((response) => {
           const token = response.headers.authorization;
-          document.cookie = `lemonToken=${token}`;
+          Cookies.set("lemonToken", token);
           if (response.status === 201) {
             this.showSuccessToast("登入成功");
             this.getCart();
