@@ -93,7 +93,7 @@
       </div>
     </div>
     <router-link to="/cart" class="p-fluid p-col-12 p-p-0 link-content">
-      <Button label="訂單結帳" class="p-button-info p-button-raised"> </Button>
+      <Button label="查看購物車" class="p-button-info p-button-raised"> </Button>
     </router-link>
   </div>
 </template>
