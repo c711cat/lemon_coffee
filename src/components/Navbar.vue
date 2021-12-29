@@ -112,7 +112,6 @@ export default {
   text-decoration: none;
 }
 
-
 .cart-badge {
   position: relative;
   bottom: 18px;
