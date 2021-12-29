@@ -1,5 +1,6 @@
 <template>
   <Galleria
+    class="wrap"
     :value="images"
     :autoPlay="true"
     :circular="true"
@@ -9,30 +10,65 @@
     :changeItemOnIndicatorHover="true"
   >
     <template #item="slotProps">
-      <img
-        :src="slotProps.item.itemImageSrc"
-        :alt="slotProps.item.alt"
-        style="width: 100%; display: block"
-      />
+      <div class="img-container p-d-flex p-jc-center p-ai-center">
+        <img
+          class="img-body"
+          :src="slotProps.item.itemImageSrc"
+          :alt="slotProps.item.alt"
+        />
+      </div>
     </template>
   </Galleria>
 </template>
 
 <script>
+import IMG1 from "@/assets/img/homeImg/5.jpg";
+import IMG2 from "@/assets/img/homeImg/6.jpg";
+import IMG3 from "@/assets/img/homeImg/9-1.jpg";
+import IMG4 from "@/assets/img/homeImg/17-1.jpg";
+import IMG5 from "@/assets/img/homeImg/18-1.jpg";
+import IMG6 from "@/assets/img/homeImg/19-1.jpg";
+import IMG7 from "@/assets/img/homeImg/12.jpg";
+
 export default {
   data() {
     return {
       images: [
         {
-          itemImageSrc:
-            "https://images.unsplash.com/photo-1609359487676-c932afc65052?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1925&q=80",
+          itemImageSrc: IMG1,
         },
         {
-          itemImageSrc:
-            "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2071&q=80",
+          itemImageSrc: IMG2,
+        },
+        {
+          itemImageSrc: IMG3,
+        },
+        {
+          itemImageSrc: IMG4,
+        },
+        {
+          itemImageSrc: IMG5,
+        },
+        {
+          itemImageSrc: IMG6,
+        },
+        {
+          itemImageSrc: IMG7,
         },
       ],
     };
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.img-container {
+  margin-top: 10px;
+  min-height: 400px;
+}
+
+.img-body {
+  max-height: 600px;
+  max-width: 100%;
+}
+</style>
