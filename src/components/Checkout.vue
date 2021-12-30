@@ -48,31 +48,38 @@
       <div class="p-col-12 p-lg-7">
         <div class="p-grid p-fluid p-ai-center">
           <div class="p-col-4 p-lg-2 p-text-bold">姓名</div>
-          <div class="p-col-8 p-lg-10">{{ buyer.name }}</div>
+          <div class="p-col-8 p-lg-10">{{ buyer.shipping_info.name }}</div>
 
           <div class="p-col-4 p-lg-2 p-text-bold">電話</div>
-          <div class="p-col-8 p-lg-10">{{ buyer.phone_number }}</div>
+          <div class="p-col-8 p-lg-10">
+            {{ buyer.shipping_info.phone_number }}
+          </div>
 
           <div class="p-col-4 p-lg-2 p-text-bold">Email</div>
-          <div class="p-col-8 p-lg-10">{{ buyer.email }}</div>
+          <div class="p-col-8 p-lg-10">{{ buyer.shipping_info.email }}</div>
 
           <div class="p-col-4 p-lg-2 p-text-bold">送貨方式</div>
           <div class="p-col-8 p-lg-10">
-            {{ buyer.shipping_method }}
+            {{ buyer.shipping_info.shipping_method }}
           </div>
 
           <div
-            v-if="buyer.shipping_method === '宅配'"
+            v-if="buyer.shipping_info.shipping_method === '宅配'"
             class="p-col-4 p-lg-2 p-text-bold"
           >
             收件地址
           </div>
-          <div v-if="buyer.shipping_method === '宅配'" class="p-col-8 p-lg-10">
-            {{ buyer.address }}
+          <div
+            v-if="buyer.shipping_info.shipping_method === '宅配'"
+            class="p-col-8 p-lg-10"
+          >
+            {{ buyer.shipping_info.address }}
           </div>
 
           <div class="p-col-4 p-lg-2 p-text-bold">付款方式</div>
-          <div class="p-col-8 p-lg-10">{{ buyer.payment_method }}</div>
+          <div class="p-col-8 p-lg-10">
+            {{ buyer.shipping_info.payment_method }}
+          </div>
 
           <div class="p-col-4 p-lg-2 p-text-bold">備註</div>
           <div class="p-col-8 p-lg-10">{{ buyer.note }}</div>
@@ -94,6 +101,7 @@
 
         <div class="p-col-fixed" style="width: 121px">
           <Button
+            @click.prevent="createOrder"
             class="p-button-lg p-button-raised p-button-danger"
             label="下訂單"
           ></Button>
@@ -112,13 +120,14 @@ export default {
     return {
       cartItems: [],
       buyer: {
-        name: "",
-        phone_number: "",
-        email: "",
-        shipping_method: "",
-        payment_method: "",
-        address: "",
         note: "",
+        shipping_info: {
+          name: "",
+          phone_number: "",
+          address: "",
+          email: "",
+          shipping_method: "",
+        },
       },
     };
   },
@@ -151,6 +160,25 @@ export default {
       if (package_type === "one_pound") {
         return "一磅";
       }
+    },
+    createOrder() {
+      const api = `${process.env.VUE_APP_API}/users/orders`;
+      const headers = { Authorization: Cookies.get("lemonToken") };
+      const data = { order: this.buyer };
+      axios
+        .post(api, data, { headers })
+        .then((response) => {
+          if (response.status === 200) {
+            this.order = [...response.data];
+          }
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            this.showErrorToast("請重新登入");
+            this.$router.push("/entrance/login");
+            this.emitter.emit("changeCartBadgeCount", 0);
+          }
+        });
     },
   },
   computed: {

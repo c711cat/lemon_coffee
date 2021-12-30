@@ -8,40 +8,46 @@
       <div class="p-grid p-fluid p-ai-center">
         <div class="p-col-4 p-lg-2 p-text-bold">姓名</div>
         <div class="p-col-8 p-lg-10">
-          <InputText type="text" v-model="buyer.name" />
+          <InputText type="text" v-model="buyer.shipping_info.name" />
         </div>
 
         <div class="p-col-4 p-lg-2 p-text-bold">電話</div>
         <div class="p-col-8 p-lg-10">
-          <InputText type="text" v-model="buyer.phone_number" />
+          <InputText type="text" v-model="buyer.shipping_info.phone_number" />
         </div>
 
         <div class="p-col-4 p-lg-2 p-text-bold">Email</div>
         <div class="p-col-8 p-lg-10">
-          <InputText type="text" v-model="buyer.email" />
+          <InputText type="text" v-model="buyer.shipping_info.email" />
         </div>
 
         <div class="p-col-4 p-lg-2 p-text-bold">送貨方式</div>
         <div class="p-col-8 p-lg-10">
           <Dropdown
-            v-model="buyer.shipping_method"
+            v-model="buyer.shipping_info.shipping_method"
             :options="shipping_methods"
           />
         </div>
 
         <div
-          v-if="buyer.shipping_method === '宅配'"
+          v-if="buyer.shipping_info.shipping_method === '宅配'"
           class="p-col-4 p-lg-2 p-text-bold"
         >
           收件地址
         </div>
-        <div v-if="buyer.shipping_method === '宅配'" class="p-col-8 p-lg-10">
-          <InputText type="text" v-model="buyer.address" />
+        <div
+          v-if="buyer.shipping_info.shipping_method === '宅配'"
+          class="p-col-8 p-lg-10"
+        >
+          <InputText type="text" v-model="buyer.shipping_info.address" />
         </div>
 
         <div class="p-col-4 p-lg-2 p-text-bold">付款方式</div>
         <div class="p-col-8 p-lg-10">
-          <Dropdown v-model="buyer.payment_method" :options="payment_methods" />
+          <Dropdown
+            v-model="buyer.shipping_info.payment_method"
+            :options="payment_methods"
+          />
         </div>
 
         <div class="p-col-4 p-lg-2 p-text-bold">備註</div>
@@ -73,13 +79,14 @@ export default {
   data() {
     return {
       buyer: {
-        name: "",
-        phone_number: "",
-        email: "",
-        shipping_method: "",
-        payment_method: "",
-        address: "",
         note: "",
+        shipping_info: {
+          name: "",
+          phone_number: "",
+          address: "",
+          email: "",
+          shipping_method: "",
+        },
       },
       shipping_methods: ["宅配"],
       payment_methods: ["貨到付款"],
