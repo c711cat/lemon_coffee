@@ -55,14 +55,16 @@
         </div>
       </div>
     </div>
-    <router-link
-      @click.prevent="toCheckout"
-      to="/checkout"
+    <div
       class="p-grid p-ai-end p-jc-end p-col-12 p-lg-5 p-pb-3 p-m-0 link-content"
     >
-      <Button class="p-button-lg p-button-info p-button-raised" label="去買單">
+      <Button
+        @click.prevent="toCheckout"
+        class="p-button-lg p-button-info p-button-raised"
+        label="去買單"
+      >
       </Button>
-    </router-link>
+    </div>
   </div>
 </template>
 
@@ -91,6 +93,7 @@ export default {
     },
     toCheckout() {
       localStorage.setItem("personalData", JSON.stringify(this.buyer));
+      this.$router.push("/checkout");
     },
   },
   created() {
