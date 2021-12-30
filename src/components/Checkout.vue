@@ -164,12 +164,17 @@ export default {
     createOrder() {
       const api = `${process.env.VUE_APP_API}/users/orders`;
       const headers = { Authorization: Cookies.get("lemonToken") };
-      const data = { order: this.buyer };
+      const data = { order: { ...this.buyer } };
+
+      if (data.order.shipping_info.shipping_method === "宅配") {
+        data.order.shipping_info.shipping_method = "home_delivery";
+      }
+
       axios
         .post(api, data, { headers })
         .then((response) => {
-          if (response.status === 200) {
-            this.order = [...response.data];
+          if (response.status === 201) {
+            this.$router.push(`/order/${response.data.id}`);
           }
         })
         .catch((error) => {
@@ -178,7 +183,32 @@ export default {
             this.$router.push("/entrance/login");
             this.emitter.emit("changeCartBadgeCount", 0);
           }
+          if (error.response.status === 400 && error.response.data.cart) {
+            this.showErrorToast("你的購物車是空的");
+          }
+          if (error.response.status === 400 && error.response.data.name) {
+            this.showErrorToast("請填入 : 收件人姓名");
+          }
+          if (
+            error.response.status === 400 &&
+            error.response.data.phone_number
+          ) {
+            this.showErrorToast("請填入 : 收件人電話");
+          }
+          if (error.response.status === 400 && error.response.data.address) {
+            this.showErrorToast("請填入 : 收件地址");
+          }
+          if (error.response.status === 400 && error.response.data.email) {
+            this.showErrorToast("請填入 : 收件人 email");
+          }
         });
+    },
+    showErrorToast(text) {
+      this.$toast.add({
+        severity: "error",
+        summary: text,
+        life: 5000,
+      });
     },
   },
   computed: {

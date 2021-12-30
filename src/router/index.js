@@ -69,9 +69,12 @@ const routes = [
         path: "checkout",
         component: () => import("@/components/Checkout.vue"),
       },
+      {
+        path: "order/:id",
+        component: () => import("@/components/Order.vue"),
+      },
     ],
   },
-  
 ];
 
 const router = createRouter({
