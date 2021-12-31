@@ -164,12 +164,10 @@ export default {
     createOrder() {
       const api = `${process.env.VUE_APP_API}/users/orders`;
       const headers = { Authorization: Cookies.get("lemonToken") };
-      const data = { order: { ...this.buyer } };
-
+      const data = { order: JSON.parse(JSON.stringify(this.buyer)) };
       if (data.order.shipping_info.shipping_method === "宅配") {
         data.order.shipping_info.shipping_method = "home_delivery";
       }
-
       axios
         .post(api, data, { headers })
         .then((response) => {
