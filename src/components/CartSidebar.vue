@@ -93,7 +93,12 @@
       </div>
     </div>
     <router-link to="/cart" class="p-fluid p-col-12 p-p-0 link-content">
-      <Button label="查看購物車" class="p-button-info p-button-raised"> </Button>
+      <Button
+        label="查看購物車"
+        @click.prevent="$emit('close-visible')"
+        class="p-button-info p-button-raised"
+      >
+      </Button>
     </router-link>
   </div>
 </template>
@@ -112,6 +117,7 @@ export default {
     };
   },
   inject: ["emitter"],
+  emits: ["close-visible"],
   methods: {
     getCart() {
       const api = `${process.env.VUE_APP_API}/users/cart_items`;
