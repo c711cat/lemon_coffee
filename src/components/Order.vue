@@ -147,22 +147,20 @@ export default {
       },
     };
   },
+  inject: ["emitter"],
   methods: {
     getOrder() {
       const api = `${process.env.VUE_APP_API}/users/orders/${this.$route.params.id}`;
       const headers = { Authorization: Cookies.get("lemonToken") };
-
       axios
         .get(api, { headers })
         .then((response) => {
           if (response.status === 200) {
             this.order = { ...response.data };
-            console.log(this.order);
           }
         })
         .catch((error) => {
           if (error.response.status === 401) {
-            console.log(error.response);
             this.showErrorToast("請重新登入");
             this.$router.push("/entrance/login");
             this.emitter.emit("changeCartBadgeCount", 0);
@@ -246,9 +244,8 @@ export default {
       return total;
     },
     finalTotal() {
-      let total = 0;
-      total = this.subtotal + this.order.shipping_info.shipping_fee;
-      return total;
+      let final_total = this.subtotal + this.order.shipping_info.shipping_fee;
+      return final_total;
     },
   },
   created() {
@@ -258,9 +255,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-* {
-  border: 1px solid black;
-}
 .wrap {
   max-width: 1200px;
 }
