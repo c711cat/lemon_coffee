@@ -47,7 +47,7 @@
       <h4>收件人資料</h4>
     </div>
 
-    <div class="p-grid p-m-1 p-pl-2 divider p-pb-1">
+    <div class="p-grid p-m-1 p-pl-2 divider p-pb-1 p-ai-center">
       <div class="p-col-4 p-lg-1 p-text-bold">姓名</div>
       <div class="p-col-8 p-lg-11">{{ order.shipping_info.name }}</div>
 
@@ -84,13 +84,13 @@
       <div class="p-col-8 p-lg-11">{{ order.note }}</div>
     </div>
 
-    <div class="p-grid p-m-1 p-pl-2">
+    <div class="p-grid p-m-1 p-pl-2 p-ai-center">
       <div class="p-col-4 p-lg-1 p-text-bold">訂單狀態</div>
-      <div class="p-col-8 p-lg-11">處理中</div>
+      <div class="p-col-8 p-lg-11">{{ order.status }}</div>
       <div class="p-col-4 p-lg-1 p-text-bold">付款狀態</div>
-      <div class="p-col-8 p-lg-11">未付款</div>
+      <div class="p-col-8 p-lg-11">{{ order.payment_status }}</div>
       <div class="p-col-4 p-lg-1 p-text-bold">物流狀態</div>
-      <div class="p-col-8 p-lg-11">待出貨</div>
+      <div class="p-col-8 p-lg-11">{{ order.shipping_status }}</div>
     </div>
 
     <div
