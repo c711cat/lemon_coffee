@@ -104,7 +104,7 @@
     >
       <router-link to="/home" class="p-lg-2 link-content">
         <Button
-          class="p-button-lg p-button-info p-button-raised"
+          class="p-button-lg p-button-success p-button-raised"
           label="回首頁"
         >
         </Button>
@@ -268,7 +268,7 @@ export default {
 }
 
 .checkout-price {
-  color: #0288d1;
+  color: #689f38;
 }
 
 .link-content {
