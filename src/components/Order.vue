@@ -26,15 +26,19 @@
       <div class="p-col-12">
         <div class="p-grid p-jc-between p-text-right p-ai-center">
           <div class="p-col-7 p-lg-9 p-pr-0">小計</div>
-          <div class="p-col-5 p-lg-3">$</div>
+          <div class="p-col-5 p-lg-3">$ {{ subtotal }}</div>
 
           <div class="p-col-7 p-lg-9 p-pr-0">運費</div>
-          <div class="p-col-5 p-lg-3">$ 0</div>
+          <div class="p-col-5 p-lg-3">
+            $ {{ order.shipping_info.shipping_fee }}
+          </div>
 
           <div class="p-col-7 p-lg-9 p-text-bold checkout-price p-pr-0">
             總付款金額
           </div>
-          <div class="p-col-5 p-lg-3 p-text-bold checkout-price">$</div>
+          <div class="p-col-5 p-lg-3 p-text-bold checkout-price">
+            $ {{ finalTotal }}
+          </div>
         </div>
       </div>
     </div>
@@ -176,6 +180,20 @@ export default {
       if (package_type === "one_pound") {
         return "一磅";
       }
+    },
+  },
+  computed: {
+    subtotal() {
+      let total = 0;
+      this.order.items.forEach((item) => {
+        total += item.unit_price * item.quantity;
+      });
+      return total;
+    },
+    finalTotal() {
+      let total = 0;
+      total = this.subtotal + this.order.shipping_info.shipping_fee;
+      return total;
     },
   },
   created() {
