@@ -131,6 +131,7 @@ export default {
       },
     };
   },
+  inject: ["emitter"],
   methods: {
     getCart() {
       const api = `${process.env.VUE_APP_API}/users/cart_items`;
@@ -173,6 +174,7 @@ export default {
         .then((response) => {
           if (response.status === 201) {
             this.$router.push(`/order/${response.data.id}`);
+            this.emitter.emit("changeCartBadgeCount", 0);
           }
         })
         .catch((error) => {
