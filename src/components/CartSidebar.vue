@@ -92,12 +92,12 @@
         </div>
       </div>
     </div>
-    <router-link to="/cart" class="p-fluid p-col-12 p-p-0 link-content">
-      <Button
-        label="查看購物車"
-        @click.prevent="$emit('close-visible')"
-        class="p-button-info p-button-raised"
-      >
+    <router-link
+      to="/cart"
+      @click.prevent="$emit('close-visible')"
+      class="p-fluid p-col-12 p-p-0 link-content"
+    >
+      <Button label="查看購物車" class="p-button-info p-button-raised">
       </Button>
     </router-link>
   </div>
