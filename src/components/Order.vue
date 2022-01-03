@@ -61,7 +61,7 @@
 
       <div class="p-col-4 p-lg-1 p-text-bold">送貨方式</div>
       <div class="p-col-8 p-lg-11">
-        {{ order.shipping_info.shipping_method }}
+        {{ shippingMethodText(order.shipping_info.shipping_method) }}
       </div>
 
       <div
@@ -78,7 +78,9 @@
       </div>
 
       <div class="p-col-4 p-lg-1 p-text-bold">付款方式</div>
-      <div class="p-col-8 p-lg-11">{{ order.payment_method }}</div>
+      <div class="p-col-8 p-lg-11">
+        {{ paymentMethodText(order.payment_method) }}
+      </div>
 
       <div class="p-col-4 p-lg-1 p-text-bold">備註</div>
       <div class="p-col-8 p-lg-11">{{ order.note }}</div>
@@ -86,11 +88,15 @@
 
     <div class="p-grid p-m-1 p-pl-2 p-ai-center">
       <div class="p-col-4 p-lg-1 p-text-bold">訂單狀態</div>
-      <div class="p-col-8 p-lg-11">{{ order.status }}</div>
+      <div class="p-col-8 p-lg-11">{{ orderStatusText(order.status) }}</div>
       <div class="p-col-4 p-lg-1 p-text-bold">付款狀態</div>
-      <div class="p-col-8 p-lg-11">{{ order.payment_status }}</div>
+      <div class="p-col-8 p-lg-11">
+        {{ paymentStatusText(order.payment_status) }}
+      </div>
       <div class="p-col-4 p-lg-1 p-text-bold">物流狀態</div>
-      <div class="p-col-8 p-lg-11">{{ order.shipping_status }}</div>
+      <div class="p-col-8 p-lg-11">
+        {{ shippingStatusText(order.shipping_status) }}
+      </div>
     </div>
 
     <div
@@ -179,6 +185,55 @@ export default {
       }
       if (package_type === "one_pound") {
         return "一磅";
+      }
+    },
+    shippingMethodText(shipping_method) {
+      if (shipping_method === "home_delivery") {
+        return "宅配";
+      }
+    },
+    paymentMethodText(payment_method) {
+      if (payment_method === "cash_on_delivery") {
+        return "貨到付款";
+      }
+    },
+    orderStatusText(status) {
+      if (status === "pending") {
+        return "處理中";
+      }
+      if (status === "confirmed") {
+        return "已確認";
+      }
+      if (status === "finished") {
+        return "已完成";
+      }
+      if (status === "canceled") {
+        return "已取消";
+      }
+    },
+    paymentStatusText(payment_status) {
+      if (payment_status === "outstanding" || payment_status === "unpaid") {
+        return "未付款";
+      }
+      if (payment_status === "failed") {
+        return "付款失敗";
+      }
+      if (payment_status === "paid") {
+        return "已付款";
+      }
+    },
+    shippingStatusText(shipping_status) {
+      if (shipping_status === "in_preparation") {
+        return "備貨中";
+      }
+      if (shipping_status === "shipping") {
+        return "已發貨";
+      }
+      if (shipping_status === "arrived") {
+        return "已到達";
+      }
+      if (shipping_status === "picked_up") {
+        return "已取貨";
       }
     },
   },
