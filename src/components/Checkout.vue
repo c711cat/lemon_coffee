@@ -240,7 +240,7 @@ export default {
 }
 
 .checkout-price {
-  color: #0288d1;
+  color: #d32f2f;
 }
 
 .link-content {
