@@ -99,7 +99,7 @@
           </Button>
         </router-link>
 
-        <div class="p-col-fixed" style="width: 121px">
+        <div class="p-col-fixed" style="width: 127px">
           <Button
             @click.prevent="createOrder"
             class="p-button-lg p-button-raised p-button-danger"
