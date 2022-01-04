@@ -39,6 +39,28 @@
         </div>
       </div>
     </div>
+    <div class="p-col-11 p-lg-12 bg-color p-my-3 p-mx-auto">
+      <div class="p-grid p-m-0 p-pb-2 p-text-bold p-pt-3 p-px-6">
+        <div class="p-col-12 p-lg-8">尼加拉瓜 聖荷西莊園 波旁種 蜜處理法</div>
+        <div class="p-col-12 p-lg-4">中焙 OOOOO</div>
+      </div>
+      <hr class="p-mx-6" />
+      <div class="p-grid p-m-0 p-py-2 p-px-6">
+        <div class="p-col-5 p-lg-2 p-text-bold">國家</div>
+        <div class="p-col-7 p-lg-4">尼加拉瓜</div>
+        <div class="p-col-5 p-lg-2 p-text-bold">產區</div>
+        <div class="p-col-7 p-lg-4">聖荷西莊園</div>
+        <div class="p-col-5 p-lg-2 p-text-bold">品種</div>
+        <div class="p-col-7 p-lg-4">波旁種</div>
+        <div class="p-col-5 p-lg-2 p-text-bold">處理法</div>
+        <div class="p-col-7 p-lg-4">蜜處理</div>
+        <div class="p-col-12 p-lg-2 p-text-bold">風味描述</div>
+        <div class="p-col-12 p-lg-10">
+          柑橘、橘皮、黑醋栗氣息與焦糖、橘汁風味與酸甜感、
+          餘韻帶有烏龍茶韻及木頭氣息
+        </div>
+      </div>
+    </div>
   </div>
   <div v-if="is_error">無此商品</div>
 </template>
@@ -162,6 +184,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+* {
+  border: 1px solid black;
+}
 .wrap {
   max-width: 950px;
 }
@@ -172,5 +197,9 @@ export default {
 
 .price-size {
   font-size: 18px;
+}
+
+.bg-color {
+  background: #fdf7ee;
 }
 </style>
