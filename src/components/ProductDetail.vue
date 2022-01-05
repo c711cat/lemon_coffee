@@ -39,12 +39,12 @@
         </div>
       </div>
     </div>
-    <div class="p-col-11 p-lg-12 bg-color p-my-3 p-mx-auto">
+    <div class="p-col-11 p-lg-12 bean-details-container p-my-3 p-mx-auto">
       <div class="p-grid p-m-0 p-pb-2 p-text-bold p-pt-3 p-px-6">
         <div class="p-col-12 p-lg-8">尼加拉瓜 聖荷西莊園 波旁種 蜜處理法</div>
         <div class="p-col-12 p-lg-4">中焙 OOOOO</div>
       </div>
-      <hr class="p-mx-6" />
+      <hr class="p-mx-6 hr-style" />
       <div class="p-grid p-m-0 p-py-2 p-px-6">
         <div class="p-col-5 p-lg-2 p-text-bold">國家</div>
         <div class="p-col-7 p-lg-4">尼加拉瓜</div>
@@ -184,9 +184,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-* {
-  border: 1px solid black;
-}
+// * {
+//   border: 1px solid black;
+// }
 .wrap {
   max-width: 950px;
 }
@@ -199,7 +199,12 @@ export default {
   font-size: 18px;
 }
 
-.bg-color {
+.bean-details-container {
   background: #fdf7ee;
+  border-radius: 10px;
+}
+
+.hr-style {
+  border: 1px solid #f0dfda;
 }
 </style>
