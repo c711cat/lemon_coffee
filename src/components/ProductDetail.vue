@@ -209,7 +209,7 @@ export default {
 }
 
 .bean-details-container {
-  background: #fdf7ee;
+  background: #edf6ff;
   border-radius: 10px;
 }
 
