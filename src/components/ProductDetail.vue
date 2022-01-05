@@ -41,8 +41,13 @@
     </div>
     <div class="p-col-11 p-lg-12 bean-details-container p-my-3 p-mx-auto">
       <div class="p-grid p-m-0 p-pb-2 p-text-bold p-pt-3 p-px-6">
-        <div class="p-col-12 p-lg-8">尼加拉瓜 聖荷西莊園 波旁種 蜜處理法</div>
-        <div class="p-col-12 p-lg-4">中焙 OOOOO</div>
+        <div class="p-col-12 p-lg-8">{{ product.name }}</div>
+
+        <Roast
+          :roast="product.roast"
+          class="p-col-12 p-lg-4"
+          style="min-width: 0%"
+        ></Roast>
       </div>
       <hr class="p-mx-6 hr-style" />
       <div class="p-grid p-m-0 p-py-2 p-px-6">
@@ -68,6 +73,7 @@
 <script>
 import axios from "axios";
 import Cookies from "js-cookie";
+import Roast from "@/components/Roast.vue";
 
 export default {
   data() {
@@ -75,6 +81,7 @@ export default {
       product: {
         name: "",
         id: 0,
+        roast: 0,
       },
       typeOfOptions: [
         { value: "drip_bag", label: "耳掛" },
@@ -86,6 +93,7 @@ export default {
       is_error: false,
     };
   },
+  components: { Roast },
   inject: ["emitter"],
   methods: {
     getProduct() {
@@ -94,6 +102,7 @@ export default {
         .get(api)
         .then((response) => {
           this.product = { ...response.data };
+          console.log(this.product);
         })
         .catch(() => {
           this.is_error = !this.is_error;
