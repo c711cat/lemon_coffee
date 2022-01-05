@@ -193,9 +193,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// * {
-//   border: 1px solid black;
-// }
 .wrap {
   max-width: 950px;
 }
@@ -209,7 +206,7 @@ export default {
 }
 
 .bean-details-container {
-  background: #edf6ff;
+  background: #fdf7ee;
   border-radius: 10px;
 }
 
