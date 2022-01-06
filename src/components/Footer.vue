@@ -28,7 +28,7 @@
         <a
           style="display: block"
           class="link-content logo-hover p-col-12"
-          href="https://www.google.com/maps/place/%E5%AF%A7%E8%92%99%E5%92%96%E5%95%A1/@22.9268643,120.1866136,15z/data=!4m5!3m4!1s0x0:0x823a5a6d873727a5!8m2!3d22.9268642!4d120.1866136"
+          href="https://goo.gl/maps/J6VqrUiLvgQGTQR48"
           target="_blank"
           >台南市南區明興路1151巷10-2號
         </a>
