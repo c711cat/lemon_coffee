@@ -1,13 +1,13 @@
 <template>
   <Toast />
   <div id="navbar-style">
-    <Menubar :model="items">
+    <Menubar :model="items" class="p-pl-5 p-pr-3 p-py-3">
       <template #start>
         <router-link to="/home">
           <img
             class="logo-img"
             alt="logo"
-            src="../assets/img/LemonCoffee/logo1.png"
+            src="../assets/img/LemonCoffee/logo.png"
           />
         </router-link>
       </template>
@@ -74,18 +74,9 @@ export default {
         })
         .catch((error) => {
           if (error.response.status === 401) {
-            this.showErrorToast("請重新登入");
             this.numberOfCartItems = 0;
-            this.$router.push("/entrance/login");
           }
         });
-    },
-    showErrorToast(text) {
-      this.$toast.add({
-        severity: "error",
-        summary: text,
-        life: 5000,
-      });
     },
   },
   created() {
