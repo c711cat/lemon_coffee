@@ -117,9 +117,4 @@ export default {
   bottom: 18px;
   right: 30px;
 }
-
-.p-menubar {
-  border: none;
-  margin: -10px;
-}
 </style>
