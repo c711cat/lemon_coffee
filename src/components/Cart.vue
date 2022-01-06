@@ -16,16 +16,23 @@
           class="p-button-rounded p-button-text p-button-danger"
         />
       </div>
+      <router-link
+        :to="`/products/${item.product_id}`"
+        class="
+          p-grid p-m-0 p-col-10 p-lg-6 p-jc-around p-ai-center
+          link-content
+        "
+      >
+        <img
+          :src="item.product_image_url"
+          class="product-image p-col-1 p-lg-1 p-p-0"
+        />
 
-      <img
-        :src="item.product_image_url"
-        class="product-image p-col-3 p-lg-1 p-p-0"
-      />
-
-      <div class="p-col-8 p-lg-4 p-pl-3">
-        {{ item.product_name }}<br />
-        磨粉不磨粉?<br />
-      </div>
+        <div class="p-col-9 p-lg-9 p-pl-3">
+          {{ item.product_name }}<br />
+          磨粉不磨粉?<br />
+        </div>
+      </router-link>
 
       <div class="p-col-fixed p-pl-4" style="width: 130px">
         $ {{ item.unit_price }} / {{ typeText(item.package_type) }}
@@ -264,5 +271,14 @@ export default {
 
 .checkout-price {
   color: #0288d1;
+}
+
+.link-content {
+  text-decoration: none;
+  color: #2c3e50;
+}
+
+.link-content:hover {
+  background: #f9f5ef;
 }
 </style>

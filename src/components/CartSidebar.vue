@@ -15,12 +15,17 @@
       style="width: 30px"
     />
 
-    <img :src="item.product_image_url" class="product-image p-col-3 p-p-0" />
+    <router-link
+      :to="`/products/${item.product_id}`"
+      class="p-grid p-m-0 p-col-10 p-jc-around p-ai-center link-content"
+    >
+      <img :src="item.product_image_url" class="product-image p-col-3 p-p-0" />
 
-    <div class="p-col-8 p-pl-3">
-      {{ item.product_name }}<br />
-      磨粉不磨粉?<br />
-    </div>
+      <div class="p-col-8 p-pl-3">
+        {{ item.product_name }}<br />
+        磨粉不磨粉?<br />
+      </div>
+    </router-link>
 
     <div class="p-col-fixed p-pl-3">
       $ {{ item.unit_price }} / {{ typeText(item.package_type) }}
@@ -125,6 +130,7 @@ export default {
       axios
         .get(api, { headers })
         .then((response) => {
+          console.log(response);
           if (response.status === 200) {
             this.cartItems = [...response.data];
           }
@@ -256,5 +262,10 @@ export default {
 
 .link-content {
   text-decoration: none;
+  color: #2c3e50;
+}
+
+.link-content:hover {
+  background: #f9f5ef;
 }
 </style>
