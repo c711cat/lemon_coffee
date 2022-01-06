@@ -74,18 +74,9 @@ export default {
         })
         .catch((error) => {
           if (error.response.status === 401) {
-            this.showErrorToast("請重新登入");
             this.numberOfCartItems = 0;
-            this.$router.push("/entrance/login");
           }
         });
-    },
-    showErrorToast(text) {
-      this.$toast.add({
-        severity: "error",
-        summary: text,
-        life: 5000,
-      });
     },
   },
   created() {
