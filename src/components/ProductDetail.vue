@@ -62,7 +62,7 @@
         <div class="p-col-12 p-lg-2 p-text-bold">風味描述</div>
         <div class="p-col-12 p-lg-10">
           柑橘、橘皮、黑醋栗氣息與焦糖、橘汁風味與酸甜感、
-          餘韻帶有烏龍茶韻及木頭氣息
+          餘韻帶有烏龍茶韻及木頭氣息。
         </div>
       </div>
     </div>
@@ -102,7 +102,6 @@ export default {
         .get(api)
         .then((response) => {
           this.product = { ...response.data };
-          console.log(this.product);
         })
         .catch(() => {
           this.is_error = !this.is_error;
