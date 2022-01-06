@@ -92,10 +92,10 @@
           </Button>
         </router-link>
 
-        <div class="p-col-fixed" style="width: 100px">
+        <div class="p-col-fixed" style="width: 121px">
           <Button
             class="p-button-lg p-button-raised p-button-danger"
-            label="結帳"
+            label="下訂單"
           ></Button>
         </div>
       </div>
