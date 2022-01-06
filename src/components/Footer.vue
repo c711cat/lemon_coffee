@@ -11,7 +11,7 @@
     >
       <div class="box box-stretched p-d-flex p-jc-center p-ai-center">
         <img
-          style="width: 70px; display: block"
+          style="width: 70px"
           alt="logo"
           src="../assets/img/LemonCoffee/logo-footer.png"
         />
