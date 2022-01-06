@@ -69,9 +69,4 @@ export default {
 .sidebar-wrap {
   width: 500px;
 }
-
-.p-menubar {
-  border: none;
-  margin: -10px;
-}
 </style>
