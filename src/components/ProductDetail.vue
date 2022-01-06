@@ -81,7 +81,7 @@ export default {
       product: {
         name: "",
         id: 0,
-        roast: 0,
+        roast: 1,
       },
       typeOfOptions: [
         { value: "drip_bag", label: "耳掛" },
