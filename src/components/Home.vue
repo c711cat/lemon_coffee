@@ -11,11 +11,7 @@
   >
     <template #item="slotProps">
       <div class="img-container p-d-flex p-jc-center p-ai-center">
-        <img
-          class="img-body"
-          :src="slotProps.item.itemImageSrc"
-          :alt="slotProps.item.alt"
-        />
+        <img class="img-body" :src="slotProps.item.itemImageSrc" />
       </div>
     </template>
   </Galleria>
