@@ -63,7 +63,11 @@
     </div>
   </div>
 
-  <div class="p-grid nested-grid p-jc-between p-mx-0 p-my-2 p-p-0">
+  <div v-if="cartItems.length === 0" class="p-pl-2 p-pt-3 p-text-bold">
+    你的購物車是空的
+  </div>
+
+  <div v-else class="p-grid nested-grid p-jc-between p-mx-0 p-my-2 p-p-0">
     <div class="p-col-3 p-ml-2">
       <div class="p-grid discount-container">
         <div class="p-col-10 p-text-center p-mr-2 discount-mark">優惠</div>
@@ -133,6 +137,7 @@ export default {
           console.log(response);
           if (response.status === 200) {
             this.cartItems = [...response.data];
+            console.log(this.cartItems);
           }
         })
         .catch((error) => {
