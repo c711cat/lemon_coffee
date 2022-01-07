@@ -27,6 +27,8 @@ import SelectButton from "primevue/selectbutton";
 import Badge from "primevue/badge";
 import BadgeDirective from "primevue/badgedirective";
 import Galleria from "primevue/galleria";
+import Accordion from "primevue/accordion";
+import AccordionTab from "primevue/accordiontab";
 
 const app = createApp(App);
 app.use(router);
@@ -54,5 +56,7 @@ app.component("Sidebar", Sidebar);
 app.component("SelectButton", SelectButton);
 app.component("Badge", Badge);
 app.component("Galleria", Galleria);
+app.component("Accordion", Accordion);
+app.component("AccordionTab", AccordionTab);
 
 app.mount("#app");
