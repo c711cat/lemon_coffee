@@ -134,10 +134,8 @@ export default {
       axios
         .get(api, { headers })
         .then((response) => {
-          console.log(response);
           if (response.status === 200) {
             this.cartItems = [...response.data];
-            console.log(this.cartItems);
           }
         })
         .catch((error) => {
