@@ -17,11 +17,11 @@
 
     <router-link
       :to="`/products/${item.product_id}`"
-      class="p-grid p-m-0 p-col-10 p-jc-around p-ai-center link-content"
+      class="p-grid p-m-0 p-col-10 p-ai-center link-content"
     >
       <img :src="item.product_image_url" class="product-image p-col-3 p-p-0" />
 
-      <div class="p-col-8 p-pl-3">
+      <div class="p-col-9 p-pl-3">
         {{ item.product_name }}<br />
         磨粉不磨粉?<br />
       </div>
@@ -232,6 +232,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+* {
+  border: 1px solid black;
+}
 .divider {
   border-bottom: 1px solid rgb(235, 233, 233);
 }
