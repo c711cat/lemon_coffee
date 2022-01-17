@@ -167,8 +167,9 @@ export default {
     createOrder() {
       const api = `${process.env.VUE_APP_API}/users/orders`;
       const headers = { Authorization: Cookies.get("lemonToken") };
-      const buyer = { note: this.note, shipping_info: this.shipping_info };
-      const data = { order: JSON.parse(JSON.stringify(buyer)) };
+      const data = {
+        order: { note: this.note, shipping_info: this.shipping_info },
+      };
       if (data.order.shipping_info.shipping_method === "宅配") {
         data.order.shipping_info.shipping_method = "home_delivery";
       }
