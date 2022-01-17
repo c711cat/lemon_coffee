@@ -48,41 +48,41 @@
       <div class="p-col-12 p-lg-7">
         <div class="p-grid p-fluid p-ai-center">
           <div class="p-col-4 p-lg-2 p-text-bold">姓名</div>
-          <div class="p-col-8 p-lg-10">{{ buyer.shipping_info.name }}</div>
+          <div class="p-col-8 p-lg-10">{{ shipping_info.name }}</div>
 
           <div class="p-col-4 p-lg-2 p-text-bold">電話</div>
           <div class="p-col-8 p-lg-10">
-            {{ buyer.shipping_info.phone_number }}
+            {{ shipping_info.phone_number }}
           </div>
 
           <div class="p-col-4 p-lg-2 p-text-bold">Email</div>
-          <div class="p-col-8 p-lg-10">{{ buyer.shipping_info.email }}</div>
+          <div class="p-col-8 p-lg-10">{{ shipping_info.email }}</div>
 
           <div class="p-col-4 p-lg-2 p-text-bold">送貨方式</div>
           <div class="p-col-8 p-lg-10">
-            {{ buyer.shipping_info.shipping_method }}
+            {{ shipping_info.shipping_method }}
           </div>
 
           <div
-            v-if="buyer.shipping_info.shipping_method === '宅配'"
+            v-if="shipping_info.shipping_method === '宅配'"
             class="p-col-4 p-lg-2 p-text-bold"
           >
             收件地址
           </div>
           <div
-            v-if="buyer.shipping_info.shipping_method === '宅配'"
+            v-if="shipping_info.shipping_method === '宅配'"
             class="p-col-8 p-lg-10"
           >
-            {{ buyer.shipping_info.address }}
+            {{ shipping_info.address }}
           </div>
 
           <div class="p-col-4 p-lg-2 p-text-bold">付款方式</div>
           <div class="p-col-8 p-lg-10">
-            {{ buyer.shipping_info.payment_method }}
+            {{ shipping_info.payment_method }}
           </div>
 
           <div class="p-col-4 p-lg-2 p-text-bold">備註</div>
-          <div class="p-col-8 p-lg-10">{{ buyer.note }}</div>
+          <div class="p-col-8 p-lg-10">{{ note }}</div>
         </div>
       </div>
 
@@ -119,15 +119,13 @@ export default {
   data() {
     return {
       cartItems: [],
-      buyer: {
-        note: "",
-        shipping_info: {
-          name: "",
-          phone_number: "",
-          address: "",
-          email: "",
-          shipping_method: "",
-        },
+      note: "",
+      shipping_info: {
+        name: "",
+        phone_number: "",
+        address: "",
+        email: "",
+        shipping_method: "",
       },
     };
   },
@@ -141,7 +139,11 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.cartItems = [...response.data];
-            this.buyer = JSON.parse(localStorage.getItem("personalData") || {});
+            const buyerRecord = JSON.parse(
+              localStorage.getItem("personalData") || {}
+            );
+            this.note = buyerRecord.note;
+            this.shipping_info = buyerRecord.shipping_info;
           }
         })
         .catch((error) => {
@@ -165,7 +167,8 @@ export default {
     createOrder() {
       const api = `${process.env.VUE_APP_API}/users/orders`;
       const headers = { Authorization: Cookies.get("lemonToken") };
-      const data = { order: JSON.parse(JSON.stringify(this.buyer)) };
+      const buyer = { note: this.note, shipping_info: this.shipping_info };
+      const data = { order: JSON.parse(JSON.stringify(buyer)) };
       if (data.order.shipping_info.shipping_method === "宅配") {
         data.order.shipping_info.shipping_method = "home_delivery";
       }
