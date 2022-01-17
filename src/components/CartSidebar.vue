@@ -94,7 +94,7 @@
     </div>
     <router-link
       to="/cart"
-      @click.prevent="$emit('close-visible')"
+      @click.prevent="$emit('close-cart-sidebar')"
       class="p-fluid p-col-12 p-p-0 link-content"
     >
       <Button label="查看購物車" class="p-button-info p-button-raised">
@@ -117,7 +117,7 @@ export default {
     };
   },
   inject: ["emitter"],
-  emits: ["close-visible"],
+  emits: ["close-cart-sidebar"],
   methods: {
     getCart() {
       const api = `${process.env.VUE_APP_API}/users/cart_items`;
