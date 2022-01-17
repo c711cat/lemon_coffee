@@ -8,56 +8,51 @@
       <div class="p-grid p-fluid p-ai-center">
         <div class="p-col-4 p-lg-2 p-text-bold">姓名</div>
         <div class="p-col-8 p-lg-10">
-          <InputText type="text" v-model="buyer.shipping_info.name" />
+          <InputText type="text" v-model="shipping_info.name" />
         </div>
 
         <div class="p-col-4 p-lg-2 p-text-bold">電話</div>
         <div class="p-col-8 p-lg-10">
-          <InputText type="text" v-model="buyer.shipping_info.phone_number" />
+          <InputText type="text" v-model="shipping_info.phone_number" />
         </div>
 
         <div class="p-col-4 p-lg-2 p-text-bold">Email</div>
         <div class="p-col-8 p-lg-10">
-          <InputText type="text" v-model="buyer.shipping_info.email" />
+          <InputText type="text" v-model="shipping_info.email" />
         </div>
 
         <div class="p-col-4 p-lg-2 p-text-bold">送貨方式</div>
         <div class="p-col-8 p-lg-10">
           <Dropdown
-            v-model="buyer.shipping_info.shipping_method"
+            v-model="shipping_info.shipping_method"
             :options="shipping_methods"
           />
         </div>
 
         <div
-          v-if="buyer.shipping_info.shipping_method === '宅配'"
+          v-if="shipping_info.shipping_method === '宅配'"
           class="p-col-4 p-lg-2 p-text-bold"
         >
           收件地址
         </div>
         <div
-          v-if="buyer.shipping_info.shipping_method === '宅配'"
+          v-if="shipping_info.shipping_method === '宅配'"
           class="p-col-8 p-lg-10"
         >
-          <InputText type="text" v-model="buyer.shipping_info.address" />
+          <InputText type="text" v-model="shipping_info.address" />
         </div>
 
         <div class="p-col-4 p-lg-2 p-text-bold">付款方式</div>
         <div class="p-col-8 p-lg-10">
           <Dropdown
-            v-model="buyer.shipping_info.payment_method"
+            v-model="shipping_info.payment_method"
             :options="payment_methods"
           />
         </div>
 
         <div class="p-col-4 p-lg-2 p-text-bold">備註</div>
         <div class="p-col-8 p-lg-10">
-          <Textarea
-            :autoResize="true"
-            v-model="buyer.note"
-            rows="5"
-            cols="30"
-          />
+          <Textarea :autoResize="true" v-model="note" rows="5" cols="30" />
         </div>
       </div>
     </div>
@@ -78,15 +73,13 @@
 export default {
   data() {
     return {
-      buyer: {
-        note: "",
-        shipping_info: {
-          name: "",
-          phone_number: "",
-          address: "",
-          email: "",
-          shipping_method: "",
-        },
+      note: "",
+      shipping_info: {
+        name: "",
+        phone_number: "",
+        address: "",
+        email: "",
+        shipping_method: "",
       },
       shipping_methods: ["宅配"],
       payment_methods: ["貨到付款"],
@@ -95,11 +88,15 @@ export default {
   methods: {
     getPersonalData() {
       if (localStorage.getItem("personalData")) {
-        this.buyer = JSON.parse(localStorage.getItem("personalData"));
+        this.note = JSON.parse(localStorage.getItem("personalData")).note;
+        this.shipping_info = JSON.parse(
+          localStorage.getItem("personalData")
+        ).shipping_info;
       }
     },
     toCheckout() {
-      localStorage.setItem("personalData", JSON.stringify(this.buyer));
+      const buyer = { note: this.note, shipping_info: this.shipping_info };
+      localStorage.setItem("personalData", JSON.stringify(buyer));
       this.$router.push("/checkout");
     },
   },
