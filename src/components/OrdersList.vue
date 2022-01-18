@@ -5,7 +5,7 @@
     v-for="order in orders"
     :key="order.id"
   >
-    <AccordionTab :header="`訂單成立時間 ${order.title}`">
+    <AccordionTab :header="`訂單成立時間 ${order.title}  訂單編號 ${order.id}`">
       <div
         class="p-grid p-m-0 p-py-3 divider p-ai-center p-jc-between"
         v-for="item in order.items"
