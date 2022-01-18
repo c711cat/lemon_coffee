@@ -196,17 +196,15 @@ export default {
       }
     },
     orderStatusText(status) {
-      if (status === "pending") {
-        return "處理中";
-      }
-      if (status === "confirmed") {
-        return "已確認";
-      }
-      if (status === "finished") {
-        return "已完成";
-      }
-      if (status === "canceled") {
-        return "已取消";
+      switch (status) {
+        case "pending":
+          return "處理中";
+        case "confirmed":
+          return "已確認";
+        case "finished":
+          return "已完成";
+        case "canceled":
+          return "已取消";
       }
     },
     paymentStatusText(payment_status) {
