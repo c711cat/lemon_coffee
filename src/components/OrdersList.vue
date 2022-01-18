@@ -187,13 +187,6 @@ export default {
       });
       return total;
     },
-    showErrorToast(text) {
-      this.$toast.add({
-        severity: "error",
-        summary: text,
-        life: 5000,
-      });
-    },
     typeText(package_type) {
       switch (package_type) {
         case "drip_bag":
