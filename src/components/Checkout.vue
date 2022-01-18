@@ -60,7 +60,7 @@
 
           <div class="p-col-4 p-lg-2 p-text-bold">送貨方式</div>
           <div class="p-col-8 p-lg-10">
-            {{ shipping_info.shipping_method }}
+            {{ shippingMethod }}
           </div>
 
           <div
@@ -78,7 +78,7 @@
 
           <div class="p-col-4 p-lg-2 p-text-bold">付款方式</div>
           <div class="p-col-8 p-lg-10">
-            {{ shipping_info.payment_method }}
+            {{ paymentMethod }}
           </div>
 
           <div class="p-col-4 p-lg-2 p-text-bold">備註</div>
@@ -167,11 +167,9 @@ export default {
     createOrder() {
       const api = `${process.env.VUE_APP_API}/users/orders`;
       const headers = { Authorization: Cookies.get("lemonToken") };
-      const buyer = { note: this.note, shipping_info: this.shipping_info };
-      const data = { order: JSON.parse(JSON.stringify(buyer)) };
-      if (data.order.shipping_info.shipping_method === "宅配") {
-        data.order.shipping_info.shipping_method = "home_delivery";
-      }
+      const data = {
+        order: { note: this.note, shipping_info: this.shipping_info },
+      };
       axios
         .post(api, data, { headers })
         .then((response) => {
@@ -221,6 +219,20 @@ export default {
         total += item.unit_price * item.quantity;
       });
       return total;
+    },
+    shippingMethod() {
+      let shipping_method = "";
+      if (this.shipping_info.shipping_method === "home_delivery") {
+        shipping_method = "宅配";
+      }
+      return shipping_method;
+    },
+    paymentMethod() {
+      let payment_method = "";
+      if (this.shipping_info.payment_method === "cash_on_delivery") {
+        payment_method = "貨到付款";
+      }
+      return payment_method;
     },
   },
   created() {

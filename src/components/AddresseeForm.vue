@@ -96,6 +96,12 @@ export default {
     },
     toCheckout() {
       const buyer = { note: this.note, shipping_info: this.shipping_info };
+      if (buyer.shipping_info.shipping_method === "宅配") {
+        buyer.shipping_info.shipping_method = "home_delivery";
+      }
+      if (buyer.shipping_info.payment_method === "貨到付款") {
+        buyer.shipping_info.payment_method = "cash_on_delivery";
+      }
       localStorage.setItem("personalData", JSON.stringify(buyer));
       this.$router.push("/checkout");
     },
