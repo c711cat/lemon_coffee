@@ -1,5 +1,10 @@
 <template>
-  <Accordion :multiple="true" v-for="order in orders" :key="order.id">
+  <Accordion
+    class="wrap p-mx-auto"
+    :multiple="true"
+    v-for="order in orders"
+    :key="order.id"
+  >
     <AccordionTab :header="`訂單成立時間 ${order.title}`">
       <div
         class="p-grid p-m-0 p-py-3 divider p-ai-center p-jc-between"
@@ -246,3 +251,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.wrap {
+  max-width: 1200px;
+}
+</style>
