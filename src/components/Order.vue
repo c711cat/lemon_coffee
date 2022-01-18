@@ -175,14 +175,13 @@ export default {
       });
     },
     typeText(package_type) {
-      if (package_type === "drip_bag") {
-        return "耳掛";
-      }
-      if (package_type === "half_pound") {
-        return "半磅";
-      }
-      if (package_type === "one_pound") {
-        return "一磅";
+      switch (package_type) {
+        case "drip_bag":
+          return "耳掛";
+        case "half_pound":
+          return "半磅";
+        case "one_pound":
+          return "一磅";
       }
     },
     shippingMethodText(shipping_method) {
