@@ -217,17 +217,15 @@ export default {
       }
     },
     shippingStatusText(shipping_status) {
-      if (shipping_status === "in_preparation") {
-        return "備貨中";
-      }
-      if (shipping_status === "shipping") {
-        return "已發貨";
-      }
-      if (shipping_status === "arrived") {
-        return "已到達";
-      }
-      if (shipping_status === "picked_up") {
-        return "已取貨";
+      switch (shipping_status) {
+        case "in_preparation":
+          return "備貨中";
+        case "shipping":
+          return "已發貨";
+        case "arrived":
+          return "已到達";
+        case "picked_up":
+          return "已取貨";
       }
     },
   },
