@@ -207,14 +207,13 @@ export default {
       }
     },
     paymentStatusText(payment_status) {
-      if (payment_status === "outstanding" || payment_status === "unpaid") {
-        return "未付款";
-      }
-      if (payment_status === "failed") {
-        return "付款失敗";
-      }
-      if (payment_status === "paid") {
-        return "已付款";
+      switch (payment_status) {
+        case "outstanding" || "unpaid":
+          return "未付款";
+        case "failed":
+          return "付款失敗";
+        case "paid":
+          return "已付款";
       }
     },
     shippingStatusText(shipping_status) {
