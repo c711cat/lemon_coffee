@@ -12,7 +12,7 @@
         </div>
         <div class="p-col-5 p-lg-3 p-pl-3">
           $ {{ item.unit_price }} /
-          {{ item.package_type }}
+          {{ typeText(item.package_type) }}
         </div>
         <div class="p-col-3 p-lg-1 p-p-0 p-my-3">數量 {{ item.quantity }}</div>
         <div class="p-col-3 p-lg-2 p-text-right subtotal-container">
@@ -59,7 +59,7 @@
 
         <div class="p-col-4 p-lg-1 p-text-bold">送貨方式</div>
         <div class="p-col-8 p-lg-11">
-          {{ order.shipping_info.shipping_method }}
+          {{ shippingMethodText(order.shipping_info.shipping_method) }}
         </div>
 
         <div
@@ -77,7 +77,7 @@
 
         <div class="p-col-4 p-lg-1 p-text-bold">付款方式</div>
         <div class="p-col-8 p-lg-11">
-          {{ order.payment_method }}
+          {{ paymentMethodText(order.payment_method) }}
         </div>
 
         <div class="p-col-4 p-lg-1 p-text-bold">備註</div>
@@ -86,14 +86,14 @@
 
       <div class="p-grid p-m-1 p-pl-2 p-ai-center">
         <div class="p-col-4 p-lg-1 p-text-bold">訂單狀態</div>
-        <div class="p-col-8 p-lg-11">{{ order.status }}</div>
+        <div class="p-col-8 p-lg-11">{{ orderStatusText(order.status) }}</div>
         <div class="p-col-4 p-lg-1 p-text-bold">付款狀態</div>
         <div class="p-col-8 p-lg-11">
-          {{ order.payment_status }}
+          {{ paymentStatusText(order.payment_status) }}
         </div>
         <div class="p-col-4 p-lg-1 p-text-bold">物流狀態</div>
         <div class="p-col-8 p-lg-11">
-          {{ order.shipping_status }}
+          {{ shippingStatusText(order.shipping_status) }}
         </div>
       </div>
     </AccordionTab>
@@ -114,29 +114,29 @@ export default {
               name: "宏都拉斯 天堂產區 帕拉伊內瑪種 水洗處理",
               unit_price: 400,
               quantity: 1,
-              package_type: "半磅",
+              package_type: "half_pound",
             },
             {
               id: "02",
               name: "宏都拉斯 天堂產區 帕拉伊內瑪種 水洗處理",
               unit_price: 40,
               quantity: 10,
-              package_type: "耳掛",
+              package_type: "drip_bag",
             },
           ],
           note: "",
-          payment_method: "貨到付款",
-          payment_status: "未付款",
+          payment_method: "cash_on_delivery",
+          payment_status: "unpaid",
           shipping_info: {
             name: "kakas",
             phone_number: "0912123123",
             address: "地址......",
             email: "aaa@aaa.aaa",
-            shipping_method: "宅配",
+            shipping_method: "home_delivery",
             shipping_fee: 100,
           },
-          shipping_status: "處理中",
-          status: "備貨中",
+          shipping_status: "in_preparation",
+          status: "pending",
         },
         {
           title: "2022 / 01 / 08 下午 08 : 05",
@@ -147,29 +147,29 @@ export default {
               name: "宏都拉斯 天堂產區 帕拉伊內瑪種 水洗處理",
               unit_price: 400,
               quantity: 1,
-              package_type: "半磅",
+              package_type: "half_pound",
             },
             {
               id: "02",
               name: "宏都拉斯 天堂產區 帕拉伊內瑪種 水洗處理",
               unit_price: 40,
               quantity: 10,
-              package_type: "耳掛",
+              package_type: "drip_bag",
             },
           ],
           note: "",
-          payment_method: "貨到付款",
-          payment_status: "未付款",
+          payment_method: "cash_on_delivery",
+          payment_status: "unpaid",
           shipping_info: {
             name: "kakas",
             phone_number: "0912123123",
             address: "地址......",
             email: "aaa@aaa.aaa",
-            shipping_method: "宅配",
+            shipping_method: "home_delivery",
             shipping_fee: 100,
           },
-          shipping_status: "處理中",
-          status: "備貨中",
+          shipping_status: "in_preparation",
+          status: "pending",
         },
       ],
     };
@@ -190,14 +190,13 @@ export default {
       });
     },
     typeText(package_type) {
-      if (package_type === "drip_bag") {
-        return "耳掛";
-      }
-      if (package_type === "half_pound") {
-        return "半磅";
-      }
-      if (package_type === "one_pound") {
-        return "一磅";
+      switch (package_type) {
+        case "drip_bag":
+          return "耳掛";
+        case "half_pound":
+          return "半磅";
+        case "one_pound":
+          return "一磅";
       }
     },
     shippingMethodText(shipping_method) {
@@ -211,42 +210,37 @@ export default {
       }
     },
     orderStatusText(status) {
-      if (status === "pending") {
-        return "處理中";
-      }
-      if (status === "confirmed") {
-        return "已確認";
-      }
-      if (status === "finished") {
-        return "已完成";
-      }
-      if (status === "canceled") {
-        return "已取消";
+      switch (status) {
+        case "pending":
+          return "處理中";
+        case "confirmed":
+          return "已確認";
+        case "finished":
+          return "已完成";
+        case "canceled":
+          return "已取消";
       }
     },
     paymentStatusText(payment_status) {
-      if (payment_status === "outstanding" || payment_status === "unpaid") {
-        return "未付款";
-      }
-      if (payment_status === "failed") {
-        return "付款失敗";
-      }
-      if (payment_status === "paid") {
-        return "已付款";
+      switch (payment_status) {
+        case "unpaid":
+          return "未付款";
+        case "failed":
+          return "付款失敗";
+        case "paid":
+          return "已付款";
       }
     },
     shippingStatusText(shipping_status) {
-      if (shipping_status === "in_preparation") {
-        return "備貨中";
-      }
-      if (shipping_status === "shipping") {
-        return "已發貨";
-      }
-      if (shipping_status === "arrived") {
-        return "已到達";
-      }
-      if (shipping_status === "picked_up") {
-        return "已取貨";
+      switch (shipping_status) {
+        case "in_preparation":
+          return "備貨中";
+        case "shipping":
+          return "已發貨";
+        case "arrived":
+          return "已到達";
+        case "picked_up":
+          return "已取貨";
       }
     },
   },
