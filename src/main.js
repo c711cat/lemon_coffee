@@ -30,6 +30,7 @@ import Galleria from "primevue/galleria";
 import Accordion from "primevue/accordion";
 import AccordionTab from "primevue/accordiontab";
 
+
 const app = createApp(App);
 app.use(router);
 app.use(PrimeVue);
