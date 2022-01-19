@@ -47,6 +47,7 @@ export default {
             this.showSuccessToast("登入成功");
             this.getCart();
             history.back();
+            this.emitter.emit("changeUserIcon");
           }
         })
         .catch((error) => {

@@ -89,6 +89,9 @@ export default {
     this.emitter.on("changeCartBadgeCount", (sizeOfCartItems) => {
       this.numberOfCartItems = sizeOfCartItems;
     });
+    this.emitter.on("changeUserIcon", () => {
+      this.token = Cookies.get("lemonToken");
+    });
   },
 };
 </script>
