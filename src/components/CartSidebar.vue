@@ -230,9 +230,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-* {
-  border: 1px solid black;
-}
 .divider {
   border-bottom: 1px solid rgb(235, 233, 233);
 }
