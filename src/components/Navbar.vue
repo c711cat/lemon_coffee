@@ -20,10 +20,8 @@
           >
           </Button>
         </router-link>
-        <router-link v-if="token" to="/beanlist" class="link-content">
-          <Button icon="pi pi-fw pi-user" class="p-button-text p-button-plain">
-          </Button>
-        </router-link>
+
+        <SplitButton v-if="token" icon="pi pi-user" :model="user"></SplitButton>
         <Button
           icon="pi pi-fw pi-shopping-cart"
           class="p-button-text p-button-plain p-mr-2"
@@ -57,6 +55,12 @@ export default {
       ],
       token: "",
       numberOfCartItems: "",
+      user: [
+        {
+          label: "登出",
+          icon: "pi pi-user-minus",
+        },
+      ],
     };
   },
   inject: ["emitter"],
