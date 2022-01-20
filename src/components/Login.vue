@@ -47,7 +47,10 @@ export default {
             this.showSuccessToast("登入成功");
             this.getCart();
             history.back();
-            this.emitter.emit("changeUserIcon");
+            this.emitter.emit(
+              "changeUserNavbarIconBtn",
+              Cookies.get("lemonToken")
+            );
           }
         })
         .catch((error) => {
