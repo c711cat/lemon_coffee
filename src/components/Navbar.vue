@@ -109,8 +109,8 @@ export default {
   created() {
     this.token = Cookies.get("lemonToken");
     this.getCart();
-    this.emitter.on("changeCartBadgeCount", (sizeOfCartItems) => {
-      this.numberOfCartItems = sizeOfCartItems;
+    this.emitter.on("changeCartBadgeCount", (numberOfCartItems) => {
+      this.numberOfCartItems = numberOfCartItems;
     });
     this.emitter.on("changeUserNavbarIconBtn", (token) => {
       this.token = token;
