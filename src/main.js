@@ -31,7 +31,6 @@ import Accordion from "primevue/accordion";
 import AccordionTab from "primevue/accordiontab";
 import Menu from "primevue/menu";
 
-
 const app = createApp(App);
 app.use(router);
 app.use(PrimeVue);
