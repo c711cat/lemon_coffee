@@ -11,6 +11,7 @@
           />
         </router-link>
       </template>
+
       <template #end>
         <router-link v-if="!token" to="/entrance/login" class="link-content">
           <Button
@@ -21,7 +22,24 @@
           </Button>
         </router-link>
 
-        <SplitButton v-if="token" icon="pi pi-user" :model="user"></SplitButton>
+        <Button
+          v-if="token"
+          class="p-button-text p-button-plain"
+          icon="pi pi-fw pi-user"
+          type="button"
+          label=""
+          @click="toggle"
+          aria-haspopup="true"
+          aria-controls="overlay_menu"
+        />
+        <Menu
+          v-if="token"
+          id="overlay_menu"
+          ref="menu"
+          :model="user"
+          :popup="true"
+        />
+
         <Button
           icon="pi pi-fw pi-shopping-cart"
           class="p-button-text p-button-plain p-mr-2"
@@ -81,6 +99,9 @@ export default {
             this.numberOfCartItems = 0;
           }
         });
+    },
+    toggle(event) {
+      this.$refs.menu.toggle(event);
     },
   },
   created() {

@@ -29,7 +29,7 @@ import BadgeDirective from "primevue/badgedirective";
 import Galleria from "primevue/galleria";
 import Accordion from "primevue/accordion";
 import AccordionTab from "primevue/accordiontab";
-
+import Menu from "primevue/menu";
 
 const app = createApp(App);
 app.use(router);
@@ -59,5 +59,6 @@ app.component("Badge", Badge);
 app.component("Galleria", Galleria);
 app.component("Accordion", Accordion);
 app.component("AccordionTab", AccordionTab);
+app.component("Menu", Menu);
 
 app.mount("#app");
