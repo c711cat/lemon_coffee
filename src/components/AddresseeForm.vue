@@ -86,10 +86,9 @@ export default {
   methods: {
     getPersonalData() {
       if (localStorage.getItem("personalData")) {
-        this.note = JSON.parse(localStorage.getItem("personalData")).note;
-        this.shipping_info = JSON.parse(
-          localStorage.getItem("personalData")
-        ).shipping_info;
+        const personalData = JSON.parse(localStorage.getItem("personalData"));
+        this.note = personalData.note;
+        this.shipping_info = personalData.shipping_info;
       }
     },
     toCheckout() {
