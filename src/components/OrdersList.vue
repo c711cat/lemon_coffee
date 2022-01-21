@@ -221,6 +221,7 @@ export default {
     },
     paymentStatusText(payment_status) {
       switch (payment_status) {
+        case "outstanding":
         case "unpaid":
           return "未付款";
         case "failed":
