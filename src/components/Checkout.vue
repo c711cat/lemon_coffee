@@ -63,16 +63,10 @@
             {{ shippingMethod }}
           </div>
 
-          <div
-            v-if="shipping_info.shipping_method === '宅配'"
-            class="p-col-4 p-lg-2 p-text-bold"
-          >
+          <div v-if="isHomeDelivery" class="p-col-4 p-lg-2 p-text-bold">
             收件地址
           </div>
-          <div
-            v-if="shipping_info.shipping_method === '宅配'"
-            class="p-col-8 p-lg-10"
-          >
+          <div v-if="isHomeDelivery" class="p-col-8 p-lg-10">
             {{ shipping_info.address }}
           </div>
 
@@ -233,6 +227,13 @@ export default {
         payment_method = "貨到付款";
       }
       return payment_method;
+    },
+    isHomeDelivery() {
+      let homeDelivery = false;
+      if (this.shipping_info.shipping_method === "home_delivery") {
+        homeDelivery = true;
+      }
+      return homeDelivery;
     },
   },
   created() {
