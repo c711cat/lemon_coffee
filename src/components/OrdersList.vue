@@ -67,16 +67,10 @@
           {{ shippingMethodText(order.shipping_info.shipping_method) }}
         </div>
 
-        <div
-          v-if="order.shipping_info.shipping_method === 'home_delivery'"
-          class="p-col-4 p-lg-1 p-text-bold"
-        >
+        <div v-if="isHomeDelivery" class="p-col-4 p-lg-1 p-text-bold">
           收件地址
         </div>
-        <div
-          v-if="order.shipping_info.shipping_method === 'home_delivery'"
-          class="p-col-8 p-lg-11"
-        >
+        <div v-if="isHomeDelivery" class="p-col-8 p-lg-11">
           {{ order.shipping_info.address }}
         </div>
 
@@ -241,6 +235,15 @@ export default {
         case "picked_up":
           return "已取貨";
       }
+    },
+  },
+  computed: {
+    isHomeDelivery() {
+      let homeDelivery = false;
+      if (this.shipping_info.shipping_method === "home_delivery") {
+        homeDelivery = true;
+      }
+      return homeDelivery;
     },
   },
 };
