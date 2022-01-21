@@ -6,7 +6,7 @@
     class="sidebar-wrap"
     style="width: 380px"
   >
-    <CartSidebar></CartSidebar>
+    <CartSidebar @close-cart-sidebar="visibleRight = false"></CartSidebar>
   </Sidebar>
   <router-view />
   <Footer></Footer>

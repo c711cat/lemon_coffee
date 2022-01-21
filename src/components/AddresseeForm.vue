@@ -8,61 +8,62 @@
       <div class="p-grid p-fluid p-ai-center">
         <div class="p-col-4 p-lg-2 p-text-bold">姓名</div>
         <div class="p-col-8 p-lg-10">
-          <InputText type="text" v-model="buyer.name" />
+          <InputText type="text" v-model="shipping_info.name" />
         </div>
 
         <div class="p-col-4 p-lg-2 p-text-bold">電話</div>
         <div class="p-col-8 p-lg-10">
-          <InputText type="text" v-model="buyer.phone_number" />
+          <InputText type="text" v-model="shipping_info.phone_number" />
         </div>
 
         <div class="p-col-4 p-lg-2 p-text-bold">Email</div>
         <div class="p-col-8 p-lg-10">
-          <InputText type="text" v-model="buyer.email" />
+          <InputText type="text" v-model="shipping_info.email" />
         </div>
 
         <div class="p-col-4 p-lg-2 p-text-bold">送貨方式</div>
         <div class="p-col-8 p-lg-10">
           <Dropdown
-            v-model="buyer.shipping_method"
+            v-model="shipping_info.shipping_method"
             :options="shipping_methods"
+            optionLabel="label"
+            optionValue="value"
           />
         </div>
 
-        <div
-          v-if="buyer.shipping_method === '宅配'"
-          class="p-col-4 p-lg-2 p-text-bold"
-        >
+        <div v-if="isHomeDelivery" class="p-col-4 p-lg-2 p-text-bold">
           收件地址
         </div>
-        <div v-if="buyer.shipping_method === '宅配'" class="p-col-8 p-lg-10">
-          <InputText type="text" v-model="buyer.address" />
+        <div v-if="isHomeDelivery" class="p-col-8 p-lg-10">
+          <InputText type="text" v-model="shipping_info.address" />
         </div>
 
         <div class="p-col-4 p-lg-2 p-text-bold">付款方式</div>
         <div class="p-col-8 p-lg-10">
-          <Dropdown v-model="buyer.payment_method" :options="payment_methods" />
+          <Dropdown
+            v-model="shipping_info.payment_method"
+            :options="payment_methods"
+            optionLabel="label"
+            optionValue="value"
+          />
         </div>
 
         <div class="p-col-4 p-lg-2 p-text-bold">備註</div>
         <div class="p-col-8 p-lg-10">
-          <Textarea
-            :autoResize="true"
-            v-model="buyer.note"
-            rows="5"
-            cols="30"
-          />
+          <Textarea :autoResize="true" v-model="note" rows="5" cols="30" />
         </div>
       </div>
     </div>
-    <router-link
-      @click.prevent="toCheckout"
-      to="/checkout"
+    <div
       class="p-grid p-ai-end p-jc-end p-col-12 p-lg-5 p-pb-3 p-m-0 link-content"
     >
-      <Button class="p-button-lg p-button-info p-button-raised" label="去買單">
+      <Button
+        @click.prevent="toCheckout"
+        class="p-button-lg p-button-info p-button-raised"
+        label="去買單"
+      >
       </Button>
-    </router-link>
+    </div>
   </div>
 </template>
 
@@ -70,27 +71,39 @@
 export default {
   data() {
     return {
-      buyer: {
+      note: "",
+      shipping_info: {
         name: "",
         phone_number: "",
+        address: "",
         email: "",
         shipping_method: "",
-        payment_method: "",
-        address: "",
-        note: "",
       },
-      shipping_methods: ["宅配"],
-      payment_methods: ["貨到付款"],
+      shipping_methods: [{ label: "宅配", value: "home_delivery" }],
+      payment_methods: [{ label: "貨到付款", value: "cash_on_delivery" }],
     };
   },
   methods: {
     getPersonalData() {
       if (localStorage.getItem("personalData")) {
-        this.buyer = JSON.parse(localStorage.getItem("personalData"));
+        const personalData = JSON.parse(localStorage.getItem("personalData"));
+        this.note = personalData.note;
+        this.shipping_info = personalData.shipping_info;
       }
     },
     toCheckout() {
-      localStorage.setItem("personalData", JSON.stringify(this.buyer));
+      const buyer = { note: this.note, shipping_info: this.shipping_info };
+      localStorage.setItem("personalData", JSON.stringify(buyer));
+      this.$router.push("/checkout");
+    },
+  },
+  computed: {
+    isHomeDelivery() {
+      let homeDelivery = false;
+      if (this.shipping_info.shipping_method === "home_delivery") {
+        homeDelivery = true;
+      }
+      return homeDelivery;
     },
   },
   created() {

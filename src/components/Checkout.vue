@@ -48,34 +48,35 @@
       <div class="p-col-12 p-lg-7">
         <div class="p-grid p-fluid p-ai-center">
           <div class="p-col-4 p-lg-2 p-text-bold">姓名</div>
-          <div class="p-col-8 p-lg-10">{{ buyer.name }}</div>
+          <div class="p-col-8 p-lg-10">{{ shipping_info.name }}</div>
 
           <div class="p-col-4 p-lg-2 p-text-bold">電話</div>
-          <div class="p-col-8 p-lg-10">{{ buyer.phone_number }}</div>
+          <div class="p-col-8 p-lg-10">
+            {{ shipping_info.phone_number }}
+          </div>
 
           <div class="p-col-4 p-lg-2 p-text-bold">Email</div>
-          <div class="p-col-8 p-lg-10">{{ buyer.email }}</div>
+          <div class="p-col-8 p-lg-10">{{ shipping_info.email }}</div>
 
           <div class="p-col-4 p-lg-2 p-text-bold">送貨方式</div>
           <div class="p-col-8 p-lg-10">
-            {{ buyer.shipping_method }}
+            {{ shippingMethod }}
           </div>
 
-          <div
-            v-if="buyer.shipping_method === '宅配'"
-            class="p-col-4 p-lg-2 p-text-bold"
-          >
+          <div v-if="isHomeDelivery" class="p-col-4 p-lg-2 p-text-bold">
             收件地址
           </div>
-          <div v-if="buyer.shipping_method === '宅配'" class="p-col-8 p-lg-10">
-            {{ buyer.address }}
+          <div v-if="isHomeDelivery" class="p-col-8 p-lg-10">
+            {{ shipping_info.address }}
           </div>
 
           <div class="p-col-4 p-lg-2 p-text-bold">付款方式</div>
-          <div class="p-col-8 p-lg-10">{{ buyer.payment_method }}</div>
+          <div class="p-col-8 p-lg-10">
+            {{ paymentMethod }}
+          </div>
 
           <div class="p-col-4 p-lg-2 p-text-bold">備註</div>
-          <div class="p-col-8 p-lg-10">{{ buyer.note }}</div>
+          <div class="p-col-8 p-lg-10">{{ note }}</div>
         </div>
       </div>
 
@@ -92,8 +93,9 @@
           </Button>
         </router-link>
 
-        <div class="p-col-fixed" style="width: 121px">
+        <div class="p-col-fixed" style="width: 127px">
           <Button
+            @click.prevent="createOrder"
             class="p-button-lg p-button-raised p-button-danger"
             label="下訂單"
           ></Button>
@@ -111,17 +113,17 @@ export default {
   data() {
     return {
       cartItems: [],
-      buyer: {
+      note: "",
+      shipping_info: {
         name: "",
         phone_number: "",
+        address: "",
         email: "",
         shipping_method: "",
-        payment_method: "",
-        address: "",
-        note: "",
       },
     };
   },
+  inject: ["emitter"],
   methods: {
     getCart() {
       const api = `${process.env.VUE_APP_API}/users/cart_items`;
@@ -131,7 +133,10 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.cartItems = [...response.data];
-            this.buyer = JSON.parse(localStorage.getItem("personalData") || {});
+            const buyerRecord =
+              JSON.parse(localStorage.getItem("personalData")) || {};
+            this.note = buyerRecord.note;
+            this.shipping_info = buyerRecord.shipping_info;
           }
         })
         .catch((error) => {
@@ -152,6 +157,53 @@ export default {
         return "一磅";
       }
     },
+    createOrder() {
+      const api = `${process.env.VUE_APP_API}/users/orders`;
+      const headers = { Authorization: Cookies.get("lemonToken") };
+      const data = {
+        order: { note: this.note, shipping_info: this.shipping_info },
+      };
+      axios
+        .post(api, data, { headers })
+        .then((response) => {
+          if (response.status === 201) {
+            this.$router.push(`/order/${response.data.id}`);
+            this.emitter.emit("changeCartBadgeCount", 0);
+          }
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            this.showErrorToast("請重新登入");
+            this.$router.push("/entrance/login");
+            this.emitter.emit("changeCartBadgeCount", 0);
+          }
+          if (error.response.status === 400 && error.response.data.cart) {
+            this.showErrorToast("你的購物車是空的");
+          }
+          if (error.response.status === 400 && error.response.data.name) {
+            this.showErrorToast("請填入 : 收件人姓名");
+          }
+          if (
+            error.response.status === 400 &&
+            error.response.data.phone_number
+          ) {
+            this.showErrorToast("請填入 : 收件人電話");
+          }
+          if (error.response.status === 400 && error.response.data.address) {
+            this.showErrorToast("請填入 : 收件地址");
+          }
+          if (error.response.status === 400 && error.response.data.email) {
+            this.showErrorToast("請填入 : 收件人 email");
+          }
+        });
+    },
+    showErrorToast(text) {
+      this.$toast.add({
+        severity: "error",
+        summary: text,
+        life: 5000,
+      });
+    },
   },
   computed: {
     subtotal() {
@@ -160,6 +212,27 @@ export default {
         total += item.unit_price * item.quantity;
       });
       return total;
+    },
+    shippingMethod() {
+      let shipping_method = "";
+      if (this.shipping_info.shipping_method === "home_delivery") {
+        shipping_method = "宅配";
+      }
+      return shipping_method;
+    },
+    paymentMethod() {
+      let payment_method = "";
+      if (this.shipping_info.payment_method === "cash_on_delivery") {
+        payment_method = "貨到付款";
+      }
+      return payment_method;
+    },
+    isHomeDelivery() {
+      let homeDelivery = false;
+      if (this.shipping_info.shipping_method === "home_delivery") {
+        homeDelivery = true;
+      }
+      return homeDelivery;
     },
   },
   created() {
@@ -182,7 +255,7 @@ export default {
 }
 
 .checkout-price {
-  color: #0288d1;
+  color: #d32f2f;
 }
 
 .link-content {
