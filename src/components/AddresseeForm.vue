@@ -26,6 +26,8 @@
           <Dropdown
             v-model="shipping_info.shipping_method"
             :options="shipping_methods"
+            optionLabel="label"
+            optionValue="value"
           />
         </div>
 
@@ -41,6 +43,8 @@
           <Dropdown
             v-model="shipping_info.payment_method"
             :options="payment_methods"
+            optionLabel="label"
+            optionValue="value"
           />
         </div>
 
@@ -75,8 +79,8 @@ export default {
         email: "",
         shipping_method: "",
       },
-      shipping_methods: ["宅配"],
-      payment_methods: ["貨到付款"],
+      shipping_methods: [{ label: "宅配", value: "home_delivery" }],
+      payment_methods: [{ label: "貨到付款", value: "cash_on_delivery" }],
     };
   },
   methods: {
@@ -90,12 +94,6 @@ export default {
     },
     toCheckout() {
       const buyer = { note: this.note, shipping_info: this.shipping_info };
-      if (buyer.shipping_info.shipping_method === "宅配") {
-        buyer.shipping_info.shipping_method = "home_delivery";
-      }
-      if (buyer.shipping_info.payment_method === "貨到付款") {
-        buyer.shipping_info.payment_method = "cash_on_delivery";
-      }
       localStorage.setItem("personalData", JSON.stringify(buyer));
       this.$router.push("/checkout");
     },
@@ -103,7 +101,7 @@ export default {
   computed: {
     isHomeDelivery() {
       let homeDelivery = false;
-      if (this.shipping_info.shipping_method === "宅配") {
+      if (this.shipping_info.shipping_method === "home_delivery") {
         homeDelivery = true;
       }
       return homeDelivery;
