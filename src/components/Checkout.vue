@@ -133,9 +133,8 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.cartItems = [...response.data];
-            const buyerRecord = JSON.parse(
-              localStorage.getItem("personalData") || {}
-            );
+            const buyerRecord =
+              JSON.parse(localStorage.getItem("personalData")) || {};
             this.note = buyerRecord.note;
             this.shipping_info = buyerRecord.shipping_info;
           }
