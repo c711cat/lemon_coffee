@@ -43,11 +43,7 @@
       <div class="p-grid p-m-0 p-pb-2 p-text-bold p-pt-3 p-px-6">
         <div class="p-col-12 p-lg-8">{{ product.name }}</div>
 
-        <Roast
-          :roast="product.roast"
-          class="p-col-12 p-lg-4"
-          style="min-width: 0%"
-        ></Roast>
+        <Roast :roast="product.roast" class="p-col-12 p-lg-4"></Roast>
       </div>
       <hr class="p-mx-6 hr-style" />
       <div class="p-grid p-m-0 p-py-2 p-px-6">
