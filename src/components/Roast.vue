@@ -52,7 +52,6 @@ export default {
 .roast-wrap {
   display: flex;
   align-items: center;
-  min-width: 74%;
   padding-top: 10px;
 }
 

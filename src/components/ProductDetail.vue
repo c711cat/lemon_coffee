@@ -39,6 +39,29 @@
         </div>
       </div>
     </div>
+    <div class="p-col-11 p-lg-12 bean-details-container p-my-3 p-mx-auto">
+      <div class="p-grid p-m-0 p-pb-2 p-text-bold p-pt-3 p-px-6">
+        <div class="p-col-12 p-lg-8">{{ product.name }}</div>
+
+        <Roast :roast="product.roast" class="p-col-12 p-lg-4"></Roast>
+      </div>
+      <hr class="p-mx-6 hr-style" />
+      <div class="p-grid p-m-0 p-py-2 p-px-6">
+        <div class="p-col-5 p-lg-2 p-text-bold">國家</div>
+        <div class="p-col-7 p-lg-4">尼加拉瓜</div>
+        <div class="p-col-5 p-lg-2 p-text-bold">產區</div>
+        <div class="p-col-7 p-lg-4">聖荷西莊園</div>
+        <div class="p-col-5 p-lg-2 p-text-bold">品種</div>
+        <div class="p-col-7 p-lg-4">波旁種</div>
+        <div class="p-col-5 p-lg-2 p-text-bold">處理法</div>
+        <div class="p-col-7 p-lg-4">蜜處理</div>
+        <div class="p-col-12 p-lg-2 p-text-bold">風味描述</div>
+        <div class="p-col-12 p-lg-10">
+          柑橘、橘皮、黑醋栗氣息與焦糖、橘汁風味與酸甜感、
+          餘韻帶有烏龍茶韻及木頭氣息。
+        </div>
+      </div>
+    </div>
   </div>
   <div v-if="is_error">無此商品</div>
 </template>
@@ -46,6 +69,7 @@
 <script>
 import axios from "axios";
 import Cookies from "js-cookie";
+import Roast from "@/components/Roast.vue";
 
 export default {
   data() {
@@ -53,6 +77,7 @@ export default {
       product: {
         name: "",
         id: 0,
+        roast: 1,
       },
       typeOfOptions: [
         { value: "drip_bag", label: "耳掛" },
@@ -64,6 +89,7 @@ export default {
       is_error: false,
     };
   },
+  components: { Roast },
   inject: ["emitter"],
   methods: {
     getProduct() {
@@ -172,5 +198,14 @@ export default {
 
 .price-size {
   font-size: 18px;
+}
+
+.bean-details-container {
+  background: #fdf7ee;
+  border-radius: 10px;
+}
+
+.hr-style {
+  border: 1px solid #f0dfda;
 }
 </style>
