@@ -9,6 +9,15 @@
         <div class="p-col-12 p-text-bold price-size">NT$ {{ unitPrice }}</div>
         <div class="p-col-12 p-mt-7">
           <SelectButton
+            v-model="ground"
+            :options="groundOfOptions"
+            optionValue="value"
+            optionLabel="label"
+            class="selected"
+          />
+        </div>
+        <div class="p-col-12 p-mt-7 p-pt-0">
+          <SelectButton
             v-model="type"
             :options="typeOfOptions"
             optionValue="value"
@@ -84,8 +93,13 @@ export default {
         { value: "half_pound", label: "半磅" },
         { value: "one_pound", label: "一磅" },
       ],
+      groundOfOptions: [
+        { value: true, label: "磨粉" },
+        { value: false, label: "原豆" },
+      ],
       qty: 1,
       type: "half_pound",
+      ground: false,
       is_error: false,
     };
   },
