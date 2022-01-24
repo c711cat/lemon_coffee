@@ -89,9 +89,9 @@ export default {
         roast: 1,
       },
       typeOfOptions: [
-        { value: "drip_bag", label: "耳掛" },
         { value: "half_pound", label: "半磅" },
         { value: "one_pound", label: "一磅" },
+        { value: "drip_bag", label: "耳掛" },
       ],
       groundOfOptions: [
         { value: true, label: "磨粉" },
