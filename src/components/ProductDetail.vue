@@ -122,6 +122,7 @@ export default {
         product_id: this.product.id,
         package_type: this.type,
         quantity: this.qty,
+        ground: this.ground,
       };
       const api = `${process.env.VUE_APP_API}/users/cart_items`;
       const headers = { Authorization: Cookies.get("lemonToken") };
