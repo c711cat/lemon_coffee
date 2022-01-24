@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory } from "vue-router";
 
 const routes = [
   {
-    path: "/m-admin",
+    path: "/admin",
     component: () => import("@/views/Manager/Root.vue"),
     children: [
       {
@@ -18,18 +18,6 @@ const routes = [
         component: () => import("@/views/Manager/EditProduct.vue"),
       },
     ],
-  },
-  {
-    path: "/admin",
-    component: () => import("@/views/Manager/Home.vue"),
-  },
-  {
-    path: "/admin/products/new",
-    component: () => import("@/views/Manager/AddProduct.vue"),
-  },
-  {
-    path: "/admin/products/edit/:productId",
-    component: () => import("@/views/Manager/EditProduct.vue"),
   },
   {
     path: "/",
