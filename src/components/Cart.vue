@@ -29,8 +29,8 @@
         />
 
         <div class="p-col-9 p-lg-9 p-pl-3">
-          {{ item.product_name }}<br />
-          {{ groundText(item.ground) }}<br />
+          {{ item.product_name }} <br />
+          {{ groundText(item.ground) }}
         </div>
       </router-link>
 
