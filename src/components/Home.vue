@@ -59,7 +59,6 @@ export default {
 
 <style lang="scss" scoped>
 .img-container {
-  margin-top: 10px;
   min-height: 400px;
 }
 
