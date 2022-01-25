@@ -93,9 +93,9 @@
             - $ {{ buy_more_discount }}
           </div>
 
-          <div v-if="freight_cost" class="p-col-6 p-lg-9 p-pr-0">運費</div>
-          <div v-if="freight_cost" class="p-col-6 p-lg-3">
-            $ {{ freight_cost }}
+          <div v-if="shipping_fee" class="p-col-6 p-lg-9 p-pr-0">運費</div>
+          <div v-if="shipping_fee" class="p-col-6 p-lg-3">
+            $ {{ shipping_fee }}
           </div>
 
           <div v-if="free_shipping" class="p-col-6 p-lg-9 p-pr-0">滿千免運</div>
@@ -112,7 +112,7 @@
         </div>
       </div>
     </div>
-    <AddresseeForm></AddresseeForm>
+    <AddresseeForm @shipping-method="shipping_amount"></AddresseeForm>
   </div>
 </template>
 
@@ -141,6 +141,7 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.cartItems = [...response.data];
+            this.shipping_amount();
           }
         })
         .catch((error) => {
@@ -227,6 +228,12 @@ export default {
       }
       if (ground_result === false) {
         return "原豆";
+      }
+    },
+    shipping_amount(shippingMethod) {
+      switch (shippingMethod) {
+        case "home_delivery":
+          this.shipping_fee = 100;
       }
     },
   },
