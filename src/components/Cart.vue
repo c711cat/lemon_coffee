@@ -98,16 +98,21 @@
             $ {{ shipping_fee }}
           </div>
 
-          <div v-if="free_shipping" class="p-col-6 p-lg-9 p-pr-0">滿千免運</div>
-          <div v-if="free_shipping" class="p-col-6 p-lg-3">
-            <del>$ {{ free_shipping }}</del>
+          <div
+            v-if="free_shipping && shipping_fee"
+            class="p-col-6 p-lg-9 p-pr-0"
+          >
+            滿千免運
+          </div>
+          <div v-if="free_shipping && shipping_fee" class="p-col-6 p-lg-3">
+            <del>$ {{ shipping_fee }}</del>
           </div>
 
           <div class="p-col-6 p-lg-9 p-text-bold checkout-price p-pr-0">
             總付款金額
           </div>
           <div class="p-col-6 p-lg-3 p-text-bold checkout-price">
-            $ {{ subtotal }}
+            $ {{ final_total }}
           </div>
         </div>
       </div>
@@ -124,9 +129,8 @@ import Cookies from "js-cookie";
 export default {
   data() {
     return {
-      freight_cost: 0,
+      shipping_fee: "",
       buy_more_discount: 0,
-      free_shipping: 0,
       cartItems: [],
     };
   },
@@ -244,6 +248,20 @@ export default {
         total += item.unit_price * item.quantity;
       });
       return total;
+    },
+    final_total() {
+      let final = this.subtotal;
+      if (this.subtotal < 1000) {
+        final = this.subtotal + this.shipping_fee;
+      }
+      return final;
+    },
+    free_shipping() {
+      let free = false;
+      if (this.subtotal >= 1000) {
+        free = true;
+      }
+      return free;
     },
   },
 
