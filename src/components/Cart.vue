@@ -141,7 +141,6 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.cartItems = [...response.data];
-            console.log(this.cartItems);
           }
         })
         .catch((error) => {
