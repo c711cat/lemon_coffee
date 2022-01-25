@@ -72,6 +72,5 @@ export default {
 
 .p-menubar {
   border: none;
-  margin: -10px -10px 10px -10px;
 }
 </style>
