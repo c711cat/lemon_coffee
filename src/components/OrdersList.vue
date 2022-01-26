@@ -240,9 +240,11 @@ export default {
   computed: {
     isHomeDelivery() {
       let homeDelivery = false;
-      if (this.shipping_info.shipping_method === "home_delivery") {
-        homeDelivery = true;
-      }
+      this.orders.forEach((order) => {
+        if (order.shipping_info.shipping_method === "home_delivery") {
+          homeDelivery = true;
+        }
+      });
       return homeDelivery;
     },
   },
