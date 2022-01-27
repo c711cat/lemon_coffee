@@ -117,12 +117,75 @@
         </div>
       </div>
     </div>
-    <AddresseeForm @shipping-method="shipping_amount"></AddresseeForm>
+    <div class="divider p-pl-3">
+      <h4>收件人資料</h4>
+    </div>
+
+    <div class="p-grid nested-grid p-m-1 p-pl-2">
+      <div class="p-col-12 p-lg-7">
+        <div class="p-grid p-fluid p-ai-center">
+          <div class="p-col-4 p-lg-2 p-text-bold">姓名</div>
+          <div class="p-col-8 p-lg-10">
+            <InputText type="text" v-model="shipping_info.name" />
+          </div>
+
+          <div class="p-col-4 p-lg-2 p-text-bold">電話</div>
+          <div class="p-col-8 p-lg-10">
+            <InputText type="text" v-model="shipping_info.phone_number" />
+          </div>
+
+          <div class="p-col-4 p-lg-2 p-text-bold">Email</div>
+          <div class="p-col-8 p-lg-10">
+            <InputText type="text" v-model="shipping_info.email" />
+          </div>
+
+          <div class="p-col-4 p-lg-2 p-text-bold">送貨方式</div>
+          <div class="p-col-8 p-lg-10">
+            <Dropdown
+              @change="shipping_amount(shipping_info.shipping_method)"
+              v-model="shipping_info.shipping_method"
+              :options="shipping_methods"
+              optionLabel="label"
+              optionValue="value"
+            />
+          </div>
+
+          <div v-if="isHomeDelivery" class="p-col-4 p-lg-2 p-text-bold">
+            收件地址
+          </div>
+          <div v-if="isHomeDelivery" class="p-col-8 p-lg-10">
+            <InputText type="text" v-model="shipping_info.address" />
+          </div>
+
+          <div class="p-col-4 p-lg-2 p-text-bold">付款方式</div>
+          <div class="p-col-8 p-lg-10">
+            <Dropdown
+              v-model="shipping_info.payment_method"
+              :options="payment_methods"
+              optionLabel="label"
+              optionValue="value"
+            />
+          </div>
+
+          <div class="p-col-4 p-lg-2 p-text-bold">備註</div>
+          <div class="p-col-8 p-lg-10">
+            <Textarea :autoResize="true" v-model="note" rows="5" cols="30" />
+          </div>
+        </div>
+      </div>
+      <div class="p-grid p-ai-end p-jc-end p-col-12 p-lg-5 p-pb-3 p-m-0">
+        <Button
+          @click.prevent="toCheckout"
+          class="p-button-lg p-button-info p-button-raised"
+          label="去買單"
+        >
+        </Button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import AddresseeForm from "@/components/AddresseeForm.vue";
 import axios from "axios";
 import Cookies from "js-cookie";
 
@@ -132,9 +195,18 @@ export default {
       shipping_fee: "",
       buy_more_discount: 0,
       cartItems: [],
+      note: "",
+      shipping_info: {
+        name: "",
+        phone_number: "",
+        address: "",
+        email: "",
+        shipping_method: "",
+      },
+      shipping_methods: [{ label: "宅配", value: "home_delivery" }],
+      payment_methods: [{ label: "貨到付款", value: "cash_on_delivery" }],
     };
   },
-  components: { AddresseeForm },
   inject: ["emitter"],
   methods: {
     getCart() {
@@ -145,7 +217,6 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.cartItems = [...response.data];
-            this.shipping_amount();
           }
         })
         .catch((error) => {
@@ -201,6 +272,11 @@ export default {
           }
         });
     },
+    toCheckout() {
+      const buyer = { note: this.note, shipping_info: this.shipping_info };
+      localStorage.setItem("personalData", JSON.stringify(buyer));
+      this.$router.push("/checkout");
+    },
     showErrorToast(text) {
       this.$toast.add({
         severity: "error",
@@ -240,6 +316,13 @@ export default {
           this.shipping_fee = 100;
       }
     },
+    getPersonalData() {
+      if (localStorage.getItem("personalData")) {
+        const personalData = JSON.parse(localStorage.getItem("personalData"));
+        this.note = personalData.note;
+        this.shipping_info = personalData.shipping_info;
+      }
+    },
   },
   computed: {
     subtotal() {
@@ -263,10 +346,18 @@ export default {
       }
       return free;
     },
+    isHomeDelivery() {
+      let homeDelivery = false;
+      if (this.shipping_info.shipping_method === "home_delivery") {
+        homeDelivery = true;
+      }
+      return homeDelivery;
+    },
   },
 
   created() {
     this.getCart();
+    this.getPersonalData();
   },
 };
 </script>
