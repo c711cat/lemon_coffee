@@ -82,17 +82,7 @@ export default {
       },
       shipping_methods: [{ label: "宅配", value: "home_delivery" }],
       payment_methods: [{ label: "貨到付款", value: "cash_on_delivery" }],
-      money: { total: 500 },
     };
-  },
-  props: {
-    shipping_fee: {},
-    subtotal: {
-      type: Number,
-    },
-    final_total: {
-      type: Number,
-    },
   },
   inject: ["emitter"],
   methods: {
@@ -107,7 +97,6 @@ export default {
     toCheckout() {
       const buyer = { note: this.note, shipping_info: this.shipping_info };
       localStorage.setItem("personalData", JSON.stringify(buyer));
-      this.emitter.emit("price", this.final_total);
       this.$router.push("/checkout");
     },
     shippingMethod() {
@@ -126,7 +115,6 @@ export default {
   emits: ["shipping-method"],
   created() {
     this.getPersonalData();
-    console.log("final_total", this.final_total);
   },
 };
 </script>

@@ -239,9 +239,6 @@ export default {
   },
   created() {
     this.getCart();
-    this.emitter.on("price", (data) => {
-      console.log(data);
-    });
   },
 };
 </script>

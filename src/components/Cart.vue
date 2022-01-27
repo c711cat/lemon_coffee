@@ -117,12 +117,7 @@
         </div>
       </div>
     </div>
-    <AddresseeForm
-      @shipping-method="shipping_amount"
-      :shipping_fee="shipping_fee"
-      :subtotal="subtotal"
-      :final_total="final_total"
-    ></AddresseeForm>
+    <AddresseeForm @shipping-method="shipping_amount"></AddresseeForm>
   </div>
 </template>
 
