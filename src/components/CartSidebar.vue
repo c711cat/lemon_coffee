@@ -144,7 +144,6 @@ export default {
             this.showErrorToast("請重新登入");
             this.$router.push("/entrance/login");
             this.emitter.emit("changeCartBadgeCount", 0);
-            this.emitter.emit("changeUserNavbarIconBtn", "");
           }
         });
     },

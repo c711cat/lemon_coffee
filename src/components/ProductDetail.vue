@@ -125,7 +125,6 @@ export default {
             this.showErrorToast("請重新登入");
             this.$router.push("/entrance/login");
             this.emitter.emit("changeCartBadgeCount", 0);
-            this.emitter.emit("changeUserNavbarIconBtn", "");
           }
           if (error.response.data.quantity) {
             this.showErrorToast("最小購買量為 1");

@@ -92,7 +92,6 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.numberOfCartItems = response.data.length;
-            this.token = Cookies.get("lemonToken");
           }
         })
         .catch((error) => {
@@ -112,8 +111,13 @@ export default {
     this.emitter.on("changeCartBadgeCount", (numberOfCartItems) => {
       this.numberOfCartItems = numberOfCartItems;
     });
-    this.emitter.on("changeUserNavbarIconBtn", (token) => {
-      this.token = token;
+    this.emitter.on("changeUserNavbarIconBtn", () => {
+      const token = Cookies.get("lemonToken");
+      if (token === null || token === undefined) {
+        this.token = false;
+      } else {
+        this.token = true;
+      }
     });
   },
 };
