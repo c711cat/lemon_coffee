@@ -121,6 +121,7 @@ export default {
         })
         .catch((error) => {
           if (error.response.status === 401) {
+            Cookies.remove("lemonToken");
             this.showErrorToast("請重新登入");
             this.$router.push("/entrance/login");
             this.emitter.emit("changeCartBadgeCount", 0);
@@ -159,6 +160,7 @@ export default {
         })
         .catch((error) => {
           if (error.response.status === 401) {
+            Cookies.remove("lemonToken");
             this.showErrorToast("請重新登入");
             this.$router.push("/entrance/login");
             this.emitter.emit("changeCartBadgeCount", 0);

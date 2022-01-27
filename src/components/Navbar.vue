@@ -11,6 +11,7 @@
           />
         </router-link>
       </template>
+
       <template #end>
         <router-link v-if="!token" to="/entrance/login" class="link-content">
           <Button
@@ -20,10 +21,25 @@
           >
           </Button>
         </router-link>
-        <router-link v-if="token" to="/beanlist" class="link-content">
-          <Button icon="pi pi-fw pi-user" class="p-button-text p-button-plain">
-          </Button>
-        </router-link>
+
+        <Button
+          v-if="token"
+          class="p-button-text p-button-plain"
+          icon="pi pi-fw pi-user"
+          type="button"
+          label=""
+          @click="openUserMenu"
+          aria-haspopup="true"
+          aria-controls="overlay_menu"
+        />
+        <Menu
+          v-if="token"
+          id="overlay_menu"
+          ref="menu"
+          :model="userMenuItems"
+          :popup="true"
+        />
+
         <Button
           icon="pi pi-fw pi-shopping-cart"
           class="p-button-text p-button-plain p-mr-2"
@@ -57,6 +73,12 @@ export default {
       ],
       token: "",
       numberOfCartItems: "",
+      userMenuItems: [
+        {
+          label: "登出",
+          icon: "pi pi-user-minus",
+        },
+      ],
     };
   },
   inject: ["emitter"],
@@ -75,15 +97,27 @@ export default {
         .catch((error) => {
           if (error.response.status === 401) {
             this.numberOfCartItems = 0;
+            Cookies.remove("lemonToken");
           }
         });
+    },
+    openUserMenu(event) {
+      this.$refs.menu.toggle(event);
     },
   },
   created() {
     this.token = Cookies.get("lemonToken");
     this.getCart();
-    this.emitter.on("changeCartBadgeCount", (sizeOfCartItems) => {
-      this.numberOfCartItems = sizeOfCartItems;
+    this.emitter.on("changeCartBadgeCount", (numberOfCartItems) => {
+      this.numberOfCartItems = numberOfCartItems;
+    });
+    this.emitter.on("changeUserNavbarIconBtn", () => {
+      const token = Cookies.get("lemonToken");
+      if (token === null || token === undefined) {
+        this.token = false;
+      } else {
+        this.token = true;
+      }
     });
   },
 };
