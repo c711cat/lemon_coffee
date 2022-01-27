@@ -36,7 +36,7 @@
           v-if="token"
           id="overlay_menu"
           ref="menu"
-          :model="user"
+          :model="userMenuItems"
           :popup="true"
         />
 
@@ -73,7 +73,7 @@ export default {
       ],
       token: "",
       numberOfCartItems: "",
-      user: [
+      userMenuItems: [
         {
           label: "登出",
           icon: "pi pi-user-minus",
