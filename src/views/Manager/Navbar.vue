@@ -19,7 +19,7 @@
           >
           </Button>
         </router-link>
-        <router-link v-if="token" to="/m-admin/products" class="link-content">
+        <router-link v-if="token" to="/admin/products" class="link-content">
           <Button icon="pi pi-fw pi-user" class="p-button-text p-button-plain">
           </Button>
         </router-link>
@@ -38,7 +38,7 @@ export default {
         {
           label: "豆單",
           icon: "pi pi-fw pi-book",
-          to: "/m-admin/products",
+          to: "/admin/products",
         },
       ],
       visibleRight: false,

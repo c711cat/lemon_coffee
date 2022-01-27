@@ -43,7 +43,7 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.showSuccessToast("編輯成功");
-            this.$router.push("/m-admin/products");
+            this.$router.push("/admin/products");
           }
         })
         .catch((error) => {
