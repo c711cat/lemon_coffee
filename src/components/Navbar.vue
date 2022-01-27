@@ -98,7 +98,7 @@ export default {
         .catch((error) => {
           if (error.response.status === 401) {
             this.numberOfCartItems = 0;
-            this.token = "";
+            Cookies.remove("lemonToken");
           }
         });
     },
