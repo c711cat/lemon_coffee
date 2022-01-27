@@ -77,6 +77,9 @@ export default {
         {
           label: "登出",
           icon: "pi pi-user-minus",
+          command: () => {
+            this.sign_out();
+          },
         },
       ],
     };
@@ -103,6 +106,38 @@ export default {
     },
     openUserMenu(event) {
       this.$refs.menu.toggle(event);
+    },
+    sign_out() {
+      const api = `${process.env.VUE_APP_API}/users/sign_out`;
+      axios
+        .delete(api)
+        .then((response) => {
+          if (response.status === 204) {
+            Cookies.remove("lemonToken");
+            this.emitter.emit("changeCartBadgeCount", 0);
+            this.emitter.emit("changeUserNavbarIconBtn", "");
+            this.showSuccessToast("已登出");
+          }
+        })
+        .catch((error) => {
+          if (error) {
+            this.showErrorToast("登出失敗");
+          }
+        });
+    },
+    showSuccessToast(text) {
+      this.$toast.add({
+        severity: "success",
+        summary: text,
+        life: 2000,
+      });
+    },
+    showErrorToast(text) {
+      this.$toast.add({
+        severity: "error",
+        summary: text,
+        life: 5000,
+      });
     },
   },
   created() {
