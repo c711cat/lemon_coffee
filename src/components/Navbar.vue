@@ -28,7 +28,7 @@
           icon="pi pi-fw pi-user"
           type="button"
           label=""
-          @click="toggle"
+          @click="openUserMenu"
           aria-haspopup="true"
           aria-controls="overlay_menu"
         />
@@ -101,7 +101,7 @@ export default {
           }
         });
     },
-    toggle(event) {
+    openUserMenu(event) {
       this.$refs.menu.toggle(event);
     },
   },
