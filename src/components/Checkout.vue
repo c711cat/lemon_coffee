@@ -237,6 +237,8 @@ export default {
   },
   created() {
     this.getCart();
+    console.log(this.$route.query);
+    console.log(this.$route.query.final_total);
   },
 };
 </script>

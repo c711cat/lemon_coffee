@@ -272,7 +272,16 @@ export default {
     toCheckout() {
       const buyer = { note: this.note, shipping_info: this.shipping_info };
       localStorage.setItem("personalData", JSON.stringify(buyer));
-      this.$router.push("/checkout");
+      const data = {
+        subtotal: this.subtotal,
+        shipping_fee: this.shipping_fee,
+        free_shipping: this.free_shipping,
+        final_total: this.final_total,
+      };
+      this.$router.push({
+        path: "/checkout",
+        query: data,
+      });
     },
     showErrorToast(text) {
       this.$toast.add({
