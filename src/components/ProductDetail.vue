@@ -118,6 +118,9 @@ export default {
         });
     },
     addToCart() {
+      if (this.type === "drip_bag") {
+        this.ground = true;
+      }
       const cart = {
         product_id: this.product.id,
         package_type: this.type,
