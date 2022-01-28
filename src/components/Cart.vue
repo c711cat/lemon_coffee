@@ -90,13 +90,8 @@
             - $ {{ buy_more_discount }}
           </div>
 
-          <div
-            v-if="shipping_info.shipping_method"
-            class="p-col-6 p-lg-9 p-pr-0"
-          >
-            運費
-          </div>
-          <div v-if="shipping_info.shipping_method" class="p-col-6 p-lg-3">
+          <div v-if="shipping_fee" class="p-col-6 p-lg-9 p-pr-0">運費</div>
+          <div v-if="shipping_fee" class="p-col-6 p-lg-3">
             $ {{ shipping_fee }}
           </div>
 
@@ -113,6 +108,7 @@
           <div class="p-col-6 p-lg-9 p-text-bold checkout-price p-pr-0">
             總付款金額
           </div>
+
           <div class="p-col-6 p-lg-3 p-text-bold checkout-price">
             $ {{ final_total }}
           </div>
@@ -194,7 +190,6 @@ import Cookies from "js-cookie";
 export default {
   data() {
     return {
-      shipping_fee: "",
       buy_more_discount: 0,
       cartItems: [],
       note: "",
@@ -347,8 +342,14 @@ export default {
     isHomeDelivery() {
       return this.shipping_info.shipping_method === "home_delivery";
     },
+    shipping_fee() {
+      let fee = 0;
+      if (this.shipping_info.shipping_method === "home_delivery") {
+        fee = 100;
+      }
+      return fee;
+    },
   },
-
   created() {
     this.getCart();
     this.getPersonalData();
