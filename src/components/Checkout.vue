@@ -81,9 +81,7 @@
       </div>
 
       <div
-        class="
-          p-grid p-jc-end p-ai-end p-col-12 p-pb-3 p-m-0 p-text-right p-pr-0
-        "
+        class="p-grid p-jc-end p-ai-end p-col-12 p-pb-3 p-m-0 p-text-right p-pr-0"
       >
         <router-link to="/cart" class="p-lg-2 link-content">
           <Button
