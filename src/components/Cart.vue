@@ -18,10 +18,7 @@
       </div>
       <router-link
         :to="`/products/${item.product_id}`"
-        class="
-          p-grid p-m-0 p-col-10 p-lg-6 p-jc-around p-ai-center
-          link-content
-        "
+        class="p-grid p-m-0 p-col-10 p-lg-6 p-jc-around p-ai-center link-content"
       >
         <img
           :src="item.product_image_url"
