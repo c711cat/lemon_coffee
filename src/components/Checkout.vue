@@ -45,7 +45,7 @@
     </div>
 
     <div class="p-grid nested-grid p-m-1 p-pl-2">
-      <div class="p-col-12 p-lg-7">
+      <div class="p-col-12 p-lg-7 p-mt-3">
         <div class="p-grid p-fluid p-ai-center">
           <div class="p-col-4 p-lg-2 p-text-bold">姓名</div>
           <div class="p-col-8 p-lg-10">{{ shipping_info.name }}</div>
