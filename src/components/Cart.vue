@@ -342,18 +342,10 @@ export default {
       return final;
     },
     free_shipping() {
-      let free = false;
-      if (this.subtotal >= 1000) {
-        free = true;
-      }
-      return free;
+      return this.subtotal >= 1000;
     },
     isHomeDelivery() {
-      let homeDelivery = false;
-      if (this.shipping_info.shipping_method === "home_delivery") {
-        homeDelivery = true;
-      }
-      return homeDelivery;
+      return this.shipping_info.shipping_method === "home_delivery";
     },
   },
 
