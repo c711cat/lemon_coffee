@@ -93,8 +93,13 @@
             - $ {{ buy_more_discount }}
           </div>
 
-          <div v-if="shipping_fee" class="p-col-6 p-lg-9 p-pr-0">運費</div>
-          <div v-if="shipping_fee" class="p-col-6 p-lg-3">
+          <div
+            v-if="shipping_info.shipping_method"
+            class="p-col-6 p-lg-9 p-pr-0"
+          >
+            運費
+          </div>
+          <div v-if="shipping_info.shipping_method" class="p-col-6 p-lg-3">
             $ {{ shipping_fee }}
           </div>
 
