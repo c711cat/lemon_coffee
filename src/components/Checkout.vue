@@ -32,13 +32,13 @@
 
           <div
             v-if="price_details.free_shipping === 'true'"
-            class="p-col-6 p-lg-9 p-pr-0"
+            class="p-col-7 p-lg-9 p-pr-0"
           >
             滿千免運
           </div>
           <div
             v-if="price_details.free_shipping === 'true'"
-            class="p-col-6 p-lg-3"
+            class="p-col-5 p-lg-3"
           >
             <del>$ {{ price_details.shipping_fee }}</del>
           </div>
