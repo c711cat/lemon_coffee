@@ -172,7 +172,6 @@ export default {
           if (response.status === 200) {
             this.order = { ...response.data };
             this.price_details = this.$route.query;
-            console.log(this.price_details);
           }
         })
         .catch((error) => {

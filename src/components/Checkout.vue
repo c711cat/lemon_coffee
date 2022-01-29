@@ -152,7 +152,6 @@ export default {
             this.note = buyerRecord.note;
             this.shipping_info = buyerRecord.shipping_info;
             this.price_details = this.$route.query;
-            console.log(this.price_details);
           }
         })
         .catch((error) => {
@@ -184,7 +183,6 @@ export default {
         .post(api, data, { headers })
         .then((response) => {
           if (response.status === 201) {
-            // this.$router.push(`/order/${response.data.id}`);
             this.$router.push({
               path: `/order/${response.data.id}`,
               query: this.price_details,
