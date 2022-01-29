@@ -25,16 +25,29 @@
       <div class="p-col-12">
         <div class="p-grid p-jc-between p-text-right p-ai-center">
           <div class="p-col-7 p-lg-9 p-pr-0">小計</div>
-          <div class="p-col-5 p-lg-3">$ {{ subtotal }}</div>
+          <div class="p-col-5 p-lg-3">$ {{ price_details.subtotal }}</div>
 
           <div class="p-col-7 p-lg-9 p-pr-0">運費</div>
-          <div class="p-col-5 p-lg-3">$ 0</div>
+          <div class="p-col-5 p-lg-3">$ {{ price_details.shipping_fee }}</div>
+
+          <div
+            v-if="price_details.free_shipping === 'true'"
+            class="p-col-6 p-lg-9 p-pr-0"
+          >
+            滿千免運
+          </div>
+          <div
+            v-if="price_details.free_shipping === 'true'"
+            class="p-col-6 p-lg-3"
+          >
+            <del>$ {{ price_details.shipping_fee }}</del>
+          </div>
 
           <div class="p-col-7 p-lg-9 p-text-bold checkout-price p-pr-0">
             總付款金額
           </div>
           <div class="p-col-5 p-lg-3 p-text-bold checkout-price">
-            $ {{ subtotal }}
+            $ {{ price_details.final_total }}
           </div>
         </div>
       </div>
@@ -81,7 +94,9 @@
       </div>
 
       <div
-        class="p-grid p-jc-end p-ai-end p-col-12 p-pb-3 p-m-0 p-text-right p-pr-0"
+        class="
+          p-grid p-jc-end p-ai-end p-col-12 p-pb-3 p-m-0 p-text-right p-pr-0
+        "
       >
         <router-link to="/cart" class="p-lg-2 link-content">
           <Button
@@ -119,6 +134,7 @@ export default {
         email: "",
         shipping_method: "",
       },
+      price_details: {},
     };
   },
   inject: ["emitter"],
@@ -135,6 +151,8 @@ export default {
               JSON.parse(localStorage.getItem("personalData")) || {};
             this.note = buyerRecord.note;
             this.shipping_info = buyerRecord.shipping_info;
+            this.price_details = this.$route.query;
+            console.log(this.price_details);
           }
         })
         .catch((error) => {
@@ -206,13 +224,6 @@ export default {
     },
   },
   computed: {
-    subtotal() {
-      let total = 0;
-      this.cartItems.forEach((item) => {
-        total += item.unit_price * item.quantity;
-      });
-      return total;
-    },
     shippingMethod() {
       let shipping_method = "";
       if (this.shipping_info.shipping_method === "home_delivery") {
@@ -237,8 +248,6 @@ export default {
   },
   created() {
     this.getCart();
-    console.log(this.$route.query);
-    console.log(this.$route.query.final_total);
   },
 };
 </script>
