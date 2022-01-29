@@ -184,7 +184,11 @@ export default {
         .post(api, data, { headers })
         .then((response) => {
           if (response.status === 201) {
-            this.$router.push(`/order/${response.data.id}`);
+            // this.$router.push(`/order/${response.data.id}`);
+            this.$router.push({
+              path: `/order/${response.data.id}`,
+              query: this.price_details,
+            });
             this.emitter.emit("changeCartBadgeCount", 0);
           }
         })

@@ -26,18 +26,31 @@
       <div class="p-col-12">
         <div class="p-grid p-jc-between p-text-right p-ai-center">
           <div class="p-col-7 p-lg-9 p-pr-0">小計</div>
-          <div class="p-col-5 p-lg-3">$ {{ subtotal }}</div>
+          <div class="p-col-5 p-lg-3">$ {{ price_details.subtotal }}</div>
 
           <div class="p-col-7 p-lg-9 p-pr-0">運費</div>
           <div class="p-col-5 p-lg-3">
             $ {{ order.shipping_info.shipping_fee }}
           </div>
 
+          <div
+            v-if="price_details.free_shipping === 'true'"
+            class="p-col-6 p-lg-9 p-pr-0"
+          >
+            滿千免運
+          </div>
+          <div
+            v-if="price_details.free_shipping === 'true'"
+            class="p-col-6 p-lg-3"
+          >
+            <del>$ {{ price_details.shipping_fee }}</del>
+          </div>
+
           <div class="p-col-7 p-lg-9 p-text-bold checkout-price p-pr-0">
             總付款金額
           </div>
           <div class="p-col-5 p-lg-3 p-text-bold checkout-price">
-            $ {{ finalTotal }}
+            $ {{ price_details.final_total }}
           </div>
         </div>
       </div>
@@ -145,6 +158,7 @@ export default {
         shipping_status: "",
         status: "",
       },
+      price_details: {},
     };
   },
   inject: ["emitter"],
@@ -157,6 +171,8 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.order = { ...response.data };
+            this.price_details = this.$route.query;
+            console.log(this.price_details);
           }
         })
         .catch((error) => {
@@ -229,19 +245,6 @@ export default {
         case "picked_up":
           return "已取貨";
       }
-    },
-  },
-  computed: {
-    subtotal() {
-      let total = 0;
-      this.order.items.forEach((item) => {
-        total += item.unit_price * item.quantity;
-      });
-      return total;
-    },
-    finalTotal() {
-      let final_total = this.subtotal + this.order.shipping_info.shipping_fee;
-      return final_total;
     },
   },
   created() {
