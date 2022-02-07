@@ -106,6 +106,9 @@
 </template>
 
 <script>
+import axios from "axios";
+import Cookies from "js-cookie";
+
 export default {
   data() {
     return {
@@ -180,6 +183,18 @@ export default {
     };
   },
   methods: {
+    getOrders() {
+      const api = `${process.env.VUE_APP_API}/users/orders`;
+      const headers = { Anthorization: Cookies.get("lemonToken") };
+      axios
+        .get(api, { headers })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+    },
     caculateSubtotal(order) {
       let total = 0;
       order.items.forEach((item) => {
@@ -242,6 +257,9 @@ export default {
           return "已取貨";
       }
     },
+  },
+  created() {
+    this.getOrders();
   },
 };
 </script>
