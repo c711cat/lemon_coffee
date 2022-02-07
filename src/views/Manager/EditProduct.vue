@@ -1,4 +1,5 @@
 <template>
+  <Loading :isLoading="isLoading" />
   <ProductForm :editItem="product" :onSubmit="updateProduct"></ProductForm>
 </template>
 
@@ -6,23 +7,27 @@
 import axios from "axios";
 import ProductForm from "@/components/ProductForm.vue";
 import Cookies from "js-cookie";
+import Loading from "@/components/Loading.vue";
 
 export default {
   data() {
     return {
       product: {},
+      isLoading: false,
     };
   },
 
-  components: { ProductForm },
+  components: { ProductForm, Loading },
 
   methods: {
     getProduct() {
       const api = `${process.env.VUE_APP_API}/admin/products/${this.$route.params.productId}/edit`;
       const headers = { Authorization: Cookies.get("lemonToken") };
+      this.isLoading = true;
       axios
         .get(api, { headers })
         .then((response) => {
+          this.isLoading = false;
           this.product = response.data;
         })
         .catch((error) => {
@@ -38,15 +43,18 @@ export default {
       this.product = { ...updateItem };
       const api = `${process.env.VUE_APP_API}/admin/products/${this.product.id}`;
       const headers = { Authorization: Cookies.get("lemonToken") };
+      this.isLoading = true;
       axios
         .put(api, { product: this.product }, { headers })
         .then((response) => {
+          this.isLoading = false;
           if (response.status === 200) {
             this.showSuccessToast("編輯成功");
             this.$router.push("/admin/products");
           }
         })
         .catch((error) => {
+          this.isLoading = false;
           if (error.response.status === 401) {
             Cookies.remove("lemonToken");
             this.showErrorToast("請重新登入");
