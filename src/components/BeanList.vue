@@ -1,21 +1,14 @@
 <template>
   <div>
-    <div
-      v-if="isLoading"
-      class="progress-spinner-container p-d-flex p-jc-center p-ai-center"
-    >
-      <div>
-        <ProgressSpinner fill="var(--surface-ground)"></ProgressSpinner>
-        <div class="p-text-center">Loading...</div>
-      </div>
-    </div>
-
+    <Loading :isLoading="isLoading" />
     <CleanBeanList :products="products"></CleanBeanList>
   </div>
 </template>
 <script>
 import axios from "axios";
 import CleanBeanList from "@/components/CleanBeanList.vue";
+import Loading from "@/components/Loading.vue";
+
 export default {
   data() {
     return {
@@ -24,7 +17,7 @@ export default {
       isLoading: false,
     };
   },
-  components: { CleanBeanList },
+  components: { CleanBeanList, Loading },
   methods: {
     getProducts() {
       const api = `${process.env.VUE_APP_API}/products`;
@@ -40,9 +33,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.progress-spinner-container {
-  height: 820px;
-}
-</style>
