@@ -1,6 +1,6 @@
 <template>
-  <div class="products-wrap">
-    <Loading :isLoading="isLoading" />
+  <Loading :isLoading="isLoading" />
+  <div v-if="!isLoading" class="products-wrap">
     <div class="add-btn-container">
       <button type="button" class="add-btn" @click.prevent="toAddProduct">
         新增產品
