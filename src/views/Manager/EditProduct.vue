@@ -1,9 +1,8 @@
 <template>
   <Loading :isLoading="isLoading" />
-  {{ isLoading }}
-  {{ !isLoading }}
-  <ProductForm :editItem="product" :onSubmit="updateProduct" v-if="!isLoading">
-  </ProductForm>
+  <div v-show="!isLoading">
+    <ProductForm :editItem="product" :onSubmit="updateProduct"> </ProductForm>
+  </div>
 </template>
 
 <script>

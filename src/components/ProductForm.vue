@@ -75,6 +75,7 @@ export default {
   watch: {
     editItem() {
       this.product = { ...this.editItem };
+      console.log(this.product);
     },
   },
 };
