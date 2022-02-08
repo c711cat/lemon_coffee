@@ -7,7 +7,7 @@
       <div class="p-grid p-px-3">
         <h3 class="p-col-12">{{ product.name }}</h3>
         <div class="p-col-12 p-text-bold price-size">NT$ {{ unitPrice }}</div>
-        <div v-if="isShowBroundOption" class="p-col-12 p-mt-7">
+        <div v-if="isShowGroundOption" class="p-col-12 p-mt-7">
           <SelectButton
             v-model="ground"
             :options="groundOfOptions"
@@ -200,7 +200,7 @@ export default {
       }
       return price;
     },
-    isShowBroundOption() {
+    isShowGroundOption() {
       return this.type !== "drip_bag";
     },
   },
