@@ -29,8 +29,8 @@
         />
 
         <div class="p-col-9 p-lg-9 p-pl-3">
-          {{ item.product_name }}<br />
-          磨粉不磨粉?<br />
+          {{ item.product_name }} <br />
+          {{ groundText(item.ground) }}
         </div>
       </router-link>
 
@@ -219,6 +219,14 @@ export default {
       }
       if (package_type === "one_pound") {
         return "一磅";
+      }
+    },
+    groundText(ground_result) {
+      if (ground_result === true) {
+        return "磨粉";
+      }
+      if (ground_result === false) {
+        return "原豆";
       }
     },
   },
