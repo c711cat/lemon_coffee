@@ -7,7 +7,16 @@
       <div class="p-grid p-px-3">
         <h3 class="p-col-12">{{ product.name }}</h3>
         <div class="p-col-12 p-text-bold price-size">NT$ {{ unitPrice }}</div>
-        <div class="p-col-12 p-mt-7">
+        <div v-if="isShowGroundOption" class="p-col-12 p-mt-7">
+          <SelectButton
+            v-model="ground"
+            :options="groundOfOptions"
+            optionValue="value"
+            optionLabel="label"
+            class="selected"
+          />
+        </div>
+        <div class="p-col-12 p-mt-7 p-pt-0">
           <SelectButton
             v-model="type"
             :options="typeOfOptions"
@@ -80,12 +89,17 @@ export default {
         roast: 1,
       },
       typeOfOptions: [
-        { value: "drip_bag", label: "耳掛" },
         { value: "half_pound", label: "半磅" },
         { value: "one_pound", label: "一磅" },
+        { value: "drip_bag", label: "耳掛" },
+      ],
+      groundOfOptions: [
+        { value: true, label: "磨粉" },
+        { value: false, label: "原豆" },
       ],
       qty: 1,
       type: "half_pound",
+      ground: true,
       is_error: false,
     };
   },
@@ -104,10 +118,14 @@ export default {
         });
     },
     addToCart() {
+      if (this.type === "drip_bag") {
+        this.ground = true;
+      }
       const cart = {
         product_id: this.product.id,
         package_type: this.type,
         quantity: this.qty,
+        ground: this.ground,
       };
       const api = `${process.env.VUE_APP_API}/users/cart_items`;
       const headers = { Authorization: Cookies.get("lemonToken") };
@@ -181,6 +199,9 @@ export default {
         price = this.product.one_pound_price;
       }
       return price;
+    },
+    isShowGroundOption() {
+      return this.type !== "drip_bag";
     },
   },
   created() {
