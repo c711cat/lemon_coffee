@@ -1,7 +1,7 @@
 <template>
   <Toast />
   <div id="navbar-style">
-    <Menubar :model="items" class="p-pl-5 p-pr-3 p-py-3">
+    <Menubar v-if="!isLoading" :model="items" class="p-pl-5 p-pr-3 p-py-3">
       <template #start>
         <router-link to="/home">
           <img
@@ -82,8 +82,10 @@ export default {
           },
         },
       ],
+      isLoading: false,
     };
   },
+
   inject: ["emitter"],
   emits: ["change-visible"],
   methods: {
@@ -109,9 +111,13 @@ export default {
     },
     sign_out() {
       const api = `${process.env.VUE_APP_API}/users/sign_out`;
+      this.isLoading = true;
+      this.emitter.emit("signOutLoading", true);
       axios
         .delete(api)
         .then((response) => {
+          this.isLoading = false;
+          this.emitter.emit("signOutLoading", false);
           if (response.status === 204) {
             Cookies.remove("lemonToken");
             this.emitter.emit("changeCartBadgeCount", 0);
@@ -120,6 +126,8 @@ export default {
           }
         })
         .catch((error) => {
+          this.isLoading = false;
+          this.emitter.emit("signOutLoading", false);
           if (error) {
             this.showErrorToast("登出失敗");
           }

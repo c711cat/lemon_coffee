@@ -1,6 +1,9 @@
 <template>
   <Loading :isLoading="isLoading" />
-  <ProductForm :editItem="product" :onSubmit="updateProduct"></ProductForm>
+  {{ isLoading }}
+  {{ !isLoading }}
+  <ProductForm :editItem="product" :onSubmit="updateProduct" v-if="!isLoading">
+  </ProductForm>
 </template>
 
 <script>
@@ -28,7 +31,10 @@ export default {
         .get(api, { headers })
         .then((response) => {
           this.isLoading = false;
-          this.product = response.data;
+          if (this.isLoading === false) {
+            this.product = response.data;
+            console.log(this.product);
+          }
         })
         .catch((error) => {
           if (error.response.status === 401) {
@@ -86,6 +92,7 @@ export default {
 
   created() {
     this.getProduct();
+    console.log(this.isLoading);
   },
 };
 </script>
