@@ -34,15 +34,18 @@ export default {
       },
     };
   },
+
   inject: ["emitter"],
   methods: {
     login() {
       const api = `${process.env.VUE_APP_API}/users/sign_in`;
+      this.emitter.emit("loading", true);
       axios
         .post(api, { user: this.login_data })
         .then((response) => {
           const token = response.headers.authorization;
           Cookies.set("lemonToken", token);
+          this.emitter.emit("loading", false);
           if (response.status === 201) {
             this.showSuccessToast("登入成功");
             this.getCart();
@@ -51,6 +54,7 @@ export default {
           }
         })
         .catch((error) => {
+          this.emitter.emit("loading", false);
           if (error.response.status === 401) {
             this.showErrorToast("請重新登入");
           }
@@ -59,14 +63,17 @@ export default {
     getCart() {
       const api = `${process.env.VUE_APP_API}/users/cart_items`;
       const headers = { Authorization: Cookies.get("lemonToken") };
+      this.emitter.emit("loading", true);
       axios
         .get(api, { headers })
         .then((response) => {
+          this.emitter.emit("loading", false);
           if (response.status === 200) {
             this.emitter.emit("changeCartBadgeCount", response.data.length);
           }
         })
         .catch((error) => {
+          this.emitter.emit("loading", false);
           if (error.response.status === 401) {
             this.showErrorToast("請重新登入");
             this.$router.push("/entrance/login");

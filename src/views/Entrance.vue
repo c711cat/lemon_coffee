@@ -1,4 +1,5 @@
 <template>
+  <Loading :isLoading="isLoading" />
   <div class="p-my-0 p-mx-auto p-p-4 wrap">
     <TabMenu :model="items" />
     <router-view />
@@ -6,6 +7,7 @@
 </template>
 
 <script>
+import Loading from "@/components/Loading.vue";
 export default {
   data() {
     return {
@@ -19,7 +21,15 @@ export default {
           to: "/entrance/login",
         },
       ],
+      isLoading: false,
     };
+  },
+  components: { Loading },
+  inject: ["emitter"],
+  created() {
+    this.emitter.on("loading", (booleanOfLoading) => {
+      this.isLoading = booleanOfLoading;
+    });
   },
 };
 </script>
