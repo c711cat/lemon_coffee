@@ -94,9 +94,11 @@ export default {
       },
     };
   },
+  inject: ["emitter"],
   methods: {
     register() {
       const api = `${process.env.VUE_APP_API}/users`;
+      this.emitter.emit("loading", true);
       axios
         .post(api, {
           user: {
@@ -105,6 +107,7 @@ export default {
           },
         })
         .then(() => {
+          this.emitter.emit("loading", false);
           this.$toast.add({
             severity: "success",
             summary: "註冊成功",
@@ -113,6 +116,7 @@ export default {
           this.$router.push("/entrance/login");
         })
         .catch(() => {
+          this.emitter.emit("loading", false);
           this.$toast.add({
             severity: "error",
             summary: "註冊失敗",
