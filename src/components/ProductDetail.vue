@@ -1,84 +1,82 @@
 <template>
-  <div class="p-grid nested-grid wrap p-my-4 p-mx-auto" v-if="!is_error">
-    <div class="p-col-12 p-lg-5">
-      <img class="product-image p-d-block p-mx-auto" :src="product.image_url" />
-    </div>
-    <div class="p-col-12 p-lg-7">
-      <div class="p-grid p-px-3">
-        <h3 class="p-col-12">{{ product.name }}</h3>
-        <div class="p-col-12 p-text-bold price-size">NT$ {{ unitPrice }}</div>
-        <div v-if="isShowGroundOption" class="p-col-12 p-mt-7">
-          <SelectButton
-            v-model="ground"
-            :options="groundOfOptions"
-            optionValue="value"
-            optionLabel="label"
-            class="selected"
-          />
-        </div>
-        <div class="p-col-12 p-mt-7 p-pt-0">
-          <SelectButton
-            v-model="type"
-            :options="typeOfOptions"
-            optionValue="value"
-            optionLabel="label"
-            class="selected"
-          />
-        </div>
-        <div class="p-col-fixes p-fluid p-ml-2" style="width: 202px">
-          <InputNumber
-            v-model="qty"
-            class="p-inputtext-sm"
-            :min="1"
-            showButtons
-            buttonLayout="horizontal"
-            incrementButtonClass="p-button-outlined"
-            decrementButtonClass="p-button-outlined"
-            incrementButtonIcon="pi pi-plus"
-            decrementButtonIcon="pi pi-minus"
-          />
-        </div>
-        <div class="p-col-12">
-          <Button
-            label="加入購物車"
-            class="p-button-raised p-col-12 p-lg-5"
-            @click.prevent="addToCart"
-          >
-          </Button>
+  <Loading v-if="isLoading" />
+  <div v-else>
+    <div v-if="is_error">無此商品</div>
+    <div class="p-grid nested-grid wrap p-my-4 p-mx-auto" v-else>
+      <div class="p-col-12 p-lg-5">
+        <img
+          class="product-image p-d-block p-mx-auto"
+          :src="product.image_url"
+        />
+      </div>
+      <div class="p-col-12 p-lg-7">
+        <div class="p-grid p-px-3">
+          <h3 class="p-col-12">{{ product.name }}</h3>
+          <div class="p-col-12 p-text-bold price-size">NT$ {{ unitPrice }}</div>
+          <div class="p-col-12 p-mt-7">
+            <SelectButton
+              v-model="type"
+              :options="typeOfOptions"
+              optionValue="value"
+              optionLabel="label"
+              class="selected"
+            />
+          </div>
+          <div class="p-col-fixes p-fluid p-ml-2" style="width: 202px">
+            <InputNumber
+              v-model="qty"
+              class="p-inputtext-sm"
+              :min="1"
+              showButtons
+              buttonLayout="horizontal"
+              incrementButtonClass="p-button-outlined"
+              decrementButtonClass="p-button-outlined"
+              incrementButtonIcon="pi pi-plus"
+              decrementButtonIcon="pi pi-minus"
+            />
+          </div>
+          <div class="p-col-12">
+            <Button
+              label="加入購物車"
+              class="p-button-raised p-col-12 p-lg-5"
+              @click.prevent="addToCart"
+            >
+            </Button>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="p-col-11 p-lg-12 bean-details-container p-my-3 p-mx-auto">
-      <div class="p-grid p-m-0 p-pb-2 p-text-bold p-pt-3 p-px-6">
-        <div class="p-col-12 p-lg-8">{{ product.name }}</div>
+      <div class="p-col-11 p-lg-12 bean-details-container p-my-3 p-mx-auto">
+        <div class="p-grid p-m-0 p-pb-2 p-text-bold p-pt-3 p-px-6">
+          <div class="p-col-12 p-lg-8">{{ product.name }}</div>
 
-        <Roast :roast="product.roast" class="p-col-12 p-lg-4"></Roast>
-      </div>
-      <hr class="p-mx-6 hr-style" />
-      <div class="p-grid p-m-0 p-py-2 p-px-6">
-        <div class="p-col-5 p-lg-2 p-text-bold">國家</div>
-        <div class="p-col-7 p-lg-4">尼加拉瓜</div>
-        <div class="p-col-5 p-lg-2 p-text-bold">產區</div>
-        <div class="p-col-7 p-lg-4">聖荷西莊園</div>
-        <div class="p-col-5 p-lg-2 p-text-bold">品種</div>
-        <div class="p-col-7 p-lg-4">波旁種</div>
-        <div class="p-col-5 p-lg-2 p-text-bold">處理法</div>
-        <div class="p-col-7 p-lg-4">蜜處理</div>
-        <div class="p-col-12 p-lg-2 p-text-bold">風味描述</div>
-        <div class="p-col-12 p-lg-10">
-          柑橘、橘皮、黑醋栗氣息與焦糖、橘汁風味與酸甜感、
-          餘韻帶有烏龍茶韻及木頭氣息。
+          <Roast :roast="product.roast" class="p-col-12 p-lg-4"></Roast>
+        </div>
+        <hr class="p-mx-6 hr-style" />
+        <div class="p-grid p-m-0 p-py-2 p-px-6">
+          <div class="p-col-5 p-lg-2 p-text-bold">國家</div>
+          <div class="p-col-7 p-lg-4">尼加拉瓜</div>
+          <div class="p-col-5 p-lg-2 p-text-bold">產區</div>
+          <div class="p-col-7 p-lg-4">聖荷西莊園</div>
+          <div class="p-col-5 p-lg-2 p-text-bold">品種</div>
+          <div class="p-col-7 p-lg-4">波旁種</div>
+          <div class="p-col-5 p-lg-2 p-text-bold">處理法</div>
+          <div class="p-col-7 p-lg-4">蜜處理</div>
+          <div class="p-col-12 p-lg-2 p-text-bold">風味描述</div>
+          <div class="p-col-12 p-lg-10">
+            柑橘、橘皮、黑醋栗氣息與焦糖、橘汁風味與酸甜感、
+            餘韻帶有烏龍茶韻及木頭氣息。
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div v-if="is_error">無此商品</div>
 </template>
 
 <script>
 import axios from "axios";
 import Cookies from "js-cookie";
 import Roast from "@/components/Roast.vue";
+import Loading from "@/components/Loading.vue";
 
 export default {
   data() {
@@ -101,19 +99,23 @@ export default {
       type: "half_pound",
       ground: true,
       is_error: false,
+      isLoading: false,
     };
   },
-  components: { Roast },
+  components: { Roast, Loading },
   inject: ["emitter"],
   methods: {
     getProduct() {
       const api = `${process.env.VUE_APP_API}/products/${this.$route.params.id}`;
+      this.isLoading = true;
       axios
         .get(api)
         .then((response) => {
+          this.isLoading = false;
           this.product = { ...response.data };
         })
         .catch(() => {
+          this.isLoading = false;
           this.is_error = !this.is_error;
         });
     },
