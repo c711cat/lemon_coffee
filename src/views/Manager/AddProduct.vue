@@ -1,6 +1,6 @@
 <template>
-  <Loading :isLoading="isLoading" />
-  <ProductForm v-if="!isLoading" :onSubmit="addProduct"></ProductForm>
+  <Loading v-if="isLoading" />
+  <ProductForm v-else :onSubmit="addProduct"></ProductForm>
 </template>
 
 <script>

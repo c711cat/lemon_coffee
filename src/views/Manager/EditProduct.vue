@@ -1,5 +1,5 @@
 <template>
-  <Loading :isLoading="isLoading" />
+  <Loading v-if="isLoading" />
   <div v-show="!isLoading">
     <ProductForm :editItem="product" :onSubmit="updateProduct"> </ProductForm>
   </div>

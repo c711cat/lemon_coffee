@@ -1,6 +1,6 @@
 <template>
-  <Loading :isLoading="isLoading" />
-  <div v-if="!isLoading" class="products-wrap">
+  <Loading v-if="isLoading" />
+  <div v-else class="products-wrap">
     <div class="add-btn-container">
       <button type="button" class="add-btn" @click.prevent="toAddProduct">
         新增產品
@@ -10,7 +10,8 @@
       :products="products"
       :showEditButton="showEditButton"
       :disableDrag="disableDrag"
-    ></CleanBeanList>
+    >
+    </CleanBeanList>
   </div>
 </template>
 

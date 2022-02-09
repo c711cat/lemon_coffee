@@ -1,5 +1,5 @@
 <template>
-  <Loading :isLoading="isLoading" />
+  <Loading v-if="isLoading" />
   <ConfirmDialog></ConfirmDialog>
 </template>
 

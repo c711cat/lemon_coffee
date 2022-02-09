@@ -1,6 +1,6 @@
 <template>
-  <Loading :isLoading="isLoading" />
-  <div v-if="!isLoading" class="p-my-0 p-mx-auto p-p-4 wrap">
+  <Loading v-if="isLoading" />
+  <div v-else class="p-my-0 p-mx-auto p-p-4 wrap">
     <TabMenu :model="items" />
     <router-view />
   </div>
