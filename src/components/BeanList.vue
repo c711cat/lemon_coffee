@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Loading :isLoading="isLoading" />
-    <CleanBeanList v-if="!isLoading" :products="products"></CleanBeanList>
+    <Loading v-if="isLoading" />
+    <CleanBeanList v-else :products="products"></CleanBeanList>
   </div>
 </template>
 <script>
@@ -18,7 +18,6 @@ export default {
     };
   },
   components: { CleanBeanList, Loading },
-  inject: ["emitter"],
   methods: {
     getProducts() {
       const api = `${process.env.VUE_APP_API}/products`;
@@ -30,9 +29,6 @@ export default {
     },
   },
   created() {
-    this.emitter.on("signOutLoading", (data) => {
-      this.isLoading = data;
-    });
     this.getProducts();
   },
 };
