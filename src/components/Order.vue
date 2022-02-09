@@ -1,5 +1,6 @@
 <template>
-  <div class="wrap p-my-0 p-mx-auto p-p-2">
+  <Loading v-if="isLoading" />
+  <div v-else class="wrap p-my-0 p-mx-auto p-p-2">
     <div class="divider p-pl-3">
       <h4>訂單成立時間 2022 / 01 / 03 下午 02 : 35</h4>
       <h4>訂單編號 {{ order.id }}</h4>
@@ -115,6 +116,7 @@
 <script>
 import axios from "axios";
 import Cookies from "js-cookie";
+import Loading from "@/components/Loading.vue";
 
 export default {
   data() {
@@ -144,21 +146,26 @@ export default {
         shipping_status: "",
         status: "",
       },
+      isLoading: false,
     };
   },
+  components: { Loading },
   inject: ["emitter"],
   methods: {
     getOrder() {
       const api = `${process.env.VUE_APP_API}/users/orders/${this.$route.params.id}`;
       const headers = { Authorization: Cookies.get("lemonToken") };
+      this.isLoading = true;
       axios
         .get(api, { headers })
         .then((response) => {
+          this.isLoading = false;
           if (response.status === 200) {
             this.order = { ...response.data };
           }
         })
         .catch((error) => {
+          this.isLoading = false;
           if (error.response.status === 401) {
             Cookies.remove("lemonToken");
             this.showErrorToast("請重新登入");
