@@ -1,5 +1,6 @@
 <template>
-  <div class="wrap p-my-0 p-mx-auto p-p-2">
+  <Loading v-if="isLoading" />
+  <div v-else class="wrap p-my-0 p-mx-auto p-p-2">
     <div class="divider p-pl-3">
       <h4>購買清單</h4>
     </div>
@@ -113,6 +114,7 @@
 <script>
 import axios from "axios";
 import Cookies from "js-cookie";
+import Loading from "@/components/Loading.vue";
 
 export default {
   data() {
@@ -126,16 +128,20 @@ export default {
         email: "",
         shipping_method: "",
       },
+      isLoading: false,
     };
   },
+  components: { Loading },
   inject: ["emitter"],
   methods: {
     getCart() {
       const api = `${process.env.VUE_APP_API}/users/cart_items`;
       const headers = { Authorization: Cookies.get("lemonToken") };
+      this.isLoading = true;
       axios
         .get(api, { headers })
         .then((response) => {
+          this.isLoading = false;
           if (response.status === 200) {
             this.cartItems = [...response.data];
             const buyerRecord =
@@ -145,6 +151,7 @@ export default {
           }
         })
         .catch((error) => {
+          this.isLoading = false;
           if (error.response.status === 401) {
             Cookies.remove("lemonToken");
             this.showErrorToast("請重新登入");
