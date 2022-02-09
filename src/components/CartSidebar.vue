@@ -153,6 +153,7 @@ export default {
           }
         })
         .catch((error) => {
+          this.isLoading = false;
           if (error.response.status === 401) {
             Cookies.remove("lemonToken");
             this.showErrorToast("請重新登入");
