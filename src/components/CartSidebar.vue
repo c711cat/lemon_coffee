@@ -2,119 +2,129 @@
   <div class="divider p-pl-2">
     <h4 class="p-mb-2 p-mt-0">購物車清單</h4>
   </div>
-
-  <div
-    class="p-grid divider p-m-0 p-pt-3 p-jc-between p-ai-center"
-    v-for="(item, index) in cartItems"
-    :key="item.product_id + item.package_type"
-  >
-    <Button
-      @click.prevent="delProduct(item, index)"
-      icon="pi pi-trash"
-      class="p-col-fixed p-ml-2 p-button-rounded p-button-text p-button-danger"
-      style="width: 30px"
-    />
-
-    <router-link
-      :to="`/products/${item.product_id}`"
-      class="p-grid p-m-0 p-col-10 p-ai-center link-content"
-    >
-      <img :src="item.product_image_url" class="product-image p-col-3 p-p-0" />
-
-      <div class="p-col-9 p-pl-3">
-        {{ item.product_name }} <br />
-        {{ groundText(item.ground) }}
-      </div>
-    </router-link>
-
-    <div class="p-col-fixed p-pl-3">
-      $ {{ item.unit_price }} / {{ typeText(item.package_type) }}
-    </div>
-
-    <div class="p-fluid p-col-fixed p-p-0 p-my-3" style="width: 129px">
-      <InputNumber
-        @input="updateCart(item)"
-        @change="updateCart(item)"
-        class="p-inputtext-sm"
-        v-model="item.quantity"
-        :min="1"
-        showButtons
-        buttonLayout="horizontal"
-        incrementButtonIcon="pi pi-plus"
-        decrementButtonIcon="pi pi-minus"
-        incrementButtonClass="p-button-info"
-        decrementButtonClass="p-button-info"
-      />
-    </div>
-
+  <Loading v-if="isLoading" />
+  <div v-else>
     <div
-      class="p-col-fixed p-text-right subtotal-container p-px-1"
-      style="width: 80px"
+      class="p-grid divider p-m-0 p-pt-3 p-jc-between p-ai-center"
+      v-for="(item, index) in cartItems"
+      :key="item.product_id + item.package_type"
     >
-      <div class="discount-content" v-if="item.discount">
-        {{ item.discount }}
+      <Button
+        @click.prevent="delProduct(item, index)"
+        icon="pi pi-trash"
+        class="
+          p-col-fixed p-ml-2 p-button-rounded p-button-text p-button-danger
+        "
+        style="width: 30px"
+      />
+
+      <router-link
+        :to="`/products/${item.product_id}`"
+        class="p-grid p-m-0 p-col-10 p-ai-center link-content"
+      >
+        <img
+          :src="item.product_image_url"
+          class="product-image p-col-3 p-p-0"
+        />
+
+        <div class="p-col-9 p-pl-3">
+          {{ item.product_name }}<br />
+          {{ groundText(item.ground) }}
+        </div>
+      </router-link>
+
+      <div class="p-col-fixed p-pl-3">
+        $ {{ item.unit_price }} / {{ typeText(item.package_type) }}
       </div>
 
-      <del class="del-content" v-if="item.discount"
-        >$ {{ item.unit_price * item.quantity }}
-      </del>
+      <div class="p-fluid p-col-fixed p-p-0 p-my-3" style="width: 129px">
+        <InputNumber
+          @input="updateCart(item)"
+          @change="updateCart(item)"
+          class="p-inputtext-sm"
+          v-model="item.quantity"
+          :min="1"
+          showButtons
+          buttonLayout="horizontal"
+          incrementButtonIcon="pi pi-plus"
+          decrementButtonIcon="pi pi-minus"
+          incrementButtonClass="p-button-info"
+          decrementButtonClass="p-button-info"
+        />
+      </div>
 
-      <div v-else>$ {{ item.unit_price * item.quantity }}</div>
-    </div>
-  </div>
+      <div
+        class="p-col-fixed p-text-right subtotal-container p-px-1"
+        style="width: 80px"
+      >
+        <div class="discount-content" v-if="item.discount">
+          {{ item.discount }}
+        </div>
 
-  <div v-if="cartItems.length === 0" class="p-pl-2 p-pt-3 p-text-bold">
-    你的購物車是空的
-  </div>
+        <del class="del-content" v-if="item.discount"
+          >$ {{ item.unit_price * item.quantity }}
+        </del>
 
-  <div v-else class="p-grid nested-grid p-jc-between p-mx-0 p-my-2 p-p-0">
-    <div class="p-col-3 p-ml-2">
-      <div class="p-grid discount-container">
-        <div class="p-col-10 p-text-center p-mr-2 discount-mark">優惠</div>
-        <div class="p-col-12 discount-content p-pl-0">滿 $1000 免運費</div>
+        <div v-else>$ {{ item.unit_price * item.quantity }}</div>
       </div>
     </div>
 
-    <div class="p-col-8">
-      <div class="p-grid p-text-right p-ai-center p-jc-end">
-        <div class="p-col-6 p-pr-0">小計</div>
-        <div class="p-col-5 p-pr-1">$ {{ subtotal }}</div>
+    <div v-if="cartItems.length === 0" class="p-pl-2 p-pt-3 p-text-bold">
+      你的購物車是空的
+    </div>
 
-        <div v-if="buy_more_discount" class="p-col-6 p-pr-0">多件優惠</div>
-        <div v-if="buy_more_discount" class="p-col-5 p-pr-1">
-          - $ {{ buy_more_discount }}
-        </div>
-
-        <div v-if="freight_cost" class="p-col-6 p-pr-0">運費</div>
-        <div v-if="freight_cost" class="p-col-5 p-pr-1">
-          $ {{ freight_cost }}
-        </div>
-
-        <div v-if="free_shipping" class="p-col-6 p-pr-0">滿千免運</div>
-        <div v-if="free_shipping" class="p-col-5 p-pr-1">
-          <del>$ {{ free_shipping }}</del>
-        </div>
-
-        <div class="p-col-6 p-text-bold checkout-price p-pr-0">總付款金額</div>
-        <div class="p-col-5 p-text-bold checkout-price p-pr-1">
-          $ {{ subtotal }}
+    <div v-else class="p-grid nested-grid p-jc-between p-mx-0 p-my-2 p-p-0">
+      <div class="p-col-3 p-ml-2">
+        <div class="p-grid discount-container">
+          <div class="p-col-10 p-text-center p-mr-2 discount-mark">優惠</div>
+          <div class="p-col-12 discount-content p-pl-0">滿 $1000 免運費</div>
         </div>
       </div>
+
+      <div class="p-col-8">
+        <div class="p-grid p-text-right p-ai-center p-jc-end">
+          <div class="p-col-6 p-pr-0">小計</div>
+          <div class="p-col-5 p-pr-1">$ {{ subtotal }}</div>
+
+          <div v-if="buy_more_discount" class="p-col-6 p-pr-0">多件優惠</div>
+          <div v-if="buy_more_discount" class="p-col-5 p-pr-1">
+            - $ {{ buy_more_discount }}
+          </div>
+
+          <div v-if="freight_cost" class="p-col-6 p-pr-0">運費</div>
+          <div v-if="freight_cost" class="p-col-5 p-pr-1">
+            $ {{ freight_cost }}
+          </div>
+
+          <div v-if="free_shipping" class="p-col-6 p-pr-0">滿千免運</div>
+          <div v-if="free_shipping" class="p-col-5 p-pr-1">
+            <del>$ {{ free_shipping }}</del>
+          </div>
+
+          <div class="p-col-6 p-text-bold checkout-price p-pr-0">
+            總付款金額
+          </div>
+          <div class="p-col-5 p-text-bold checkout-price p-pr-1">
+            $ {{ subtotal }}
+          </div>
+        </div>
+      </div>
+      <router-link
+        to="/cart"
+        @click.prevent="$emit('close-cart-sidebar')"
+        class="p-fluid p-col-12 p-p-0 link-content"
+      >
+        <Button label="查看購物車" class="p-button-info p-button-raised">
+        </Button>
+      </router-link>
     </div>
-    <router-link
-      to="/cart"
-      @click.prevent="$emit('close-cart-sidebar')"
-      class="p-fluid p-col-12 p-p-0 link-content"
-    >
-      <Button label="查看購物車" class="p-button-info p-button-raised">
-      </Button>
-    </router-link>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import Cookies from "js-cookie";
+import Loading from "@/components/Loading.vue";
 
 export default {
   data() {
@@ -123,17 +133,21 @@ export default {
       buy_more_discount: 0,
       free_shipping: 0,
       cartItems: [],
+      isLoading: false,
     };
   },
+  components: { Loading },
   inject: ["emitter"],
   emits: ["close-cart-sidebar"],
   methods: {
     getCart() {
       const api = `${process.env.VUE_APP_API}/users/cart_items`;
       const headers = { Authorization: Cookies.get("lemonToken") };
+      this.isLoading = true;
       axios
         .get(api, { headers })
         .then((response) => {
+          this.isLoading = false;
           if (response.status === 200) {
             this.cartItems = [...response.data];
           }
