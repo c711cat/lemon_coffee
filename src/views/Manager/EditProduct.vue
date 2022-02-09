@@ -32,7 +32,6 @@ export default {
           this.isLoading = false;
           if (this.isLoading === false) {
             this.product = response.data;
-            console.log(this.product);
           }
         })
         .catch((error) => {
@@ -91,7 +90,6 @@ export default {
 
   created() {
     this.getProduct();
-    console.log(this.isLoading);
   },
 };
 </script>
