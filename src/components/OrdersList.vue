@@ -6,7 +6,7 @@
     :key="order.id"
   >
     <AccordionTab
-      :header="`訂單成立時間 ${order.created_at}  訂單編號 ${order.id}`"
+      :header="` 訂單編號 ${order.id} - ${changeDateText(order.created_at)}  `"
     >
       <div
         class="p-grid p-m-0 p-py-3 divider p-ai-center p-jc-between"
@@ -193,6 +193,9 @@ export default {
         case "picked_up":
           return "已取貨";
       }
+    },
+    changeDateText(time) {
+      return new Date(Date.parse(time)).toLocaleString();
     },
   },
   created() {
