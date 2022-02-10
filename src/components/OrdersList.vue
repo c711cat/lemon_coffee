@@ -114,74 +114,7 @@ import Cookies from "js-cookie";
 export default {
   data() {
     return {
-      orders: [
-        {
-          created_at: "2022 / 01 / 07 下午 01 : 45",
-          id: "1",
-          items: [
-            {
-              id: "01",
-              name: "宏都拉斯 天堂產區 帕拉伊內瑪種 水洗處理",
-              unit_price: 400,
-              quantity: 1,
-              package_type: "half_pound",
-            },
-            {
-              id: "02",
-              name: "宏都拉斯 天堂產區 帕拉伊內瑪種 水洗處理",
-              unit_price: 40,
-              quantity: 10,
-              package_type: "drip_bag",
-            },
-          ],
-          note: "",
-          payment_method: "cash_on_delivery",
-          payment_status: "unpaid",
-          shipping_info: {
-            name: "kakas",
-            phone_number: "0912123123",
-            address: "地址......",
-            email: "aaa@aaa.aaa",
-            shipping_method: "home_delivery",
-            shipping_fee: 100,
-          },
-          shipping_status: "in_preparation",
-          status: "pending",
-        },
-        {
-          created_at: "2022 / 01 / 08 下午 08 : 05",
-          id: "2",
-          items: [
-            {
-              id: "01",
-              name: "宏都拉斯 天堂產區 帕拉伊內瑪種 水洗處理",
-              unit_price: 400,
-              quantity: 1,
-              package_type: "half_pound",
-            },
-            {
-              id: "02",
-              name: "宏都拉斯 天堂產區 帕拉伊內瑪種 水洗處理",
-              unit_price: 40,
-              quantity: 10,
-              package_type: "drip_bag",
-            },
-          ],
-          note: "",
-          payment_method: "cash_on_delivery",
-          payment_status: "unpaid",
-          shipping_info: {
-            name: "kakas",
-            phone_number: "0912123123",
-            address: "地址......",
-            email: "aaa@aaa.aaa",
-            shipping_method: "home_delivery",
-            shipping_fee: 100,
-          },
-          shipping_status: "in_preparation",
-          status: "pending",
-        },
-      ],
+      orders: [],
     };
   },
   methods: {
