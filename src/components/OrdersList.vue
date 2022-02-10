@@ -5,7 +5,9 @@
     v-for="order in orders"
     :key="order.id"
   >
-    <AccordionTab :header="`訂單成立時間 ${order.title}  訂單編號 ${order.id}`">
+    <AccordionTab
+      :header="`訂單成立時間 ${order.created_at}  訂單編號 ${order.id}`"
+    >
       <div
         class="p-grid p-m-0 p-py-3 divider p-ai-center p-jc-between"
         v-for="item in order.items"
@@ -114,7 +116,7 @@ export default {
     return {
       orders: [
         {
-          title: "2022 / 01 / 07 下午 01 : 45",
+          created_at: "2022 / 01 / 07 下午 01 : 45",
           id: "1",
           items: [
             {
@@ -147,7 +149,7 @@ export default {
           status: "pending",
         },
         {
-          title: "2022 / 01 / 08 下午 08 : 05",
+          created_at: "2022 / 01 / 08 下午 08 : 05",
           id: "2",
           items: [
             {
@@ -185,11 +187,13 @@ export default {
   methods: {
     getOrders() {
       const api = `${process.env.VUE_APP_API}/users/orders`;
-      const headers = { Anthorization: Cookies.get("lemonToken") };
+      const headers = { Authorization: Cookies.get("lemonToken") };
       axios
         .get(api, { headers })
         .then((response) => {
           console.log(response);
+          this.orders = response.data;
+          console.log(this.orders);
         })
         .catch((error) => {
           console.log(error.response);
