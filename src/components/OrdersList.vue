@@ -124,12 +124,14 @@ export default {
       axios
         .get(api, { headers })
         .then((response) => {
-          console.log(response);
           this.orders = response.data;
-          console.log(this.orders);
         })
         .catch((error) => {
-          console.log(error.response);
+          if (error.response.status === 401) {
+            Cookies.remove("lemonToken");
+            this.showErrorToast("請重新登入");
+            this.$router.push("/entrance/login");
+          }
         });
     },
     caculateSubtotal(order) {
@@ -193,6 +195,13 @@ export default {
         case "picked_up":
           return "已取貨";
       }
+    },
+    showErrorToast(text) {
+      this.$toast.add({
+        severity: "error",
+        summary: text,
+        life: 5000,
+      });
     },
     changeDateText(time) {
       return new Date(Date.parse(time)).toLocaleString();
