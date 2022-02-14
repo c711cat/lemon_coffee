@@ -18,7 +18,10 @@
       </div>
       <router-link
         :to="`/products/${item.product_id}`"
-        class="p-grid p-m-0 p-col-10 p-lg-6 p-jc-around p-ai-center link-content"
+        class="
+          p-grid p-m-0 p-col-10 p-lg-6 p-jc-around p-ai-center
+          link-content
+        "
       >
         <img
           :src="item.product_image_url"
@@ -90,19 +93,12 @@
             - $ {{ buy_more_discount }}
           </div>
 
-          <div v-if="shipping_fee" class="p-col-6 p-lg-9 p-pr-0">運費</div>
-          <div v-if="shipping_fee" class="p-col-6 p-lg-3">
-            $ {{ shipping_fee }}
-          </div>
+          <div class="p-col-6 p-lg-9 p-pr-0">運費</div>
+          <div class="p-col-6 p-lg-3">$ {{ originShippingFee }}</div>
 
-          <div
-            v-if="free_shipping && shipping_fee"
-            class="p-col-6 p-lg-9 p-pr-0"
-          >
-            滿千免運
-          </div>
-          <div v-if="free_shipping && shipping_fee" class="p-col-6 p-lg-3">
-            <del>$ {{ shipping_fee }}</del>
+          <div v-if="free_shipping" class="p-col-6 p-lg-9 p-pr-0">滿千免運</div>
+          <div v-if="free_shipping" class="p-col-6 p-lg-3">
+            <del>$ {{ originShippingFee }}</del>
           </div>
 
           <div class="p-col-6 p-lg-9 p-text-bold checkout-price p-pr-0">
@@ -110,7 +106,7 @@
           </div>
 
           <div class="p-col-6 p-lg-3 p-text-bold checkout-price">
-            $ {{ final_total }}
+            $ {{ shippingFee + subtotal }}
           </div>
         </div>
       </div>
@@ -274,10 +270,11 @@ export default {
       localStorage.setItem("personalData", JSON.stringify(buyer));
       const data = {
         subtotal: this.subtotal,
-        shipping_fee: this.shipping_fee,
+        shipping_fee: this.shippingFee,
         free_shipping: this.free_shipping,
-        final_total: this.final_total,
+        final_total: this.subtotal + this.shippingFee,
       };
+      console.log(data);
       this.$router.push({
         path: "/checkout",
         query: data,
@@ -338,25 +335,26 @@ export default {
       });
       return total;
     },
-    final_total() {
-      let final = this.subtotal;
-      if (this.subtotal < 1000) {
-        final = this.subtotal + this.shipping_fee;
+    originShippingFee() {
+      switch (this.shipping_info.shipping_method) {
+        case "home_delivery":
+          return 100;
+        default:
+          return 0;
       }
-      return final;
+    },
+    shippingFee() {
+      if (this.subtotal >= 1000) {
+        return 0;
+      } else {
+        return this.originShippingFee;
+      }
     },
     free_shipping() {
-      return this.subtotal >= 1000;
+      return this.shippingFee === 0;
     },
     isHomeDelivery() {
       return this.shipping_info.shipping_method === "home_delivery";
-    },
-    shipping_fee() {
-      let fee = 0;
-      if (this.shipping_info.shipping_method === "home_delivery") {
-        fee = 100;
-      }
-      return fee;
     },
   },
   created() {
