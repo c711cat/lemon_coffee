@@ -66,25 +66,19 @@
 
       <div class="p-col-4 p-lg-1 p-text-bold">送貨方式</div>
       <div class="p-col-8 p-lg-11">
-        {{ shippingMethodText(order.shipping_info.shipping_method) }}
+        {{ shippingMethod }}
       </div>
 
-      <div
-        v-if="order.shipping_info.shipping_method === 'home_delivery'"
-        class="p-col-4 p-lg-1 p-text-bold"
-      >
+      <div v-if="isHomeDelivery" class="p-col-4 p-lg-1 p-text-bold">
         收件地址
       </div>
-      <div
-        v-if="order.shipping_info.shipping_method === 'home_delivery'"
-        class="p-col-8 p-lg-11"
-      >
+      <div v-if="isHomeDelivery" class="p-col-8 p-lg-11">
         {{ order.shipping_info.address }}
       </div>
 
       <div class="p-col-4 p-lg-1 p-text-bold">付款方式</div>
       <div class="p-col-8 p-lg-11">
-        {{ paymentMethodText(order.payment_method) }}
+        {{ paymentMethod }}
       </div>
 
       <div class="p-col-4 p-lg-1 p-text-bold">備註</div>
@@ -162,6 +156,7 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.order = { ...response.data };
+            console.log(this.order);
           }
         })
         .catch((error) => {
@@ -188,16 +183,6 @@ export default {
           return "半磅";
         case "one_pound":
           return "一磅";
-      }
-    },
-    shippingMethodText(shipping_method) {
-      if (shipping_method === "home_delivery") {
-        return "宅配";
-      }
-    },
-    paymentMethodText(payment_method) {
-      if (payment_method === "cash_on_delivery") {
-        return "貨到付款";
       }
     },
     orderStatusText(status) {
@@ -253,6 +238,27 @@ export default {
     },
     free_shipping() {
       return this.final_shipping_fee === 0;
+    },
+    shippingMethod() {
+      let shipping_method = "";
+      if (this.order.shipping_info.shipping_method === "home_delivery") {
+        shipping_method = "宅配";
+      }
+      return shipping_method;
+    },
+    paymentMethod() {
+      let payment_method = "";
+      if (this.order.payment_method === "cash_on_delivery") {
+        payment_method = "貨到付款";
+      }
+      return payment_method;
+    },
+    isHomeDelivery() {
+      let homeDelivery = false;
+      if (this.order.shipping_info.shipping_method === "home_delivery") {
+        homeDelivery = true;
+      }
+      return homeDelivery;
     },
   },
   created() {
