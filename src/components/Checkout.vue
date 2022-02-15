@@ -25,29 +25,21 @@
       <div class="p-col-12">
         <div class="p-grid p-jc-between p-text-right p-ai-center">
           <div class="p-col-7 p-lg-9 p-pr-0">小計</div>
-          <div class="p-col-5 p-lg-3">$ {{ price_details.subtotal }}</div>
+          <div class="p-col-5 p-lg-3">$ {{ subtotal }}</div>
 
           <div class="p-col-7 p-lg-9 p-pr-0">運費</div>
-          <div class="p-col-5 p-lg-3">$ {{ price_details.shipping_fee }}</div>
+          <div class="p-col-5 p-lg-3">$ {{ origin_shipping_fee }}</div>
 
-          <div
-            v-if="price_details.free_shipping === 'true'"
-            class="p-col-7 p-lg-9 p-pr-0"
-          >
-            滿千免運
-          </div>
-          <div
-            v-if="price_details.free_shipping === 'true'"
-            class="p-col-5 p-lg-3"
-          >
-            <del>$ {{ price_details.shipping_fee }}</del>
+          <div v-if="free_shipping" class="p-col-7 p-lg-9 p-pr-0">滿千免運</div>
+          <div v-if="free_shipping" class="p-col-5 p-lg-3">
+            <del>$ {{ origin_shipping_fee }}</del>
           </div>
 
           <div class="p-col-7 p-lg-9 p-text-bold checkout-price p-pr-0">
             總付款金額
           </div>
           <div class="p-col-5 p-lg-3 p-text-bold checkout-price">
-            $ {{ price_details.final_total }}
+            $ {{ final_shipping_fee + subtotal }}
           </div>
         </div>
       </div>
@@ -134,7 +126,6 @@ export default {
         email: "",
         shipping_method: "",
       },
-      price_details: {},
     };
   },
   inject: ["emitter"],
@@ -147,11 +138,11 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.cartItems = [...response.data];
+            console.log(this.cartItems);
             const buyerRecord =
               JSON.parse(localStorage.getItem("personalData")) || {};
             this.note = buyerRecord.note;
             this.shipping_info = buyerRecord.shipping_info;
-            this.price_details = this.$route.query;
           }
         })
         .catch((error) => {
@@ -226,6 +217,31 @@ export default {
     },
   },
   computed: {
+    subtotal() {
+      let total = 0;
+      this.cartItems.forEach((item) => {
+        total += item.unit_price * item.quantity;
+      });
+      return total;
+    },
+    origin_shipping_fee() {
+      switch (this.shipping_info.shipping_method) {
+        case "home_delivery":
+          return 100;
+        default:
+          return 0;
+      }
+    },
+    final_shipping_fee() {
+      if (this.subtotal >= 1000) {
+        return 0;
+      } else {
+        return this.origin_shipping_fee;
+      }
+    },
+    free_shipping() {
+      return this.final_shipping_fee === 0;
+    },
     shippingMethod() {
       let shipping_method = "";
       if (this.shipping_info.shipping_method === "home_delivery") {
