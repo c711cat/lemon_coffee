@@ -93,27 +93,24 @@
             - $ {{ buy_more_discount }}
           </div>
 
-          <div
-            v-if="shipping_info.shipping_method"
-            class="p-col-6 p-lg-9 p-pr-0"
-          >
+          <div v-if="origin_shipping_fee" class="p-col-6 p-lg-9 p-pr-0">
             運費
           </div>
-          <div v-if="shipping_info.shipping_method" class="p-col-6 p-lg-3">
-            $ {{ originShippingFee }}
+          <div v-if="origin_shipping_fee" class="p-col-6 p-lg-3">
+            $ {{ origin_shipping_fee }}
           </div>
 
           <div
-            v-if="shipping_info.shipping_method && free_shipping"
+            v-if="origin_shipping_fee && free_shipping"
             class="p-col-6 p-lg-9 p-pr-0"
           >
             滿千免運
           </div>
           <div
-            v-if="shipping_info.shipping_method && free_shipping"
+            v-if="origin_shipping_fee && free_shipping"
             class="p-col-6 p-lg-3"
           >
-            <del>$ {{ originShippingFee }}</del>
+            <del>$ {{ origin_shipping_fee }}</del>
           </div>
 
           <div class="p-col-6 p-lg-9 p-text-bold checkout-price p-pr-0">
@@ -121,7 +118,7 @@
           </div>
 
           <div class="p-col-6 p-lg-3 p-text-bold checkout-price">
-            $ {{ shippingFee + subtotal }}
+            $ {{ final_shipping_fee + subtotal }}
           </div>
         </div>
       </div>
@@ -140,10 +137,7 @@ export default {
     return {
       buy_more_discount: 0,
       cartItems: [],
-      shipping_fee: "",
-      shipping_info: {
-        shipping_method: "",
-      },
+      origin_shipping_fee: 0,
       shipping_methods: [{ label: "宅配", value: "home_delivery" }],
       payment_methods: [{ label: "貨到付款", value: "cash_on_delivery" }],
     };
@@ -248,7 +242,14 @@ export default {
       }
     },
     shipping_amount(shippingMethod) {
-      this.shipping_info.shipping_method = shippingMethod;
+      switch (shippingMethod) {
+        case "home_delivery":
+          this.origin_shipping_fee = 100;
+          break;
+        default:
+          this.origin_shipping_fee = 0;
+          break;
+      }
     },
   },
   computed: {
@@ -259,23 +260,15 @@ export default {
       });
       return total;
     },
-    originShippingFee() {
-      switch (this.shipping_info.shipping_method) {
-        case "home_delivery":
-          return 100;
-        default:
-          return 0;
-      }
-    },
-    shippingFee() {
+    final_shipping_fee() {
       if (this.subtotal >= 1000) {
         return 0;
       } else {
-        return this.originShippingFee;
+        return this.origin_shipping_fee;
       }
     },
     free_shipping() {
-      return this.shippingFee === 0;
+      return this.final_shipping_fee === 0;
     },
   },
   created() {
