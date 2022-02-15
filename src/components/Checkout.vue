@@ -138,7 +138,6 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.cartItems = [...response.data];
-            console.log(this.cartItems);
             const buyerRecord =
               JSON.parse(localStorage.getItem("personalData")) || {};
             this.note = buyerRecord.note;
@@ -174,10 +173,7 @@ export default {
         .post(api, data, { headers })
         .then((response) => {
           if (response.status === 201) {
-            this.$router.push({
-              path: `/order/${response.data.id}`,
-              query: this.price_details,
-            });
+            this.$router.push(`/order/${response.data.id}`);
             this.emitter.emit("changeCartBadgeCount", 0);
           }
         })
