@@ -156,7 +156,6 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.order = { ...response.data };
-            console.log(this.order);
           }
         })
         .catch((error) => {
