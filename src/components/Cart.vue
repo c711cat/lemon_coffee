@@ -130,8 +130,6 @@ export default {
       buy_more_discount: 0,
       cartItems: [],
       origin_shipping_fee: 0,
-      shipping_methods: [{ label: "宅配", value: "home_delivery" }],
-      payment_methods: [{ label: "貨到付款", value: "cash_on_delivery" }],
     };
   },
   components: { AddresseeForm },
