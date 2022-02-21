@@ -115,7 +115,7 @@
         </div>
       </div>
     </div>
-    <AddresseeForm @shipping-method="shipping_amount"></AddresseeForm>
+    <AddresseeForm @shipping-method="updateShippingFee"></AddresseeForm>
   </div>
 </template>
 
@@ -233,7 +233,7 @@ export default {
         return "原豆";
       }
     },
-    shipping_amount(shippingMethod) {
+    updateShippingFee(shippingMethod) {
       switch (shippingMethod) {
         case "home_delivery":
           this.origin_shipping_fee = 100;
