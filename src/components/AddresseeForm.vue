@@ -91,7 +91,7 @@ export default {
         const personalData = JSON.parse(localStorage.getItem("personalData"));
         this.note = personalData.note;
         this.shipping_info = personalData.shipping_info;
-        this.shippingMethod();
+        this.emitShippingMethod();
       }
     },
     toCheckout() {
@@ -99,7 +99,7 @@ export default {
       localStorage.setItem("personalData", JSON.stringify(buyer));
       this.$router.push("/checkout");
     },
-    shippingMethod() {
+    emitShippingMethod() {
       this.$emit("shipping-method", this.shipping_info.shipping_method);
     },
   },
