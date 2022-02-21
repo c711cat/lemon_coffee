@@ -24,7 +24,7 @@
         <div class="p-col-4 p-lg-2 p-text-bold">送貨方式</div>
         <div class="p-col-8 p-lg-10">
           <Dropdown
-            @change="$emit('shipping-method', shipping_info.shipping_method)"
+            @change="emitShippingMethod"
             v-model="shipping_info.shipping_method"
             :options="shipping_methods"
             optionLabel="label"
