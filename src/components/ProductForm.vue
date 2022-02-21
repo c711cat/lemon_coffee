@@ -40,6 +40,16 @@
       <InputText type="text" v-model="product.flavor[2]" />
     </div>
 
+    <div class="p-field p-col-12 p-md-4">
+      <label>國家</label>
+      <Dropdown
+        v-model="product.country"
+        :options="countries"
+        optionLabel="name"
+        :editable="true"
+      />
+    </div>
+
     <div class="p-field p-col-12 p-md-2 p-md-offset-10">
       <Button label="送出" @click="onSubmit(this.product)" />
     </div>
@@ -57,7 +67,22 @@ export default {
         drip_bag_price: 0,
         roast: "",
         flavor: [],
+        country: "",
       },
+      countries: [
+        { name: "印尼" },
+        { name: "巴西" },
+        { name: "肯亞" },
+        { name: "尼加拉瓜" },
+        { name: "薩爾瓦多" },
+        { name: "瓜地馬拉" },
+        { name: "宏都拉斯" },
+        { name: "衣索比亞" },
+        { name: "哥倫比亞" },
+        { name: "哥斯大黎加" },
+        { name: "巴布亞新幾內亞" },
+        { name: "手動填入" },
+      ],
     };
   },
   props: {
