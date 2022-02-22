@@ -17,19 +17,13 @@
       <Dropdown
         v-model="product.country"
         :options="countries"
-        optionLabel="name"
         :editable="true"
       />
     </div>
 
     <div class="p-field p-col-12 p-md-3">
       <label>產區</label>
-      <Dropdown
-        v-model="product.area"
-        :options="areas"
-        optionLabel="name"
-        :editable="true"
-      />
+      <Dropdown v-model="product.area" :options="areas" :editable="true" />
     </div>
 
     <div class="p-field p-col-12 p-md-3">
@@ -37,7 +31,6 @@
       <Dropdown
         v-model="product.variety"
         :options="varieties"
-        optionLabel="name"
         :editable="true"
       />
     </div>
@@ -47,7 +40,6 @@
       <Dropdown
         v-model="product.approach"
         :options="approaches"
-        optionLabel="name"
         :editable="true"
       />
     </div>
@@ -83,13 +75,13 @@
     <div class="p-field p-col-12 p-md-12">
       <label>風味描述</label>
       <Textarea
-        v-model="product.discription"
+        v-model="product.description"
         :autoResize="true"
         rows="5"
         cols="30"
       />
     </div>
-
+    {{ product }}
     <div class="p-field p-col-12 p-md-2 p-md-offset-10">
       <Button label="送出" @click="onSubmit(this.product)" />
     </div>
@@ -102,69 +94,69 @@ export default {
     return {
       product: {
         name: "",
-        half_pound_price: 0,
-        one_pound_price: 0,
-        drip_bag_price: 0,
         roast: "",
-        flavor: [],
         country: "",
         area: "",
         variety: "",
         approach: "",
-        discription: "",
+        half_pound_price: 0,
+        one_pound_price: 0,
+        drip_bag_price: 0,
+        flavor: [],
+        description: "",
       },
       countries: [
-        { name: "印尼" },
-        { name: "巴西" },
-        { name: "肯亞" },
-        { name: "尼加拉瓜" },
-        { name: "薩爾瓦多" },
-        { name: "瓜地馬拉" },
-        { name: "宏都拉斯" },
-        { name: "衣索比亞" },
-        { name: "哥倫比亞" },
-        { name: "哥斯大黎加" },
-        { name: "巴布亞新幾內亞" },
-        { name: "手動填入" },
+        "印尼",
+        "巴西",
+        "肯亞",
+        "尼加拉瓜",
+        "薩爾瓦多",
+        "瓜地馬拉",
+        "宏都拉斯",
+        "衣索比亞",
+        "哥倫比亞",
+        "哥斯大黎加",
+        "巴布亞新幾內亞",
+        "手動填入",
       ],
       areas: [
-        { name: "肯亞" },
-        { name: "林東省" },
-        { name: "龐貝村" },
-        { name: "耶加雪菲" },
-        { name: "天堂產區" },
-        { name: "聖荷西莊園" },
-        { name: "遊樂園莊園" },
-        { name: "奇邁爾莊園" },
-        { name: "格比亞多莊園" },
-        { name: "阿拉斯加莊園" },
-        { name: "聖塔費麗莎莊園" },
-        { name: "魔魔拉單一莊園" },
-        { name: "山塔那小農協會" },
-        { name: "手動填入" },
+        "肯亞",
+        "林東省",
+        "龐貝村",
+        "耶加雪菲",
+        "天堂產區",
+        "聖荷西莊園",
+        "遊樂園莊園",
+        "奇邁爾莊園",
+        "格比亞多莊園",
+        "阿拉斯加莊園",
+        "聖塔費麗莎莊園",
+        "魔魔拉單一莊園",
+        "山塔那小農協會",
+        "手動填入",
       ],
       varieties: [
-        { name: "波旁種" },
-        { name: "橘波旁" },
-        { name: "黃波旁" },
-        { name: "鐵比卡" },
-        { name: "卡度艾" },
-        { name: "原生種" },
-        { name: "阿拉比卡" },
-        { name: "混合品種" },
-        { name: "帕拉伊內瑪種" },
-        { name: "SL 28" },
-        { name: "手動填入" },
+        "波旁種",
+        "橘波旁",
+        "黃波旁",
+        "鐵比卡",
+        "卡度艾",
+        "原生種",
+        "阿拉比卡",
+        "混合品種",
+        "帕拉伊內瑪種",
+        "SL 28",
+        "手動填入",
       ],
 
       approaches: [
-        { name: "水洗" },
-        { name: "日曬" },
-        { name: "去果皮日曬" },
-        { name: "蜜處理" },
-        { name: "黃蜜處理" },
-        { name: "濕剝處理" },
-        { name: "手動填入" },
+        "水洗",
+        "日曬",
+        "去果皮日曬",
+        "蜜處理",
+        "黃蜜處理",
+        "濕剝處理",
+        "手動填入",
       ],
     };
   },
