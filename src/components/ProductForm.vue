@@ -82,7 +82,12 @@
 
     <div class="p-field p-col-12 p-md-12">
       <label>風味描述</label>
-      <InputText type="text" v-model="product.discription" />
+      <Textarea
+        v-model="product.discription"
+        :autoResize="true"
+        rows="5"
+        cols="30"
+      />
     </div>
 
     <div class="p-field p-col-12 p-md-2 p-md-offset-10">
