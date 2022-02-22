@@ -67,16 +67,6 @@
       <InputNumber showButtons :min="0" v-model="product.drip_bag_price" />
     </div>
 
-    <div class="p-field p-col-12 p-md-12">
-      <label>風味描述</label>
-      <Textarea
-        v-model="product.discription"
-        :autoResize="true"
-        rows="5"
-        cols="30"
-      />
-    </div>
-
     <div class="p-field p-col-12 p-md-4">
       <label>代表性風味 1</label>
       <InputText type="text" v-model="product.flavor[0]" />
@@ -88,6 +78,16 @@
     <div class="p-field p-col-12 p-md-4">
       <label>代表性風味 3</label>
       <InputText type="text" v-model="product.flavor[2]" />
+    </div>
+
+    <div class="p-field p-col-12 p-md-12">
+      <label>風味描述</label>
+      <Textarea
+        v-model="product.discription"
+        :autoResize="true"
+        rows="5"
+        cols="30"
+      />
     </div>
 
     <div class="p-field p-col-12 p-md-2 p-md-offset-10">
