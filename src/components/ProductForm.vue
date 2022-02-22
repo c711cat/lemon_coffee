@@ -12,34 +12,6 @@
       <Dropdown v-model="product.roast" :options="[1, 2, 3, 4, 5]" />
     </div>
 
-    <div class="p-field p-col-12 p-md-4">
-      <label>半磅價格</label>
-      <InputNumber showButtons :min="0" v-model="product.half_pound_price" />
-    </div>
-
-    <div class="p-field p-col-12 p-md-4">
-      <label>一磅價格</label>
-      <InputNumber showButtons :min="0" v-model="product.one_pound_price" />
-    </div>
-
-    <div class="p-field p-col-12 p-md-4">
-      <label>耳掛價格</label>
-      <InputNumber showButtons :min="0" v-model="product.drip_bag_price" />
-    </div>
-
-    <div class="p-field p-col-12 p-md-4">
-      <label>風味1</label>
-      <InputText type="text" v-model="product.flavor[0]" />
-    </div>
-    <div class="p-field p-col-12 p-md-4">
-      <label>風味2</label>
-      <InputText type="text" v-model="product.flavor[1]" />
-    </div>
-    <div class="p-field p-col-12 p-md-4">
-      <label>風味3</label>
-      <InputText type="text" v-model="product.flavor[2]" />
-    </div>
-
     <div class="p-field p-col-12 p-md-3">
       <label>國家</label>
       <Dropdown
@@ -80,6 +52,21 @@
       />
     </div>
 
+    <div class="p-field p-col-12 p-md-4">
+      <label>半磅價格</label>
+      <InputNumber showButtons :min="0" v-model="product.half_pound_price" />
+    </div>
+
+    <div class="p-field p-col-12 p-md-4">
+      <label>一磅價格</label>
+      <InputNumber showButtons :min="0" v-model="product.one_pound_price" />
+    </div>
+
+    <div class="p-field p-col-12 p-md-4">
+      <label>耳掛價格</label>
+      <InputNumber showButtons :min="0" v-model="product.drip_bag_price" />
+    </div>
+
     <div class="p-field p-col-12 p-md-12">
       <label>風味描述</label>
       <Textarea
@@ -88,6 +75,19 @@
         rows="5"
         cols="30"
       />
+    </div>
+
+    <div class="p-field p-col-12 p-md-4">
+      <label>代表性風味 1</label>
+      <InputText type="text" v-model="product.flavor[0]" />
+    </div>
+    <div class="p-field p-col-12 p-md-4">
+      <label>代表性風味 2</label>
+      <InputText type="text" v-model="product.flavor[1]" />
+    </div>
+    <div class="p-field p-col-12 p-md-4">
+      <label>代表性風味 3</label>
+      <InputText type="text" v-model="product.flavor[2]" />
     </div>
 
     <div class="p-field p-col-12 p-md-2 p-md-offset-10">
