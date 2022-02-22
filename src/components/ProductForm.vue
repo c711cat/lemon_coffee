@@ -81,7 +81,7 @@
         cols="30"
       />
     </div>
-    {{ product }}
+
     <div class="p-field p-col-12 p-md-2 p-md-offset-10">
       <Button label="送出" @click="onSubmit(this.product)" />
     </div>
