@@ -66,7 +66,7 @@
 
       <div class="p-col-4 p-lg-1 p-text-bold">送貨方式</div>
       <div class="p-col-8 p-lg-11">
-        {{ shippingMethod }}
+        {{ shippingMethodText(order.shipping_info.shipping_method) }}
       </div>
 
       <div v-if="isHomeDelivery" class="p-col-4 p-lg-1 p-text-bold">
@@ -78,7 +78,7 @@
 
       <div class="p-col-4 p-lg-1 p-text-bold">付款方式</div>
       <div class="p-col-8 p-lg-11">
-        {{ paymentMethod }}
+        {{ paymentMethodText(order.payment_method) }}
       </div>
 
       <div class="p-col-4 p-lg-1 p-text-bold">備註</div>
@@ -219,6 +219,16 @@ export default {
           return "已取貨";
       }
     },
+    shippingMethodText(shipping_method) {
+      if (shipping_method === "home_delivery") {
+        return "宅配";
+      }
+    },
+    paymentMethodText(payment_method) {
+      if (payment_method === "cash_on_delivery") {
+        return "貨到付款";
+      }
+    },
   },
   computed: {
     subtotal() {
@@ -237,20 +247,6 @@ export default {
     },
     free_shipping() {
       return this.final_shipping_fee === 0;
-    },
-    shippingMethod() {
-      let shipping_method = "";
-      if (this.order.shipping_info.shipping_method === "home_delivery") {
-        shipping_method = "宅配";
-      }
-      return shipping_method;
-    },
-    paymentMethod() {
-      let payment_method = "";
-      if (this.order.payment_method === "cash_on_delivery") {
-        payment_method = "貨到付款";
-      }
-      return payment_method;
     },
     isHomeDelivery() {
       let homeDelivery = false;
