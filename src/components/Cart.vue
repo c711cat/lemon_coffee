@@ -100,8 +100,16 @@
             $ {{ origin_shipping_fee }}
           </div>
 
-          <div v-if="free_shipping" class="p-col-6 p-lg-9 p-pr-0">滿千免運</div>
-          <div v-if="free_shipping" class="p-col-6 p-lg-3">
+          <div
+            v-if="origin_shipping_fee > 0 && free_shipping"
+            class="p-col-6 p-lg-9 p-pr-0"
+          >
+            滿千免運
+          </div>
+          <div
+            v-if="origin_shipping_fee > 0 && free_shipping"
+            class="p-col-6 p-lg-3"
+          >
             <del>$ {{ origin_shipping_fee }}</del>
           </div>
 

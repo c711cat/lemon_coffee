@@ -78,7 +78,7 @@ export default {
         phone_number: "",
         address: "",
         email: "",
-        shipping_method: "home_delivery",
+        shipping_method: "",
       },
       shipping_methods: [{ label: "宅配", value: "home_delivery" }],
       payment_methods: [{ label: "貨到付款", value: "cash_on_delivery" }],
@@ -87,7 +87,6 @@ export default {
   inject: ["emitter"],
   methods: {
     getPersonalData() {
-      this.emitShippingMethod();
       if (localStorage.getItem("personalData")) {
         const personalData = JSON.parse(localStorage.getItem("personalData"));
         this.note = personalData.note;
