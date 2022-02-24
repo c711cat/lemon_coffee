@@ -33,11 +33,16 @@
             $ {{ order.shipping_info.shipping_fee }}
           </div>
 
+          <div v-if="free_shipping" class="p-col-7 p-lg-9 p-pr-0">滿千免運</div>
+          <div v-if="free_shipping" class="p-col-5 p-lg-3">
+            <del>$ {{ order.shipping_info.shipping_fee }}</del>
+          </div>
+
           <div class="p-col-7 p-lg-9 p-text-bold checkout-price p-pr-0">
             總付款金額
           </div>
           <div class="p-col-5 p-lg-3 p-text-bold checkout-price">
-            $ {{ finalTotal }}
+            $ {{ final_shipping_fee + subtotal }}
           </div>
         </div>
       </div>
@@ -61,25 +66,19 @@
 
       <div class="p-col-4 p-lg-1 p-text-bold">送貨方式</div>
       <div class="p-col-8 p-lg-11">
-        {{ shippingMethodText(order.shipping_info.shipping_method) }}
+        {{ shippingMethodText }}
       </div>
 
-      <div
-        v-if="order.shipping_info.shipping_method === 'home_delivery'"
-        class="p-col-4 p-lg-1 p-text-bold"
-      >
+      <div v-if="isHomeDelivery" class="p-col-4 p-lg-1 p-text-bold">
         收件地址
       </div>
-      <div
-        v-if="order.shipping_info.shipping_method === 'home_delivery'"
-        class="p-col-8 p-lg-11"
-      >
+      <div v-if="isHomeDelivery" class="p-col-8 p-lg-11">
         {{ order.shipping_info.address }}
       </div>
 
       <div class="p-col-4 p-lg-1 p-text-bold">付款方式</div>
       <div class="p-col-8 p-lg-11">
-        {{ paymentMethodText(order.payment_method) }}
+        {{ paymentMethodText }}
       </div>
 
       <div class="p-col-4 p-lg-1 p-text-bold">備註</div>
@@ -185,16 +184,6 @@ export default {
           return "一磅";
       }
     },
-    shippingMethodText(shipping_method) {
-      if (shipping_method === "home_delivery") {
-        return "宅配";
-      }
-    },
-    paymentMethodText(payment_method) {
-      if (payment_method === "cash_on_delivery") {
-        return "貨到付款";
-      }
-    },
     orderStatusText(status) {
       switch (status) {
         case "pending":
@@ -239,9 +228,36 @@ export default {
       });
       return total;
     },
-    finalTotal() {
-      let final_total = this.subtotal + this.order.shipping_info.shipping_fee;
-      return final_total;
+    final_shipping_fee() {
+      if (this.subtotal >= 1000) {
+        return 0;
+      } else {
+        return this.order.shipping_info.shipping_fee;
+      }
+    },
+    free_shipping() {
+      return this.final_shipping_fee === 0;
+    },
+    shippingMethodText() {
+      let shipping_method_text = "";
+      if (this.order.shipping_info.shipping_method === "home_delivery") {
+        shipping_method_text = "宅配";
+      }
+      return shipping_method_text;
+    },
+    paymentMethodText() {
+      let payment_method_text = "";
+      if (this.order.payment_method === "cash_on_delivery") {
+        payment_method_text = "貨到付款";
+      }
+      return payment_method_text;
+    },
+    isHomeDelivery() {
+      let homeDelivery = false;
+      if (this.order.shipping_info.shipping_method === "home_delivery") {
+        homeDelivery = true;
+      }
+      return homeDelivery;
     },
   },
   created() {

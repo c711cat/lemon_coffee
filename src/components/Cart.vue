@@ -93,41 +93,51 @@
             - $ {{ buy_more_discount }}
           </div>
 
-          <div v-if="freight_cost" class="p-col-6 p-lg-9 p-pr-0">運費</div>
-          <div v-if="freight_cost" class="p-col-6 p-lg-3">
-            $ {{ freight_cost }}
+          <div v-if="origin_shipping_fee" class="p-col-6 p-lg-9 p-pr-0">
+            運費
+          </div>
+          <div v-if="origin_shipping_fee" class="p-col-6 p-lg-3">
+            $ {{ origin_shipping_fee }}
           </div>
 
-          <div v-if="free_shipping" class="p-col-6 p-lg-9 p-pr-0">滿千免運</div>
-          <div v-if="free_shipping" class="p-col-6 p-lg-3">
-            <del>$ {{ free_shipping }}</del>
+          <div
+            v-if="origin_shipping_fee > 0 && free_shipping"
+            class="p-col-6 p-lg-9 p-pr-0"
+          >
+            滿千免運
+          </div>
+          <div
+            v-if="origin_shipping_fee > 0 && free_shipping"
+            class="p-col-6 p-lg-3"
+          >
+            <del>$ {{ origin_shipping_fee }}</del>
           </div>
 
           <div class="p-col-6 p-lg-9 p-text-bold checkout-price p-pr-0">
             總付款金額
           </div>
+
           <div class="p-col-6 p-lg-3 p-text-bold checkout-price">
-            $ {{ subtotal }}
+            $ {{ final_shipping_fee + subtotal }}
           </div>
         </div>
       </div>
     </div>
-    <AddresseeForm></AddresseeForm>
+    <AddresseeForm @shipping-method="updateShippingFee"></AddresseeForm>
   </div>
 </template>
 
 <script>
-import AddresseeForm from "@/components/AddresseeForm.vue";
 import axios from "axios";
 import Cookies from "js-cookie";
+import AddresseeForm from "@/components/AddresseeForm.vue";
 
 export default {
   data() {
     return {
-      freight_cost: 0,
       buy_more_discount: 0,
-      free_shipping: 0,
       cartItems: [],
+      origin_shipping_fee: 0,
     };
   },
   components: { AddresseeForm },
@@ -229,6 +239,16 @@ export default {
         return "原豆";
       }
     },
+    updateShippingFee(shippingMethod) {
+      switch (shippingMethod) {
+        case "home_delivery":
+          this.origin_shipping_fee = 100;
+          break;
+        default:
+          this.origin_shipping_fee = 0;
+          break;
+      }
+    },
   },
   computed: {
     subtotal() {
@@ -238,8 +258,17 @@ export default {
       });
       return total;
     },
+    final_shipping_fee() {
+      if (this.subtotal >= 1000) {
+        return 0;
+      } else {
+        return this.origin_shipping_fee;
+      }
+    },
+    free_shipping() {
+      return this.final_shipping_fee === 0;
+    },
   },
-
   created() {
     this.getCart();
   },

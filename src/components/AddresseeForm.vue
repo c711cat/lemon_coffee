@@ -24,6 +24,7 @@
         <div class="p-col-4 p-lg-2 p-text-bold">送貨方式</div>
         <div class="p-col-8 p-lg-10">
           <Dropdown
+            @change="emitShippingMethod"
             v-model="shipping_info.shipping_method"
             :options="shipping_methods"
             optionLabel="label"
@@ -83,18 +84,23 @@ export default {
       payment_methods: [{ label: "貨到付款", value: "cash_on_delivery" }],
     };
   },
+  inject: ["emitter"],
   methods: {
     getPersonalData() {
       if (localStorage.getItem("personalData")) {
         const personalData = JSON.parse(localStorage.getItem("personalData"));
         this.note = personalData.note;
         this.shipping_info = personalData.shipping_info;
+        this.emitShippingMethod();
       }
     },
     toCheckout() {
       const buyer = { note: this.note, shipping_info: this.shipping_info };
       localStorage.setItem("personalData", JSON.stringify(buyer));
       this.$router.push("/checkout");
+    },
+    emitShippingMethod() {
+      this.$emit("shipping-method", this.shipping_info.shipping_method);
     },
   },
   computed: {
@@ -106,6 +112,7 @@ export default {
       return homeDelivery;
     },
   },
+  emits: ["shipping-method"],
   created() {
     this.getPersonalData();
   },

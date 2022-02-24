@@ -28,13 +28,18 @@
           <div class="p-col-5 p-lg-3">$ {{ subtotal }}</div>
 
           <div class="p-col-7 p-lg-9 p-pr-0">運費</div>
-          <div class="p-col-5 p-lg-3">$ 0</div>
+          <div class="p-col-5 p-lg-3">$ {{ origin_shipping_fee }}</div>
+
+          <div v-if="free_shipping" class="p-col-7 p-lg-9 p-pr-0">滿千免運</div>
+          <div v-if="free_shipping" class="p-col-5 p-lg-3">
+            <del>$ {{ origin_shipping_fee }}</del>
+          </div>
 
           <div class="p-col-7 p-lg-9 p-text-bold checkout-price p-pr-0">
             總付款金額
           </div>
           <div class="p-col-5 p-lg-3 p-text-bold checkout-price">
-            $ {{ subtotal }}
+            $ {{ final_shipping_fee + subtotal }}
           </div>
         </div>
       </div>
@@ -45,7 +50,7 @@
     </div>
 
     <div class="p-grid nested-grid p-m-1 p-pl-2">
-      <div class="p-col-12 p-lg-7">
+      <div class="p-col-12 p-lg-7 p-mt-3">
         <div class="p-grid p-fluid p-ai-center">
           <div class="p-col-4 p-lg-2 p-text-bold">姓名</div>
           <div class="p-col-8 p-lg-10">{{ shipping_info.name }}</div>
@@ -60,7 +65,7 @@
 
           <div class="p-col-4 p-lg-2 p-text-bold">送貨方式</div>
           <div class="p-col-8 p-lg-10">
-            {{ shippingMethod }}
+            {{ shippingMethodText }}
           </div>
 
           <div v-if="isHomeDelivery" class="p-col-4 p-lg-2 p-text-bold">
@@ -72,7 +77,7 @@
 
           <div class="p-col-4 p-lg-2 p-text-bold">付款方式</div>
           <div class="p-col-8 p-lg-10">
-            {{ paymentMethod }}
+            {{ paymentMethodText }}
           </div>
 
           <div class="p-col-4 p-lg-2 p-text-bold">備註</div>
@@ -215,19 +220,37 @@ export default {
       });
       return total;
     },
-    shippingMethod() {
-      let shipping_method = "";
-      if (this.shipping_info.shipping_method === "home_delivery") {
-        shipping_method = "宅配";
+    origin_shipping_fee() {
+      switch (this.shipping_info.shipping_method) {
+        case "home_delivery":
+          return 100;
+        default:
+          return 0;
       }
-      return shipping_method;
     },
-    paymentMethod() {
-      let payment_method = "";
-      if (this.shipping_info.payment_method === "cash_on_delivery") {
-        payment_method = "貨到付款";
+    final_shipping_fee() {
+      if (this.subtotal >= 1000) {
+        return 0;
+      } else {
+        return this.origin_shipping_fee;
       }
-      return payment_method;
+    },
+    free_shipping() {
+      return this.final_shipping_fee === 0;
+    },
+    shippingMethodText() {
+      let shipping_method_text = "";
+      if (this.shipping_info.shipping_method === "home_delivery") {
+        shipping_method_text = "宅配";
+      }
+      return shipping_method_text;
+    },
+    paymentMethodText() {
+      let payment_method_text = "";
+      if (this.shipping_info.payment_method === "cash_on_delivery") {
+        payment_method_text = "貨到付款";
+      }
+      return payment_method_text;
     },
     isHomeDelivery() {
       let homeDelivery = false;
