@@ -5,7 +5,9 @@
     v-for="order in orders"
     :key="order.id"
   >
-    <AccordionTab :header="`訂單成立時間 ${order.title}  訂單編號 ${order.id}`">
+    <AccordionTab
+      :header="` 訂單編號 ${order.id} - ${changeDateText(order.created_at)}  `"
+    >
       <div
         class="p-grid p-m-0 p-py-3 divider p-ai-center p-jc-between"
         v-for="item in order.items"
@@ -106,80 +108,32 @@
 </template>
 
 <script>
+import axios from "axios";
+import Cookies from "js-cookie";
+
 export default {
   data() {
     return {
-      orders: [
-        {
-          title: "2022 / 01 / 07 下午 01 : 45",
-          id: "1",
-          items: [
-            {
-              id: "01",
-              name: "宏都拉斯 天堂產區 帕拉伊內瑪種 水洗處理",
-              unit_price: 400,
-              quantity: 1,
-              package_type: "half_pound",
-            },
-            {
-              id: "02",
-              name: "宏都拉斯 天堂產區 帕拉伊內瑪種 水洗處理",
-              unit_price: 40,
-              quantity: 10,
-              package_type: "drip_bag",
-            },
-          ],
-          note: "",
-          payment_method: "cash_on_delivery",
-          payment_status: "unpaid",
-          shipping_info: {
-            name: "kakas",
-            phone_number: "0912123123",
-            address: "地址......",
-            email: "aaa@aaa.aaa",
-            shipping_method: "home_delivery",
-            shipping_fee: 100,
-          },
-          shipping_status: "in_preparation",
-          status: "pending",
-        },
-        {
-          title: "2022 / 01 / 08 下午 08 : 05",
-          id: "2",
-          items: [
-            {
-              id: "01",
-              name: "宏都拉斯 天堂產區 帕拉伊內瑪種 水洗處理",
-              unit_price: 400,
-              quantity: 1,
-              package_type: "half_pound",
-            },
-            {
-              id: "02",
-              name: "宏都拉斯 天堂產區 帕拉伊內瑪種 水洗處理",
-              unit_price: 40,
-              quantity: 10,
-              package_type: "drip_bag",
-            },
-          ],
-          note: "",
-          payment_method: "cash_on_delivery",
-          payment_status: "unpaid",
-          shipping_info: {
-            name: "kakas",
-            phone_number: "0912123123",
-            address: "地址......",
-            email: "aaa@aaa.aaa",
-            shipping_method: "home_delivery",
-            shipping_fee: 100,
-          },
-          shipping_status: "in_preparation",
-          status: "pending",
-        },
-      ],
+      orders: [],
     };
   },
   methods: {
+    getOrders() {
+      const api = `${process.env.VUE_APP_API}/users/orders`;
+      const headers = { Authorization: Cookies.get("lemonToken") };
+      axios
+        .get(api, { headers })
+        .then((response) => {
+          this.orders = response.data;
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            Cookies.remove("lemonToken");
+            this.showErrorToast("請重新登入");
+            this.$router.push("/entrance/login");
+          }
+        });
+    },
     caculateSubtotal(order) {
       let total = 0;
       order.items.forEach((item) => {
@@ -242,6 +196,19 @@ export default {
           return "已取貨";
       }
     },
+    showErrorToast(text) {
+      this.$toast.add({
+        severity: "error",
+        summary: text,
+        life: 5000,
+      });
+    },
+    changeDateText(time) {
+      return new Date(Date.parse(time)).toLocaleString();
+    },
+  },
+  created() {
+    this.getOrders();
   },
 };
 </script>
