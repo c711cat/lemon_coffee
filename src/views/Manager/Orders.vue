@@ -22,8 +22,10 @@
       filterDisplay="menu"
       responsiveLayout="scroll"
       selectionMode="single"
-      stateStorage="session"
-      stateKey="dt-state-demo-session"
+      stateStorage="local"
+      stateKey="dt-state-demo-local"
+      v-model:selection="orders.items"
+      @click="openTheOrder(orders.items)"
     >
       <template #header>
         <div class="flex justify-content-center align-items-center">
@@ -58,9 +60,9 @@
       <Column
         class="text-center"
         field="created_at"
-        header="訂單成立時間"
+        header="成立時間"
         sortable
-        style="min-width: 8rem"
+        style="min-width: 9rem"
       >
         <template #body="{ data }">
           {{ changeDateText(data.created_at) }}
@@ -91,26 +93,14 @@
           {{ shippingStatusText(data.shipping_status) }}
         </template>
       </Column>
-      <Column
-        headerStyle="width: 3rem; text-align: center"
-        bodyStyle="text-align: center; overflow: visible"
-      >
-        <template #body="slotProps">
-          <Button
-            type="button"
-            icon="pi pi-cog"
-            @click.prevent="openTheOrder(slotProps.data)"
-          ></Button>
-        </template>
-      </Column>
     </DataTable>
 
     <Dialog
       :header="`訂單編號 ${order.id}`"
       v-model:visible="orderContent"
-      :style="{ width: '85vw' }"
+      :style="{ width: '90vw' }"
     >
-      <h4 class="p-mt-0">訂單時間 {{ changeDateText(order.created_at) }}</h4>
+      <h4 class="p-mt-0">成立時間 {{ changeDateText(order.created_at) }}</h4>
       <div
         v-for="item in order.items"
         :key="item.id"
@@ -208,13 +198,13 @@
 
       <template #footer>
         <Button
-          label="No"
+          label="取消"
           icon="pi pi-times"
           @click="closeTheOrder"
           class="p-button-text"
         />
         <Button
-          label="Yes"
+          label="儲存變更"
           icon="pi pi-check"
           @click="closeTheOrder"
           autofocus
@@ -238,6 +228,7 @@ export default {
       orders: [],
       orderContent: false,
       order: "",
+      selectedCustomer2: "",
     };
   },
   methods: {
