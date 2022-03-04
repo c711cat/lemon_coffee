@@ -28,8 +28,7 @@
       @click="openTheOrder(orders.items)"
     >
       <template #header>
-        <div class="flex justify-content-center align-items-center">
-          <h3 class="m-0">訂單列表</h3>
+        <div class="p-d-flex p-jc-center p-ai-center">
           <span class="p-input-icon-left">
             <i class="pi pi-search" />
             <InputText
@@ -68,9 +67,14 @@
           {{ changeDateText(data.created_at) }}
         </template>
       </Column>
-      <Column field="status" header="訂單狀態" sortable style="min-width: 6rem">
+      <Column
+        field="status"
+        header="訂單狀態"
+        :sortable="true"
+        style="min-width: 6rem"
+      >
         <template #body="{ data }">
-          {{ orderStatusText(data.status) }}
+          <span>{{ orderStatusText(data.status) }}</span>
         </template>
       </Column>
       <Column
@@ -98,7 +102,7 @@
     <Dialog
       :header="`訂單編號 ${order.id}`"
       v-model:visible="orderContent"
-      :style="{ width: '90vw' }"
+      :style="{ maxwidth: '70vw' }"
     >
       <h4 class="p-mt-0">成立時間 {{ changeDateText(order.created_at) }}</h4>
       <div
@@ -184,31 +188,88 @@
       </div>
 
       <div class="p-grid p-m-1 p-pl-2 p-ai-center">
-        <div class="p-col-4 p-lg-1 p-text-bold">訂單狀態</div>
-        <div class="p-col-8 p-lg-11">{{ orderStatusText(order.status) }}</div>
-        <div class="p-col-4 p-lg-1 p-text-bold">付款狀態</div>
-        <div class="p-col-8 p-lg-11">
-          {{ paymentStatusText(order.payment_status) }}
+        <div class="p-col-12 p-lg-1 p-text-bold">付款狀態</div>
+        <div class="p-col-12 p-lg-11 p-d-flex p-jc-start p-ai-center">
+          <sapn class="status-styles blue-style-color p-mr-3">
+            {{ paymentStatusText(order.payment_status) }}
+          </sapn>
+
+          <Button
+            label="確認付款"
+            class="p-button-raised p-button-sm p-lg-1 p-col-2 p-px-2"
+          />
         </div>
-        <div class="p-col-4 p-lg-1 p-text-bold">物流狀態</div>
-        <div class="p-col-8 p-lg-11">
-          {{ shippingStatusText(order.shipping_status) }}
+
+        <div class="p-col-12 p-lg-1 p-text-bold">訂單狀態</div>
+        <div class="p-col-12 p-lg-11 p-d-flex p-jc-start p-ai-center">
+          <span class="status-styles blue-style-color">
+            {{ orderStatusText(order.status) }}
+          </span>
+
+          <i class="pi pi-arrow-right"></i>
+
+          <Button
+            label="確認訂單"
+            class="p-button-raised p-button-sm p-lg-1 p-col-2 p-px-2"
+          />
+          <span v-if="false" class="status-styles blue-style-color"
+            >已確認</span
+          >
+          <i v-if="false" class="pi pi-arrow-right"></i>
+          <i class="pi pi-arrow-right disabled-right"></i>
+          <span class="status-styles disabled-style-color">已完成</span>
+          <span v-if="flase" class="status-styles">已完成</span>
+        </div>
+
+        <div class="p-col-12 p-lg-1 p-text-bold">物流狀態</div>
+        <div class="p-col-12 p-lg-11 p-d-flex p-jc-start p-ai-center">
+          <span class="status-styles blue-style-color">
+            {{ shippingStatusText(order.shipping_status) }}
+          </span>
+
+          <i class="pi pi-arrow-right"></i>
+          <Button
+            v-if="false"
+            label="確認發貨"
+            class="p-button-raised p-button-sm p-lg-1 p-col-2 p-px-2"
+          />
+          <span v-if="true" class="status-styles blue-style-color">
+            已發貨
+          </span>
+
+          <i v-if="true" class="pi pi-arrow-right"></i>
+
+          <i v-if="false" class="pi pi-arrow-right disabled-right"></i>
+          <Button
+            v-if="false"
+            label="確認到達"
+            class="p-button-raised p-button-sm p-lg-1 p-col-2 p-px-2"
+          />
+          <span v-if="false" class="status-styles disabled-style-color">
+            已到達
+          </span>
+
+          <span v-if="true" class="status-styles blue-style-color">
+            已到達
+          </span>
+          <i v-if="false" class="pi pi-arrow-right disabled-right"></i>
+          <i v-if="true" class="pi pi-arrow-right"></i>
+          <Button
+            label="確認取貨"
+            class="p-button-raised p-button-sm p-lg-1 p-col-2 p-px-2"
+          />
+          <span v-if="false" class="status-styles disabled-style-color">
+            已取貨
+          </span>
+
+          <span v-if="false" class="status-styles blue-style-color">
+            已取貨
+          </span>
         </div>
       </div>
 
       <template #footer>
-        <Button
-          label="取消"
-          icon="pi pi-times"
-          @click="closeTheOrder"
-          class="p-button-text"
-        />
-        <Button
-          label="儲存變更"
-          icon="pi pi-check"
-          @click="closeTheOrder"
-          autofocus
-        />
+        <Button label="關閉視窗" @click="closeTheOrder" autofocus />
       </template>
     </Dialog>
   </div>
@@ -228,7 +289,36 @@ export default {
       orders: [],
       orderContent: false,
       order: "",
-      selectedCustomer2: "",
+      paymentStatus: ["unpaid", "paid"],
+      orderStatus: ["pending", "confirmed", "finished"],
+      shippingStatus: ["in_preparation", "shipping", "arrived", "picked_up"],
+      events1: [
+        {
+          status: "Ordered",
+          date: "15/10/2020 10:30",
+          icon: "pi pi-shopping-cart",
+          color: "#9C27B0",
+          image: "game-controller.jpg",
+        },
+        {
+          status: "Processing",
+          date: "15/10/2020 14:00",
+          icon: "pi pi-cog",
+          color: "#673AB7",
+        },
+        {
+          status: "Shipped",
+          date: "15/10/2020 16:15",
+          icon: "pi pi-shopping-cart",
+          color: "#FF9800",
+        },
+        {
+          status: "Delivered",
+          date: "16/10/2020 10:00",
+          icon: "pi pi-check",
+          color: "#607D8B",
+        },
+      ],
     };
   },
   methods: {
@@ -343,3 +433,28 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+* {
+  border: 1px solid black;
+}
+.status-styles {
+  width: 70px;
+  border-radius: 2px;
+  padding: 0.25em 0.5rem;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 15px 0px;
+}
+.blue-style-color {
+  background: #b3e5fc;
+  color: #23547b;
+}
+.disabled-style-color {
+  border: #ccc 1px solid;
+  color: #ccc;
+}
+.disabled-right {
+  color: #ccc;
+}
+</style>
