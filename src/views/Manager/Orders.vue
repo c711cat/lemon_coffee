@@ -190,14 +190,16 @@
       <div class="p-grid p-m-1 p-pl-2 p-ai-center">
         <div class="p-col-12 p-lg-1 p-text-bold">付款狀態</div>
         <div class="p-col-12 p-lg-11 p-d-flex p-jc-start p-ai-center">
-          <span v-if="true" class="status-styles blue-style-color p-mr-4">
+          <strong v-if="!paymentCompeleted" class="blue-color p-mr-4">
             {{ paymentStatusText(order.payment_status) }}
-          </span>
-          <span v-if="true" class="status-styles success-color p-mr-4">
+          </strong>
+          <strong v-if="paymentCompeleted" class="success-color p-mr-4">
             已付款<i class="pi pi-check-circle p-ml-1"></i>
-          </span>
+          </strong>
 
           <Button
+            v-if="!paymentCompeleted"
+            @click="confirm_paid"
             label="確認付款"
             class="
               p-button-raised
@@ -213,102 +215,12 @@
 
         <div class="p-col-12 p-lg-1 p-text-bold">訂單狀態</div>
         <div class="p-col-12 p-lg-11 p-d-flex p-jc-start p-ai-center">
-          <span class="status-styles blue-style-color">
-            {{ orderStatusText(order.status) }}
-          </span>
-
-          <i class="pi pi-arrow-right p-mx-1 blue-style-color"></i>
-
-          <Button
-            label="確認訂單"
-            class="
-              p-button-raised
-              p-button-info
-              p-button-sm
-              p-lg-fixed
-              p-col-3
-              p-px-2
-            "
-            style="width: 100px"
-          />
-          <span v-if="false" class="status-styles blue-style-color"
-            >已確認</span
-          >
-          <i v-if="false" class="pi pi-arrow-right p-mx-1 blue-style-color"></i>
-          <i class="pi pi-arrow-right p-mx-1 disabled-right"></i>
-          <span class="status-styles disabled-style-color">已完成</span>
-          <span v-if="false" class="status-styles">已完成</span>
+          <OrderStatus />
         </div>
 
         <div class="p-col-12 p-lg-1 p-text-bold">物流狀態</div>
         <div class="p-col-12 p-lg-11 p-d-flex p-jc-start p-ai-center">
-          <span class="status-styles blue-style-color">
-            {{ shippingStatusText(order.shipping_status) }}
-          </span>
-
-          <i class="pi pi-arrow-right p-mx-1 blue-style-color"></i>
-          <Button
-            v-if="false"
-            label="確認發貨"
-            class="
-              p-button-raised
-              p-button-info
-              p-button-sm
-              p-lg-fixed
-              p-col-2
-              p-px-2
-            "
-            style="width: 100px"
-          />
-          <span v-if="true" class="status-styles blue-style-color">
-            已發貨
-          </span>
-
-          <i v-if="true" class="pi pi-arrow-right p-mx-1 blue-style-color"></i>
-
-          <i v-if="false" class="pi pi-arrow-right p-mx-1 disabled-right"></i>
-          <Button
-            v-if="false"
-            label="確認到達"
-            class="
-              p-button-raised
-              p-button-info
-              p-button-sm
-              p-lg-fixed
-              p-col-2
-              p-px-2
-            "
-            style="width: 100px"
-          />
-          <span v-if="false" class="status-styles disabled-style-color">
-            已到達
-          </span>
-
-          <span v-if="true" class="status-styles blue-style-color">
-            已到達
-          </span>
-          <i v-if="false" class="pi pi-arrow-right p-mx-1 disabled-right"></i>
-          <i v-if="true" class="pi pi-arrow-right p-mx-1 blue-style-color"></i>
-
-          <Button
-            label="確認取貨"
-            class="
-              p-button-raised
-              p-button-info
-              p-button-sm
-              p-lg-fixed
-              p-col-3
-              p-px-2
-            "
-            style="width: 100px"
-          />
-          <span v-if="false" class="status-styles disabled-style-color">
-            已取貨
-          </span>
-
-          <span v-if="false" class="status-styles blue-style-color">
-            已取貨
-          </span>
+          <ShippingStatus />
         </div>
       </div>
 
@@ -323,6 +235,8 @@
 import { FilterMatchMode } from "primevue/api";
 import axios from "axios";
 import Cookies from "js-cookie";
+import ShippingStatus from "@/components/ShippingStatus.vue";
+import OrderStatus from "@/components/OrderStatus.vue";
 
 export default {
   data() {
@@ -333,12 +247,10 @@ export default {
       orders: [],
       orderContent: false,
       order: "",
-      paymentStatus: ["unpaid", "paid"],
-      orderStatus: ["pending", "confirmed", "finished"],
-      shippingStatus: ["in_preparation", "shipping", "arrived", "picked_up"],
-      paymentCompleted: false,
+      paymentCompeleted: false,
     };
   },
+  components: { ShippingStatus, OrderStatus },
   methods: {
     getOrders() {
       const api = `${process.env.VUE_APP_API}/users/orders`;
@@ -347,7 +259,6 @@ export default {
         .get(api, { headers })
         .then((response) => {
           this.orders = response.data;
-          console.log(this.orders);
         })
         .catch((error) => {
           if (error.response.status === 401) {
@@ -412,7 +323,6 @@ export default {
     },
     openTheOrder(the_order) {
       this.order = { ...the_order };
-      console.log(this.order);
       this.orderContent = true;
     },
     closeTheOrder() {
@@ -445,6 +355,9 @@ export default {
         return "貨到付款";
       }
     },
+    confirm_paid() {
+      this.paymentCompeleted = true;
+    },
   },
   created() {
     this.getOrders();
@@ -453,32 +366,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// * {
-//   border: 1px solid black;
-// }
-.status-styles {
-  // width: 70px;
-  text-align: center;
-  // border-radius: 2px;
-  // padding: 0.25em 0.5rem;
-  font-size: 16px;
-  font-weight: 700;
-  // margin: 15px 0px;
-}
-.blue-style-color {
-  // background: #b3e5fc;
-  // border: 1px solid #23547b;
+.blue-color {
   color: #0288d1;
 }
-.disabled-style-color {
-  // border: #ccc 1px solid;
-  color: #ccc;
-}
-.disabled-right {
-  color: #ccc;
-}
+
 .success-color {
-  // background: #c8e6c9;
   color: #689f38;
 }
 </style>
