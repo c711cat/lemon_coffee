@@ -100,17 +100,18 @@
           {{ paymentStatusText(order.payment_status) }}
         </strong>
         <strong
-          v-if="
-            oneOrder.payment_status === 'paid' ||
-            oneOrder.payment_status === 'unpaid'
-          "
+          v-if="oneOrder.payment_status === 'paid'"
           class="success-color p-mr-4"
         >
           已付款<i class="pi pi-check-circle p-ml-1"></i>
         </strong>
 
         <Button
-          v-if="oneOrder.payment_status === 'outstanding'"
+          v-if="
+            (oneOrder.payment_status === 'outstanding' ||
+              oneOrder.payment_status === 'unpaid') &&
+            oneOrder.status !== 'canceled'
+          "
           @click="confirm_paid"
           label="確認付款"
           class="
@@ -121,18 +122,29 @@
       </div>
 
       <div class="p-col-12 p-lg-1 p-text-bold">訂單狀態</div>
-      <div class="p-col-12 p-lg-11 p-d-flex p-jc-start p-ai-center">
-        <OrderStatus />
-      </div>
+      <OrderStatus :orderStatus="oneOrder.status" />
 
       <div class="p-col-12 p-lg-1 p-text-bold">物流狀態</div>
-      <div class="p-col-12 p-lg-11 p-d-flex p-jc-start p-ai-center">
-        <ShippingStatus />
-      </div>
+      <ShippingStatus :orderStatus="oneOrder.status" />
     </div>
 
     <template #footer>
-      <Button label="關閉視窗" @click="closeTheOrder" autofocus />
+      <div class="p-d-flex p-jc-end">
+        {{ disabledBtn }}
+        <Button
+          :disabled="disabledBtn"
+          @click.prevent="cancelTheOreder(order)"
+          label="取消訂單"
+          icon="pi pi-times"
+          class="p-button-danger p-ml-3"
+        />
+        <Button
+          @click.prevent="closeWindow"
+          label="關閉視窗"
+          class="p-button-secondary p-button-text"
+          autofocus
+        />
+      </div>
     </template>
   </Dialog>
 </template>
@@ -161,11 +173,13 @@ export default {
     order() {
       this.oneOrder = { ...this.order };
       this.orderContent = true;
+      console.log(this.oneOrder);
     },
   },
   methods: {
     confirm_paid() {
       this.oneOrder.payment_status = "paid";
+      console.log(this.oneOrder);
     },
     changeDateText(time) {
       return new Date(Date.parse(time)).toLocaleString();
@@ -208,14 +222,49 @@ export default {
           return "一磅";
       }
     },
-    closeTheOrder() {
+    closeWindow() {
       this.orderContent = false;
+    },
+    cancelTheOreder(data) {
+      console.log(data);
+      this.oneOrder.status = "canceled";
+      console.log(this.oneOrder);
+    },
+    ddisabledBtn(oneOrder) {
+      switch (oneOrder.payment_status) {
+        case "unpaid":
+        case "outstanding":
+          return false;
+      }
+      switch (oneOrder.status) {
+        case "confirmed":
+        case "pending":
+          return false;
+      }
+      switch (oneOrder.shipping_status) {
+        case "in_preparation":
+          return false;
+      }
+    },
+  },
+  computed: {
+    disabledBtn() {
+      let disabled_btn = false;
+      if (this.oneOrder.payment_status === "outstanding") {
+        disabled_btn = false;
+      } else {
+        disabled_btn = true;
+      }
+      return disabled_btn;
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+// * {
+//   border: 1px solid black;
+// }
 .blue-color {
   color: #0288d1;
 }
