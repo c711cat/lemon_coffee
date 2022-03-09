@@ -90,15 +90,27 @@
     <div class="p-grid p-m-1 p-pl-2 p-ai-center">
       <div class="p-col-12 p-lg-1 p-text-bold">付款狀態</div>
       <div class="p-col-12 p-lg-11 p-d-flex p-jc-start p-ai-center">
-        <strong v-if="!paymentCompeleted" class="blue-color p-mr-4">
+        <strong
+          v-if="
+            oneOrder.payment_status === 'outstanding' ||
+            oneOrder.payment_status === 'unpaid'
+          "
+          class="blue-color p-mr-4"
+        >
           {{ paymentStatusText(order.payment_status) }}
         </strong>
-        <strong v-if="paymentCompeleted" class="success-color p-mr-4">
+        <strong
+          v-if="
+            oneOrder.payment_status === 'paid' ||
+            oneOrder.payment_status === 'unpaid'
+          "
+          class="success-color p-mr-4"
+        >
           已付款<i class="pi pi-check-circle p-ml-1"></i>
         </strong>
 
         <Button
-          v-if="!paymentCompeleted"
+          v-if="oneOrder.payment_status === 'outstanding'"
           @click="confirm_paid"
           label="確認付款"
           class="
@@ -133,7 +145,7 @@ export default {
   data() {
     return {
       orderContent: false,
-      paymentCompeleted: false,
+      oneOrder: {},
     };
   },
   components: { ShippingStatus, OrderStatus },
@@ -147,12 +159,13 @@ export default {
   },
   watch: {
     order() {
+      this.oneOrder = { ...this.order };
       this.orderContent = true;
     },
   },
   methods: {
     confirm_paid() {
-      this.paymentCompeleted = true;
+      this.oneOrder.payment_status = "paid";
     },
     changeDateText(time) {
       return new Date(Date.parse(time)).toLocaleString();
