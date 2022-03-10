@@ -130,7 +130,6 @@
 
     <template #footer>
       <div class="p-d-flex p-jc-end">
-        {{ disabledBtn }}
         <Button
           :disabled="disabledBtn"
           @click.prevent="cancelTheOreder()"

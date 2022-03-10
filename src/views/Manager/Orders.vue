@@ -4,13 +4,13 @@
       :value="orders"
       :paginator="true"
       class="p-datatable-customers"
-      :rows="10"
+      :rows="5"
       dataKey="id"
       :rowHover="true"
       v-model:filters="filters"
       :loading="false"
       paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-      :rowsPerPageOptions="[10, 25, 50]"
+      :rowsPerPageOptions="[5, 10, 25, 50]"
       currentPageReportTemplate="顯示第 {first} ~ {last} 筆 , 共 {totalRecords} 筆訂單"
       :globalFilterFields="[
         'id',
@@ -21,10 +21,11 @@
       ]"
       filterDisplay="menu"
       responsiveLayout="scroll"
-      selectionMode="single"
       stateStorage="local"
       stateKey="dt-state-demo-local"
       v-model:selection="orders.items"
+      selectionMode="single"
+      @rowSelect="openTheOrder(orders.items)"
     >
       <template #header>
         <div class="p-d-flex p-jc-center p-ai-center">
@@ -94,18 +95,6 @@
       >
         <template #body="{ data }">
           {{ shippingStatusText(data.shipping_status) }}
-        </template>
-      </Column>
-      <Column
-        headerStyle="width: 4rem; text-align: center"
-        bodyStyle="text-align: center; overflow: visible"
-      >
-        <template #body="{ data }">
-          <Button
-            @click="openTheOrder(data)"
-            type="button"
-            icon="pi pi-cog"
-          ></Button>
         </template>
       </Column>
     </DataTable>
