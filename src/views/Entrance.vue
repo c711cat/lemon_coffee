@@ -27,8 +27,8 @@ export default {
   components: { Loading },
   inject: ["emitter"],
   created() {
-    this.emitter.on("loading", (booleanOfLoading) => {
-      this.isLoading = booleanOfLoading;
+    this.emitter.on("loading", (isLoading) => {
+      this.isLoading = isLoading;
     });
   },
 };
