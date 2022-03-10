@@ -4,7 +4,7 @@
       :value="orders"
       :paginator="true"
       class="p-datatable-customers"
-      :rows="5"
+      :rows="10"
       dataKey="id"
       :rowHover="true"
       v-model:filters="filters"
@@ -25,7 +25,6 @@
       stateStorage="local"
       stateKey="dt-state-demo-local"
       v-model:selection="orders.items"
-      @click="openTheOrder(orders.items)"
     >
       <template #header>
         <div class="p-d-flex p-jc-center p-ai-center">
@@ -97,6 +96,18 @@
           {{ shippingStatusText(data.shipping_status) }}
         </template>
       </Column>
+      <Column
+        headerStyle="width: 4rem; text-align: center"
+        bodyStyle="text-align: center; overflow: visible"
+      >
+        <template #body="{ data }">
+          <Button
+            @click="openTheOrder(data)"
+            type="button"
+            icon="pi pi-cog"
+          ></Button>
+        </template>
+      </Column>
     </DataTable>
     <SingleOrder :order="order" />
   </div>
@@ -107,6 +118,7 @@ import { FilterMatchMode } from "primevue/api";
 import axios from "axios";
 import Cookies from "js-cookie";
 import SingleOrder from "@/components/SingleOrder.vue";
+
 export default {
   data() {
     return {
