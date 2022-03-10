@@ -2,7 +2,8 @@
   <Dialog
     :header="`訂單編號 ${order.id}`"
     v-model:visible="orderContent"
-    :style="{ maxwidth: '70vw' }"
+    :breakpoints="{ '960px': '100vw' }"
+    style="width: 70%"
   >
     <h4 class="p-mt-0">成立時間 {{ changeDateText(order.created_at) }}</h4>
     <div
