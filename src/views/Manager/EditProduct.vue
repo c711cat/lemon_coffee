@@ -29,7 +29,6 @@ export default {
       axios
         .get(api, { headers })
         .then((response) => {
-          this.isLoading = false;
           if (this.isLoading === false) {
             this.product = response.data;
           }
@@ -40,6 +39,9 @@ export default {
             this.showErrorToast("請重新登入");
           }
           this.$router.push("/entrance/login");
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
 
@@ -51,14 +53,12 @@ export default {
       axios
         .put(api, { product: this.product }, { headers })
         .then((response) => {
-          this.isLoading = false;
           if (response.status === 200) {
             this.showSuccessToast("編輯成功");
             this.$router.push("/admin/products");
           }
         })
         .catch((error) => {
-          this.isLoading = false;
           if (error.response.status === 401) {
             Cookies.remove("lemonToken");
             this.showErrorToast("請重新登入");
@@ -70,6 +70,9 @@ export default {
           if (error.response.data.roast) {
             this.showErrorToast("烘焙度不可空白");
           }
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
     showErrorToast(text) {

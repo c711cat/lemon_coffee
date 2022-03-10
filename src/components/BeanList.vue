@@ -22,10 +22,17 @@ export default {
     getProducts() {
       const api = `${process.env.VUE_APP_API}/products`;
       this.isLoading = true;
-      axios.get(api).then((response) => {
-        this.isLoading = false;
-        this.products = response.data;
-      });
+      axios
+        .get(api)
+        .then((response) => {
+          this.products = response.data;
+        })
+        .catch((error) => {
+          return error;
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
     },
   },
   created() {

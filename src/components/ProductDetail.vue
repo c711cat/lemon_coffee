@@ -2,7 +2,7 @@
   <Loading v-if="isLoading" />
   <div v-else>
     <div v-if="is_error">無此商品</div>
-    <div class="p-grid nested-grid wrap p-my-4 p-mx-auto" v-else>
+    <div v-else class="p-grid nested-grid wrap p-my-4 p-mx-auto">
       <div class="p-col-12 p-lg-5">
         <img
           class="product-image p-d-block p-mx-auto"
@@ -111,12 +111,13 @@ export default {
       axios
         .get(api)
         .then((response) => {
-          this.isLoading = false;
           this.product = { ...response.data };
         })
         .catch(() => {
-          this.isLoading = false;
           this.is_error = !this.is_error;
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
     addToCart() {

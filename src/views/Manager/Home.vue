@@ -44,11 +44,13 @@ export default {
       axios
         .get(api, { headers })
         .then((response) => {
-          this.isLoading = false;
           this.products = [...response.data];
         })
         .catch(() => {
           this.$router.push("/entrance/login");
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
     toAddProduct() {

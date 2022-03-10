@@ -28,14 +28,12 @@ export default {
       axios
         .post(api, { product: this.product }, { headers })
         .then((response) => {
-          this.isLoading = false;
           if (response.status === 200) {
             this.showSuccessToast("新增成功");
             this.$router.push("/admin/products");
           }
         })
         .catch((error) => {
-          this.isLoading = false;
           if (error.response.status === 401) {
             Cookies.remove("lemonToken");
             this.showErrorToast("請重新登入");
@@ -47,6 +45,9 @@ export default {
           if (error.response.data.roast) {
             this.showErrorToast("烘焙度不可空白");
           }
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
     showErrorToast(text) {

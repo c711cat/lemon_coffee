@@ -141,7 +141,6 @@ export default {
       axios
         .get(api, { headers })
         .then((response) => {
-          this.isLoading = false;
           if (response.status === 200) {
             this.cartItems = [...response.data];
             const buyerRecord =
@@ -151,12 +150,14 @@ export default {
           }
         })
         .catch((error) => {
-          this.isLoading = false;
           if (error.response.status === 401) {
             Cookies.remove("lemonToken");
             this.showErrorToast("請重新登入");
             this.$router.push("/entrance/login");
           }
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
     typeText(package_type) {
