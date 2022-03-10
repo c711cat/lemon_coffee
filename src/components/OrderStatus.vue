@@ -59,13 +59,14 @@ export default {
   watch: {
     orderStatus() {
       this.current_status = this.orderStatus;
-      console.log(typeof this.current_status);
     },
   },
+  inject: ["emitter"],
   methods: {
     confirm_order() {
       this.current_status = "confirmed";
       this.confirm_order_btn = false;
+      this.emitter.emit("order_status", this.current_status);
     },
   },
 };

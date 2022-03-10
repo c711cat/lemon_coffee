@@ -133,7 +133,7 @@
         {{ disabledBtn }}
         <Button
           :disabled="disabledBtn"
-          @click.prevent="cancelTheOreder(order)"
+          @click.prevent="cancelTheOreder()"
           label="取消訂單"
           icon="pi pi-times"
           class="p-button-danger p-ml-3"
@@ -173,13 +173,11 @@ export default {
     order() {
       this.oneOrder = { ...this.order };
       this.orderContent = true;
-      console.log(this.oneOrder);
     },
   },
   methods: {
     confirm_paid() {
       this.oneOrder.payment_status = "paid";
-      console.log(this.oneOrder);
     },
     changeDateText(time) {
       return new Date(Date.parse(time)).toLocaleString();
@@ -225,38 +223,34 @@ export default {
     closeWindow() {
       this.orderContent = false;
     },
-    cancelTheOreder(data) {
-      console.log(data);
+    cancelTheOreder() {
       this.oneOrder.status = "canceled";
-      console.log(this.oneOrder);
-    },
-    ddisabledBtn(oneOrder) {
-      switch (oneOrder.payment_status) {
-        case "unpaid":
-        case "outstanding":
-          return false;
-      }
-      switch (oneOrder.status) {
-        case "confirmed":
-        case "pending":
-          return false;
-      }
-      switch (oneOrder.shipping_status) {
-        case "in_preparation":
-          return false;
-      }
     },
   },
+  inject: ["emitter"],
   computed: {
     disabledBtn() {
       let disabled_btn = false;
-      if (this.oneOrder.payment_status === "outstanding") {
+      if (
+        this.oneOrder.payment_status === "outstanding" &&
+        this.oneOrder.shipping_status === "in_preparation" &&
+        (this.oneOrder.status === "pending" ||
+          this.oneOrder.status === "confirmed")
+      ) {
         disabled_btn = false;
       } else {
         disabled_btn = true;
       }
       return disabled_btn;
     },
+  },
+  created() {
+    this.emitter.on("shipping_status", (current_shipping_status) => {
+      this.oneOrder.shipping_status = current_shipping_status;
+    });
+    this.emitter.on("order_status", (current_order_status) => {
+      this.oneOrder.status = current_order_status;
+    });
   },
 };
 </script>
