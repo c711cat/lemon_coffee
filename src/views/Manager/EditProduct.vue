@@ -29,9 +29,7 @@ export default {
       axios
         .get(api, { headers })
         .then((response) => {
-          if (this.isLoading === false) {
-            this.product = response.data;
-          }
+          this.product = response.data;
         })
         .catch((error) => {
           if (error.response.status === 401) {
