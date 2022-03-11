@@ -31,7 +31,7 @@
       "
       style="width: 100px"
     />
-    <strong v-if="!arrivedBtn" :class="arrivedStyle"> 已到達 </strong>
+    <strong v-if="!arrivedBtn" :class="arrived_style"> 已到達 </strong>
 
     <i class="pi pi-arrow-right p-mx-1" :class="arrived_arrow_style"></i>
 
@@ -117,7 +117,7 @@ export default {
       }
       return btn;
     },
-    arrivedStyle() {
+    arrived_style() {
       let color = "";
       if (
         this.current_status === "arrived" ||
