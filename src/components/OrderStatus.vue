@@ -1,29 +1,29 @@
 <template>
   <div
-    v-if="current_status === 'canceled'"
+    v-if="orderStatus === 'canceled'"
     class="p-col-12 p-lg-11 p-d-flex p-jc-start p-ai-center"
   >
     <strong class="cancel-color"> 已取消 </strong>
   </div>
   <div v-else class="p-col-12 p-lg-11 p-d-flex p-jc-start p-ai-center">
-    <strong :style="pending"> 處理中 </strong>
+    <strong class="progress-color"> 處理中 </strong>
 
     <i class="pi pi-arrow-right p-mx-1"></i>
 
     <Button
       @click="confirm_order"
-      v-if="confirm_order_btn"
+      v-if="confirmOrderBtn"
       label="確認訂單"
       class="
         p-button-raised p-button-info p-button-sm p-lg-fixed p-col-3 p-px-2
       "
       style="width: 100px"
     />
-    <strong v-if="!confirm_order_btn" :style="confirmed">已確認</strong>
+    <strong v-if="!confirmOrderBtn" class="progress-color">已確認</strong>
 
-    <i :style="confirmed_arrow" class="pi pi-arrow-right p-mx-1"></i>
+    <i class="disabled-color pi pi-arrow-right p-mx-1"></i>
 
-    <strong :style="finished">已完成</strong>
+    <strong class="disabled-color">已完成</strong>
     <i
       v-if="current_status === 'finished'"
       class="pi pi-check-circle p-ml-1 success-color"
@@ -36,12 +36,7 @@
 export default {
   data() {
     return {
-      current_status: "",
-      pending: "color: #0288d1",
-      confirm_order_btn: true,
-      confirmed: "color: #0288d1",
-      confirmed_arrow: "color: #ccc",
-      finished: "color: #ccc",
+      current_status: "pending",
     };
   },
   props: {
@@ -52,28 +47,46 @@ export default {
       },
     },
   },
-  watch: {
-    orderStatus() {
-      this.current_status = this.orderStatus;
-    },
-  },
+
   inject: ["emitter"],
   methods: {
     confirm_order() {
       this.current_status = "confirmed";
-      this.confirm_order_btn = false;
       this.emitter.emit("update_order_status", this.current_status);
+    },
+  },
+  computed: {
+    confirmOrderBtn() {
+      let btn = true;
+      if (this.orderStatus === "pending") {
+        btn = true;
+      } else {
+        btn = false;
+      }
+      return btn;
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.disabled-color {
+  color: #ccc;
+}
+
+.progress-color {
+  color: #0288d1;
+}
+
 .success-color {
   color: #689f38;
 }
 
 .cancel-color {
   color: #d32f2f;
+}
+
+.arrow-color {
+  color: none;
 }
 </style>
