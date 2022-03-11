@@ -62,18 +62,14 @@ export default {
     };
   },
   props: {
-    orderStatus: {
+    shippingStatus: {
       type: String,
       default() {
         return;
       },
     },
   },
-  watch: {
-    orderStatus() {
-      this.current_status = this.orderStatus;
-    },
-  },
+
   inject: ["emitter"],
   methods: {
     confirm_shipped() {
@@ -92,7 +88,7 @@ export default {
   computed: {
     shippingBtn() {
       let btn = true;
-      if (this.current_status === "in_preparation") {
+      if (this.shippingStatus === "in_preparation") {
         btn = true;
       } else {
         btn = false;
