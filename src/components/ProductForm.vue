@@ -38,8 +38,8 @@
     <div class="p-field p-col-12 p-md-3">
       <label>處理法</label>
       <Dropdown
-        v-model="product.approach"
-        :options="approaches"
+        v-model="product.processing_method"
+        :options="processing_method"
         :editable="true"
       />
     </div>
@@ -98,7 +98,7 @@ export default {
         country: "",
         area: "",
         variety: "",
-        approach: "",
+        processing_method: "",
         half_pound_price: 0,
         one_pound_price: 0,
         drip_bag_price: 0,
@@ -149,7 +149,7 @@ export default {
         "手動填入",
       ],
 
-      approaches: [
+      processing_method: [
         "水洗",
         "日曬",
         "去果皮日曬",
