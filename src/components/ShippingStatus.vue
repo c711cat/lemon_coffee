@@ -93,7 +93,7 @@ export default {
       this.shipping_btn = false;
       this.arrived_btn = true;
       this.shipping_arrow = "color: none";
-      this.emitter.emit("shipping_status", this.current_status);
+      this.emitter.emit("update_shipping_status", this.current_status);
     },
     confirm_arrived() {
       this.current_status = "arrived";
@@ -103,7 +103,7 @@ export default {
       this.shipping_arrow = "color: none";
       this.arrived_arrow = "color: none";
       this.arrived = "color: #0288d1";
-      this.emitter.emit("shipping_status", this.current_status);
+      this.emitter.emit("update_shipping_status", this.current_status);
     },
     confirm_picked_up() {
       this.current_status = "picked_up";
@@ -114,7 +114,7 @@ export default {
       this.arrived_arrow = "color: none";
       this.arrived = "color: #0288d1";
       this.picked_up = "color: #689f38";
-      this.emitter.emit("shipping_status", this.current_status);
+      this.emitter.emit("update_shipping_status", this.current_status);
     },
   },
 };

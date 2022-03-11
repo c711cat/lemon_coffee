@@ -66,7 +66,7 @@ export default {
     confirm_order() {
       this.current_status = "confirmed";
       this.confirm_order_btn = false;
-      this.emitter.emit("order_status", this.current_status);
+      this.emitter.emit("update_order_status", this.current_status);
     },
   },
 };

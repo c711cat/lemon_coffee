@@ -245,10 +245,10 @@ export default {
     },
   },
   created() {
-    this.emitter.on("shipping_status", (current_shipping_status) => {
+    this.emitter.on("update_shipping_status", (current_shipping_status) => {
       this.oneOrder.shipping_status = current_shipping_status;
     });
-    this.emitter.on("order_status", (current_order_status) => {
+    this.emitter.on("update_order_status", (current_order_status) => {
       this.oneOrder.status = current_order_status;
     });
   },
