@@ -1,8 +1,11 @@
 <template>
   <div
-    v-if="current_status !== 'canceled'"
+    v-if="current_status === 'canceled'"
     class="p-col-12 p-lg-11 p-d-flex p-jc-start p-ai-center"
   >
+    <strong class="cancel-color"> 已取消 </strong>
+  </div>
+  <div v-else class="p-col-12 p-lg-11 p-d-flex p-jc-start p-ai-center">
     <strong :style="in_preparation"> 備貨中 </strong>
 
     <i class="pi pi-arrow-right p-mx-1"></i>
@@ -48,12 +51,6 @@
       class="pi pi-check-circle success-color p-ml-1"
     >
     </i>
-  </div>
-  <div
-    v-if="current_status === 'canceled'"
-    class="p-col-12 p-lg-11 p-d-flex p-jc-start p-ai-center"
-  >
-    <strong class="cancel-color"> 已取消 </strong>
   </div>
 </template>
 
