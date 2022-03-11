@@ -3,7 +3,7 @@
     :header="`訂單編號 ${order.id}`"
     v-model:visible="orderContent"
     :breakpoints="{ '960px': '100vw' }"
-    style="width: 70%"
+    style="width: 60%"
   >
     <h4 class="p-mt-0">成立時間 {{ changeDateText(order.created_at) }}</h4>
     <div
