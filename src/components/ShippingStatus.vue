@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="current_status === 'canceled'"
+    v-if="orderStatus === 'canceled'"
     class="p-col-12 p-lg-11 p-d-flex p-jc-start p-ai-center"
   >
     <strong class="cancel-color"> 已取消 </strong>
@@ -63,6 +63,12 @@ export default {
   },
   props: {
     shippingStatus: {
+      type: String,
+      default() {
+        return;
+      },
+    },
+    orderStatus: {
       type: String,
       default() {
         return;

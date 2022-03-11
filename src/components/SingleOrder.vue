@@ -126,7 +126,10 @@
       <OrderStatus :orderStatus="oneOrder.status" />
 
       <div class="p-col-12 p-lg-1 p-text-bold">物流狀態</div>
-      <ShippingStatus :orderStatus="oneOrder.status" />
+      <ShippingStatus
+        :shippingStatus="oneOrder.shipping_status"
+        :orderStatus="oneOrder.status"
+      />
     </div>
 
     <template #footer>
