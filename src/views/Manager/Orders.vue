@@ -59,7 +59,7 @@
         style="min-width: 9rem"
       >
         <template #body="{ data }">
-          {{ changeDateText(data.created_at) }}
+          {{ data.created_at }}
         </template>
       </Column>
       <Column
@@ -123,6 +123,7 @@ export default {
         .get(api, { headers })
         .then((response) => {
           this.orders = response.data;
+          this.updateDateStyle();
         })
         .catch((error) => {
           if (error.response.status === 401) {
@@ -134,6 +135,13 @@ export default {
         .finally(() => {
           this.loading = false;
         });
+    },
+    updateDateStyle() {
+      this.orders.forEach((item) => {
+        const oldStyle = new Date(Date.parse(item.created_at)).toLocaleString();
+        const newStyle = oldStyle.replace("/", "-").replace("/", "-");
+        item.created_at = newStyle;
+      });
     },
     showErrorToast(text) {
       this.$toast.add({
@@ -151,7 +159,10 @@ export default {
       };
     },
     changeDateText(time) {
-      return new Date(Date.parse(time)).toLocaleString();
+      const oldStyle = new Date(Date.parse(time)).toLocaleString();
+      const newStyle = oldStyle.replace("/", "-").replace("/", "-");
+
+      return newStyle;
     },
     orderStatusText(status) {
       switch (status) {

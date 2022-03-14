@@ -5,7 +5,7 @@
     :breakpoints="{ '960px': '100vw' }"
     style="width: 60%"
   >
-    <h4 class="p-mt-0">成立時間 {{ changeDateText(order.created_at) }}</h4>
+    <h4 class="p-mt-0">成立時間 {{ order.created_at }}</h4>
     <div
       v-for="item in order.items"
       :key="item.id"
