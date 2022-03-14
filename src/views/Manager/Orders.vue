@@ -149,12 +149,6 @@ export default {
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
       };
     },
-    changeDateText(time) {
-      const oldStyle = new Date(Date.parse(time)).toLocaleString();
-      const newStyle = oldStyle.replace("/", "-").replace("/", "-");
-
-      return newStyle;
-    },
     orderStatusText(status) {
       switch (status) {
         case "pending":

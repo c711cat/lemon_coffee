@@ -182,9 +182,6 @@ export default {
     confirm_paid() {
       this.oneOrder.payment_status = "paid";
     },
-    changeDateText(time) {
-      return new Date(Date.parse(time)).toLocaleString();
-    },
     paymentStatusText(payment_status) {
       switch (payment_status) {
         case "outstanding":
