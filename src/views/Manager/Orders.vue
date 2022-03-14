@@ -3,7 +3,7 @@
     <DataTable
       :value="orders"
       :paginator="true"
-      class="p-datatable-customers"
+      class="p-datatable-customers "
       :rows="5"
       dataKey="id"
       :rowHover="true"
@@ -20,7 +20,8 @@
         'shipping_status',
       ]"
       filterDisplay="menu"
-      responsiveLayout="scroll"
+      responsiveLayout="stack"
+      breakpoint="960px"
       stateStorage="local"
       stateKey="dt-state-demo-local"
       v-model:selection="orders.items"
