@@ -23,7 +23,7 @@
       @rowSelect="openTheOrder(orders.items)"
     >
       <template #header>
-        <div class="p-d-flex p-jc-center p-ai-center">
+        <div class="p-text-center">
           <span class="p-input-icon-left">
             <i class="pi pi-search" />
             <InputText
@@ -40,19 +40,12 @@
           />
         </div>
       </template>
-      <Column
-        class="header-body"
-        field="id"
-        header="訂單編號"
-        sortable
-        style="min-width: 6rem"
-      >
-        <template #body="{ data }" class="text-center">
+      <Column field="id" header="訂單編號" sortable style="min-width: 6rem">
+        <template #body="{ data }">
           {{ data.id }}
         </template>
       </Column>
       <Column
-        class="text-center"
         field="created_at"
         header="成立時間"
         sortable
