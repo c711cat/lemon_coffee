@@ -1,93 +1,91 @@
 <template>
-  <div>
-    <DataTable
-      :value="orders"
-      :paginator="true"
-      class="p-datatable-customers"
-      :rows="5"
-      dataKey="id"
-      :rowHover="true"
-      v-model:filters="filters"
-      :loading="loading"
-      paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-      :rowsPerPageOptions="[5, 10, 25, 50]"
-      currentPageReportTemplate="顯示第 {first} ~ {last} 筆 , 共 {totalRecords} 筆訂單"
-      :globalFilterFields="['id', 'created_at']"
-      filterDisplay="menu"
-      responsiveLayout="stack"
-      breakpoint="960px"
-      stateStorage="local"
-      stateKey="dt-state-demo-local"
-      v-model:selection="orders.items"
-      selectionMode="single"
-      @rowSelect="openTheOrder(orders.items)"
-    >
-      <template #header>
-        <div class="p-text-center">
-          <span class="p-input-icon-left">
-            <i class="pi pi-search" />
-            <InputText
-              v-model="filters['global'].value"
-              placeholder="Keyword Search"
-            />
-          </span>
-          <Button
-            type="button"
-            icon="pi pi-filter-slash"
-            label="清空"
-            class="p-button-outlined"
-            @click="clearFilters()"
+  <DataTable
+    :value="orders"
+    :paginator="true"
+    class="p-datatable-customers"
+    :rows="5"
+    dataKey="id"
+    :rowHover="true"
+    v-model:filters="filters"
+    :loading="loading"
+    paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+    :rowsPerPageOptions="[5, 10, 25, 50]"
+    currentPageReportTemplate="顯示第 {first} ~ {last} 筆 , 共 {totalRecords} 筆訂單"
+    :globalFilterFields="['id', 'created_at']"
+    filterDisplay="menu"
+    responsiveLayout="stack"
+    breakpoint="960px"
+    stateStorage="local"
+    stateKey="dt-state-demo-local"
+    v-model:selection="orders.items"
+    selectionMode="single"
+    @rowSelect="openTheOrder(orders.items)"
+  >
+    <template #header>
+      <div class="p-text-center">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search" />
+          <InputText
+            v-model="filters['global'].value"
+            placeholder="Keyword Search"
           />
-        </div>
+        </span>
+        <Button
+          type="button"
+          icon="pi pi-filter-slash"
+          label="清空"
+          class="p-button-outlined"
+          @click="clearFilters()"
+        />
+      </div>
+    </template>
+    <Column field="id" header="訂單編號" sortable style="min-width: 6rem">
+      <template #body="{ data }">
+        {{ data.id }}
       </template>
-      <Column field="id" header="訂單編號" sortable style="min-width: 6rem">
-        <template #body="{ data }">
-          {{ data.id }}
-        </template>
-      </Column>
-      <Column
-        field="created_at"
-        header="成立時間"
-        sortable
-        style="min-width: 9rem"
-      >
-        <template #body="{ data }">
-          {{ data.created_at }}
-        </template>
-      </Column>
-      <Column
-        field="status"
-        header="訂單狀態"
-        :sortable="true"
-        style="min-width: 6rem"
-      >
-        <template #body="{ data }">
-          <span>{{ orderStatusText(data.status) }}</span>
-        </template>
-      </Column>
-      <Column
-        field="payment_status"
-        header="付款狀態"
-        sortable
-        style="min-width: 6rem"
-      >
-        <template #body="{ data }">
-          {{ paymentStatusText(data.payment_status) }}
-        </template>
-      </Column>
-      <Column
-        field="shipping_status"
-        header="物流狀態"
-        sortable
-        style="min-width: 6rem"
-      >
-        <template #body="{ data }">
-          {{ shippingStatusText(data.shipping_status) }}
-        </template>
-      </Column>
-    </DataTable>
-    <SingleOrder :order="order" />
-  </div>
+    </Column>
+    <Column
+      field="created_at"
+      header="成立時間"
+      sortable
+      style="min-width: 9rem"
+    >
+      <template #body="{ data }">
+        {{ data.created_at }}
+      </template>
+    </Column>
+    <Column
+      field="status"
+      header="訂單狀態"
+      :sortable="true"
+      style="min-width: 6rem"
+    >
+      <template #body="{ data }">
+        <span>{{ orderStatusText(data.status) }}</span>
+      </template>
+    </Column>
+    <Column
+      field="payment_status"
+      header="付款狀態"
+      sortable
+      style="min-width: 6rem"
+    >
+      <template #body="{ data }">
+        {{ paymentStatusText(data.payment_status) }}
+      </template>
+    </Column>
+    <Column
+      field="shipping_status"
+      header="物流狀態"
+      sortable
+      style="min-width: 6rem"
+    >
+      <template #body="{ data }">
+        {{ shippingStatusText(data.shipping_status) }}
+      </template>
+    </Column>
+  </DataTable>
+  <SingleOrder :order="order" />
 </template>
 
 <script>
