@@ -47,6 +47,9 @@ export default {
         })
         .catch(() => {
           this.$router.push("/entrance/login");
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
   },
