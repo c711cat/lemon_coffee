@@ -98,7 +98,7 @@ export default {
   methods: {
     register() {
       const api = `${process.env.VUE_APP_API}/users`;
-      this.emitter.emit("entranceLoadingProgressSpinner", true);
+      this.emitter.emit("openEntranceLoadingProgressSpinner", true);
       axios
         .post(api, {
           user: {
@@ -122,7 +122,7 @@ export default {
           });
         })
         .finally(() => {
-          this.emitter.emit("entranceLoadingProgressSpinner", false);
+          this.emitter.emit("closeEntranceLoadingProgressSpinner", false);
         });
     },
   },

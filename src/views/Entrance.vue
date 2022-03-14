@@ -27,7 +27,10 @@ export default {
   components: { Loading },
   inject: ["emitter"],
   created() {
-    this.emitter.on("entranceLoadingProgressSpinner", (isLoading) => {
+    this.emitter.on("openEntranceLoadingProgressSpinner", (isLoading) => {
+      this.isLoading = isLoading;
+    });
+    this.emitter.on("closeEntranceLoadingProgressSpinner", (isLoading) => {
       this.isLoading = isLoading;
     });
   },
