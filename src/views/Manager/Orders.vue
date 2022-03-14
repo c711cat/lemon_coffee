@@ -3,22 +3,16 @@
     <DataTable
       :value="orders"
       :paginator="true"
-      class="p-datatable-customers "
+      class="p-datatable-customers"
       :rows="5"
       dataKey="id"
       :rowHover="true"
       v-model:filters="filters"
-      :loading="false"
+      :loading="loading"
       paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
       :rowsPerPageOptions="[5, 10, 25, 50]"
       currentPageReportTemplate="顯示第 {first} ~ {last} 筆 , 共 {totalRecords} 筆訂單"
-      :globalFilterFields="[
-        'id',
-        'created_at',
-        'payment_status',
-        'status',
-        'shipping_status',
-      ]"
+      :globalFilterFields="['id', 'created_at']"
       filterDisplay="menu"
       responsiveLayout="stack"
       breakpoint="960px"
@@ -104,7 +98,7 @@
 </template>
 
 <script>
-import { FilterMatchMode, FilterOperator } from "primevue/api";
+import { FilterMatchMode } from "primevue/api";
 import axios from "axios";
 import Cookies from "js-cookie";
 import SingleOrder from "@/components/SingleOrder.vue";
@@ -114,36 +108,10 @@ export default {
     return {
       filters: {
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-        name: {
-          operator: FilterOperator.AND,
-          constraints: [
-            { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-          ],
-        },
-        "country.name": {
-          operator: FilterOperator.AND,
-          constraints: [
-            { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-          ],
-        },
-        representative: { value: null, matchMode: FilterMatchMode.IN },
-        date: {
-          operator: FilterOperator.AND,
-          constraints: [{ value: null, matchMode: FilterMatchMode.DATE_IS }],
-        },
-        balance: {
-          operator: FilterOperator.AND,
-          constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }],
-        },
-        status: {
-          operator: FilterOperator.OR,
-          constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }],
-        },
-        activity: { value: null, matchMode: FilterMatchMode.BETWEEN },
-        verified: { value: null, matchMode: FilterMatchMode.EQUALS },
       },
       orders: [],
       order: {},
+      loading: true,
     };
   },
   components: { SingleOrder },
@@ -162,6 +130,9 @@ export default {
             this.showErrorToast("請重新登入");
             this.$router.push("/entrance/login");
           }
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
     showErrorToast(text) {
