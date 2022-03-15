@@ -111,7 +111,9 @@ export default {
       axios
         .get(api)
         .then((response) => {
+          console.log(response);
           this.product = { ...response.data };
+          console.log(this.product);
         })
         .catch(() => {
           this.is_error = !this.is_error;

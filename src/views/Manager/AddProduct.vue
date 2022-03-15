@@ -22,18 +22,21 @@ export default {
   methods: {
     addProduct(addItem) {
       this.product = { ...addItem };
+      console.log(this.product);
       const api = `${process.env.VUE_APP_API}/admin/products`;
       const headers = { Authorization: Cookies.get("lemonToken") };
       this.isLoading = true;
       axios
-        .post(api, { product: this.product }, { headers })
+        .post(api, this.product, { headers })
         .then((response) => {
+          console.log(response);
           if (response.status === 200) {
             this.showSuccessToast("新增成功");
             this.$router.push("/admin/products");
           }
         })
         .catch((error) => {
+          console.log(error.response);
           if (error.response.status === 401) {
             Cookies.remove("lemonToken");
             this.showErrorToast("請重新登入");
