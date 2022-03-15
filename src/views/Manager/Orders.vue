@@ -39,6 +39,7 @@
         />
       </div>
     </template>
+
     <Column field="id" header="訂單編號" sortable style="min-width: 6rem">
       <template #body="{ data }">
         {{ data.id }}
