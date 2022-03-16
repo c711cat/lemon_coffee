@@ -11,7 +11,7 @@
     >
       <div class="p-col-12 p-lg-5 p-pl-3">
         {{ item.product_name }}<br />
-        磨粉不磨粉?<br />
+        {{ groundText(item.ground) }}<br />
       </div>
       <div class="p-col-5 p-lg-3 p-pl-3">
         $ {{ item.unit_price }} / {{ typeText(item.package_type) }}
@@ -104,7 +104,8 @@
             @click.prevent="createOrder"
             class="p-button-lg p-button-raised p-button-danger"
             label="下訂單"
-          ></Button>
+          >
+          </Button>
         </div>
       </div>
     </div>
@@ -169,6 +170,14 @@ export default {
       }
       if (package_type === "one_pound") {
         return "一磅";
+      }
+    },
+    groundText(ground_result) {
+      if (ground_result === true) {
+        return "磨粉";
+      }
+      if (ground_result === false) {
+        return "原豆";
       }
     },
     createOrder() {
