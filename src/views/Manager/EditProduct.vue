@@ -29,7 +29,6 @@ export default {
       axios
         .get(api, { headers })
         .then((response) => {
-          console.log(response);
           this.product = response.data;
         })
         .catch((error) => {
@@ -46,15 +45,12 @@ export default {
 
     updateProduct(updateItem) {
       this.product = { ...updateItem };
-      console.log(this.product);
       const api = `${process.env.VUE_APP_API}/admin/products/${this.product.id}`;
       const headers = { Authorization: Cookies.get("lemonToken") };
       this.isLoading = true;
-      const data = this.product;
       axios
-        .put(api, data, { headers })
+        .put(api, this.product, { headers })
         .then((response) => {
-          console.log(response);
           if (response.status === 200) {
             this.showSuccessToast("編輯成功");
             this.$router.push("/admin/products");
