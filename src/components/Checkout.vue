@@ -190,6 +190,7 @@ export default {
         .post(api, data, { headers })
         .then((response) => {
           if (response.status === 201) {
+            this.showSuccessToast("已成立訂單");
             this.$router.push(`/order/${response.data.id}`);
             this.emitter.emit("changeCartBadgeCount", 0);
           }
@@ -220,6 +221,13 @@ export default {
             this.showErrorToast("請填入 : 收件人 email");
           }
         });
+    },
+    showSuccessToast(text) {
+      this.$toast.add({
+        severity: "success",
+        summary: text,
+        life: 2000,
+      });
     },
     showErrorToast(text) {
       this.$toast.add({
