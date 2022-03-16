@@ -94,9 +94,11 @@ export default {
       },
     };
   },
+  inject: ["emitter"],
   methods: {
     register() {
       const api = `${process.env.VUE_APP_API}/users`;
+      this.emitter.emit("openEntranceLoadingProgressSpinner");
       axios
         .post(api, {
           user: {
@@ -118,6 +120,9 @@ export default {
             summary: "註冊失敗",
             life: 2000,
           });
+        })
+        .finally(() => {
+          this.emitter.emit("closeEntranceLoadingProgressSpinner");
         });
     },
   },

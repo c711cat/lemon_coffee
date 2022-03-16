@@ -1,12 +1,19 @@
 <template>
+  <Loading v-if="isLoading" />
   <ConfirmDialog></ConfirmDialog>
 </template>
 
 <script>
 import axios from "axios";
 import Cookies from "js-cookie";
-
+import Loading from "@/components/Loading.vue";
 export default {
+  data() {
+    return {
+      isLoading: false,
+    };
+  },
+  components: { Loading },
   inject: ["emitter"],
   methods: {
     openConfirm(item) {
@@ -24,6 +31,7 @@ export default {
     delProduct(item) {
       const api = `${process.env.VUE_APP_API}/admin/products/${item.id}`;
       const headers = { Authorization: Cookies.get("lemonToken") };
+      this.isLoading = true;
       axios
         .delete(api, { headers })
         .then((response) => {
@@ -39,6 +47,9 @@ export default {
         })
         .catch(() => {
           this.$router.push("/entrance/login");
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
   },

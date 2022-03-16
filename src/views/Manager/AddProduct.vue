@@ -1,26 +1,30 @@
 <template>
-  <ProductForm :onSubmit="addProduct"></ProductForm>
+  <Loading v-if="isLoading" />
+  <ProductForm v-else :onSubmit="addProduct"></ProductForm>
 </template>
 
 <script>
 import axios from "axios";
 import ProductForm from "@/components/ProductForm.vue";
 import Cookies from "js-cookie";
+import Loading from "@/components/Loading.vue";
 
 export default {
   data() {
     return {
       product: {},
+      isLoading: false,
     };
   },
 
-  components: { ProductForm },
+  components: { ProductForm, Loading },
 
   methods: {
     addProduct(addItem) {
       this.product = { ...addItem };
       const api = `${process.env.VUE_APP_API}/admin/products`;
       const headers = { Authorization: Cookies.get("lemonToken") };
+      this.isLoading = true;
       axios
         .post(api, { product: this.product }, { headers })
         .then((response) => {
@@ -41,6 +45,9 @@ export default {
           if (error.response.data.roast) {
             this.showErrorToast("烘焙度不可空白");
           }
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
     showErrorToast(text) {

@@ -1,25 +1,31 @@
 <template>
-  <ProductForm :editItem="product" :onSubmit="updateProduct"></ProductForm>
+  <Loading v-if="isLoading" />
+  <div v-show="!isLoading">
+    <ProductForm :editItem="product" :onSubmit="updateProduct"> </ProductForm>
+  </div>
 </template>
 
 <script>
 import axios from "axios";
 import ProductForm from "@/components/ProductForm.vue";
 import Cookies from "js-cookie";
+import Loading from "@/components/Loading.vue";
 
 export default {
   data() {
     return {
       product: {},
+      isLoading: false,
     };
   },
 
-  components: { ProductForm },
+  components: { ProductForm, Loading },
 
   methods: {
     getProduct() {
       const api = `${process.env.VUE_APP_API}/admin/products/${this.$route.params.productId}/edit`;
       const headers = { Authorization: Cookies.get("lemonToken") };
+      this.isLoading = true;
       axios
         .get(api, { headers })
         .then((response) => {
@@ -31,6 +37,9 @@ export default {
             this.showErrorToast("請重新登入");
           }
           this.$router.push("/entrance/login");
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
 
@@ -38,6 +47,7 @@ export default {
       this.product = { ...updateItem };
       const api = `${process.env.VUE_APP_API}/admin/products/${this.product.id}`;
       const headers = { Authorization: Cookies.get("lemonToken") };
+      this.isLoading = true;
       axios
         .put(api, { product: this.product }, { headers })
         .then((response) => {
@@ -58,6 +68,9 @@ export default {
           if (error.response.data.roast) {
             this.showErrorToast("烘焙度不可空白");
           }
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
     showErrorToast(text) {

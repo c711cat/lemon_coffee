@@ -1,5 +1,6 @@
 <template>
-  <div class="products-wrap">
+  <Loading v-if="isLoading" />
+  <div v-else class="products-wrap">
     <div class="add-btn-container">
       <button type="button" class="add-btn" @click.prevent="toAddProduct">
         新增產品
@@ -9,7 +10,8 @@
       :products="products"
       :showEditButton="showEditButton"
       :disableDrag="disableDrag"
-    ></CleanBeanList>
+    >
+    </CleanBeanList>
   </div>
 </template>
 
@@ -18,6 +20,7 @@ import axios from "axios";
 import CleanBeanList from "@/components/CleanBeanList.vue";
 import emitter from "@/methods/emitter.js";
 import Cookies from "js-cookie";
+import Loading from "@/components/Loading.vue";
 
 export default {
   data() {
@@ -25,16 +28,19 @@ export default {
       products: [],
       showEditButton: true,
       disableDrag: false,
+      isLoading: false,
     };
   },
   components: {
     CleanBeanList,
+    Loading,
   },
   inject: ["emitter"],
   methods: {
     getProducts() {
       const api = `${process.env.VUE_APP_API}/admin/products`;
       const headers = { Authorization: Cookies.get("lemonToken") };
+      this.isLoading = true;
       axios
         .get(api, { headers })
         .then((response) => {
@@ -42,6 +48,9 @@ export default {
         })
         .catch(() => {
           this.$router.push("/entrance/login");
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
     toAddProduct() {
