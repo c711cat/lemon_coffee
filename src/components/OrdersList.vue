@@ -94,17 +94,17 @@
       <div class="p-grid p-m-1 p-pl-2 p-ai-center">
         <div class="p-col-4 p-lg-1 p-text-bold">訂單狀態</div>
         <div class="p-col-8 p-lg-11">
-          <OrderStatusColor :orderStatus="order.status"></OrderStatusColor>
+          <OrderStatusWithColor :orderStatus="order.status" />
         </div>
 
         <div class="p-col-4 p-lg-1 p-text-bold">付款狀態</div>
         <div class="p-col-8 p-lg-11">
-          <PaymentStatusColor :paymentStatus="order.payment_status" />
+          <PaymentStatusWithColor :paymentStatus="order.payment_status" />
         </div>
 
         <div class="p-col-4 p-lg-1 p-text-bold">物流狀態</div>
         <div class="p-col-8 p-lg-11">
-          <ShippingStatusColor :shippingStatus="order.shipping_status" />
+          <ShippingStatusWithColor :shippingStatus="order.shipping_status" />
         </div>
       </div>
     </AccordionTab>
@@ -114,9 +114,9 @@
 <script>
 import axios from "axios";
 import Cookies from "js-cookie";
-import OrderStatusColor from "@/components/OrderStatusColor.vue";
-import PaymentStatusColor from "@/components/PaymentStatusColor.vue";
-import ShippingStatusColor from "@/components/ShippingStatusColor.vue";
+import OrderStatusWithColor from "@/components/OrderStatusWithColor.vue";
+import PaymentStatusWithColor from "@/components/PaymentStatusWithColor.vue";
+import ShippingStatusWithColor from "@/components/ShippingStatusWithColor.vue";
 
 export default {
   data() {
@@ -124,7 +124,11 @@ export default {
       orders: [],
     };
   },
-  components: { OrderStatusColor, PaymentStatusColor, ShippingStatusColor },
+  components: {
+    OrderStatusWithColor,
+    PaymentStatusWithColor,
+    ShippingStatusWithColor,
+  },
   methods: {
     getOrders() {
       const api = `${process.env.VUE_APP_API}/users/orders`;
