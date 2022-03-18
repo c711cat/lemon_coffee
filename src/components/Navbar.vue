@@ -75,6 +75,11 @@ export default {
       numberOfCartItems: "",
       userMenuItems: [
         {
+          label: "訂單",
+          icon: "pi pi-fw pi-book",
+          to: "/orders",
+        },
+        {
           label: "登出",
           icon: "pi pi-user-minus",
           command: () => {

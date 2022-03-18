@@ -93,14 +93,18 @@
 
       <div class="p-grid p-m-1 p-pl-2 p-ai-center">
         <div class="p-col-4 p-lg-1 p-text-bold">訂單狀態</div>
-        <div class="p-col-8 p-lg-11">{{ orderStatusText(order.status) }}</div>
+        <div class="p-col-8 p-lg-11">
+          <OrderStatusWithColor :orderStatus="order.status" />
+        </div>
+
         <div class="p-col-4 p-lg-1 p-text-bold">付款狀態</div>
         <div class="p-col-8 p-lg-11">
-          {{ paymentStatusText(order.payment_status) }}
+          <PaymentStatusWithColor :paymentStatus="order.payment_status" />
         </div>
+
         <div class="p-col-4 p-lg-1 p-text-bold">物流狀態</div>
         <div class="p-col-8 p-lg-11">
-          {{ shippingStatusText(order.shipping_status) }}
+          <ShippingStatusWithColor :shippingStatus="order.shipping_status" />
         </div>
       </div>
     </AccordionTab>
@@ -110,12 +114,20 @@
 <script>
 import axios from "axios";
 import Cookies from "js-cookie";
+import OrderStatusWithColor from "@/components/OrderStatusWithColor.vue";
+import PaymentStatusWithColor from "@/components/PaymentStatusWithColor.vue";
+import ShippingStatusWithColor from "@/components/ShippingStatusWithColor.vue";
 
 export default {
   data() {
     return {
       orders: [],
     };
+  },
+  components: {
+    OrderStatusWithColor,
+    PaymentStatusWithColor,
+    ShippingStatusWithColor,
   },
   methods: {
     getOrders() {
@@ -161,41 +173,7 @@ export default {
         return "貨到付款";
       }
     },
-    orderStatusText(status) {
-      switch (status) {
-        case "pending":
-          return "處理中";
-        case "confirmed":
-          return "已確認";
-        case "finished":
-          return "已完成";
-        case "canceled":
-          return "已取消";
-      }
-    },
-    paymentStatusText(payment_status) {
-      switch (payment_status) {
-        case "outstanding":
-        case "unpaid":
-          return "未付款";
-        case "failed":
-          return "付款失敗";
-        case "paid":
-          return "已付款";
-      }
-    },
-    shippingStatusText(shipping_status) {
-      switch (shipping_status) {
-        case "in_preparation":
-          return "備貨中";
-        case "shipping":
-          return "已發貨";
-        case "arrived":
-          return "已到達";
-        case "picked_up":
-          return "已取貨";
-      }
-    },
+
     showErrorToast(text) {
       this.$toast.add({
         severity: "error",
