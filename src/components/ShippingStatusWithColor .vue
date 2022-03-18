@@ -1,7 +1,7 @@
 <template>
-  <strong :style="color(shippingStatus)">{{
-    shippingStatusText(shippingStatus)
-  }}</strong>
+  <strong :style="color(shippingStatus)">
+    {{ shippingStatusText(shippingStatus) }}
+  </strong>
 </template>
 
 <script>
