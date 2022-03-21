@@ -33,7 +33,6 @@ import Menu from "primevue/menu";
 import ProgressSpinner from "primevue/progressspinner";
 import Dialog from "primevue/dialog";
 
-
 const app = createApp(App);
 app.use(router);
 app.use(PrimeVue);
