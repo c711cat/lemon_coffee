@@ -9,41 +9,14 @@
     <strong class="progress-color"> 備貨中 </strong>
 
     <i :class="in_preparation_arrow_style" class="pi pi-arrow-right p-mx-1"></i>
-    <!-- <Button
-      @click="confirm_shipped"
-      v-if="shippingBtn"
-      label="確認發貨"
-      class="
-        p-button-raised p-button-info p-button-sm p-lg-fixed p-col-2 p-px-2
-      "
-      style="width: 100px"
-    /> -->
+
     <strong :class="in_preparation_style"> 已發貨 </strong>
 
     <i class="pi pi-arrow-right p-mx-1" :class="shipping_arrow_style"></i>
 
-    <!-- <Button
-      @click="confirm_arrived"
-      v-if="arrivedBtn"
-      label="確認到達"
-      class="
-        p-button-raised p-button-info p-button-sm p-lg-fixed p-col-2 p-px-2
-      "
-      style="width: 100px"
-    /> -->
     <strong :class="arrived_style"> 已到達 </strong>
 
     <i class="pi pi-arrow-right p-mx-1" :class="arrived_arrow_style"></i>
-
-    <!-- <Button
-      @click="confirm_picked_up"
-      v-if="pickedUpBtn"
-      label="確認取貨"
-      class="
-        p-button-raised p-button-info p-button-sm p-lg-fixed p-col-3 p-px-2
-      "
-      style="width: 100px"
-    /> -->
 
     <strong :class="picked_up_style"> 已取貨 </strong>
     <i
@@ -76,20 +49,6 @@ export default {
     },
   },
   inject: ["emitter"],
-  methods: {
-    // confirm_shipped() {
-    //   this.current_status = "shipping";
-    //   this.emitter.emit("update_shipping_status", this.current_status);
-    // },
-    // confirm_arrived() {
-    //   this.current_status = "arrived";
-    //   this.emitter.emit("update_shipping_status", this.current_status);
-    // },
-    // confirm_picked_up() {
-    //   this.current_status = "picked_up";
-    //   this.emitter.emit("update_shipping_status", this.current_status);
-    // },
-  },
   computed: {
     in_preparation_arrow_style() {
       let color = "";

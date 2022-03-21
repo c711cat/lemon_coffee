@@ -106,20 +106,6 @@
         >
           已付款<i class="pi pi-check-circle p-ml-1"></i>
         </strong>
-
-        <!-- <Button
-          v-if="
-            (oneOrder.payment_status === 'outstanding' ||
-              oneOrder.payment_status === 'unpaid') &&
-            oneOrder.status !== 'canceled'
-          "
-          @click="confirm_paid"
-          label="確認付款"
-          class="
-            p-button-raised p-button-info p-button-sm p-lg-fixed p-col-3 p-px-2
-          "
-          style="width: 100px"
-        /> -->
       </div>
 
       <div class="p-col-12 p-lg-1 p-text-bold">訂單狀態</div>
@@ -178,9 +164,6 @@ export default {
     },
   },
   methods: {
-    // confirm_paid() {
-    //   this.oneOrder.payment_status = "paid";
-    // },
     paymentStatusText(payment_status) {
       switch (payment_status) {
         case "outstanding":
@@ -255,9 +238,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// * {
-//   border: 1px solid black;
-// }
 .blue-color {
   color: #0288d1;
 }
