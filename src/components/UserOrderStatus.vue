@@ -14,7 +14,7 @@
 
     <i :class="confirmed_arrow_style" class="pi pi-arrow-right p-mx-1"></i>
     <Button
-      disabled="finishOrderBtn"
+      :disabled="finishOrderBtn"
       @click="finished_order"
       v-if="finishedOrderBtn"
       label="完成訂單"
