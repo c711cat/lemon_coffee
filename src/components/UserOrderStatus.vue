@@ -14,6 +14,7 @@
 
     <i :class="confirmed_arrow_style" class="pi pi-arrow-right p-mx-1"></i>
     <Button
+      disabled="finishOrderBtn"
       @click="finished_order"
       v-if="finishedOrderBtn"
       label="完成訂單"
@@ -39,6 +40,12 @@ export default {
     };
   },
   props: {
+    shippingStatus: {
+      type: String,
+      default() {
+        return;
+      },
+    },
     orderStatus: {
       type: String,
       default() {
@@ -107,6 +114,15 @@ export default {
         color = "disabled-color";
       }
       return color;
+    },
+    finishOrderBtn() {
+      let btn = true;
+      if (this.shippingStatus === "picked_up") {
+        btn = false;
+      } else {
+        btn = true;
+      }
+      return btn;
     },
   },
 };

@@ -109,7 +109,10 @@
       </div>
 
       <div class="p-col-12 p-lg-1 p-text-bold">訂單狀態</div>
-      <UserOrderStatus :orderStatus="oneOrder.status" />
+      <UserOrderStatus
+        :orderStatus="oneOrder.status"
+        :shippingStatus="oneOrder.shipping_status"
+      />
 
       <div class="p-col-12 p-lg-1 p-text-bold">物流狀態</div>
       <UserShippingStatus
