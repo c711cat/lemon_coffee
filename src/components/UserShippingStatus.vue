@@ -78,7 +78,7 @@ export default {
     },
     shippingBtn() {
       let btn = true;
-      if (this.shippingStatus === "in_preparation") {
+      if (this.current_status === "in_preparation") {
         btn = true;
       } else {
         btn = false;

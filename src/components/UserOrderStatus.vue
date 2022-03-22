@@ -56,7 +56,7 @@ export default {
   computed: {
     finishedOrderBtn() {
       let btn = true;
-      if (this.orderStatus === "confirmed") {
+      if (this.current_status === "confirmed") {
         btn = true;
       } else {
         btn = false;
