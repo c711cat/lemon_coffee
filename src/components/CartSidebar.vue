@@ -10,13 +10,21 @@
       :key="item.product_id + item.package_type"
     >
       <Button
+        :disabled="loadingItem === index + item.product_name"
         @click.prevent="delProduct(item, index)"
         icon="pi pi-trash"
         class="
           p-col-fixed p-ml-2 p-button-rounded p-button-text p-button-danger
         "
-        style="width: 30px"
-      />
+        style="width: 35px"
+      >
+        <Skeleton
+          v-if="loadingItem === index + item.product_name"
+          shape="circle"
+          size="2rem"
+          class="isLoadingTrashColor mr-2"
+        ></Skeleton>
+      </Button>
 
       <router-link
         :to="`/products/${item.product_id}`"
@@ -134,6 +142,7 @@ export default {
       free_shipping: 0,
       cartItems: [],
       isLoading: false,
+      loadingItem: "",
     };
   },
   components: { Loading },
@@ -166,6 +175,7 @@ export default {
     delProduct(item, index) {
       const api = `${process.env.VUE_APP_API}/users/cart_items/${item.product_id}`;
       const headers = { Authorization: Cookies.get("lemonToken") };
+      this.loadingItem = index + item.product_name;
       axios
         .delete(api, { headers })
         .then((response) => {
@@ -182,6 +192,9 @@ export default {
             this.$router.push("/entrance/login");
             this.emitter.emit("changeCartBadgeCount", 0);
           }
+        })
+        .finally(() => {
+          this.loadingItem = "";
         });
     },
     updateCart(item) {
@@ -297,5 +310,9 @@ export default {
 
 .link-content:hover {
   background: #f9f5ef;
+}
+
+.isLoadingTrashColor {
+  background: #f8d6d6;
 }
 </style>
