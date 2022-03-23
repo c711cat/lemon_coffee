@@ -232,18 +232,6 @@ export default {
 };
 </script>
 
-<style>
-@keyframes p-progress-spinner-color {
-  100%,
-  from {
-    stroke: #fff;
-  }
-  to {
-    stroke: #fff;
-  }
-}
-</style>
-
 <style lang="scss" scoped>
 .wrap {
   max-width: 950px;
