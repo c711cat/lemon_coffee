@@ -101,10 +101,17 @@
 
         <div class="p-col-fixed" style="width: 127px">
           <Button
+            :disabled="btnIsLoading"
             @click.prevent="createOrder"
             class="p-button-lg p-button-raised p-button-danger"
             label="下訂單"
           >
+            <ProgressSpinner
+              v-if="btnIsLoading"
+              style="width: 63px; height: 27px"
+              strokeWidth="8"
+              animationDuration="10s"
+            />
           </Button>
         </div>
       </div>
@@ -130,6 +137,7 @@ export default {
         shipping_method: "",
       },
       isLoading: false,
+      btnIsLoading: false,
     };
   },
   components: { Loading },
@@ -186,6 +194,7 @@ export default {
       const data = {
         order: { note: this.note, shipping_info: this.shipping_info },
       };
+      this.btnIsLoading = true;
       axios
         .post(api, data, { headers })
         .then((response) => {
@@ -220,6 +229,9 @@ export default {
           if (error.response.status === 400 && error.response.data.email) {
             this.showErrorToast("請填入 : 收件人 email");
           }
+        })
+        .finally(() => {
+          this.btnIsLoading = false;
         });
     },
     showSuccessToast(text) {
