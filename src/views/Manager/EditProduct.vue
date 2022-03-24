@@ -49,7 +49,7 @@ export default {
       const headers = { Authorization: Cookies.get("lemonToken") };
       this.isLoading = true;
       axios
-        .put(api, { product: this.product }, { headers })
+        .put(api, this.product, { headers })
         .then((response) => {
           if (response.status === 200) {
             this.showSuccessToast("編輯成功");

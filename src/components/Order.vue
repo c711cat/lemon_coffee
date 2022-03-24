@@ -12,7 +12,7 @@
     >
       <div class="p-col-12 p-lg-5 p-pl-3">
         {{ item.name }}<br />
-        磨粉不磨粉?<br />
+        {{ groundText(item.ground) }}<br />
       </div>
       <div class="p-col-5 p-lg-3 p-pl-3">
         $ {{ item.unit_price }} / {{ typeText(item.package_type) }}
@@ -190,6 +190,14 @@ export default {
           return "半磅";
         case "one_pound":
           return "一磅";
+      }
+    },
+    groundText(ground_result) {
+      if (ground_result === true) {
+        return "磨粉";
+      }
+      if (ground_result === false) {
+        return "原豆";
       }
     },
     orderStatusText(status) {

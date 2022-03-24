@@ -11,7 +11,7 @@
     >
       <div class="p-col-12 p-lg-5 p-pl-3">
         {{ item.product_name }}<br />
-        磨粉不磨粉?<br />
+        {{ groundText(item.ground) }}<br />
       </div>
       <div class="p-col-5 p-lg-3 p-pl-3">
         $ {{ item.unit_price }} / {{ typeText(item.package_type) }}
@@ -104,7 +104,8 @@
             @click.prevent="createOrder"
             class="p-button-lg p-button-raised p-button-danger"
             label="下訂單"
-          ></Button>
+          >
+          </Button>
         </div>
       </div>
     </div>
@@ -171,6 +172,14 @@ export default {
         return "一磅";
       }
     },
+    groundText(ground_result) {
+      if (ground_result === true) {
+        return "磨粉";
+      }
+      if (ground_result === false) {
+        return "原豆";
+      }
+    },
     createOrder() {
       const api = `${process.env.VUE_APP_API}/users/orders`;
       const headers = { Authorization: Cookies.get("lemonToken") };
@@ -181,6 +190,7 @@ export default {
         .post(api, data, { headers })
         .then((response) => {
           if (response.status === 201) {
+            this.showSuccessToast("已成立訂單");
             this.$router.push(`/order/${response.data.id}`);
             this.emitter.emit("changeCartBadgeCount", 0);
           }
@@ -211,6 +221,13 @@ export default {
             this.showErrorToast("請填入 : 收件人 email");
           }
         });
+    },
+    showSuccessToast(text) {
+      this.$toast.add({
+        severity: "success",
+        summary: text,
+        life: 2000,
+      });
     },
     showErrorToast(text) {
       this.$toast.add({

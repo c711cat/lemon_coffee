@@ -26,7 +26,7 @@ export default {
       const headers = { Authorization: Cookies.get("lemonToken") };
       this.isLoading = true;
       axios
-        .post(api, { product: this.product }, { headers })
+        .post(api, this.product, { headers })
         .then((response) => {
           if (response.status === 200) {
             this.showSuccessToast("新增成功");
