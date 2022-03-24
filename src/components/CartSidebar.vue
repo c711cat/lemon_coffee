@@ -18,12 +18,12 @@
         "
         style="width: 35px"
       >
-        <Skeleton
+        <ProgressSpinner
           v-if="loadingItem === index + item.product_name"
-          shape="circle"
-          size="2rem"
-          class="isLoadingTrashColor mr-2"
-        ></Skeleton>
+          style="width: 20px; height: 20px"
+          strokeWidth="8"
+          animationDuration="10s"
+        />
       </Button>
 
       <router-link
@@ -46,9 +46,15 @@
       </div>
 
       <div class="p-fluid p-col-fixed p-p-0 p-my-3" style="width: 129px">
+        <Skeleton
+          v-if="loadingItem === index + item.product_name + item.quantity"
+          width="8rem"
+          height="36px"
+        >
+        </Skeleton>
         <InputNumber
-          @input="updateCart(item)"
-          @change="updateCart(item)"
+          v-else
+          @input="updateCart(item, index)"
           class="p-inputtext-sm"
           v-model="item.quantity"
           :min="1"
@@ -58,7 +64,8 @@
           decrementButtonIcon="pi pi-minus"
           incrementButtonClass="p-button-info"
           decrementButtonClass="p-button-info"
-        />
+        >
+        </InputNumber>
       </div>
 
       <div
@@ -197,10 +204,11 @@ export default {
           this.loadingItem = "";
         });
     },
-    updateCart(item) {
+    updateCart(item, index) {
       const data = { quantity: item.quantity };
       const api = `${process.env.VUE_APP_API}/users/cart_items/${item.product_id}`;
       const headers = { Authorization: Cookies.get("lemonToken") };
+      this.loadingItem = index + item.product_name + item.quantity;
       axios
         .put(api, { cart_item: data }, { headers })
         .then((response) => {
@@ -218,6 +226,9 @@ export default {
           if (error.response.status === 400) {
             this.showErrorToast("最小購買量為 1");
           }
+        })
+        .finally(() => {
+          this.loadingItem = "";
         });
     },
     showErrorToast(text) {
