@@ -30,9 +30,6 @@ export default {
   props: {
     orderStatus: {
       type: String,
-      default() {
-        return;
-      },
     },
   },
   inject: ["emitter"],
