@@ -73,16 +73,13 @@ export default {
   inject: ["emitter"],
   methods: {
     confirm_shipped() {
-      this.current_status = "shipping";
-      this.emitter.emit("update_shipping_status", this.current_status);
+      this.emitter.emit("update_shipping_status", "shipping");
     },
     confirm_arrived() {
-      this.current_status = "arrived";
-      this.emitter.emit("update_shipping_status", this.current_status);
+      this.emitter.emit("update_shipping_status", "arrived");
     },
     confirm_picked_up() {
-      this.current_status = "picked_up";
-      this.emitter.emit("update_shipping_status", this.current_status);
+      this.emitter.emit("update_shipping_status", "picked_up");
     },
   },
   computed: {
