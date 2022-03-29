@@ -106,7 +106,7 @@ export default {
       return (
         this.current_status === "in_preparation" ||
         this.current_status === "arrived" ||
-        this.current_status === "picked_up"
+        this.picked_up
       );
     },
     arrivedBtn() {
