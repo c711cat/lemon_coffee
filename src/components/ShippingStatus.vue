@@ -15,7 +15,7 @@
       "
       style="width: 100px"
     />
-    <strong v-if="!shippingBtn" class="progress-color"> 已發貨 </strong>
+    <strong v-if="shipping" class="progress-color"> 已發貨 </strong>
 
     <i class="pi pi-arrow-right p-mx-1" :class="shipping_arrow_style"></i>
 
@@ -97,6 +97,13 @@ export default {
         btn = false;
       }
       return btn;
+    },
+    shipping() {
+      return (
+        this.current_status === "shipping" ||
+        this.current_status === "arrived" ||
+        this.current_status === "picked_up"
+      );
     },
     arrivedBtn() {
       let btn = false;
