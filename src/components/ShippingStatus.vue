@@ -50,11 +50,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-      current_status: "in_preparation",
-    };
-  },
   props: {
     shippingStatus: {
       type: String,
@@ -88,28 +83,28 @@ export default {
     },
     shipping() {
       return (
-        this.current_status === "shipping" ||
-        this.current_status === "arrived" ||
-        this.current_status === "picked_up"
+        this.shippingStatus === "shipping" ||
+        this.shippingStatus === "arrived" ||
+        this.shippingStatus === "picked_up"
       );
     },
     arrived() {
       return (
-        this.current_status === "in_preparation" ||
-        this.current_status === "arrived" ||
+        this.shippingStatus === "in_preparation" ||
+        this.shippingStatus === "arrived" ||
         this.picked_up
       );
     },
     arrivedBtn() {
-      return this.current_status === "shipping";
+      return this.shippingStatus === "shipping";
     },
     pickedUpBtn() {
-      return this.current_status === "arrived";
+      return this.shippingStatus === "arrived";
     },
     arrived_style() {
       if (
-        this.current_status === "arrived" ||
-        this.current_status === "picked_up"
+        this.shippingStatus === "arrived" ||
+        this.shippingStatus === "picked_up"
       ) {
         return "progress-color";
       } else {
@@ -118,9 +113,9 @@ export default {
     },
     shipping_arrow_style() {
       if (
-        this.current_status === "shipping" ||
-        this.current_status === "arrived" ||
-        this.current_status === "picked_up"
+        this.shippingStatus === "shipping" ||
+        this.shippingStatus === "arrived" ||
+        this.shippingStatus === "picked_up"
       ) {
         return "arrow-color";
       } else {
@@ -129,8 +124,8 @@ export default {
     },
     arrived_arrow_style() {
       if (
-        this.current_status === "arrived" ||
-        this.current_status === "picked_up"
+        this.shippingStatus === "arrived" ||
+        this.shippingStatus === "picked_up"
       ) {
         return "arrow-color";
       } else {
@@ -139,20 +134,20 @@ export default {
     },
     picked_up() {
       return (
-        this.current_status === "in_preparation" ||
-        this.current_status === "shipping" ||
-        this.current_status === "picked_up"
+        this.shippingStatus === "in_preparation" ||
+        this.shippingStatus === "shipping" ||
+        this.shippingStatus === "picked_up"
       );
     },
     picked_up_style() {
-      if (this.current_status === "picked_up") {
+      if (this.shippingStatus === "picked_up") {
         return "success-color";
       } else {
         return "disabled-color";
       }
     },
     picked_up_icon() {
-      return this.current_status === "picked_up";
+      return this.shippingStatus === "picked_up";
     },
     canceled() {
       return this.orderStatus === "canceled";
