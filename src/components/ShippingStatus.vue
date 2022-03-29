@@ -42,11 +42,8 @@
       style="width: 100px"
     />
 
-    <strong v-if="!pickedUpBtn" :class="picked_up_style"> 已取貨 </strong>
-    <i
-      v-if="current_status === 'picked_up'"
-      class="pi pi-check-circle success-color p-ml-1"
-    >
+    <strong v-if="picked_up" :class="picked_up_style"> 已取貨 </strong>
+    <i v-if="picked_up_icon" class="pi pi-check-circle success-color p-ml-1">
     </i>
   </div>
 </template>
@@ -167,6 +164,13 @@ export default {
       }
       return color;
     },
+    picked_up() {
+      return (
+        this.current_status === "in_preparation" ||
+        this.current_status === "shipping" ||
+        this.current_status === "picked_up"
+      );
+    },
     picked_up_style() {
       let color = "";
       if (this.current_status === "picked_up") {
@@ -175,6 +179,9 @@ export default {
         color = "disabled-color";
       }
       return color;
+    },
+    picked_up_icon() {
+      return this.current_status === "picked_up";
     },
     canceled() {
       return this.orderStatus === "canceled";
