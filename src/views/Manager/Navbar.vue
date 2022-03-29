@@ -11,17 +11,8 @@
         </router-link>
       </template>
       <template #end>
-        <router-link v-if="!token" to="/entrance/login" class="link-content">
-          <Button
-            label="登入"
-            icon="pi pi-fw pi-user"
-            class="p-button-text p-button-plain"
-          >
-          </Button>
-        </router-link>
-
         <Button
-          v-if="token"
+          v-if="logged_in"
           class="p-button-text p-button-plain"
           icon="pi pi-fw pi-user"
           type="button"
@@ -31,12 +22,20 @@
         >
         </Button>
         <Menu
-          v-if="token"
+          v-if="logged_in"
           id="overlay_menu"
           ref="menu"
           :model="userMenuItems"
           :popup="true"
         />
+        <router-link v-else to="/entrance/login" class="link-content">
+          <Button
+            label="登入"
+            icon="pi pi-fw pi-user"
+            class="p-button-text p-button-plain"
+          >
+          </Button>
+        </router-link>
       </template>
     </Menubar>
   </div>
@@ -61,9 +60,6 @@ export default {
           to: "/admin/orders",
         },
       ],
-      visibleRight: false,
-      is_login: false,
-      token: "",
       userMenuItems: [
         {
           label: "登出",
@@ -93,9 +89,6 @@ export default {
           if (error) {
             this.showErrorToast("登出失敗");
           }
-        })
-        .finally(() => {
-          this.token = Cookies.get("lemonToken");
         });
     },
     showSuccessToast(text) {
@@ -113,8 +106,10 @@ export default {
       });
     },
   },
-  created() {
-    this.token = Cookies.get("lemonToken");
+  computed: {
+    logged_in() {
+      return Cookies.get("lemonToken") !== undefined;
+    },
   },
 };
 </script>
