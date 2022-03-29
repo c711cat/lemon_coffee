@@ -115,7 +115,7 @@ export default {
         .get(api, { headers })
         .then((response) => {
           this.orders = response.data;
-          this.updateDateStyle();
+          this.updateDateFormat();
         })
         .catch((error) => {
           if (error.response.status === 401) {
@@ -128,7 +128,7 @@ export default {
           this.loading = false;
         });
     },
-    updateDateStyle() {
+    updateDateFormat() {
       this.orders.forEach((item) => {
         const oldStyle = new Date(Date.parse(item.created_at)).toLocaleString();
         const newStyle = oldStyle.replace("/", "-").replace("/", "-");
