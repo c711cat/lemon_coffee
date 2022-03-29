@@ -9,14 +9,14 @@
 
     <Button
       @click="confirm_order"
-      v-if="confirmOrderBtn"
+      v-if="pending"
       label="確認訂單"
       class="
         p-button-raised p-button-info p-button-sm p-lg-fixed p-col-3 p-px-2
       "
       style="width: 100px"
     />
-    <strong v-if="!confirmOrderBtn" class="progress-color">已確認</strong>
+    <strong v-if="!pending" class="progress-color">已確認</strong>
 
     <i class="disabled-color pi pi-arrow-right p-mx-1"></i>
 
@@ -53,7 +53,7 @@ export default {
     },
   },
   computed: {
-    confirmOrderBtn() {
+    pending() {
       let btn = true;
       if (this.orderStatus === "pending") {
         btn = true;
