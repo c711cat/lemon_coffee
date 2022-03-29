@@ -28,7 +28,7 @@
       "
       style="width: 100px"
     />
-    <strong v-if="!arrivedBtn" :class="arrived_style"> 已到達 </strong>
+    <strong v-if="arrived" :class="arrived_style"> 已到達 </strong>
 
     <i class="pi pi-arrow-right p-mx-1" :class="arrived_arrow_style"></i>
 
@@ -101,6 +101,13 @@ export default {
     shipping() {
       return (
         this.current_status === "shipping" ||
+        this.current_status === "arrived" ||
+        this.current_status === "picked_up"
+      );
+    },
+    arrived() {
+      return (
+        this.current_status === "in_preparation" ||
         this.current_status === "arrived" ||
         this.current_status === "picked_up"
       );
