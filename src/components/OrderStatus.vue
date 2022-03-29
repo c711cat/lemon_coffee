@@ -16,7 +16,7 @@
       "
       style="width: 100px"
     />
-    <strong v-if="!pending" class="progress-color">已確認</strong>
+    <strong v-if="confirmed" class="progress-color">已確認</strong>
 
     <i class="disabled-color pi pi-arrow-right p-mx-1"></i>
 
@@ -61,6 +61,13 @@ export default {
         btn = false;
       }
       return btn;
+    },
+    confirmed() {
+      if (this.orderStatus === "confirmed" || this.orderStatus === "finished") {
+        return true;
+      } else {
+        return false;
+      }
     },
     canceled() {
       return this.orderStatus === "canceled";
