@@ -87,13 +87,7 @@ export default {
   },
   computed: {
     shippingBtn() {
-      let btn = true;
-      if (this.shippingStatus === "in_preparation") {
-        btn = true;
-      } else {
-        btn = false;
-      }
-      return btn;
+      return this.shippingStatus === "in_preparation";
     },
     shipping() {
       return (
