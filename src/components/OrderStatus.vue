@@ -27,11 +27,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-      current_status: "pending",
-    };
-  },
   props: {
     orderStatus: {
       type: String,
@@ -40,12 +35,10 @@ export default {
       },
     },
   },
-
   inject: ["emitter"],
   methods: {
     confirm_order() {
-      this.current_status = "confirmed";
-      this.emitter.emit("update_order_status", this.current_status);
+      this.emitter.emit("update_order_status", "confirmed");
     },
   },
   computed: {
