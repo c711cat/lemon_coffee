@@ -40,20 +40,12 @@ export default {
   },
   computed: {
     pending() {
-      let btn = true;
-      if (this.orderStatus === "pending") {
-        btn = true;
-      } else {
-        btn = false;
-      }
-      return btn;
+      return this.orderStatus === "pending";
     },
     confirmed() {
-      if (this.orderStatus === "confirmed" || this.orderStatus === "finished") {
-        return true;
-      } else {
-        return false;
-      }
+      return (
+        this.orderStatus === "confirmed" || this.orderStatus === "finished"
+      );
     },
     finished_arrow_style() {
       if (this.orderStatus === "finished") {
@@ -70,11 +62,7 @@ export default {
       }
     },
     finished() {
-      if (this.orderStatus === "finished") {
-        return true;
-      } else {
-        return false;
-      }
+      return this.orderStatus === "finished";
     },
     canceled() {
       return this.orderStatus === "canceled";

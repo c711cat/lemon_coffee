@@ -238,18 +238,16 @@ export default {
   inject: ["emitter"],
   computed: {
     disabledBtn() {
-      let disabled_btn = false;
       if (
         this.oneOrder.payment_status === "outstanding" &&
         this.oneOrder.shipping_status === "in_preparation" &&
         (this.oneOrder.status === "pending" ||
           this.oneOrder.status === "confirmed")
       ) {
-        disabled_btn = false;
+        return false;
       } else {
-        disabled_btn = true;
+        return true;
       }
-      return disabled_btn;
     },
   },
   created() {

@@ -104,59 +104,41 @@ export default {
       );
     },
     arrivedBtn() {
-      let btn = false;
-      if (this.current_status === "shipping") {
-        btn = true;
-      } else {
-        btn = false;
-      }
-      return btn;
+      return this.current_status === "shipping";
     },
     pickedUpBtn() {
-      let btn = false;
-      if (this.current_status === "arrived") {
-        btn = true;
-      } else {
-        btn = false;
-      }
-      return btn;
+      return this.current_status === "arrived";
     },
     arrived_style() {
-      let color = "";
       if (
         this.current_status === "arrived" ||
         this.current_status === "picked_up"
       ) {
-        color = "progress-color";
+        return "progress-color";
       } else {
-        color = "disabled-color";
+        return "disabled-color";
       }
-      return color;
     },
     shipping_arrow_style() {
-      let color = "";
       if (
         this.current_status === "shipping" ||
         this.current_status === "arrived" ||
         this.current_status === "picked_up"
       ) {
-        color = "arrow-color";
+        return "arrow-color";
       } else {
-        color = "disabled-color";
+        return "disabled-color";
       }
-      return color;
     },
     arrived_arrow_style() {
-      let color = "";
       if (
         this.current_status === "arrived" ||
         this.current_status === "picked_up"
       ) {
-        color = "arrow-color";
+        return "arrow-color";
       } else {
-        color = "disabled-color";
+        return "disabled-color";
       }
-      return color;
     },
     picked_up() {
       return (
@@ -166,13 +148,11 @@ export default {
       );
     },
     picked_up_style() {
-      let color = "";
       if (this.current_status === "picked_up") {
-        color = "success-color";
+        return "success-color";
       } else {
-        color = "disabled-color";
+        return "disabled-color";
       }
-      return color;
     },
     picked_up_icon() {
       return this.current_status === "picked_up";
