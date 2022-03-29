@@ -18,14 +18,10 @@
     />
     <strong v-if="confirmed" class="progress-color">已確認</strong>
 
-    <i class="disabled-color pi pi-arrow-right p-mx-1"></i>
+    <i :class="finished_arrow_style" class="pi pi-arrow-right p-mx-1"> </i>
 
-    <strong class="disabled-color">已完成</strong>
-    <i
-      v-if="current_status === 'finished'"
-      class="pi pi-check-circle p-ml-1 success-color"
-    >
-    </i>
+    <strong :class="finished_text_style">已完成</strong>
+    <i v-if="finished" class="pi pi-check-circle p-ml-1 success-color"> </i>
   </div>
 </template>
 
@@ -64,6 +60,27 @@ export default {
     },
     confirmed() {
       if (this.orderStatus === "confirmed" || this.orderStatus === "finished") {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    finished_arrow_style() {
+      if (this.orderStatus === "finished") {
+        return "arrow-color";
+      } else {
+        return "disabled-color";
+      }
+    },
+    finished_text_style() {
+      if (this.orderStatus === "finished") {
+        return "success-color";
+      } else {
+        return "disabled-color";
+      }
+    },
+    finished() {
+      if (this.orderStatus === "finished") {
         return true;
       } else {
         return false;
