@@ -63,7 +63,7 @@
 
       <div class="p-col-4 p-lg-1 p-text-bold">送貨方式</div>
       <div class="p-col-8 p-lg-11">
-        {{ shippingMethodText(order.shipping_info.shipping_method) }}
+        {{ shippingMethodText }}
       </div>
 
       <div v-if="home_delivery" class="p-col-4 p-lg-1 p-text-bold">
@@ -75,7 +75,7 @@
 
       <div class="p-col-4 p-lg-1 p-text-bold">付款方式</div>
       <div class="p-col-8 p-lg-11">
-        {{ paymentMethodText(order.payment_method) }}
+        {{ paymentMethodText }}
       </div>
 
       <div class="p-col-4 p-lg-1 p-text-bold">備註</div>
@@ -85,24 +85,14 @@
     <div class="p-grid p-m-1 p-pl-2 p-ai-center">
       <div class="p-col-12 p-lg-1 p-text-bold">付款狀態</div>
       <div class="p-col-12 p-lg-11 p-d-flex p-jc-start p-ai-center">
-        <strong
-          v-if="oneOrder.payment_status === 'outstanding'"
-          class="blue-color p-mr-4"
-        >
-          {{ paymentStatusText(order.payment_status) }}
-        </strong>
-        <strong
-          v-if="oneOrder.payment_status === 'paid'"
-          class="success-color p-mr-4"
-        >
-          已付款<i class="pi pi-check-circle p-ml-1"></i>
+        <strong :class="payment_status_color" class="p-mr-4">
+          {{ paymentStatusText }}
+          <i v-if="paid_icon" class="success-color pi pi-check-circle p-ml-1">
+          </i>
         </strong>
 
         <Button
-          v-if="
-            oneOrder.payment_status === 'outstanding' &&
-            oneOrder.status !== 'canceled'
-          "
+          v-if="is_confirm_paid_btn"
           @click="confirm_paid"
           label="確認付款"
           class="
@@ -179,26 +169,6 @@ export default {
     confirm_paid() {
       this.oneOrder.payment_status = "paid";
     },
-    paymentStatusText(payment_status) {
-      switch (payment_status) {
-        case "outstanding":
-          return "未付款";
-        case "failed":
-          return "付款失敗";
-        case "paid":
-          return "已付款";
-      }
-    },
-    paymentMethodText(payment_method) {
-      if (payment_method === "cash_on_delivery") {
-        return "貨到付款";
-      }
-    },
-    shippingMethodText(shipping_method) {
-      if (shipping_method === "home_delivery") {
-        return "宅配";
-      }
-    },
     caculateSubtotal(order) {
       let total = 0;
       order.items.forEach((item) => {
@@ -227,6 +197,46 @@ export default {
   computed: {
     home_delivery() {
       return this.oneOrder.shipping_info.shipping_method === "home_delivery";
+    },
+    paymentMethodText() {
+      if (this.order.payment_method === "cash_on_delivery") {
+        return "貨到付款";
+      } else {
+        return "";
+      }
+    },
+    shippingMethodText() {
+      if (this.order.shipping_method === "home_delivery") {
+        return "宅配";
+      } else {
+        return "";
+      }
+    },
+    paymentStatusText() {
+      if (this.oneOrder.payment_status === "outstanding") {
+        return "未付款";
+      }
+      if (this.oneOrder.payment_status === "paid") {
+        return "已付款";
+      } else {
+        return "付款失敗";
+      }
+    },
+    payment_status_color() {
+      if (this.oneOrder.payment_status === "paid") {
+        return "success-color";
+      } else {
+        return "blue-color";
+      }
+    },
+    paid_icon() {
+      return this.oneOrder.payment_status === "paid";
+    },
+    is_confirm_paid_btn() {
+      return (
+        this.oneOrder.payment_status === "outstanding" &&
+        this.oneOrder.status !== "canceled"
+      );
     },
     disableCancelBtn() {
       if (
