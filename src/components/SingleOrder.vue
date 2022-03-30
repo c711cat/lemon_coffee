@@ -66,16 +66,10 @@
         {{ shippingMethodText(order.shipping_info.shipping_method) }}
       </div>
 
-      <div
-        v-if="order.shipping_info.shipping_method === 'home_delivery'"
-        class="p-col-4 p-lg-1 p-text-bold"
-      >
+      <div v-if="home_delivery" class="p-col-4 p-lg-1 p-text-bold">
         收件地址
       </div>
-      <div
-        v-if="order.shipping_info.shipping_method === 'home_delivery'"
-        class="p-col-8 p-lg-11"
-      >
+      <div v-if="home_delivery" class="p-col-8 p-lg-11">
         {{ order.shipping_info.address }}
       </div>
 
@@ -237,6 +231,9 @@ export default {
   },
   inject: ["emitter"],
   computed: {
+    home_delivery() {
+      return this.oneOrder.shipping_info.shipping_method === "home_delivery";
+    },
     disabledBtn() {
       if (
         this.oneOrder.payment_status === "outstanding" &&
