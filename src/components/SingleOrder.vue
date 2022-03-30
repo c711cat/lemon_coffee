@@ -156,7 +156,6 @@ export default {
     order() {
       this.oneOrder = { ...this.order };
       this.isOpen = true;
-      console.log(this.order);
     },
   },
   methods: {
