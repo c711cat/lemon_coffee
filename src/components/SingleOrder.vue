@@ -125,7 +125,7 @@
     <template #footer>
       <div class="p-d-flex p-jc-end">
         <Button
-          :disabled="disabledBtn"
+          :disabled="disableCancelBtn"
           @click.prevent="cancelTheOreder()"
           label="取消訂單"
           icon="pi pi-times"
@@ -228,7 +228,7 @@ export default {
     home_delivery() {
       return this.oneOrder.shipping_info.shipping_method === "home_delivery";
     },
-    disabledBtn() {
+    disableCancelBtn() {
       if (
         this.oneOrder.payment_status === "outstanding" &&
         this.oneOrder.shipping_status === "in_preparation" &&
