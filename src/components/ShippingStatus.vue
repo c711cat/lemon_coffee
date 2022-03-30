@@ -92,7 +92,7 @@ export default {
       return (
         this.shippingStatus === "in_preparation" ||
         this.shippingStatus === "arrived" ||
-        this.picked_up
+        this.shippingStatus === "picked_up"
       );
     },
     arrivedBtn() {
