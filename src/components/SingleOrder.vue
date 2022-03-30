@@ -176,8 +176,7 @@ export default {
     groundText(ground_result) {
       if (ground_result === true) {
         return "磨粉";
-      }
-      if (ground_result === false) {
+      } else {
         return "原豆";
       }
     },
