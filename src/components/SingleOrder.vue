@@ -170,11 +170,9 @@ export default {
       this.oneOrder.payment_status = "paid";
     },
     caculateSubtotal(order) {
-      let total = 0;
-      order.items.forEach((item) => {
-        total += item.unit_price * item.quantity;
-      });
-      return total;
+      return order.items.reduce((acc, current_item) => {
+        return acc + current_item.unit_price * current_item.quantity;
+      }, 0);
     },
     typeText(package_type) {
       switch (package_type) {
