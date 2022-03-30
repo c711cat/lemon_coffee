@@ -156,6 +156,7 @@ export default {
     order() {
       this.oneOrder = { ...this.order };
       this.isOpen = true;
+      console.log(this.order);
     },
   },
   methods: {
@@ -206,7 +207,7 @@ export default {
       }
     },
     shippingMethodText() {
-      if (this.order.shipping_method === "home_delivery") {
+      if (this.order.shipping_info.shipping_method === "home_delivery") {
         return "宅配";
       } else {
         return "";
