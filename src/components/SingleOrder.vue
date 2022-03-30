@@ -86,10 +86,7 @@
       <div class="p-col-12 p-lg-1 p-text-bold">付款狀態</div>
       <div class="p-col-12 p-lg-11 p-d-flex p-jc-start p-ai-center">
         <strong
-          v-if="
-            oneOrder.payment_status === 'outstanding' ||
-            oneOrder.payment_status === 'unpaid'
-          "
+          v-if="oneOrder.payment_status === 'outstanding'"
           class="blue-color p-mr-4"
         >
           {{ paymentStatusText(order.payment_status) }}
@@ -103,8 +100,7 @@
 
         <Button
           v-if="
-            (oneOrder.payment_status === 'outstanding' ||
-              oneOrder.payment_status === 'unpaid') &&
+            oneOrder.payment_status === 'outstanding' &&
             oneOrder.status !== 'canceled'
           "
           @click="confirm_paid"
@@ -186,7 +182,6 @@ export default {
     paymentStatusText(payment_status) {
       switch (payment_status) {
         case "outstanding":
-        case "unpaid":
           return "未付款";
         case "failed":
           return "付款失敗";
