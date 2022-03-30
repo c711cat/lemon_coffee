@@ -1,7 +1,7 @@
 <template>
   <Dialog
     :header="`訂單編號 ${order.id}`"
-    v-model:visible="orderContent"
+    v-model:visible="isOpen"
     :breakpoints="{ '960px': '100vw' }"
     style="width: 60%"
   >
@@ -149,7 +149,7 @@ import OrderStatus from "@/components/OrderStatus.vue";
 export default {
   data() {
     return {
-      orderContent: false,
+      isOpen: false,
       oneOrder: {},
     };
   },
@@ -165,7 +165,7 @@ export default {
   watch: {
     order() {
       this.oneOrder = { ...this.order };
-      this.orderContent = true;
+      this.isOpen = true;
     },
   },
   methods: {
@@ -217,7 +217,7 @@ export default {
       }
     },
     closeWindow() {
-      this.orderContent = false;
+      this.isOpen = false;
     },
     cancelTheOreder() {
       this.oneOrder.status = "canceled";
