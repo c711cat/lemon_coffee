@@ -95,7 +95,7 @@
         </strong>
 
         <Button
-          v-if="is_confirm_paid_btn"
+          v-if="showConfirmPaidBtn"
           @click="confirm_paid"
           label="確認付款"
           class="
@@ -233,7 +233,7 @@ export default {
     showPaidIcon() {
       return this.oneOrder.payment_status === "paid";
     },
-    is_confirm_paid_btn() {
+    showConfirmPaidBtn() {
       return (
         this.oneOrder.payment_status === "outstanding" &&
         this.oneOrder.status !== "canceled"
