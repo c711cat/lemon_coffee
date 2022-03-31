@@ -46,7 +46,7 @@ export default {
       return this.orderStatus === "confirmed";
     },
     finished_arrow_style() {
-      if (this.orderStatus === "finished") {
+      if (this.finished) {
         return "arrow-color";
       } else {
         return "disabled-color";
