@@ -8,14 +8,16 @@
     <i class="pi pi-arrow-right p-mx-1"></i>
     <Button
       @click="confirm_shipped"
-      v-if="shippingBtn"
+      v-if="in_preparation"
       label="確認發貨"
       class="
         p-button-raised p-button-info p-button-sm p-lg-fixed p-col-2 p-px-2
       "
       style="width: 100px"
     />
-    <strong v-if="shipping" class="progress-color"> 已發貨 </strong>
+    <strong v-if="shipping || arrived || picked_up" class="progress-color">
+      已發貨
+    </strong>
 
     <i class="pi pi-arrow-right p-mx-1" :class="shipping_arrow_style"></i>
 
@@ -28,7 +30,12 @@
       "
       style="width: 100px"
     />
-    <strong v-if="arrived" :class="arrived_style"> 已到達 </strong>
+    <strong
+      v-if="in_preparation || arrived || picked_up"
+      :class="arrived_style"
+    >
+      已到達
+    </strong>
 
     <i class="pi pi-arrow-right p-mx-1" :class="arrived_arrow_style"></i>
 
@@ -42,7 +49,12 @@
       style="width: 100px"
     />
 
-    <strong v-if="picked_up" :class="picked_up_style"> 已取貨 </strong>
+    <strong
+      v-if="in_preparation || shipping || picked_up"
+      :class="picked_up_style"
+    >
+      已取貨
+    </strong>
     <i v-if="picked_up_icon" class="pi pi-check-circle success-color p-ml-1">
     </i>
   </div>
@@ -78,22 +90,14 @@ export default {
     },
   },
   computed: {
-    shippingBtn() {
+    in_preparation() {
       return this.shippingStatus === "in_preparation";
     },
     shipping() {
-      return (
-        this.shippingStatus === "shipping" ||
-        this.shippingStatus === "arrived" ||
-        this.shippingStatus === "picked_up"
-      );
+      return this.shippingStatus === "shipping";
     },
     arrived() {
-      return (
-        this.shippingStatus === "in_preparation" ||
-        this.shippingStatus === "arrived" ||
-        this.shippingStatus === "picked_up"
-      );
+      return this.shippingStatus === "arrived";
     },
     arrivedBtn() {
       return this.shippingStatus === "shipping";
@@ -133,11 +137,7 @@ export default {
       }
     },
     picked_up() {
-      return (
-        this.shippingStatus === "in_preparation" ||
-        this.shippingStatus === "shipping" ||
-        this.shippingStatus === "picked_up"
-      );
+      return this.shippingStatus === "picked_up";
     },
     picked_up_style() {
       if (this.shippingStatus === "picked_up") {
