@@ -55,8 +55,7 @@
     >
       已取貨
     </strong>
-    <i v-if="picked_up_icon" class="pi pi-check-circle success-color p-ml-1">
-    </i>
+    <i v-if="picked_up" class="pi pi-check-circle success-color p-ml-1"> </i>
   </div>
 </template>
 
@@ -99,50 +98,36 @@ export default {
     arrived() {
       return this.shippingStatus === "arrived";
     },
-    
+    picked_up() {
+      return this.shippingStatus === "picked_up";
+    },
     arrived_style() {
-      if (
-        this.shippingStatus === "arrived" ||
-        this.shippingStatus === "picked_up"
-      ) {
+      if (this.arrived || this.picked_up) {
         return "progress-color";
       } else {
         return "disabled-color";
       }
     },
     shipping_arrow_style() {
-      if (
-        this.shippingStatus === "shipping" ||
-        this.shippingStatus === "arrived" ||
-        this.shippingStatus === "picked_up"
-      ) {
+      if (this.shipping || this.arrived || this.picked_up) {
         return "arrow-color";
       } else {
         return "disabled-color";
       }
     },
     arrived_arrow_style() {
-      if (
-        this.shippingStatus === "arrived" ||
-        this.shippingStatus === "picked_up"
-      ) {
+      if (this.arrived || this.picked_up) {
         return "arrow-color";
       } else {
         return "disabled-color";
       }
     },
-    picked_up() {
-      return this.shippingStatus === "picked_up";
-    },
     picked_up_style() {
-      if (this.shippingStatus === "picked_up") {
+      if (this.picked_up) {
         return "success-color";
       } else {
         return "disabled-color";
       }
-    },
-    picked_up_icon() {
-      return this.shippingStatus === "picked_up";
     },
     canceled() {
       return this.orderStatus === "canceled";
