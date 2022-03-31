@@ -41,7 +41,7 @@
 
     <Button
       @click="confirm_picked_up"
-      v-if="pickedUpBtn"
+      v-if="arrived"
       label="確認取貨"
       class="
         p-button-raised p-button-info p-button-sm p-lg-fixed p-col-3 p-px-2
@@ -99,9 +99,7 @@ export default {
     arrived() {
       return this.shippingStatus === "arrived";
     },
-    pickedUpBtn() {
-      return this.shippingStatus === "arrived";
-    },
+    
     arrived_style() {
       if (
         this.shippingStatus === "arrived" ||
