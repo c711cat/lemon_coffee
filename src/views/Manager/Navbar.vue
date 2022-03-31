@@ -12,7 +12,7 @@
       </template>
       <template #end>
         <Button
-          v-if="logged_in"
+          v-if="loggedIn"
           class="p-button-text p-button-plain"
           icon="pi pi-fw pi-user"
           type="button"
@@ -22,7 +22,7 @@
         >
         </Button>
         <Menu
-          v-if="logged_in"
+          v-if="loggedIn"
           id="overlay_menu"
           ref="menu"
           :model="userMenuItems"
@@ -69,6 +69,7 @@ export default {
           },
         },
       ],
+      loggedIn: "",
     };
   },
   methods: {
@@ -89,6 +90,9 @@ export default {
           if (error) {
             this.showErrorToast("登出失敗");
           }
+        })
+        .finally(() => {
+          this.loggedIn = Cookies.get("lemonToken");
         });
     },
     showSuccessToast(text) {
@@ -106,10 +110,8 @@ export default {
       });
     },
   },
-  computed: {
-    logged_in() {
-      return Cookies.get("lemonToken") !== undefined;
-    },
+  created() {
+    this.loggedIn = Cookies.get("lemonToken");
   },
 };
 </script>
