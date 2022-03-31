@@ -53,7 +53,7 @@ export default {
       }
     },
     finished_text_style() {
-      if (this.orderStatus === "finished") {
+      if (this.finished) {
         return "success-color";
       } else {
         return "disabled-color";
