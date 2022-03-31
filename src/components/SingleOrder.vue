@@ -88,7 +88,7 @@
         <strong :class="payment_status_color" class="p-mr-4">
           {{ paymentStatusText }}
           <i
-            v-if="showConfirmPaidBtn"
+            v-if="showPaidIcon"
             class="success-color pi pi-check-circle p-ml-1"
           >
           </i>
@@ -230,7 +230,7 @@ export default {
         return "blue-color";
       }
     },
-    showConfirmPaidBtn() {
+    showPaidIcon() {
       return this.oneOrder.payment_status === "paid";
     },
     is_confirm_paid_btn() {
