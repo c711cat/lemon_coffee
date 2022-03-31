@@ -87,7 +87,10 @@
       <div class="p-col-12 p-lg-11 p-d-flex p-jc-start p-ai-center">
         <strong :class="payment_status_color" class="p-mr-4">
           {{ paymentStatusText }}
-          <i v-if="paid_icon" class="success-color pi pi-check-circle p-ml-1">
+          <i
+            v-if="showConfirmPaidBtn"
+            class="success-color pi pi-check-circle p-ml-1"
+          >
           </i>
         </strong>
 
@@ -227,7 +230,7 @@ export default {
         return "blue-color";
       }
     },
-    paid_icon() {
+    showConfirmPaidBtn() {
       return this.oneOrder.payment_status === "paid";
     },
     is_confirm_paid_btn() {
@@ -261,9 +264,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// * {
-//   border: 1px solid black;
-// }
 .blue-color {
   color: #0288d1;
 }
