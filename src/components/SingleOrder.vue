@@ -66,10 +66,8 @@
         {{ shippingMethodText }}
       </div>
 
-      <div v-if="home_delivery" class="p-col-4 p-lg-1 p-text-bold">
-        收件地址
-      </div>
-      <div v-if="home_delivery" class="p-col-8 p-lg-11">
+      <div v-if="homeDelivery" class="p-col-4 p-lg-1 p-text-bold">收件地址</div>
+      <div v-if="homeDelivery" class="p-col-8 p-lg-11">
         {{ order.shipping_info.address }}
       </div>
 
@@ -85,7 +83,7 @@
     <div class="p-grid p-m-1 p-pl-2 p-ai-center">
       <div class="p-col-12 p-lg-1 p-text-bold">付款狀態</div>
       <div class="p-col-12 p-lg-11 p-d-flex p-jc-start p-ai-center">
-        <strong :class="payment_status_color" class="p-mr-4">
+        <strong :class="paymentStatusColor" class="p-mr-4">
           {{ paymentStatusText }}
           <i
             v-if="showPaidIcon"
@@ -196,7 +194,7 @@ export default {
   },
   inject: ["emitter"],
   computed: {
-    home_delivery() {
+    homeDelivery() {
       return this.oneOrder.shipping_info.shipping_method === "home_delivery";
     },
     paymentMethodText() {
@@ -223,7 +221,7 @@ export default {
         return "付款失敗";
       }
     },
-    payment_status_color() {
+    paymentStatusColor() {
       if (this.oneOrder.payment_status === "paid") {
         return "success-color";
       } else {
