@@ -16,7 +16,7 @@
       "
       style="width: 100px"
     />
-    <strong v-if="confirmed" class="progress-color">已確認</strong>
+    <strong v-if="confirmed || finished" class="progress-color">已確認</strong>
 
     <i :class="finished_arrow_style" class="pi pi-arrow-right p-mx-1"> </i>
 
@@ -43,9 +43,7 @@ export default {
       return this.orderStatus === "pending";
     },
     confirmed() {
-      return (
-        this.orderStatus === "confirmed" || this.orderStatus === "finished"
-      );
+      return this.orderStatus === "confirmed";
     },
     finished_arrow_style() {
       if (this.orderStatus === "finished") {
