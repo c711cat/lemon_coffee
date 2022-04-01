@@ -85,15 +85,11 @@
       <div class="p-col-12 p-lg-11 p-d-flex p-jc-start p-ai-center">
         <strong :class="paymentStatusColor" class="p-mr-4">
           {{ paymentStatusText }}
-          <i
-            v-if="showPaidIcon"
-            class="success-color pi pi-check-circle p-ml-1"
-          >
-          </i>
+          <i v-if="paid" class="success-color pi pi-check-circle p-ml-1"></i>
         </strong>
 
         <Button
-          v-if="showConfirmPaidBtn"
+          v-if="outstanding && !canceled"
           @click="confirm_paid"
           label="確認付款"
           class="
@@ -116,7 +112,7 @@
     <template #footer>
       <div class="p-d-flex p-jc-end">
         <Button
-          :disabled="disableCancelBtn"
+          :disabled="!(outstanding && inPreparation && (pending || confirmed))"
           @click.prevent="cancelTheOreder()"
           label="取消訂單"
           icon="pi pi-times"
@@ -198,56 +194,53 @@ export default {
       return this.oneOrder.shipping_info.shipping_method === "home_delivery";
     },
     paymentMethodText() {
-      if (this.order.payment_method === "cash_on_delivery") {
+      if (this.oneOrder.payment_method === "cash_on_delivery") {
         return "貨到付款";
       } else {
         return "";
       }
     },
     shippingMethodText() {
-      if (this.order.shipping_info.shipping_method === "home_delivery") {
+      if (this.homeDelivery) {
         return "宅配";
       } else {
         return "";
       }
     },
     paymentStatusText() {
-      if (this.oneOrder.payment_status === "outstanding") {
+      if (this.outstanding) {
         return "未付款";
       }
-      if (this.oneOrder.payment_status === "paid") {
+      if (this.paid) {
         return "已付款";
       } else {
         return "付款失敗";
       }
     },
     paymentStatusColor() {
-      if (this.oneOrder.payment_status === "paid") {
+      if (this.paid) {
         return "success-color";
       } else {
         return "blue-color";
       }
     },
-    showPaidIcon() {
+    outstanding() {
+      return this.oneOrder.payment_status === "outstanding";
+    },
+    paid() {
       return this.oneOrder.payment_status === "paid";
     },
-    showConfirmPaidBtn() {
-      return (
-        this.oneOrder.payment_status === "outstanding" &&
-        this.oneOrder.status !== "canceled"
-      );
+    pending() {
+      return this.oneOrder.status === "pending";
     },
-    disableCancelBtn() {
-      if (
-        this.oneOrder.payment_status === "outstanding" &&
-        this.oneOrder.shipping_status === "in_preparation" &&
-        (this.oneOrder.status === "pending" ||
-          this.oneOrder.status === "confirmed")
-      ) {
-        return false;
-      } else {
-        return true;
-      }
+    confirmed() {
+      return this.oneOrder.status === "confirmed";
+    },
+    canceled() {
+      return this.oneOrder.status === "canceled";
+    },
+    inPreparation() {
+      return this.oneOrder.shipping_status === "in_preparation";
     },
   },
   created() {
