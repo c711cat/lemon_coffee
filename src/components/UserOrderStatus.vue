@@ -5,20 +5,14 @@
   >
     <strong class="cancel-color"> 已取消 </strong>
   </div>
+
   <div v-else class="p-col-12 p-lg-11 p-d-flex p-jc-start p-ai-center">
     <strong class="progress-color"> 處理中 </strong>
-
-    <i
-      :class="pendingAndConfirmedArrowStyle"
-      class="pi pi-arrow-right p-mx-1"
-    ></i>
-
+    <i :class="pendingAndConfirmedArrowStyle" class="pi pi-arrow-right p-mx-1">
+    </i>
     <strong :class="confirmedStyle">已確認</strong>
-
-    <i
-      :class="pendingAndConfirmedArrowStyle"
-      class="pi pi-arrow-right p-mx-1"
-    ></i>
+    <i :class="pendingAndConfirmedArrowStyle" class="pi pi-arrow-right p-mx-1">
+    </i>
     <Button
       :disabled="!pickedUp"
       @click="finishedOrder"
@@ -30,7 +24,7 @@
       style="width: 100px"
     />
     <strong v-if="!confirmed" :class="finishedStyle">已完成</strong>
-    <i v-if="finished" class="pi pi-check-circle p-ml-1 success-color"> </i>
+    <i v-if="finished" class="pi pi-check-circle p-ml-1 success-color"></i>
   </div>
 </template>
 
