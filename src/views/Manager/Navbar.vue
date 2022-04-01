@@ -11,16 +11,29 @@
         </router-link>
       </template>
       <template #end>
-        <router-link v-if="!token" to="/entrance/login" class="link-content">
+        <Button
+          v-if="loggedIn"
+          class="p-button-text p-button-plain"
+          icon="pi pi-fw pi-user"
+          type="button"
+          @click="openUserMenu"
+          aria-haspopup="true"
+          aria-controls="overlay_menu"
+        >
+        </Button>
+        <Menu
+          v-if="loggedIn"
+          id="overlay_menu"
+          ref="menu"
+          :model="userMenuItems"
+          :popup="true"
+        />
+        <router-link v-else to="/entrance/login" class="link-content">
           <Button
             label="登入"
             icon="pi pi-fw pi-user"
             class="p-button-text p-button-plain"
           >
-          </Button>
-        </router-link>
-        <router-link v-if="token" to="/admin/products" class="link-content">
-          <Button icon="pi pi-fw pi-user" class="p-button-text p-button-plain">
           </Button>
         </router-link>
       </template>
@@ -30,6 +43,7 @@
 
 <script>
 import Cookies from "js-cookie";
+import axios from "axios";
 
 export default {
   data() {
@@ -40,14 +54,64 @@ export default {
           icon: "pi pi-fw pi-book",
           to: "/admin/products",
         },
+        {
+          label: "訂單",
+          icon: "pi pi-fw pi-list",
+          to: "/admin/orders",
+        },
       ],
-      visibleRight: false,
-      is_login: false,
-      token: "",
+      userMenuItems: [
+        {
+          label: "登出",
+          icon: "pi pi-user-minus",
+          command: () => {
+            this.sign_out();
+          },
+        },
+      ],
+      loggedIn: "",
     };
   },
+  methods: {
+    openUserMenu(event) {
+      this.$refs.menu.toggle(event);
+    },
+    sign_out() {
+      const api = `${process.env.VUE_APP_API}/users/sign_out`;
+      axios
+        .delete(api)
+        .then((response) => {
+          if (response.status === 204) {
+            Cookies.remove("lemonToken");
+            this.showSuccessToast("已登出");
+          }
+        })
+        .catch((error) => {
+          if (error) {
+            this.showErrorToast("登出失敗");
+          }
+        })
+        .finally(() => {
+          this.loggedIn = Cookies.get("lemonToken");
+        });
+    },
+    showSuccessToast(text) {
+      this.$toast.add({
+        severity: "success",
+        summary: text,
+        life: 2000,
+      });
+    },
+    showErrorToast(text) {
+      this.$toast.add({
+        severity: "error",
+        summary: text,
+        life: 5000,
+      });
+    },
+  },
   created() {
-    this.token = Cookies.get("lemonToken");
+    this.loggedIn = Cookies.get("lemonToken");
   },
 };
 </script>
