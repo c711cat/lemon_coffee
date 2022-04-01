@@ -1,7 +1,7 @@
 <template>
   <Dialog
     :header="`訂單編號 ${order.id}`"
-    v-model:visible="orderContent"
+    v-model:visible="isOpen"
     :breakpoints="{ '960px': '100vw' }"
     style="width: 60%"
   >
@@ -63,25 +63,17 @@
 
       <div class="p-col-4 p-lg-1 p-text-bold">送貨方式</div>
       <div class="p-col-8 p-lg-11">
-        {{ shippingMethodText(order.shipping_info.shipping_method) }}
+        {{ shippingMethodText }}
       </div>
 
-      <div
-        v-if="order.shipping_info.shipping_method === 'home_delivery'"
-        class="p-col-4 p-lg-1 p-text-bold"
-      >
-        收件地址
-      </div>
-      <div
-        v-if="order.shipping_info.shipping_method === 'home_delivery'"
-        class="p-col-8 p-lg-11"
-      >
+      <div v-if="homeDelivery" class="p-col-4 p-lg-1 p-text-bold">收件地址</div>
+      <div v-if="homeDelivery" class="p-col-8 p-lg-11">
         {{ order.shipping_info.address }}
       </div>
 
       <div class="p-col-4 p-lg-1 p-text-bold">付款方式</div>
       <div class="p-col-8 p-lg-11">
-        {{ paymentMethodText(order.payment_method) }}
+        {{ paymentMethodText }}
       </div>
 
       <div class="p-col-4 p-lg-1 p-text-bold">備註</div>
@@ -91,20 +83,9 @@
     <div class="p-grid p-m-1 p-pl-2 p-ai-center">
       <div class="p-col-12 p-lg-1 p-text-bold">付款狀態</div>
       <div class="p-col-12 p-lg-11 p-d-flex p-jc-start p-ai-center">
-        <strong
-          v-if="
-            oneOrder.payment_status === 'outstanding' ||
-            oneOrder.payment_status === 'unpaid'
-          "
-          class="blue-color p-mr-4"
-        >
-          {{ paymentStatusText(order.payment_status) }}
-        </strong>
-        <strong
-          v-if="oneOrder.payment_status === 'paid'"
-          class="success-color p-mr-4"
-        >
-          已付款<i class="pi pi-check-circle p-ml-1"></i>
+        <strong :class="paymentStatusColor" class="p-mr-4">
+          {{ paymentStatusText }}
+          <i v-if="paid" class="pi pi-check-circle p-ml-1"></i>
         </strong>
       </div>
 
@@ -124,7 +105,7 @@
     <template #footer>
       <div class="p-d-flex p-jc-end">
         <Button
-          :disabled="disabledBtn"
+          :disabled="!(outstanding && inPreparation && (pending || confirmed))"
           @click.prevent="cancelTheOreder()"
           label="取消訂單"
           icon="pi pi-times"
@@ -144,10 +125,11 @@
 <script>
 import UserShippingStatus from "@/components/UserShippingStatus.vue";
 import UserOrderStatus from "@/components/UserOrderStatus.vue";
+
 export default {
   data() {
     return {
-      orderContent: false,
+      isOpen: false,
       oneOrder: {},
     };
   },
@@ -163,45 +145,21 @@ export default {
   watch: {
     order() {
       this.oneOrder = { ...this.order };
-      this.orderContent = true;
+      this.isOpen = true;
     },
   },
   methods: {
     groundText(ground_result) {
       if (ground_result === true) {
         return "磨粉";
-      }
-      if (ground_result === false) {
+      } else {
         return "原豆";
       }
     },
-    paymentStatusText(payment_status) {
-      switch (payment_status) {
-        case "outstanding":
-        case "unpaid":
-          return "未付款";
-        case "failed":
-          return "付款失敗";
-        case "paid":
-          return "已付款";
-      }
-    },
-    paymentMethodText(payment_method) {
-      if (payment_method === "cash_on_delivery") {
-        return "貨到付款";
-      }
-    },
-    shippingMethodText(shipping_method) {
-      if (shipping_method === "home_delivery") {
-        return "宅配";
-      }
-    },
     caculateSubtotal(order) {
-      let total = 0;
-      order.items.forEach((item) => {
-        total += item.unit_price * item.quantity;
-      });
-      return total;
+      return order.items.reduce((acc, current_item) => {
+        return acc + current_item.unit_price * current_item.quantity;
+      }, 0);
     },
     typeText(package_type) {
       switch (package_type) {
@@ -214,7 +172,7 @@ export default {
       }
     },
     closeWindow() {
-      this.orderContent = false;
+      this.isOpen = false;
     },
     cancelTheOreder() {
       this.oneOrder.status = "canceled";
@@ -222,19 +180,54 @@ export default {
   },
   inject: ["emitter"],
   computed: {
-    disabledBtn() {
-      let disabled_btn = false;
-      if (
-        this.oneOrder.payment_status === "outstanding" &&
-        this.oneOrder.shipping_status === "in_preparation" &&
-        (this.oneOrder.status === "pending" ||
-          this.oneOrder.status === "confirmed")
-      ) {
-        disabled_btn = false;
+    homeDelivery() {
+      return this.oneOrder.shipping_info.shipping_method === "home_delivery";
+    },
+    paymentMethodText() {
+      if (this.oneOrder.payment_method === "cash_on_delivery") {
+        return "貨到付款";
       } else {
-        disabled_btn = true;
+        return "";
       }
-      return disabled_btn;
+    },
+    shippingMethodText() {
+      if (this.homeDelivery) {
+        return "宅配";
+      } else {
+        return "";
+      }
+    },
+    paymentStatusText() {
+      if (this.outstanding) {
+        return "未付款";
+      }
+      if (this.paid) {
+        return "已付款";
+      } else {
+        return "付款失敗";
+      }
+    },
+    paymentStatusColor() {
+      if (this.paid) {
+        return "success-color";
+      } else {
+        return "blue-color";
+      }
+    },
+    outstanding() {
+      return this.oneOrder.payment_status === "outstanding";
+    },
+    paid() {
+      return this.oneOrder.payment_status === "paid";
+    },
+    pending() {
+      return this.oneOrder.status === "pending";
+    },
+    confirmed() {
+      return this.oneOrder.status === "confirmed";
+    },
+    inPreparation() {
+      return this.oneOrder.shipping_status === "in_preparation";
     },
   },
   created() {
