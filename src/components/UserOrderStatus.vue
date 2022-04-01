@@ -8,37 +8,34 @@
   <div v-else class="p-col-12 p-lg-11 p-d-flex p-jc-start p-ai-center">
     <strong class="progress-color"> 處理中 </strong>
 
-    <i :class="pending_arrow_style" class="pi pi-arrow-right p-mx-1"></i>
+    <i
+      :class="pendingAndConfirmedArrowStyle"
+      class="pi pi-arrow-right p-mx-1"
+    ></i>
 
-    <strong :class="confirmed_style">已確認</strong>
+    <strong :class="confirmedStyle">已確認</strong>
 
-    <i :class="confirmed_arrow_style" class="pi pi-arrow-right p-mx-1"></i>
+    <i
+      :class="pendingAndConfirmedArrowStyle"
+      class="pi pi-arrow-right p-mx-1"
+    ></i>
     <Button
-      :disabled="finishOrderBtn"
-      @click="finished_order"
-      v-if="finishedOrderBtn"
+      :disabled="!pickedUp"
+      @click="finishedOrder"
+      v-if="confirmed"
       label="完成訂單"
       class="
         p-button-raised p-button-success p-button-sm p-lg-fixed p-col-3 p-px-2
       "
       style="width: 100px"
     />
-    <strong v-if="!finishedOrderBtn" :class="finished_style">已完成</strong>
-    <i
-      v-if="current_status === 'finished'"
-      class="pi pi-check-circle p-ml-1 success-color"
-    >
-    </i>
+    <strong v-if="!confirmed" :class="finishedStyle">已完成</strong>
+    <i v-if="finished" class="pi pi-check-circle p-ml-1 success-color"> </i>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      current_status: "pending",
-    };
-  },
   props: {
     shippingStatus: {
       type: String,
@@ -55,74 +52,40 @@ export default {
   },
   inject: ["emitter"],
   methods: {
-    finished_order() {
-      this.current_status = "finished";
-      this.emitter.emit("update_order_status", this.current_status);
+    finishedOrder() {
+      this.emitter.emit("update_order_status", "finished");
     },
   },
   computed: {
-    finishedOrderBtn() {
-      let btn = true;
-      if (this.current_status === "confirmed") {
-        btn = true;
-      } else {
-        btn = false;
-      }
-      return btn;
+    confirmed() {
+      return this.orderStatus === "confirmed";
     },
-    pending_arrow_style() {
-      let color = "";
-      if (
-        this.current_status === "confirmed" ||
-        this.current_status === "finished"
-      ) {
-        color = "arrow-color";
-      } else {
-        color = "disabled-color";
-      }
-      return color;
+    pickedUp() {
+      return this.shippingStatus === "picked_up";
     },
-    confirmed_style() {
-      let color = "";
-      if (
-        this.current_status === "confirmed" ||
-        this.current_status === "finished"
-      ) {
-        color = "progress-color";
-      } else {
-        color = "disabled-color";
-      }
-      return color;
+    finished() {
+      return this.orderStatus === "finished";
     },
-    confirmed_arrow_style() {
-      let color = "";
-      if (
-        this.current_status === "confirmed" ||
-        this.current_status === "finished"
-      ) {
-        color = "arrow-color";
+    pendingAndConfirmedArrowStyle() {
+      if (this.confirmed || this.finished) {
+        return "arrow-color";
       } else {
-        color = "disabled-color";
+        return "disabled-color";
       }
-      return color;
     },
-    finished_style() {
-      let color = "";
-      if (this.current_status === "finished") {
-        color = "success-color";
+    confirmedStyle() {
+      if (this.confirmed || this.finished) {
+        return "progress-color";
       } else {
-        color = "disabled-color";
+        return "disabled-color";
       }
-      return color;
     },
-    finishOrderBtn() {
-      let btn = true;
-      if (this.shippingStatus === "picked_up") {
-        btn = false;
+    finishedStyle() {
+      if (this.finished) {
+        return "success-color";
       } else {
-        btn = true;
+        return "disabled-color";
       }
-      return btn;
     },
   },
 };
