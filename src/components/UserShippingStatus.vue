@@ -8,32 +8,23 @@
   <div v-else class="p-col-12 p-lg-11 p-d-flex p-jc-start p-ai-center">
     <strong class="progress-color"> 備貨中 </strong>
 
-    <i :class="in_preparation_arrow_style" class="pi pi-arrow-right p-mx-1"></i>
+    <i :class="inPreparationArrowStyle" class="pi pi-arrow-right p-mx-1"></i>
 
-    <strong :class="in_preparation_style"> 已發貨 </strong>
+    <strong :class="inPreparationStyle"> 已發貨 </strong>
 
-    <i class="pi pi-arrow-right p-mx-1" :class="shipping_arrow_style"></i>
+    <i :class="shippingArrowStyle" class="pi pi-arrow-right p-mx-1"></i>
 
-    <strong :class="arrived_style"> 已到達 </strong>
+    <strong :class="arrivedStyle"> 已到達 </strong>
 
-    <i class="pi pi-arrow-right p-mx-1" :class="arrived_arrow_style"></i>
+    <i :class="arrivedArrowStyle" class="pi pi-arrow-right p-mx-1"></i>
 
-    <strong :class="picked_up_style"> 已取貨 </strong>
-    <i
-      v-if="current_status === 'picked_up'"
-      class="pi pi-check-circle success-color p-ml-1"
-    >
-    </i>
+    <strong :class="pickedUpStyle"> 已取貨 </strong>
+    <i v-if="pickedUp" class="pi pi-check-circle success-color p-ml-1"> </i>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      current_status: "in_preparation",
-    };
-  },
   props: {
     shippingStatus: {
       type: String,
@@ -50,100 +41,60 @@ export default {
   },
   inject: ["emitter"],
   computed: {
-    in_preparation_arrow_style() {
-      let color = "";
-      if (
-        this.current_status === "shipping" ||
-        this.current_status === "arrived" ||
-        this.current_status === "picked_up"
-      ) {
-        color = "arrow-color";
-      } else {
-        color = "disabled-color";
-      }
-      return color;
+    inPreparation() {
+      return this.shippingStatus === "in_preparation";
     },
-    in_preparation_style() {
-      let color = "";
-      if (
-        this.current_status === "shipping" ||
-        this.current_status === "arrived" ||
-        this.current_status === "picked_up"
-      ) {
-        color = "progress-color";
-      } else {
-        color = "disabled-color";
-      }
-      return color;
+    shipping() {
+      return this.shippingStatus === "shipping";
     },
-    shippingBtn() {
-      let btn = true;
-      if (this.current_status === "in_preparation") {
-        btn = true;
-      } else {
-        btn = false;
-      }
-      return btn;
+    arrived() {
+      return this.shippingStatus === "arrived";
     },
-    arrivedBtn() {
-      let btn = false;
-      if (this.current_status === "shipping") {
-        btn = true;
-      } else {
-        btn = false;
-      }
-      return btn;
+    pickedUp() {
+      return this.shippingStatus === "picked_up";
     },
-    pickedUpBtn() {
-      let btn = false;
-      if (this.current_status === "arrived") {
-        btn = true;
+
+    inPreparationArrowStyle() {
+      if (this.shipping || this.arrived || this.pickedUp) {
+        return "arrow-color";
       } else {
-        btn = false;
+        return "disabled-color";
       }
-      return btn;
     },
-    arrived_style() {
-      let color = "";
-      if (
-        this.current_status === "arrived" ||
-        this.current_status === "picked_up"
-      ) {
-        color = "progress-color";
+    inPreparationStyle() {
+      if (this.shipping || this.arrived || this.pickedUp) {
+        return "progress-color";
       } else {
-        color = "disabled-color";
+        return "disabled-color";
       }
-      return color;
     },
-    shipping_arrow_style() {
-      let color = "";
-      if (
-        this.current_status === "arrived" ||
-        this.current_status === "picked_up"
-      ) {
-        color = "arrow-color";
+    arrivedStyle() {
+      if (this.arrived || this.pickedUp) {
+        return "progress-color";
       } else {
-        color = "disabled-color";
+        return "disabled-color";
       }
-      return color;
     },
-    arrived_arrow_style() {
-      let color = "";
-      if (this.current_status === "picked_up") {
-        color = "arrow-color";
+    shippingArrowStyle() {
+      if (this.arrived || this.pickedUp) {
+        return "arrow-color";
       } else {
-        color = "disabled-color";
+        return "disabled-color";
       }
-      return color;
     },
-    picked_up_style() {
-      let color = "";
-      if (this.current_status === "picked_up") {
-        color = "success-color";
+    arrivedArrowStyle() {
+      if (this.pickedUp) {
+        return "arrow-color";
       } else {
-        color = "disabled-color";
+        return "disabled-color";
       }
-      return color;
+    },
+    pickedUpStyle() {
+      if (this.pickedUp) {
+        return "success-color";
+      } else {
+        return "disabled-color";
+      }
     },
   },
 };
