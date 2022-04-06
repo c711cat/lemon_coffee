@@ -75,6 +75,11 @@ export default {
       numberOfCartItems: "",
       userMenuItems: [
         {
+          label: "管理員頁面",
+          icon: "pi pi-fw pi-user-edit",
+          to: "/admin/products",
+        },
+        {
           label: "訂單",
           icon: "pi pi-fw pi-book",
           to: "/orders",
