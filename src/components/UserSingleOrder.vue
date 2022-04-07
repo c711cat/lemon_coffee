@@ -107,7 +107,7 @@
       <div class="p-d-flex p-jc-end">
         <Button
           :disabled="!(outstanding && inPreparation && (pending || confirmed))"
-          @click.prevent="cancelTheOreder()"
+          @click.prevent="cancelTheOrder"
           label="取消訂單"
           icon="pi pi-times"
           class="p-button-danger p-ml-3"
@@ -175,7 +175,7 @@ export default {
     closeWindow() {
       this.isOpen = false;
     },
-    cancelTheOreder() {
+    cancelTheOrder() {
       this.oneOrder.status = "canceled";
     },
   },
