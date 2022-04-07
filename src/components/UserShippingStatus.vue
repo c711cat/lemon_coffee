@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="orderStatus === 'canceled'"
-    class="p-col-12 p-lg-11 p-d-flex p-jc-start p-ai-center"
-  >
+  <div v-if="canceled" class="p-col-12 p-lg-11 p-d-flex p-jc-start p-ai-center">
     <strong class="cancel-color"> 已取消 </strong>
   </div>
   <div v-else class="p-col-12 p-lg-11 p-d-flex p-jc-start p-ai-center">
@@ -53,7 +50,9 @@ export default {
     pickedUp() {
       return this.shippingStatus === "picked_up";
     },
-
+    canceled() {
+      return this.orderStatus === "canceled";
+    },
     inPreparationArrowStyle() {
       if (this.shipping || this.arrived || this.pickedUp) {
         return "arrow-color";
