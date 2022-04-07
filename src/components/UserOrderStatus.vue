@@ -20,7 +20,7 @@
       "
       style="width: 100px"
     />
-    <strong v-if="!confirmed" :class="finishedStyle">已完成</strong>
+    <strong v-if="pending || finished" :class="finishedStyle">已完成</strong>
     <i v-if="finished" class="pi pi-check-circle p-ml-1 success-color"></i>
   </div>
 </template>
@@ -54,6 +54,9 @@ export default {
     },
   },
   computed: {
+    pending() {
+      return this.orderStatus === "pending";
+    },
     confirmed() {
       return this.orderStatus === "confirmed";
     },
