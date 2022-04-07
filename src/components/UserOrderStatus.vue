@@ -11,7 +11,7 @@
     <i :class="pendingAndConfirmedArrowStyle" class="pi pi-arrow-right p-mx-1">
     </i>
     <Button
-      :disabled="!pickedUp"
+      :disabled="!(pickedUp && paid)"
       @click="finishedOrder"
       v-if="confirmed"
       label="完成訂單"
@@ -40,6 +40,12 @@ export default {
         return;
       },
     },
+    paymentStatus: {
+      type: String,
+      default() {
+        return;
+      },
+    },
   },
   inject: ["emitter"],
   methods: {
@@ -59,6 +65,9 @@ export default {
     },
     canceled() {
       return this.orderStatus === "canceled";
+    },
+    paid() {
+      return this.paymentStatus === "paid";
     },
     pendingAndConfirmedArrowStyle() {
       if (this.confirmed || this.finished) {
