@@ -46,10 +46,17 @@
           </div>
           <div class="p-col-12">
             <Button
+              :disabled="btnIsLoading"
               label="加入購物車"
               class="p-button-raised p-col-12 p-lg-5"
               @click.prevent="addToCart"
             >
+              <ProgressSpinner
+                v-if="btnIsLoading"
+                style="width: 20px; height: 20px"
+                strokeWidth="8"
+                animationDuration="10s"
+              />
             </Button>
           </div>
         </div>
@@ -107,6 +114,7 @@ export default {
       ground: true,
       is_error: false,
       isLoading: false,
+      btnIsLoading: false,
     };
   },
   components: { Roast, Loading },
@@ -139,6 +147,7 @@ export default {
       };
       const api = `${process.env.VUE_APP_API}/users/cart_items`;
       const headers = { Authorization: Cookies.get("lemonToken") };
+      this.btnIsLoading = true;
       axios
         .post(api, { cart_item: cart }, { headers })
         .then((response) => {
@@ -160,6 +169,9 @@ export default {
           if (error.response.data.product) {
             this.showErrorToast("此商品不存在");
           }
+        })
+        .finally(() => {
+          this.btnIsLoading = false;
         });
     },
     showErrorToast(text) {

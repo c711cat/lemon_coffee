@@ -102,10 +102,10 @@
     <div
       class="p-grid p-jc-end p-ai-end p-col-12 p-pb-3 p-m-0 p-text-right p-pr-0"
     >
-      <router-link to="/home" class="p-lg-2 link-content">
+      <router-link to="/orders" class="p-lg-2 link-content">
         <Button
           class="p-button-lg p-button-success p-button-raised"
-          label="回首頁"
+          label="查閱訂單"
         >
         </Button>
       </router-link>

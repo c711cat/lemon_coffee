@@ -32,6 +32,7 @@ import AccordionTab from "primevue/accordiontab";
 import Menu from "primevue/menu";
 import ProgressSpinner from "primevue/progressspinner";
 import Dialog from "primevue/dialog";
+import Skeleton from "primevue/skeleton";
 
 const app = createApp(App);
 app.use(router);
@@ -64,5 +65,6 @@ app.component("AccordionTab", AccordionTab);
 app.component("Menu", Menu);
 app.component("ProgressSpinner", ProgressSpinner);
 app.component("Dialog", Dialog);
+app.component("Skeleton", Skeleton);
 
 app.mount("#app");

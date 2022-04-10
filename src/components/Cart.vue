@@ -12,10 +12,18 @@
     >
       <div class="p-col-2 p-lg-1 p-text-center">
         <Button
+          :disabled="loadingItem === index + item.product_name"
           @click.prevent="delProduct(item, index)"
           icon="pi pi-trash"
           class="p-button-rounded p-button-text p-button-danger"
-        />
+        >
+          <ProgressSpinner
+            v-if="loadingItem === index + item.product_name"
+            style="width: 20px; height: 20px"
+            strokeWidth="8"
+            animationDuration="10s"
+          />
+        </Button>
       </div>
       <router-link
         :to="`/products/${item.product_id}`"
@@ -40,9 +48,15 @@
       </div>
 
       <div class="p-fluid p-col-fixed p-p-0 p-my-3" style="width: 135px">
+        <Skeleton
+          v-if="loadingItem === index + item.product_name + item.quantity"
+          width="8rem"
+          height="36px"
+        >
+        </Skeleton>
         <InputNumber
-          @input="updateCart(item)"
-          @change="updateCart(item)"
+          v-else
+          @input="updateCart(item, index)"
           class="p-inputtext-sm"
           v-model="item.quantity"
           :min="1"
@@ -141,6 +155,7 @@ export default {
       cartItems: [],
       origin_shipping_fee: 0,
       isLoading: false,
+      loadingItem: "",
     };
   },
   components: { AddresseeForm, Loading },
@@ -172,6 +187,7 @@ export default {
     delProduct(item, index) {
       const api = `${process.env.VUE_APP_API}/users/cart_items/${item.product_id}`;
       const headers = { Authorization: Cookies.get("lemonToken") };
+      this.loadingItem = index + item.product_name;
       axios
         .delete(api, { headers })
         .then((response) => {
@@ -188,12 +204,16 @@ export default {
             this.$router.push("/entrance/login");
             this.emitter.emit("changeCartBadgeCount", 0);
           }
+        })
+        .finally(() => {
+          this.loadingItem = "";
         });
     },
-    updateCart(item) {
+    updateCart(item, index) {
       const data = { quantity: item.quantity };
       const api = `${process.env.VUE_APP_API}/users/cart_items/${item.product_id}`;
       const headers = { Authorization: Cookies.get("lemonToken") };
+      this.loadingItem = index + item.product_name + item.quantity;
       axios
         .put(api, { cart_item: data }, { headers })
         .then((response) => {
@@ -211,6 +231,9 @@ export default {
           if (error.response.status === 400) {
             this.showErrorToast("最小購買量為 1");
           }
+        })
+        .finally(() => {
+          this.loadingItem = "";
         });
     },
     showErrorToast(text) {
