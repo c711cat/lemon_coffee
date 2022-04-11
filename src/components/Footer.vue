@@ -1,5 +1,7 @@
 <template>
-  <div class="p-grid p-mt-0 nested-grid p-jc-evenly p-ai-center footer-body p-py-5">
+  <div
+    class="p-grid p-mt-0 nested-grid p-jc-evenly p-ai-center footer-body p-py-5"
+  >
     <router-link
       to="/home"
       class="
@@ -17,8 +19,8 @@
         />
 
         <div>
-          <div class="eng-text p-col-12 p-pl-0 p-pb-0">LEMON COFFEE</div>
-          <div class="chinese-logo p-col-12 p-pt-0">— 寧 蒙 咖 啡 —</div>
+          <div class="eng-text p-col-12 p-pl-0 p-pb-0">WANLE COFFEE</div>
+          <div class="chinese-logo p-col-12 p-pt-0">— 灣 裡 咖 啡 —</div>
         </div>
       </div>
     </router-link>
@@ -77,6 +79,9 @@
       </div>
     </div>
   </div>
+  <div class="p-grid p-jc-center p-py-2 practice-tag">
+    此網站僅為練習使用，不具商業行為
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -100,5 +105,10 @@
 
 .logo-hover:hover {
   background: #e9ecef;
+}
+
+.practice-tag {
+  background: #000166;
+  color: #c3c8cf;
 }
 </style>
