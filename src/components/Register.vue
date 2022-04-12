@@ -1,6 +1,6 @@
 <template>
-  <div class="p-fluid">
-    <div class="p-field">
+  <div class="p-fluid p-mb-4">
+    <div class="p-field p-mt-6">
       <label for="name">姓名</label>
       <InputText id="name" type="text" v-model="personal_information.name" />
     </div>
