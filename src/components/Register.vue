@@ -53,14 +53,6 @@
         v-model="personal_information.referrer_cellphone"
       />
     </div>
-    <div class="p-field-checkbox">
-      <Checkbox
-        id="binary"
-        v-model="personal_information.agree"
-        :binary="true"
-      />
-      <label for="binary">我同意<a href="#">網站服務條款及隱私政策</a></label>
-    </div>
     <Button label="註冊" @click.prevent="register" />
   </div>
 </template>
