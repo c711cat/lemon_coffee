@@ -15,9 +15,6 @@
       </div>
       <Button label="登入" @click.prevent="login" />
     </div>
-    <div class="p-field a-container">
-      <a href="#">忘記密碼</a>
-    </div>
   </div>
 </template>
 
