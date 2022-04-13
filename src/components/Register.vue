@@ -1,8 +1,23 @@
 <template>
   <div class="p-fluid">
     <div class="p-field">
-      <label for="name">姓名</label>
-      <InputText id="name" type="text" v-model="personal_information.name" />
+      <label
+        for="name"
+        :class="{ 'p-error': v$.personal_information.name.$invalid }"
+      >
+        姓名
+      </label>
+      <InputText
+        id="name"
+        type="text"
+        v-model="personal_information.name"
+        :class="{ 'p-invalid': v$.personal_information.name.$invalid }"
+      />
+      <small v-if="v$.personal_information.name.$invalid" class="p-error">
+        {{
+          v$.personal_information.name.required.$message.replace("OOO", "姓名")
+        }}
+      </small>
     </div>
     <div class="p-field">
       <label for="email">Email</label>
@@ -67,8 +82,20 @@
 
 <script>
 import axios from "axios";
+import useVuelidate from "@vuelidate/core";
+import { required } from "@/utils/i18n-validators";
 
 export default {
+  setup() {
+    return { v$: useVuelidate() };
+  },
+  validations() {
+    return {
+      personal_information: {
+        name: { required, $lazy: true },
+      },
+    };
+  },
   data() {
     return {
       gender: ["男", "女", "不透露"],
@@ -96,7 +123,10 @@ export default {
   },
   inject: ["emitter"],
   methods: {
-    register() {
+    async register() {
+      const isFormCorrect = await this.v$.$validate();
+      if (!isFormCorrect) return;
+
       const api = `${process.env.VUE_APP_API}/users`;
       this.emitter.emit("openEntranceLoadingProgressSpinner");
       axios
