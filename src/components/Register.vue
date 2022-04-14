@@ -1,8 +1,34 @@
 <template>
-  <div class="p-fluid p-mb-4">
+  <form @submit.prevent="register(!v$.$invalid)" class="p-fluid p-mb-4">
     <div class="p-field p-mt-6">
-      <label for="name">姓名</label>
-      <InputText id="name" type="text" v-model="personal_information.name" />
+      <label
+        for="name"
+        :class="{
+          'p-error': v$.personal_information.name.$invalid && submitted,
+        }"
+        >姓名
+      </label>
+      <InputText
+        id="name"
+        type="text"
+        v-model="v$.personal_information.name.$model"
+        :class="{
+          'p-invalid': v$.personal_information.name.$invalid && submitted,
+        }"
+      />
+      <small
+        v-if="
+          (v$.personal_information.name.$invalid && submitted) ||
+          v$.personal_information.name.$pending.$response
+        "
+        class="p-error"
+        >{{
+          v$.personal_information.name.required.$message.replace(
+            "Value",
+            "姓名"
+          )
+        }}
+      </small>
     </div>
     <div class="p-field">
       <label for="email">Email</label>
@@ -53,16 +79,24 @@
         v-model="personal_information.referrer_cellphone"
       />
     </div>
-    <Button label="註冊" @click.prevent="register" />
-  </div>
+    <Button type="submit" label="註冊" />
+  </form>
 </template>
 
 <script>
 import axios from "axios";
+import useVuelidate from "@vuelidate/core";
+import { required } from "@/utils/i18n-validators.js";
+
+// import { required } from "@vuelidate/validators"; // 寫這行不會出現警告標示 esm-bundler build of vue-i18n.
 
 export default {
+  setup() {
+    return { v$: useVuelidate() };
+  },
   data() {
     return {
+      submitted: false,
       gender: ["男", "女", "不透露"],
       ways: ["FaceBook", "Google", "蝦皮", "親友", "百貨公司美食展", "其他"],
       brewing_methods: [
@@ -82,13 +116,33 @@ export default {
         way: "",
         brewing_method: "",
         referrer_cellphone: "",
-        agree: false,
+      },
+    };
+  },
+  validations() {
+    return {
+      personal_information: {
+        name: { required },
+        email: { required },
+        password: { required },
+        referrer_cellphone: { required },
       },
     };
   },
   inject: ["emitter"],
   methods: {
-    register() {
+    handleSubmit(isFormValid) {
+      this.submitted = true;
+      if (!isFormValid) {
+        return;
+      }
+    },
+    register(isFormValid) {
+      this.submitted = true;
+      if (!isFormValid) {
+        return;
+      }
+
       const api = `${process.env.VUE_APP_API}/users`;
       this.emitter.emit("openEntranceLoadingProgressSpinner");
       axios
