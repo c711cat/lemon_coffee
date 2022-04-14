@@ -3,9 +3,8 @@ import { createI18n } from "vue-i18n";
 const messages = {
   "zh-TW": {
     validations: {
-      required: "Value不可為空",
-      minLength: "...",
-      maxLength: "..",
+      required: "Value 必填",
+      minLength: "Password須為 6 碼以上英數皆可，注意英文大小寫",
     },
   },
 };

@@ -30,17 +30,68 @@
         }}
       </small>
     </div>
+
     <div class="p-field">
-      <label for="email">Email</label>
-      <InputText id="email" type="text" v-model="personal_information.email" />
+      <label
+        for="email"
+        :class="{
+          'p-error': v$.personal_information.email.$invalid && submitted,
+        }"
+        >Email
+      </label>
+      <InputText
+        id="email"
+        type="text"
+        v-model="v$.personal_information.email.$model"
+        :class="{
+          'p-invalid': v$.personal_information.email.$invalid && submitted,
+        }"
+      />
+      <small
+        v-if="
+          (v$.personal_information.email.$invalid && submitted) ||
+          v$.personal_information.email.$pending.$response
+        "
+        class="p-error"
+        >{{
+          v$.personal_information.email.required.$message.replace(
+            "Value",
+            "電子信箱"
+          )
+        }}
+      </small>
     </div>
+
     <div class="p-field">
-      <label for="password">密碼</label>
+      <label
+        for="password"
+        :class="{
+          'p-error': v$.personal_information.password.$invalid && submitted,
+        }"
+        >密碼
+      </label>
       <InputText
         id="password"
         type="password"
-        v-model="personal_information.password"
+        v-model="v$.personal_information.password.$model"
+        placeholder="6 碼以上英數皆可，注意英文大小寫"
+        :class="{
+          'p-invalid': v$.personal_information.password.$invalid && submitted,
+        }"
       />
+      <small
+        v-if="
+          (v$.personal_information.password.$invalid && submitted) ||
+          v$.personal_information.password.$pending.$response
+        "
+        class="p-error"
+        >{{
+          v$.personal_information.password.minLength.$message.replace(
+            "Password",
+            "密碼"
+          )
+        }}
+      </small>
     </div>
     <div class="p-field">
       <label for="sex">性別</label>
@@ -86,9 +137,9 @@
 <script>
 import axios from "axios";
 import useVuelidate from "@vuelidate/core";
-import { required } from "@/utils/i18n-validators.js";
+import { required, minLength } from "@/utils/i18n-validators.js";
 
-// import { required } from "@vuelidate/validators"; // 寫這行不會出現警告標示 esm-bundler build of vue-i18n.
+// import { required, minLength } from "@vuelidate/validators"; // 改寫這行不會出現警告標示 esm-bundler build of vue-i18n.
 
 export default {
   setup() {
@@ -124,19 +175,12 @@ export default {
       personal_information: {
         name: { required },
         email: { required },
-        password: { required },
-        referrer_cellphone: { required },
+        password: { required, minLength: minLength(6) },
       },
     };
   },
   inject: ["emitter"],
   methods: {
-    handleSubmit(isFormValid) {
-      this.submitted = true;
-      if (!isFormValid) {
-        return;
-      }
-    },
     register(isFormValid) {
       this.submitted = true;
       if (!isFormValid) {
@@ -160,12 +204,21 @@ export default {
           });
           this.$router.push("/entrance/login");
         })
-        .catch(() => {
-          this.$toast.add({
-            severity: "error",
-            summary: "註冊失敗",
-            life: 2000,
-          });
+        .catch((error) => {
+          if (error.response.status === 422) {
+            this.$toast.add({
+              severity: "error",
+              summary: "註冊失敗",
+              detail: "此 email 已經被使用",
+              life: 3000,
+            });
+          } else {
+            this.$toast.add({
+              severity: "error",
+              summary: "註冊失敗",
+              life: 2000,
+            });
+          }
         })
         .finally(() => {
           this.emitter.emit("closeEntranceLoadingProgressSpinner");
