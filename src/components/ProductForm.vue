@@ -1,10 +1,32 @@
 <template>
   <h3 v-if="editItem.id" class="title">編輯產品</h3>
   <h3 v-else class="title">新增產品</h3>
-  <div class="p-fluid p-formgrid p-grid">
+  <form
+    @submit.prevent="validate(!v$.$invalid)"
+    class="p-fluid p-formgrid p-grid"
+  >
     <div class="p-field p-col-12 p-md-8">
-      <label>產品名稱</label>
-      <InputText type="text" v-model="product.name" />
+      <label
+        :class="{
+          'p-error': v$.product.name.$invalid && submitted,
+        }"
+        >產品名稱
+      </label>
+      <InputText
+        type="text"
+        v-model="v$.product.name.$model"
+        :class="{
+          'p-invalid': v$.product.name.$invalid && submitted,
+        }"
+      />
+      <small
+        v-if="
+          (v$.product.name.$invalid && submitted) ||
+          v$.product.name.$pending.$response
+        "
+        class="p-error"
+        >{{ v$.product.name.required.$message.replace("Value", "") }}
+      </small>
     </div>
 
     <div class="p-field p-col-12 p-md-4">
@@ -83,15 +105,22 @@
     </div>
 
     <div class="p-field p-col-12 p-md-2 p-md-offset-10">
-      <Button label="送出" @click="onSubmit(this.product)" />
+      <Button type="submit" label="送出" />
     </div>
-  </div>
+  </form>
 </template>
 
 <script>
+import { useVuelidate } from "@vuelidate/core";
+import { required } from "@/utils/i18n-validators.js";
+
 export default {
+  setup() {
+    return { v$: useVuelidate() };
+  },
   data() {
     return {
+      submitted: false,
       product: {
         name: "",
         roast: "",
@@ -160,6 +189,23 @@ export default {
       ],
     };
   },
+  validations() {
+    return {
+      product: {
+        name: { required },
+        roast: { required },
+        country: { required },
+        area: { required },
+        variety: { required },
+        processing_method: { required },
+        half_pound_price: { required },
+        one_pound_price: { required },
+        drip_bag_price: { required },
+        flavor: { required },
+        description: { required },
+      },
+    };
+  },
   props: {
     editItem: {
       typeof: Object,
@@ -175,6 +221,18 @@ export default {
   watch: {
     editItem() {
       this.product = { ...this.editItem };
+    },
+  },
+  methods: {
+    validate(isFormValid) {
+      // this.onSubmit(this.product);
+      this.submitted = true;
+
+      if (!isFormValid) {
+        return;
+      }
+      console.log("5");
+      this.onSubmit(this.product);
     },
   },
 };
