@@ -139,8 +139,6 @@ import axios from "axios";
 import useVuelidate from "@vuelidate/core";
 import { required, minLength } from "@/utils/i18n-validators.js";
 
-// import { required, minLength } from "@vuelidate/validators"; // 改寫這行不會出現警告標示 esm-bundler build of vue-i18n.
-
 export default {
   setup() {
     return { v$: useVuelidate() };
