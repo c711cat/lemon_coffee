@@ -13,3 +13,6 @@ export const minLength = withI18nMessage(validators.minLength, {
   withArguments: true,
 });
 export const maxLength = withI18nMessage(validators.maxLength(10));
+export const minValue = withI18nMessage(validators.minValue, {
+  withArguments: true,
+});

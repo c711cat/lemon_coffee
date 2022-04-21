@@ -161,18 +161,86 @@
     </div>
 
     <div class="p-field p-col-12 p-md-4">
-      <label>半磅價格</label>
-      <InputNumber showButtons :min="0" v-model="product.half_pound_price" />
+      <label
+        :class="{
+          'p-error': v$.product.half_pound_price.$invalid && submitted,
+        }"
+      >
+        半磅價格
+      </label>
+      <InputNumber
+        showButtons
+        v-model="v$.product.half_pound_price.$model"
+        :class="{
+          'p-invalid': v$.product.half_pound_price.$invalid && submitted,
+        }"
+      />
+      <small
+        v-if="
+          (v$.product.half_pound_price.$invalid && submitted) ||
+          v$.product.half_pound_price.$pending.$response
+        "
+        class="p-error"
+        >{{
+          v$.product.half_pound_price.minValue.$message.replace(
+            "Number",
+            "價格"
+          )
+        }}
+      </small>
     </div>
 
     <div class="p-field p-col-12 p-md-4">
-      <label>一磅價格</label>
-      <InputNumber showButtons :min="0" v-model="product.one_pound_price" />
+      <label
+        :class="{
+          'p-error': v$.product.one_pound_price.$invalid && submitted,
+        }"
+      >
+        一磅價格
+      </label>
+      <InputNumber
+        showButtons
+        v-model="v$.product.one_pound_price.$model"
+        :class="{
+          'p-invalid': v$.product.one_pound_price.$invalid && submitted,
+        }"
+      />
+      <small
+        v-if="
+          (v$.product.one_pound_price.$invalid && submitted) ||
+          v$.product.one_pound_price.$pending.$response
+        "
+        class="p-error"
+        >{{
+          v$.product.one_pound_price.minValue.$message.replace("Number", "價格")
+        }}
+      </small>
     </div>
 
     <div class="p-field p-col-12 p-md-4">
-      <label>耳掛價格</label>
-      <InputNumber showButtons :min="0" v-model="product.drip_bag_price" />
+      <label
+        :class="{
+          'p-error': v$.product.drip_bag_price.$invalid && submitted,
+        }"
+        >耳掛價格</label
+      >
+      <InputNumber
+        showButtons
+        v-model="v$.product.drip_bag_price.$model"
+        :class="{
+          'p-invalid': v$.product.drip_bag_price.$invalid && submitted,
+        }"
+      />
+      <small
+        v-if="
+          (v$.product.drip_bag_price.$invalid && submitted) ||
+          v$.product.drip_bag_price.$pending.$response
+        "
+        class="p-error"
+        >{{
+          v$.product.drip_bag_price.minValue.$message.replace("Number", "價格")
+        }}
+      </small>
     </div>
 
     <div class="p-field p-col-12 p-md-4">
@@ -284,7 +352,7 @@
 
 <script>
 import { useVuelidate } from "@vuelidate/core";
-import { required } from "@/utils/i18n-validators.js";
+import { required, minValue } from "@/utils/i18n-validators.js";
 
 export default {
   setup() {
@@ -369,9 +437,9 @@ export default {
         area: { required },
         variety: { required },
         processing_method: { required },
-        half_pound_price: { required },
-        one_pound_price: { required },
-        drip_bag_price: { required },
+        half_pound_price: { minValue: minValue(1) },
+        one_pound_price: { minValue: minValue(1) },
+        drip_bag_price: { minValue: minValue(1) },
         flavor: [{ required }, { required }, { required }],
         description: { required },
       },
