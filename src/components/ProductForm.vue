@@ -189,13 +189,30 @@
     </div>
 
     <div class="p-field p-col-12 p-md-12">
-      <label>風味描述</label>
+      <label
+        :class="{
+          'p-error': v$.product.description.$invalid && submitted,
+        }"
+      >
+        風味描述
+      </label>
       <Textarea
-        v-model="product.description"
+        v-model="v$.product.description.$model"
         :autoResize="true"
         rows="5"
         cols="30"
+        :class="{
+          'p-invalid': v$.product.description.$invalid && submitted,
+        }"
       />
+      <small
+        v-if="
+          (v$.product.description.$invalid && submitted) ||
+          v$.product.description.$pending.$response
+        "
+        class="p-error"
+        >{{ v$.product.description.required.$message.replace("Value", "") }}
+      </small>
     </div>
 
     <div class="p-field p-col-12 p-md-2 p-md-offset-10">
