@@ -176,16 +176,77 @@
     </div>
 
     <div class="p-field p-col-12 p-md-4">
-      <label>代表性風味 1</label>
-      <InputText type="text" v-model="product.flavor[0]" />
+      <label
+        :class="{
+          'p-error': v$.product.flavor[0].$invalid && submitted,
+        }"
+      >
+        代表性風味 1
+      </label>
+      <InputText
+        type="text"
+        v-model="v$.product.flavor[0].$model"
+        :class="{
+          'p-invalid': v$.product.flavor[0].$invalid && submitted,
+        }"
+      />
+      <small
+        v-if="
+          (v$.product.flavor[0].$invalid && submitted) ||
+          v$.product.flavor[0].$pending.$response
+        "
+        class="p-error"
+        >{{ v$.product.flavor[0].required.$message.replace("Value", "") }}
+      </small>
     </div>
     <div class="p-field p-col-12 p-md-4">
-      <label>代表性風味 2</label>
-      <InputText type="text" v-model="product.flavor[1]" />
+      <label
+        :class="{
+          'p-error': v$.product.flavor[1].$invalid && submitted,
+        }"
+      >
+        代表性風味 2
+      </label>
+      <InputText
+        type="text"
+        v-model="v$.product.flavor[1].$model"
+        :class="{
+          'p-invalid': v$.product.flavor[1].$invalid && submitted,
+        }"
+      />
+      <small
+        v-if="
+          (v$.product.flavor[1].$invalid && submitted) ||
+          v$.product.flavor[1].$pending.$response
+        "
+        class="p-error"
+        >{{ v$.product.flavor[1].required.$message.replace("Value", "") }}
+      </small>
     </div>
+
     <div class="p-field p-col-12 p-md-4">
-      <label>代表性風味 3</label>
-      <InputText type="text" v-model="product.flavor[2]" />
+      <label
+        :class="{
+          'p-error': v$.product.flavor[2].$invalid && submitted,
+        }"
+      >
+        代表性風味 3
+      </label>
+      <InputText
+        type="text"
+        v-model="v$.product.flavor[2].$model"
+        :class="{
+          'p-invalid': v$.product.flavor[2].$invalid && submitted,
+        }"
+      />
+      <small
+        v-if="
+          (v$.product.flavor[2].$invalid && submitted) ||
+          v$.product.flavor[2].$pending.$response
+        "
+        class="p-error"
+        >{{ v$.product.flavor[2].required.$message.replace("Value", "") }}
+      </small>
     </div>
 
     <div class="p-field p-col-12 p-md-12">
@@ -242,7 +303,7 @@ export default {
         half_pound_price: 0,
         one_pound_price: 0,
         drip_bag_price: 0,
-        flavor: [],
+        flavor: ["", "", ""],
         description: "",
       },
       countries: [
@@ -288,7 +349,6 @@ export default {
         "SL 28",
         "手動填入",
       ],
-
       processing_method: [
         "水洗",
         "日曬",
@@ -312,7 +372,7 @@ export default {
         half_pound_price: { required },
         one_pound_price: { required },
         drip_bag_price: { required },
-        flavor: { required },
+        flavor: [{ required }, { required }, { required }],
         description: { required },
       },
     };
