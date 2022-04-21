@@ -30,40 +30,134 @@
     </div>
 
     <div class="p-field p-col-12 p-md-4">
-      <label>烘焙度</label>
-      <Dropdown v-model="product.roast" :options="[1, 2, 3, 4, 5]" />
+      <label
+        :class="{
+          'p-error': v$.product.roast.$invalid && submitted,
+        }"
+      >
+        烘焙度
+      </label>
+      <Dropdown
+        v-model="v$.product.roast.$model"
+        :options="[1, 2, 3, 4, 5]"
+        :class="{
+          'p-invalid': v$.product.roast.$invalid && submitted,
+        }"
+      />
+      <small
+        v-if="
+          (v$.product.roast.$invalid && submitted) ||
+          v$.product.roast.$pending.$response
+        "
+        class="p-error"
+        >{{ v$.product.roast.required.$message.replace("Value", "") }}
+      </small>
     </div>
 
     <div class="p-field p-col-12 p-md-3">
-      <label>國家</label>
+      <label
+        :class="{
+          'p-error': v$.product.country.$invalid && submitted,
+        }"
+      >
+        國家
+      </label>
       <Dropdown
-        v-model="product.country"
+        v-model="v$.product.country.$model"
         :options="countries"
         :editable="true"
+        :class="{
+          'p-invalid': v$.product.country.$invalid && submitted,
+        }"
       />
+      <small
+        v-if="
+          (v$.product.country.$invalid && submitted) ||
+          v$.product.country.$pending.$response
+        "
+        class="p-error"
+        >{{ v$.product.country.required.$message.replace("Value", "") }}
+      </small>
     </div>
 
     <div class="p-field p-col-12 p-md-3">
-      <label>產區</label>
-      <Dropdown v-model="product.area" :options="areas" :editable="true" />
-    </div>
-
-    <div class="p-field p-col-12 p-md-3">
-      <label>品種</label>
+      <label
+        :class="{
+          'p-error': v$.product.area.$invalid && submitted,
+        }"
+      >
+        產區
+      </label>
       <Dropdown
-        v-model="product.variety"
+        v-model="v$.product.area.$model"
+        :options="areas"
+        :editable="true"
+        :class="{
+          'p-invalid': v$.product.area.$invalid && submitted,
+        }"
+      />
+      <small
+        v-if="
+          (v$.product.area.$invalid && submitted) ||
+          v$.product.area.$pending.$response
+        "
+        class="p-error"
+        >{{ v$.product.area.required.$message.replace("Value", "") }}
+      </small>
+    </div>
+
+    <div class="p-field p-col-12 p-md-3">
+      <label
+        :class="{
+          'p-error': v$.product.variety.$invalid && submitted,
+        }"
+      >
+        品種
+      </label>
+      <Dropdown
+        v-model="v$.product.variety.$model"
         :options="varieties"
         :editable="true"
+        :class="{
+          'p-invalid': v$.product.variety.$invalid && submitted,
+        }"
       />
+      <small
+        v-if="
+          (v$.product.variety.$invalid && submitted) ||
+          v$.product.variety.$pending.$response
+        "
+        class="p-error"
+        >{{ v$.product.variety.required.$message.replace("Value", "") }}
+      </small>
     </div>
 
     <div class="p-field p-col-12 p-md-3">
-      <label>處理法</label>
+      <label
+        :class="{
+          'p-error': v$.product.processing_method.$invalid && submitted,
+        }"
+      >
+        處理法
+      </label>
       <Dropdown
-        v-model="product.processing_method"
+        v-model="v$.product.processing_method.$model"
         :options="processing_method"
         :editable="true"
+        :class="{
+          'p-invalid': v$.product.processing_method.$invalid && submitted,
+        }"
       />
+      <small
+        v-if="
+          (v$.product.processing_method.$invalid && submitted) ||
+          v$.product.processing_method.$pending.$response
+        "
+        class="p-error"
+        >{{
+          v$.product.processing_method.required.$message.replace("Value", "")
+        }}
+      </small>
     </div>
 
     <div class="p-field p-col-12 p-md-4">
@@ -225,14 +319,12 @@ export default {
   },
   methods: {
     validate(isFormValid) {
-      // this.onSubmit(this.product);
       this.submitted = true;
-
       if (!isFormValid) {
         return;
+      } else {
+        this.onSubmit(this.product);
       }
-      console.log("5");
-      this.onSubmit(this.product);
     },
   },
 };
