@@ -40,7 +40,7 @@
         <div
           class="p-col-4 p-lg-2 p-text-bold"
           :class="{
-            'p-error': v$.shipping_info.name.$invalid && submitted,
+            'p-error': v$.shipping_info.phone_number.$invalid && submitted,
           }"
         >
           電話
