@@ -55,6 +55,7 @@
         <InputNumber
           v-else
           @input="updateCart(item, index)"
+          @change="updateCart(item, index)"
           class="p-inputtext-sm"
           v-model="item.quantity"
           :min="1"
