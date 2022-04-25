@@ -117,6 +117,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#admin-navbar {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 99;
+}
+
 .logo-img {
   width: 60px;
 }
