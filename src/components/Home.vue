@@ -31,6 +31,13 @@
         為確保最新鮮的咖啡豆，我們接單現烘，並在每份咖啡豆標上「烘焙日期」，就是要讓您喝下的不只有美味、更滿是新鮮！
       </p>
       <p>「新鮮」的堅持，喝過一次就愛上！</p>
+      <router-link to="/beanlist" class="link-content p-text-center">
+        <Button
+          label="查看豆單"
+          class="p-button-warning p-button-text p-px-4 p-py-2"
+        >
+        </Button>
+      </router-link>
     </div>
     <div class="p-col-12 p-lg-8">
       <img
@@ -53,6 +60,13 @@
         <span class="title-style p-px-3">滿千免運</span>
       </h2>
       <p>全站消費滿 NT$ 1000 即享宅配到府免運優惠。</p>
+      <router-link to="/beanlist" class="link-content p-text-center">
+        <Button
+          label="前往選購"
+          class="p-button-warning p-button-text p-px-4 p-py-2"
+        >
+        </Button>
+      </router-link>
     </div>
     <div class="p-col-12 p-lg-8 p-text-right">
       <img
@@ -75,6 +89,13 @@
       </h2>
       <p>我們提供代磨咖啡豆服務。</p>
       <p>下單時可於備註告知需要磨豆的粗細或使用的咖啡器具。</p>
+      <router-link to="/beanlist" class="link-content p-text-center">
+        <Button
+          label="商品專區"
+          class="p-button-warning p-button-text p-px-4 p-py-2"
+        >
+        </Button>
+      </router-link>
     </div>
 
     <div class="p-d-flex p-col-12 p-lg-8">
@@ -130,19 +151,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// * {
-//   border: 1px solid black;
-// }
+.link-content {
+  display: block;
+  text-decoration: none;
+}
+
 .galleria-wrap {
   padding-top: 50px;
 }
 
 .img-body {
   max-width: 100%;
-}
-
-.content-img {
-  max-width: 90%;
 }
 
 .img-and-content-container {
