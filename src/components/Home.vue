@@ -6,8 +6,8 @@
     :circular="true"
     :transitionInterval="5000"
     :showThumbnails="false"
-    :showIndicators="true"
     :changeItemOnIndicatorHover="true"
+    :showItemNavigators="true"
   >
     <template #item="slotProps">
       <div class="img-container p-d-flex p-jc-center p-ai-center">
