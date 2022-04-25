@@ -1,20 +1,21 @@
 <template>
-  <Galleria
-    class="wrap"
-    :value="images"
-    :autoPlay="true"
-    :circular="true"
-    :transitionInterval="5000"
-    :showThumbnails="false"
-    :changeItemOnIndicatorHover="true"
-    :showItemNavigators="true"
-  >
-    <template #item="slotProps">
-      <div class="p-d-flex p-jc-center p-ai-center">
-        <img class="img-body" :src="slotProps.item.itemImageSrc" />
-      </div>
-    </template>
-  </Galleria>
+  <div class="galleria-wrap">
+    <Galleria
+      :value="images"
+      :autoPlay="true"
+      :circular="true"
+      :transitionInterval="5000"
+      :showThumbnails="false"
+      :changeItemOnIndicatorHover="true"
+      :showItemNavigators="true"
+    >
+      <template #item="slotProps">
+        <div class="p-d-flex p-jc-center p-ai-center">
+          <img class="img-body" :src="slotProps.item.itemImageSrc" />
+        </div>
+      </template>
+    </Galleria>
+  </div>
 
   <div
     class="
@@ -132,6 +133,9 @@ export default {
 // * {
 //   border: 1px solid black;
 // }
+.galleria-wrap {
+  padding-top: 50px;
+}
 
 .img-body {
   max-width: 100%;
