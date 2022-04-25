@@ -1,6 +1,6 @@
 <template>
   <Navbar></Navbar>
-  <Toast />
+  <Toast style="max-width: 350px" />
   <router-view />
 </template>
 
