@@ -23,9 +23,11 @@
     "
   >
     <div class="p-col-12 p-lg-3">
-      <h2>剛烘好、最新鮮</h2>
+      <h2 class="p-text-center">
+        <span class="title-style p-px-3">剛烘好、最新鮮</span>
+      </h2>
       <p>
-        為確保最新鮮的豆子，我們接單現烘，並在每份咖啡豆標上「烘焙日期」，就是要讓您喝下的不只有美味、更滿是新鮮！
+        為確保最新鮮的咖啡豆，我們接單現烘，並在每份咖啡豆標上「烘焙日期」，就是要讓您喝下的不只有美味、更滿是新鮮！
       </p>
       <p>「新鮮」的堅持，喝過一次就愛上！</p>
     </div>
@@ -46,8 +48,10 @@
     "
   >
     <div class="p-col-12 p-lg-3">
-      <h2>滿千免運</h2>
-      <p>全站消費滿 NT$ 1000 免運費。</p>
+      <h2 class="p-text-center">
+        <span class="title-style p-px-3">滿千免運</span>
+      </h2>
+      <p>全站消費滿 NT$ 1000 即享宅配到府免運優惠。</p>
     </div>
     <div class="p-col-12 p-lg-8 p-text-right">
       <img
@@ -65,8 +69,10 @@
     "
   >
     <div class="p-col-12 p-lg-3">
-      <h2>客製化磨豆</h2>
-      <p>我們有提供代磨咖啡豆服務。</p>
+      <h2 class="p-text-center">
+        <span class="title-style p-px-3">客製化磨豆</span>
+      </h2>
+      <p>我們提供代磨咖啡豆服務。</p>
       <p>下單時可於備註告知需要磨豆的粗細或使用的咖啡器具。</p>
     </div>
 
@@ -79,7 +85,7 @@
         />
       </div>
 
-      <div class="">
+      <div>
         <img
           class="img-body"
           src="https://images.unsplash.com/photo-1452415005154-c06158558480?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=700&q=80"
@@ -131,8 +137,18 @@ export default {
   max-width: 100%;
 }
 
+.content-img {
+  max-width: 90%;
+}
+
 .img-and-content-container {
-  margin-right: 10%;
-  margin-left: 10%;
+  margin-right: 15%;
+  margin-left: 15%;
+}
+
+.title-style {
+  color: #6d6050;
+  border-left: 1px solid rgb(222, 226, 230);
+  border-right: 1px solid rgb(222, 226, 230);
 }
 </style>
