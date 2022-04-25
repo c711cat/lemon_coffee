@@ -1,5 +1,6 @@
 <template>
-  <Toast />
+  <Toast style="max-width: 350px" />
+
   <div id="navbar-style">
     <Menubar :model="items" class="p-pl-5 p-pr-3 p-py-3">
       <template #start>
@@ -169,6 +170,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#navbar-style {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 99;
+}
+
 .logo-img {
   width: 60px;
 }
@@ -190,5 +198,6 @@ export default {
 
 .p-menubar {
   border: none;
+  border-radius: 0px;
 }
 </style>
