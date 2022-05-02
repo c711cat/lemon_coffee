@@ -1,5 +1,5 @@
 <template>
-  <div class="galleria-wrap">
+  <div>
     <Galleria
       :value="images"
       :autoPlay="true"
@@ -154,10 +154,6 @@ export default {
 .link-content {
   display: block;
   text-decoration: none;
-}
-
-.galleria-wrap {
-  padding-top: 50px;
 }
 
 .img-body {

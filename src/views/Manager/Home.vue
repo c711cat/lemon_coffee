@@ -79,7 +79,6 @@ export default {
 .products-wrap {
   max-width: 1200px;
   margin: auto;
-  padding-top: 100px;
 }
 
 .add-btn-container {
