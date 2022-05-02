@@ -25,7 +25,7 @@
           v$.product.name.$pending.$response
         "
         class="p-error"
-        >{{ v$.product.name.required.$message.replace("Value", "") }}
+        >{{ v$.product.name.required.$message }}
       </small>
     </div>
 
@@ -50,7 +50,7 @@
           v$.product.roast.$pending.$response
         "
         class="p-error"
-        >{{ v$.product.roast.required.$message.replace("Value", "") }}
+        >{{ v$.product.roast.required.$message }}
       </small>
     </div>
 
@@ -76,7 +76,7 @@
           v$.product.country.$pending.$response
         "
         class="p-error"
-        >{{ v$.product.country.required.$message.replace("Value", "") }}
+        >{{ v$.product.country.required.$message }}
       </small>
     </div>
 
@@ -102,7 +102,7 @@
           v$.product.area.$pending.$response
         "
         class="p-error"
-        >{{ v$.product.area.required.$message.replace("Value", "") }}
+        >{{ v$.product.area.required.$message }}
       </small>
     </div>
 
@@ -128,7 +128,7 @@
           v$.product.variety.$pending.$response
         "
         class="p-error"
-        >{{ v$.product.variety.required.$message.replace("Value", "") }}
+        >{{ v$.product.variety.required.$message }}
       </small>
     </div>
 
@@ -154,9 +154,7 @@
           v$.product.processing_method.$pending.$response
         "
         class="p-error"
-        >{{
-          v$.product.processing_method.required.$message.replace("Value", "")
-        }}
+        >{{ v$.product.processing_method.required.$message }}
       </small>
     </div>
 
@@ -264,7 +262,7 @@
           v$.product.flavor[0].$pending.$response
         "
         class="p-error"
-        >{{ v$.product.flavor[0].required.$message.replace("Value", "") }}
+        >{{ v$.product.flavor[0].required.$message }}
       </small>
     </div>
     <div class="p-field p-col-12 p-md-4">
@@ -288,7 +286,7 @@
           v$.product.flavor[1].$pending.$response
         "
         class="p-error"
-        >{{ v$.product.flavor[1].required.$message.replace("Value", "") }}
+        >{{ v$.product.flavor[1].required.$message }}
       </small>
     </div>
 
@@ -313,7 +311,7 @@
           v$.product.flavor[2].$pending.$response
         "
         class="p-error"
-        >{{ v$.product.flavor[2].required.$message.replace("Value", "") }}
+        >{{ v$.product.flavor[2].required.$message }}
       </small>
     </div>
 
@@ -340,7 +338,7 @@
           v$.product.description.$pending.$response
         "
         class="p-error"
-        >{{ v$.product.description.required.$message.replace("Value", "") }}
+        >{{ v$.product.description.required.$message }}
       </small>
     </div>
 

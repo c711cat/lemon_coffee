@@ -22,12 +22,7 @@
           v$.personal_information.name.$pending.$response
         "
         class="p-error"
-        >{{
-          v$.personal_information.name.required.$message.replace(
-            "Value",
-            "姓名"
-          )
-        }}
+        >{{ v$.personal_information.name.required.$message }}
       </small>
     </div>
 
@@ -53,12 +48,7 @@
           v$.personal_information.email.$pending.$response
         "
         class="p-error"
-        >{{
-          v$.personal_information.email.required.$message.replace(
-            "Value",
-            "電子信箱"
-          )
-        }}
+        >{{ v$.personal_information.email.required.$message }}
       </small>
     </div>
 
