@@ -11,7 +11,6 @@
   <div class="router-view-style">
     <router-view />
   </div>
-
   <GoTop></GoTop>
   <Footer></Footer>
 </template>
