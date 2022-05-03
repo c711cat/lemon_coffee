@@ -79,7 +79,13 @@
 
   <div
     class="
-      p-d-flex p-flex-wrap p-flex-row-reverse p-jc-between p-ai-center p-mt-3
+      p-d-flex
+      p-flex-wrap
+      p-flex-row-reverse
+      p-jc-between
+      p-ai-center
+      p-mt-3
+      p-mb-5
       img-and-content-container
     "
   >

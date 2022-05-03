@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="p-grid p-mt-0 nested-grid p-jc-evenly p-ai-center footer-body p-py-5"
-  >
+  <div class="p-grid nested-grid p-jc-evenly p-ai-center footer-body p-py-5">
     <router-link
       to="/home"
       class="
