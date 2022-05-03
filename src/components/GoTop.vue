@@ -1,7 +1,7 @@
 <template>
   <Button
     :class="isTop ? 'goTopAfter' : ''"
-    @click.prevent="goTop()"
+    @click.prevent="goTop"
     icon="pi pi-arrow-up"
     class="p-button-rounded p-button-warning goTop"
   />
