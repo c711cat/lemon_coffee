@@ -11,6 +11,8 @@
   <div class="router-view-style">
     <router-view />
   </div>
+
+  <GoTop></GoTop>
   <Footer></Footer>
 </template>
 
@@ -19,6 +21,7 @@ import Navbar from "@/components/Navbar.vue";
 import emitter from "@/methods/emitter.js";
 import CartSidebar from "@/components/CartSidebar.vue";
 import Footer from "@/components/Footer.vue";
+import GoTop from "@/components/GoTop.vue";
 
 export default {
   data() {
@@ -26,7 +29,7 @@ export default {
       visibleRight: false,
     };
   },
-  components: { Navbar, CartSidebar, Footer },
+  components: { Navbar, CartSidebar, Footer, GoTop },
 
   provide() {
     return {
