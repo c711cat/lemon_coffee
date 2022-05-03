@@ -2,19 +2,18 @@
   <Navbar></Navbar>
   <Toast style="max-width: 350px" />
   <router-view />
-  <GoTop></GoTop>
+  <ScrollTop :threshold="200" />
 </template>
 
 <script>
 import Navbar from "@/views/Manager/Navbar.vue";
 import emitter from "@/methods/emitter.js";
-import GoTop from "@/components/GoTop.vue";
 
 export default {
   data() {
     return {};
   },
-  components: { Navbar, GoTop },
+  components: { Navbar },
   provide() {
     return {
       emitter,
