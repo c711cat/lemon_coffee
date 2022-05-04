@@ -31,9 +31,7 @@
               v$.shipping_info.name.$pending.$response
             "
             class="p-error"
-            >{{
-              v$.shipping_info.name.required.$message.replace("Value", "姓名")
-            }}
+            >{{ v$.shipping_info.name.required.$message }}
           </small>
         </div>
 
@@ -59,12 +57,7 @@
               v$.shipping_info.phone_number.$pending.$response
             "
             class="p-error"
-            >{{
-              v$.shipping_info.phone_number.required.$message.replace(
-                "Value",
-                "電話"
-              )
-            }}
+            >{{ v$.shipping_info.phone_number.required.$message }}
           </small>
         </div>
 
@@ -99,12 +92,7 @@
               v$.shipping_info.shipping_method.$pending.$response
             "
             class="p-error"
-            >{{
-              v$.shipping_info.shipping_method.required.$message.replace(
-                "Value",
-                "送貨方式"
-              )
-            }}
+            >{{ v$.shipping_info.shipping_method.required.$message }}
           </small>
         </div>
 
@@ -131,12 +119,7 @@
               v$.shipping_info.address.$pending.$response
             "
             class="p-error"
-            >{{
-              v$.shipping_info.address.required.$message.replace(
-                "Value",
-                "收件地址"
-              )
-            }}
+            >{{ v$.shipping_info.address.required.$message }}
           </small>
         </div>
 
@@ -165,12 +148,7 @@
               v$.shipping_info.payment_method.$pending.$response
             "
             class="p-error"
-            >{{
-              v$.shipping_info.payment_method.required.$message.replace(
-                "Value",
-                "付款方式"
-              )
-            }}
+            >{{ v$.shipping_info.payment_method.required.$message }}
           </small>
         </div>
 
