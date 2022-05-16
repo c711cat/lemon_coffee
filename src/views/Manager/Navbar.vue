@@ -52,7 +52,7 @@ export default {
         {
           label: "豆單",
           icon: "pi pi-fw pi-book",
-          to: "/admin/products",
+          to: "/admin",
         },
         {
           label: "訂單",

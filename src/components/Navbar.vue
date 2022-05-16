@@ -78,7 +78,7 @@ export default {
         {
           label: "管理員頁面",
           icon: "pi pi-fw pi-user-edit",
-          to: "/admin/products",
+          to: "/admin",
         },
         {
           label: "訂單",
