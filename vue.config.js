@@ -5,5 +5,5 @@ module.exports = {
       return args;
     });
   },
-  publicPath: "/lemon_coffee/dist/",
+  publicPath: '/lemon_coffee/',
 }
