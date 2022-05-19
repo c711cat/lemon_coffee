@@ -2,6 +2,7 @@
   <Navbar></Navbar>
   <Toast style="max-width: 350px" />
   <router-view />
+  <ScrollTop :threshold="200" />
 </template>
 
 <script>

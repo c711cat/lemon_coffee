@@ -33,6 +33,7 @@ import Menu from "primevue/menu";
 import ProgressSpinner from "primevue/progressspinner";
 import Dialog from "primevue/dialog";
 import Skeleton from "primevue/skeleton";
+import ScrollTop from "primevue/scrolltop";
 
 const app = createApp(App);
 app.use(router);
@@ -66,5 +67,6 @@ app.component("Menu", Menu);
 app.component("ProgressSpinner", ProgressSpinner);
 app.component("Dialog", Dialog);
 app.component("Skeleton", Skeleton);
+app.component("ScrollTop", ScrollTop);
 
 app.mount("#app");

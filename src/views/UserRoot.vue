@@ -8,7 +8,10 @@
   >
     <CartSidebar @close-cart-sidebar="visibleRight = false"></CartSidebar>
   </Sidebar>
-  <router-view />
+  <div class="router-view-style">
+    <router-view />
+  </div>
+  <ScrollTop :threshold="200" />
   <Footer></Footer>
 </template>
 
@@ -37,5 +40,9 @@ export default {
 <style lang="scss" scoped>
 .sidebar-wrap {
   width: 500px;
+}
+
+.router-view-style {
+  min-height: 563px;
 }
 </style>
