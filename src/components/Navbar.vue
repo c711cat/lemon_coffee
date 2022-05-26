@@ -4,7 +4,7 @@
   <div id="navbar-style">
     <Menubar :model="items" class="p-pl-5 p-pr-3 p-py-3">
       <template #start>
-        <router-link to="/home">
+        <router-link to="/">
           <img
             class="logo-img"
             alt="logo"
@@ -78,7 +78,7 @@ export default {
         {
           label: "管理員頁面",
           icon: "pi pi-fw pi-user-edit",
-          to: "/admin/products",
+          to: "/admin",
         },
         {
           label: "訂單",

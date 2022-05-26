@@ -1,7 +1,7 @@
 <template>
   <div class="p-grid nested-grid p-jc-evenly p-ai-center footer-body p-py-5">
     <router-link
-      to="/home"
+      to="/"
       class="
         link-content
         logo-hover

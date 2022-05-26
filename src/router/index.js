@@ -6,7 +6,7 @@ const routes = [
     component: () => import("@/views/Manager/Root.vue"),
     children: [
       {
-        path: "products",
+        path: "",
         component: () => import("@/views/Manager/Home.vue"),
       },
       {
@@ -28,7 +28,7 @@ const routes = [
     component: () => import("@/views/UserRoot.vue"),
     children: [
       {
-        path: "home",
+        path: "",
         component: () => import("@/components/Home.vue"),
       },
       {

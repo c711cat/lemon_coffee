@@ -5,7 +5,7 @@ const messages = {
     validations: {
       required: "必填",
       minLength: "Password須為 6 碼以上英數皆可，注意英文大小寫",
-      minValue: "Number 不可為零",
+      minValue: "Number最低為 1，不可為零 或 負數",
     },
   },
 };
