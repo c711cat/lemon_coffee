@@ -19,7 +19,7 @@ https://c711cat.github.io/lemon_coffee/
 
 ## 開發流程
  * 使用 Git 開新分支製作功能 
- * 確認後即 merge 回主支線，並進行下一回的開發
+ * Code Review 過了即 merge 回主支線，並進行下一回的開發
 
 ## 網站架構
  ### 消費者 ( 前台 )
