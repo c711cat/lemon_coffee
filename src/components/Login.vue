@@ -43,7 +43,7 @@ export default {
           const token = response.headers.authorization;
           Cookies.set("lemonToken", token);
           this.emitter.emit("loading", false);
-          if (response.status === 201) {
+          if (response.status === 200) {
             this.showSuccessToast("登入成功");
             this.getCart();
             history.back();
