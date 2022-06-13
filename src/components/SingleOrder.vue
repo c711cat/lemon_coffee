@@ -5,7 +5,7 @@
     :breakpoints="{ '960px': '100vw' }"
     style="width: 60%"
   >
-    <h4 class="p-mt-0">成立時間 {{ order.created_at }}</h4>
+    <h4 class="p-mt-0">成立時間 {{ updateDateFormat(order.created_at) }}</h4>
     <div
       v-for="item in order.items"
       :key="item.id"
@@ -156,6 +156,11 @@ export default {
     },
   },
   methods: {
+    updateDateFormat(time) {
+      const oldStyle = new Date(Date.parse(time)).toLocaleString();
+      const newStyle = oldStyle.replace("/", "-").replace("/", "-");
+      return newStyle;
+    },
     groundText(ground_result) {
       if (ground_result === true) {
         return "磨粉";
