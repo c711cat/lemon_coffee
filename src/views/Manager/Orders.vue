@@ -19,7 +19,7 @@
     stateKey="dt-state-demo-local"
     v-model:selection="orders.items"
     selectionMode="single"
-    @rowSelect="openTheOrder(orders.items)"
+    @rowSelect="getTheOrder(orders.items.id)"
   >
     <template #header>
       <div class="p-text-center">
@@ -109,7 +109,7 @@ export default {
   components: { SingleOrder },
   methods: {
     getOrders() {
-      const api = `${process.env.VUE_APP_API}/users/orders`;
+      const api = `${process.env.VUE_APP_API}/admin/orders`;
       const headers = { Authorization: Cookies.get("lemonToken") };
       axios
         .get(api, { headers })
@@ -184,8 +184,27 @@ export default {
           return "已取貨";
       }
     },
-    openTheOrder(the_order) {
-      this.order = { ...the_order };
+
+    getTheOrder(id) {
+      console.log(id);
+      const api = `${process.env.VUE_APP_API}/admin/orders/${id}`;
+      const headers = { Authorization: Cookies.get("lemonToken") };
+      axios
+        .get(api, { headers })
+        .then((response) => {
+          console.log(response);
+          this.order = { ...response.data };
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            Cookies.remove("lemonToken");
+            this.showErrorToast("請重新登入");
+            this.$router.push("/entrance/login");
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
   },
   created() {
