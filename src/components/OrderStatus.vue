@@ -26,16 +26,38 @@
 </template>
 
 <script>
+import axios from "axios";
+import Cookies from "js-cookie";
 export default {
   props: {
-    orderStatus: {
-      type: String,
+    orderData: {
+      type: Object,
+    },
+  },
     },
   },
   inject: ["emitter"],
   methods: {
     confirm_order() {
-      this.emitter.emit("update_order_status", "confirmed");
+      const api = `${process.env.VUE_APP_API}/admin/orders/${this.orderData.id}/status`;
+      const headers = { Authorization: Cookies.get("lemonToken") };
+      const data = { status: "confirmed" };
+      axios
+        .put(api, data, { headers })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            Cookies.remove("lemonToken");
+            this.showErrorToast("請重新登入");
+            this.$router.push("/entrance/login");
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
     },
   },
   computed: {
