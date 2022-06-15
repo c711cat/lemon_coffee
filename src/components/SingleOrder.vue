@@ -100,7 +100,7 @@
       </div>
 
       <div class="p-col-12 p-lg-1 p-text-bold">訂單狀態</div>
-      <OrderStatus :orderStatus="oneOrder.status" />
+      <OrderStatus :orderData="oneOrder" />
 
       <div class="p-col-12 p-lg-1 p-text-bold">物流狀態</div>
       <ShippingStatus
@@ -132,6 +132,8 @@
 <script>
 import ShippingStatus from "@/components/ShippingStatus.vue";
 import OrderStatus from "@/components/OrderStatus.vue";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 export default {
   data() {
@@ -169,7 +171,17 @@ export default {
       }
     },
     confirm_paid() {
-      this.oneOrder.payment_status = "paid";
+      const api = `${process.env.VUE_APP_API}/admin/orders/${this.order.id}/payment_status`;
+      const headers = { Authorization: Cookies.get("lemonToken") };
+      const data = { payment_status: "paid" };
+      axios
+        .put(api, data, { headers })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
     },
     caculateSubtotal(order) {
       return order.items.reduce((acc, current_item) => {

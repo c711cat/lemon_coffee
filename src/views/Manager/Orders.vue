@@ -186,13 +186,11 @@ export default {
     },
 
     getTheOrder(id) {
-      console.log(id);
       const api = `${process.env.VUE_APP_API}/admin/orders/${id}`;
       const headers = { Authorization: Cookies.get("lemonToken") };
       axios
         .get(api, { headers })
         .then((response) => {
-          console.log(response);
           this.order = { ...response.data };
         })
         .catch((error) => {
