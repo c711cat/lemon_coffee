@@ -8,15 +8,15 @@
     <i class="pi pi-arrow-right p-mx-1"></i>
 
     <Button
-      @click="confirm_order"
-      v-if="pending"
+      @click.prevent="confirm_order"
+      v-if="the_order.status === 'pending'"
       label="確認訂單"
       class="
         p-button-raised p-button-info p-button-sm p-lg-fixed p-col-3 p-px-2
       "
       style="width: 100px"
     />
-    <strong v-if="confirmed || finished" class="progress-color">已確認</strong>
+    <strong v-else class="progress-color"> 已確認 </strong>
 
     <i :class="finished_arrow_style" class="pi pi-arrow-right p-mx-1"> </i>
 
@@ -28,24 +28,29 @@
 <script>
 import axios from "axios";
 import Cookies from "js-cookie";
+
 export default {
+  data() {
+    return {
+      the_order: {},
+    };
+  },
   props: {
     orderData: {
-      type: Object,
-    },
-  },
+      typeof: Object,
     },
   },
   inject: ["emitter"],
   methods: {
     confirm_order() {
-      const api = `${process.env.VUE_APP_API}/admin/orders/${this.orderData.id}/status`;
+      const api = `${process.env.VUE_APP_API}/admin/orders/${this.the_order.id}/status`;
       const headers = { Authorization: Cookies.get("lemonToken") };
       const data = { status: "confirmed" };
       axios
         .put(api, data, { headers })
         .then((response) => {
-          console.log(response);
+          this.the_order = response.data;
+          this.emitter.emit("updateOrderStatus");
         })
         .catch((error) => {
           if (error.response.status === 401) {
@@ -58,15 +63,8 @@ export default {
           this.loading = false;
         });
     },
-    },
   },
   computed: {
-    pending() {
-      return this.orderStatus === "pending";
-    },
-    confirmed() {
-      return this.orderStatus === "confirmed";
-    },
     finished_arrow_style() {
       if (this.finished) {
         return "arrow-color";
@@ -82,11 +80,19 @@ export default {
       }
     },
     finished() {
-      return this.orderStatus === "finished";
+      return this.the_order.status === "finished";
     },
     canceled() {
-      return this.orderStatus === "canceled";
+      return this.the_order.status === "canceled";
     },
+  },
+  watch: {
+    orderData() {
+      this.the_order = { ...this.orderData };
+    },
+  },
+  mounted() {
+    this.the_order = { ...this.orderData };
   },
 };
 </script>

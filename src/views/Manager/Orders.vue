@@ -107,6 +107,7 @@ export default {
     };
   },
   components: { SingleOrder },
+  inject: ["emitter"],
   methods: {
     getOrders() {
       const api = `${process.env.VUE_APP_API}/admin/orders`;
@@ -207,6 +208,9 @@ export default {
   },
   created() {
     this.getOrders();
+    this.emitter.on("updateOrderStatus", () => {
+      this.getOrders();
+    });
   },
 };
 </script>
