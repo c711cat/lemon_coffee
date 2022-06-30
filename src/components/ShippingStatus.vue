@@ -87,7 +87,6 @@ export default {
   inject: ["emitter"],
   methods: {
     confirm_shipped() {
-      this.emitter.emit("update_shipping_status", "shipping");
       const api = `${process.env.VUE_APP_API}/admin/orders/${this.the_order.id}/shipping_status`;
       const headers = { Authorization: Cookies.get("lemonToken") };
       const data = { shipping_status: "shipping" };
@@ -95,6 +94,7 @@ export default {
         .put(api, data, { headers })
         .then((response) => {
           this.the_order = response.data;
+          this.emitter.emit("updateOrderAllStatus");
         })
         .catch((error) => {
           if (error.response.status === 401) {

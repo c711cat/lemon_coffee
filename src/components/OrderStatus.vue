@@ -50,7 +50,7 @@ export default {
         .put(api, data, { headers })
         .then((response) => {
           this.the_order = response.data;
-          this.emitter.emit("updateOrderStatus");
+          this.emitter.emit("updateOrderAllStatus");
         })
         .catch((error) => {
           if (error.response.status === 401) {

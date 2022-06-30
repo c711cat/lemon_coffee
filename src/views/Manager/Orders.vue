@@ -208,7 +208,7 @@ export default {
   },
   created() {
     this.getOrders();
-    this.emitter.on("updateOrderStatus", () => {
+    this.emitter.on("updateOrderAllStatus", () => {
       this.getOrders();
     });
   },

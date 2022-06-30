@@ -50,7 +50,7 @@ export default {
   inject: ["emitter"],
   methods: {
     finishedOrder() {
-      this.emitter.emit("update_order_status", "finished");
+      
     },
   },
   computed: {
