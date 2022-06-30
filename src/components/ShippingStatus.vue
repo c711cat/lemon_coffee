@@ -76,12 +76,6 @@ export default {
         return;
       },
     },
-    orderStatus: {
-      type: String,
-      default() {
-        return;
-      },
-    },
   },
 
   inject: ["emitter"],
@@ -192,7 +186,7 @@ export default {
       }
     },
     canceled() {
-      return this.orderStatus === "canceled";
+      return this.the_order.status === "canceled";
     },
   },
   watch: {
