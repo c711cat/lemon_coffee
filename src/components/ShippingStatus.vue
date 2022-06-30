@@ -108,7 +108,25 @@ export default {
         });
     },
     confirm_arrived() {
-      this.emitter.emit("update_shipping_status", "arrived");
+      const api = `${process.env.VUE_APP_API}/admin/orders/${this.the_order.id}/shipping_status`;
+      const headers = { Authorization: Cookies.get("lemonToken") };
+      const data = { shipping_status: "arrived" };
+      axios
+        .put(api, data, { headers })
+        .then((response) => {
+          this.the_order = response.data;
+          this.emitter.emit("updateOrderAllStatus");
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            Cookies.remove("lemonToken");
+            this.showErrorToast("請重新登入");
+            this.$router.push("/entrance/login");
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
     confirm_picked_up() {
       this.emitter.emit("update_shipping_status", "picked_up");
