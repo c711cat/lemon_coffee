@@ -60,10 +60,18 @@
 </template>
 
 <script>
+import axios from "axios";
+import Cookies from "js-cookie";
+
 export default {
+  data() {
+    return {
+      the_order: {},
+    };
+  },
   props: {
-    shippingStatus: {
-      type: String,
+    orderData: {
+      type: Object,
       default() {
         return;
       },
@@ -80,6 +88,24 @@ export default {
   methods: {
     confirm_shipped() {
       this.emitter.emit("update_shipping_status", "shipping");
+      const api = `${process.env.VUE_APP_API}/admin/orders/${this.the_order.id}/shipping_status`;
+      const headers = { Authorization: Cookies.get("lemonToken") };
+      const data = { shipping_status: "shipping" };
+      axios
+        .put(api, data, { headers })
+        .then((response) => {
+          this.the_order = response.data;
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            Cookies.remove("lemonToken");
+            this.showErrorToast("請重新登入");
+            this.$router.push("/entrance/login");
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
     confirm_arrived() {
       this.emitter.emit("update_shipping_status", "arrived");
@@ -90,16 +116,16 @@ export default {
   },
   computed: {
     in_preparation() {
-      return this.shippingStatus === "in_preparation";
+      return this.the_order.shipping_status === "in_preparation";
     },
     shipping() {
-      return this.shippingStatus === "shipping";
+      return this.the_order.shipping_status === "shipping";
     },
     arrived() {
-      return this.shippingStatus === "arrived";
+      return this.the_order.shipping_status === "arrived";
     },
     picked_up() {
-      return this.shippingStatus === "picked_up";
+      return this.the_order.shipping_status === "picked_up";
     },
     arrived_style() {
       if (this.arrived || this.picked_up) {
@@ -132,6 +158,16 @@ export default {
     canceled() {
       return this.orderStatus === "canceled";
     },
+  },
+  watch: {
+    orderData() {
+      this.the_order = { ...this.orderData };
+      console.log(this.the_order);
+    },
+  },
+  mounted() {
+    this.the_order = { ...this.orderData };
+    console.log(this.the_order);
   },
 };
 </script>
