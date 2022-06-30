@@ -168,16 +168,24 @@ export default {
       }
     },
     confirm_paid() {
-      const api = `${process.env.VUE_APP_API}/admin/orders/${this.order.id}/payment_status`;
+      const api = `${process.env.VUE_APP_API}/admin/orders/${this.oneOrder.id}/payment_status`;
       const headers = { Authorization: Cookies.get("lemonToken") };
       const data = { payment_status: "paid" };
       axios
         .put(api, data, { headers })
         .then((response) => {
-          console.log(response);
+          this.oneOrder = response.data;
+          this.emitter.emit("updateOrderAllStatus");
         })
         .catch((error) => {
-          console.log(error.response);
+          if (error.response.status === 401) {
+            Cookies.remove("lemonToken");
+            this.showErrorToast("請重新登入");
+            this.$router.push("/entrance/login");
+          }
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
     caculateSubtotal(order) {
