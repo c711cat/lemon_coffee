@@ -265,11 +265,6 @@ export default {
       return this.oneOrder.shipping_status === "in_preparation";
     },
   },
-  created() {
-    this.emitter.on("update_order_status", (current_order_status) => {
-      this.oneOrder.status = current_order_status;
-    });
-  },
 };
 </script>
 
