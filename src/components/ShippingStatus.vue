@@ -23,7 +23,7 @@
 
     <Button
       @click="confirm_arrived"
-      v-if="shipping"
+      v-if="the_order['may_to_arrived?']"
       label="確認到達"
       class="
         p-button-raised p-button-info p-button-sm p-lg-fixed p-col-2 p-px-2
