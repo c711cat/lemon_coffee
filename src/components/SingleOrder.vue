@@ -89,7 +89,7 @@
         </strong>
 
         <Button
-          v-if="outstanding && !canceled"
+          v-if="oneOrder['may_pay?'] && !canceled"
           @click="confirm_paid"
           label="確認付款"
           class="
