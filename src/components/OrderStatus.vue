@@ -9,7 +9,7 @@
 
     <Button
       @click.prevent="confirm_order"
-      v-if="the_order.status === 'pending'"
+      v-if="the_order['may_confirm?']"
       label="確認訂單"
       class="
         p-button-raised p-button-info p-button-sm p-lg-fixed p-col-3 p-px-2
