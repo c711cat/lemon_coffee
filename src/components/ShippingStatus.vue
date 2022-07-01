@@ -41,7 +41,7 @@
 
     <Button
       @click="confirm_picked_up"
-      v-if="arrived"
+      v-if="the_order['may_to_picked_up?']"
       label="確認取貨"
       class="
         p-button-raised p-button-info p-button-sm p-lg-fixed p-col-3 p-px-2
