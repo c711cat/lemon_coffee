@@ -8,7 +8,7 @@
     <i class="pi pi-arrow-right p-mx-1"></i>
     <Button
       @click="confirm_shipped"
-      v-if="in_preparation"
+      v-if="the_order['may_to_shipping?']"
       label="確認發貨"
       class="
         p-button-raised p-button-info p-button-sm p-lg-fixed p-col-2 p-px-2
