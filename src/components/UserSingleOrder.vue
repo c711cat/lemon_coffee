@@ -90,11 +90,7 @@
       </div>
 
       <div class="p-col-12 p-lg-1 p-text-bold">訂單狀態</div>
-      <UserOrderStatus
-        :orderStatus="oneOrder.status"
-        :shippingStatus="oneOrder.shipping_status"
-        :paymentStatus="oneOrder.payment_status"
-      />
+      <UserOrderStatus :orderData="oneOrder" />
 
       <div class="p-col-12 p-lg-1 p-text-bold">物流狀態</div>
       <UserShippingStatus

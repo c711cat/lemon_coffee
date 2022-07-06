@@ -11,7 +11,7 @@
     <i :class="pendingAndConfirmedArrowStyle" class="pi pi-arrow-right p-mx-1">
     </i>
     <Button
-      :disabled="!(pickedUp && paid)"
+      :disabled="!the_order['may_finish?']"
       @click="finishedOrder"
       v-if="confirmed"
       label="完成訂單"
@@ -36,17 +36,6 @@ export default {
     };
   },
   props: {
-    shippingStatus: {
-      type: String,
-      default() {
-        return;
-      },
-    },
-    paymentStatus: {
-      type: String,
-      default() {
-        return;
-      },
     orderData: {
       type: Object,
     },
@@ -77,22 +66,22 @@ export default {
   },
   computed: {
     pending() {
-      return this.orderStatus === "pending";
+      return this.the_order.status === "pending";
     },
     confirmed() {
-      return this.orderStatus === "confirmed";
+      return this.the_order.status === "confirmed";
     },
     pickedUp() {
-      return this.shippingStatus === "picked_up";
+      return this.the_order.shipping_status === "picked_up";
     },
     finished() {
-      return this.orderStatus === "finished";
+      return this.the_order.status === "finished";
     },
     canceled() {
-      return this.orderStatus === "canceled";
+      return this.the_order.status === "canceled";
     },
     paid() {
-      return this.paymentStatus === "paid";
+      return this.the_order.payment_status === "paid";
     },
     pendingAndConfirmedArrowStyle() {
       if (this.confirmed || this.finished) {
