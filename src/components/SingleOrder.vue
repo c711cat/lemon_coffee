@@ -109,7 +109,7 @@
     <template #footer>
       <div class="p-d-flex p-jc-end">
         <Button
-          :disabled="!(outstanding && inPreparation && (pending || confirmed))"
+          :disabled="!oneOrder['may_cancel?']"
           @click.prevent="cancelTheOreder()"
           label="取消訂單"
           icon="pi pi-times"
@@ -207,7 +207,26 @@ export default {
       this.isOpen = false;
     },
     cancelTheOreder() {
-      this.oneOrder.status = "canceled";
+      const api = `${process.env.VUE_APP_API}/admin/orders/${this.oneOrder.id}/status`;
+      const headers = { Authorization: Cookies.get("lemonToken") };
+      const data = { status: "canceled" };
+      axios
+        .put(api, data, { headers })
+        .then((response) => {
+          console.log(response);
+          this.oneOrder = response.data;
+          this.emitter.emit("updateOrderAllStatus");
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            Cookies.remove("lemonToken");
+            this.showErrorToast("請重新登入");
+            this.$router.push("/entrance/login");
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
   },
   inject: ["emitter"],
