@@ -108,12 +108,10 @@ export default {
   watch: {
     orderData() {
       this.the_order = { ...this.orderData };
-      console.log(this.the_order);
     },
   },
   mounted() {
     this.the_order = { ...this.orderData };
-    console.log(this.the_order);
   },
 };
 </script>

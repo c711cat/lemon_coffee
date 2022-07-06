@@ -110,7 +110,7 @@
       <div class="p-d-flex p-jc-end">
         <Button
           :disabled="!oneOrder['may_cancel?']"
-          @click.prevent="cancelTheOreder()"
+          @click.prevent="cancelTheOreder"
           label="取消訂單"
           icon="pi pi-times"
           class="p-button-danger p-ml-3"
@@ -213,7 +213,6 @@ export default {
       axios
         .put(api, data, { headers })
         .then((response) => {
-          console.log(response);
           this.oneOrder = response.data;
           this.emitter.emit("updateOrderAllStatus");
         })
