@@ -106,7 +106,7 @@
     <template #footer>
       <div class="p-d-flex p-jc-end">
         <Button
-          :disabled="!(outstanding && inPreparation && (pending || confirmed))"
+          :disabled="!oneOrder['may_cancel?']"
           @click.prevent="cancelTheOrder"
           label="取消訂單"
           icon="pi pi-times"
