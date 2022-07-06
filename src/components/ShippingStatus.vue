@@ -108,6 +108,7 @@ export default {
         .then((response) => {
           this.the_order = response.data;
           this.emitter.emit("updateOrderAllStatus");
+          this.emitter.emit("updateCancelBtnStatus", this.the_order.id);
         })
         .catch((error) => {
           if (error.response.status === 401) {

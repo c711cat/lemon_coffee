@@ -211,6 +211,9 @@ export default {
     this.emitter.on("updateOrderAllStatus", () => {
       this.getOrders();
     });
+    this.emitter.on("updateCancelBtnStatus", (id) => {
+      this.getTheOrder(id);
+    });
   },
 };
 </script>
