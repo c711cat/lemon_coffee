@@ -126,6 +126,8 @@
 <script>
 import UserShippingStatus from "@/components/UserShippingStatus.vue";
 import UserOrderStatus from "@/components/UserOrderStatus.vue";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 export default {
   data() {
@@ -181,7 +183,25 @@ export default {
       this.isOpen = false;
     },
     cancelTheOrder() {
-      this.oneOrder.status = "canceled";
+      const api = `${process.env.VUE_APP_API}/admin/orders/${this.oneOrder.id}/status`;
+      const headers = { Authorization: Cookies.get("lemonToken") };
+      const data = { status: "canceled" };
+      axios
+        .put(api, data, { headers })
+        .then((response) => {
+          this.oneOrder = response.data;
+          this.emitter.emit("updateUserOrderAllStatus");
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            Cookies.remove("lemonToken");
+            this.showErrorToast("請重新登入");
+            this.$router.push("/entrance/login");
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
   },
   inject: ["emitter"],
