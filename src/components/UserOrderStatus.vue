@@ -26,15 +26,17 @@
 </template>
 
 <script>
+import axios from "axios";
+import Cookies from "js-cookie";
+
 export default {
+  data() {
+    return {
+      the_order: {},
+    };
+  },
   props: {
     shippingStatus: {
-      type: String,
-      default() {
-        return;
-      },
-    },
-    orderStatus: {
       type: String,
       default() {
         return;
@@ -45,12 +47,32 @@ export default {
       default() {
         return;
       },
+    orderData: {
+      type: Object,
     },
   },
   inject: ["emitter"],
   methods: {
     finishedOrder() {
-      
+      const api = `${process.env.VUE_APP_API}/admin/orders/${this.the_order.id}/status`;
+      const headers = { Authorization: Cookies.get("lemonToken") };
+      const data = { status: "finished" };
+      axios
+        .put(api, data, { headers })
+        .then((response) => {
+          this.the_order = response.data;
+          this.emitter.emit("updateUserOrderAllStatus");
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            Cookies.remove("lemonToken");
+            this.showErrorToast("請重新登入");
+            this.$router.push("/entrance/login");
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
   },
   computed: {
@@ -93,6 +115,16 @@ export default {
         return "disabled-color";
       }
     },
+  },
+  watch: {
+    orderData() {
+      this.the_order = { ...this.orderData };
+      console.log(this.the_order);
+    },
+  },
+  mounted() {
+    this.the_order = { ...this.orderData };
+    console.log(this.the_order);
   },
 };
 </script>
