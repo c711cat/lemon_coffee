@@ -15,16 +15,7 @@
       "
       style="width: 100px"
     />
-    <strong
-      v-if="
-        the_order['may_to_arrived?'] ||
-        the_order['may_to_picked_up?'] ||
-        the_order['may_finish?']
-      "
-      class="progress-color"
-    >
-      已發貨
-    </strong>
+    <strong v-else class="progress-color"> 已發貨 </strong>
 
     <i class="pi pi-arrow-right p-mx-1" :class="shipping_arrow_style"></i>
 
@@ -37,16 +28,7 @@
       "
       style="width: 100px"
     />
-    <strong
-      v-if="
-        the_order['may_to_shipping?'] ||
-        the_order['may_to_picked_up?'] ||
-        the_order['may_finish?']
-      "
-      :class="arrived_style"
-    >
-      已到達
-    </strong>
+    <strong v-else :class="arrived_style"> 已到達 </strong>
 
     <i class="pi pi-arrow-right p-mx-1" :class="arrived_arrow_style"></i>
 
@@ -60,21 +42,8 @@
       style="width: 100px"
     />
 
-    <strong
-      v-if="
-        the_order['may_to_shipping?'] ||
-        the_order['may_to_arrived?'] ||
-        the_order['may_finish?']
-      "
-      :class="picked_up_style"
-    >
-      已取貨
-    </strong>
-    <i
-      v-if="the_order['may_finish?']"
-      class="pi pi-check-circle success-color p-ml-1"
-    >
-    </i>
+    <strong v-else :class="picked_up_style"> 已取貨 </strong>
+    <i v-if="picked_up" class="pi pi-check-circle success-color p-ml-1"> </i>
   </div>
 </template>
 
@@ -165,13 +134,13 @@ export default {
     },
   },
   computed: {
-    in_preparation() {
-      return this.the_order.shipping_status === "in_preparation";
+    picked_up() {
+      return this.the_order.shipping_status === "picked_up";
     },
     arrived_style() {
       if (
-        this.the_order["may_to_picked_up?"] ||
-        this.the_order["may_finish?"]
+        this.the_order.shipping_status === "arrived" ||
+        this.the_order.shipping_status === "picked_up"
       ) {
         return "progress-color";
       } else {
@@ -180,9 +149,9 @@ export default {
     },
     shipping_arrow_style() {
       if (
-        this.the_order["may_to_arrived?"] ||
-        this.the_order["may_to_picked_up?"] ||
-        this.the_order["may_finish?"]
+        this.the_order.shipping_status === "shipping" ||
+        this.the_order.shipping_status === "arrived" ||
+        this.the_order.shipping_status === "picked_up"
       ) {
         return "arrow-color";
       } else {
@@ -191,8 +160,8 @@ export default {
     },
     arrived_arrow_style() {
       if (
-        this.the_order["may_to_picked_up?"] ||
-        this.the_order["may_finish?"]
+        this.the_order.shipping_status === "arrived" ||
+        this.the_order.shipping_status === "picked_up"
       ) {
         return "arrow-color";
       } else {
@@ -200,7 +169,7 @@ export default {
       }
     },
     picked_up_style() {
-      if (this.the_order["may_finish?"]) {
+      if (this.the_order.shipping_status === "picked_up") {
         return "success-color";
       } else {
         return "disabled-color";
