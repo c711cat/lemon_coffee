@@ -1,8 +1,8 @@
 <template>
-  <div v-if="canceled" class="p-col-12 p-lg-11 p-d-flex p-jc-start p-ai-center">
+  <div v-if="canceled" class="p-col-12 p-lg-10 p-d-flex p-jc-start p-ai-center">
     <strong class="cancel-color"> 已取消 </strong>
   </div>
-  <div v-else class="p-col-12 p-lg-11 p-d-flex p-jc-start p-ai-center">
+  <div v-else class="p-col-12 p-lg-10 p-d-flex p-jc-start p-ai-center">
     <strong class="progress-color"> 處理中 </strong>
 
     <i class="pi pi-arrow-right p-mx-1"></i>
