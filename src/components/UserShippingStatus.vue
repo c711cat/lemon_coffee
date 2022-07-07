@@ -22,36 +22,32 @@
 
 <script>
 export default {
+  data() {
+    return {
+      the_order: {},
+    };
+  },
   props: {
-    shippingStatus: {
-      type: String,
-      default() {
-        return;
-      },
-    },
-    orderStatus: {
-      type: String,
-      default() {
-        return;
-      },
+    orderData: {
+      type: Object,
     },
   },
   inject: ["emitter"],
   computed: {
     inPreparation() {
-      return this.shippingStatus === "in_preparation";
+      return this.the_order.shipping_status === "in_preparation";
     },
     shipping() {
-      return this.shippingStatus === "shipping";
+      return this.the_order.shipping_status === "shipping";
     },
     arrived() {
-      return this.shippingStatus === "arrived";
+      return this.the_order.shipping_status === "arrived";
     },
     pickedUp() {
-      return this.shippingStatus === "picked_up";
+      return this.the_order.shipping_status === "picked_up";
     },
     canceled() {
-      return this.orderStatus === "canceled";
+      return this.the_order.status === "canceled";
     },
     inPreparationArrowStyle() {
       if (this.shipping || this.arrived || this.pickedUp) {
@@ -95,6 +91,14 @@ export default {
         return "disabled-color";
       }
     },
+  },
+  watch: {
+    orderData() {
+      this.the_order = { ...this.orderData };
+    },
+  },
+  mounted() {
+    this.the_order = { ...this.orderData };
   },
 };
 </script>

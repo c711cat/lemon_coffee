@@ -93,10 +93,7 @@
       <UserOrderStatus :orderData="oneOrder" />
 
       <div class="p-col-12 p-lg-1 p-text-bold">物流狀態</div>
-      <UserShippingStatus
-        :shippingStatus="oneOrder.shipping_status"
-        :orderStatus="oneOrder.status"
-      />
+      <UserShippingStatus :orderData="oneOrder" />
     </div>
 
     <template #footer>
