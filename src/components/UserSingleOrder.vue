@@ -50,40 +50,58 @@
     </div>
 
     <div class="p-grid p-m-1 p-pl-2 divider p-pb-1 p-ai-center">
-      <div class="p-col-12 p-lg-2 p-text-bold">姓名</div>
+      <div class="p-col-12 p-lg-fixed p-text-bold" style="width: 100px">
+        姓名
+      </div>
       <div class="p-col-12 p-lg-10">{{ order.shipping_info.name }}</div>
 
-      <div class="p-col-12 p-lg-2 p-text-bold">電話</div>
+      <div class="p-col-12 p-lg-fixed p-text-bold" style="width: 100px">
+        電話
+      </div>
       <div class="p-col-12 p-lg-10">
         {{ order.shipping_info.phone_number }}
       </div>
 
-      <div class="p-col-12 p-lg-2 p-text-bold">Email</div>
+      <div class="p-col-12 p-lg-fixed p-text-bold" style="width: 100px">
+        Email
+      </div>
       <div class="p-col-12 p-lg-10">{{ order.shipping_info.email }}</div>
 
-      <div class="p-col-12 p-lg-2 p-text-bold">送貨方式</div>
+      <div class="p-col-12 p-lg-fixed p-text-bold" style="width: 100px">
+        送貨方式
+      </div>
       <div class="p-col-12 p-lg-10">
         {{ shippingMethodText }}
       </div>
 
-      <div v-if="homeDelivery" class="p-col-12 p-lg-2 p-text-bold">
+      <div
+        v-if="homeDelivery"
+        class="p-col-12 p-lg-fixed p-text-bold"
+        style="width: 100px"
+      >
         收件地址
       </div>
       <div v-if="homeDelivery" class="p-col-12 p-lg-10">
         {{ order.shipping_info.address }}
       </div>
 
-      <div class="p-col-12 p-lg-2 p-text-bold">付款方式</div>
+      <div class="p-col-12 p-lg-fixed p-text-bold" style="width: 100px">
+        付款方式
+      </div>
       <div class="p-col-12 p-lg-10">
         {{ paymentMethodText }}
       </div>
 
-      <div class="p-col-12 p-lg-2 p-text-bold">備註</div>
+      <div class="p-col-12 p-lg-fixed p-text-bold" style="width: 100px">
+        備註
+      </div>
       <div class="p-col-12 p-lg-10">{{ order.note }}</div>
     </div>
 
     <div class="p-grid p-m-1 p-pl-2 p-ai-center">
-      <div class="p-col-12 p-lg-2 p-text-bold">付款狀態</div>
+      <div class="p-col-12 p-lg-fixed p-text-bold" style="width: 100px">
+        付款狀態
+      </div>
       <div class="p-col-12 p-lg-10 p-d-flex p-jc-start p-ai-center">
         <strong :class="paymentStatusColor" class="p-mr-4">
           {{ paymentStatusText }}
@@ -91,10 +109,14 @@
         </strong>
       </div>
 
-      <div class="p-col-12 p-lg-2 p-text-bold">訂單狀態</div>
+      <div class="p-col-12 p-lg-fixed p-text-bold" style="width: 100px">
+        訂單狀態
+      </div>
       <UserOrderStatus :orderData="oneOrder" />
 
-      <div class="p-col-12 p-lg-2 p-text-bold">物流狀態</div>
+      <div class="p-col-12 p-lg-fixed p-text-bold" style="width: 100px">
+        物流狀態
+      </div>
       <UserShippingStatus :orderData="oneOrder" />
     </div>
 
