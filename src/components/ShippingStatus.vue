@@ -134,42 +134,38 @@ export default {
     },
   },
   computed: {
+    shipping() {
+      return this.the_order.shipping_status === "shipping";
+    },
+    arrived() {
+      return this.the_order.shipping_status === "arrived";
+    },
     picked_up() {
       return this.the_order.shipping_status === "picked_up";
     },
     arrived_style() {
-      if (
-        this.the_order.shipping_status === "arrived" ||
-        this.the_order.shipping_status === "picked_up"
-      ) {
+      if (this.arrived || this.picked_up) {
         return "progress-color";
       } else {
         return "disabled-color";
       }
     },
     shipping_arrow_style() {
-      if (
-        this.the_order.shipping_status === "shipping" ||
-        this.the_order.shipping_status === "arrived" ||
-        this.the_order.shipping_status === "picked_up"
-      ) {
+      if (this.shipping || this.arrived || this.picked_up) {
         return "arrow-color";
       } else {
         return "disabled-color";
       }
     },
     arrived_arrow_style() {
-      if (
-        this.the_order.shipping_status === "arrived" ||
-        this.the_order.shipping_status === "picked_up"
-      ) {
+      if (this.arrived || this.picked_up) {
         return "arrow-color";
       } else {
         return "disabled-color";
       }
     },
     picked_up_style() {
-      if (this.the_order.shipping_status === "picked_up") {
+      if (this.picked_up) {
         return "success-color";
       } else {
         return "disabled-color";
