@@ -8,40 +8,33 @@
     <i class="pi pi-arrow-right p-mx-1"></i>
     <Button
       @click="confirm_shipped"
-      v-if="in_preparation"
+      v-if="the_order['may_to_shipping?']"
       label="確認發貨"
       class="
         p-button-raised p-button-info p-button-sm p-lg-fixed p-col-2 p-px-2
       "
       style="width: 100px"
     />
-    <strong v-if="shipping || arrived || picked_up" class="progress-color">
-      已發貨
-    </strong>
+    <strong v-else class="progress-color"> 已發貨 </strong>
 
     <i class="pi pi-arrow-right p-mx-1" :class="shipping_arrow_style"></i>
 
     <Button
       @click="confirm_arrived"
-      v-if="shipping"
+      v-if="the_order['may_to_arrived?']"
       label="確認到達"
       class="
         p-button-raised p-button-info p-button-sm p-lg-fixed p-col-2 p-px-2
       "
       style="width: 100px"
     />
-    <strong
-      v-if="in_preparation || arrived || picked_up"
-      :class="arrived_style"
-    >
-      已到達
-    </strong>
+    <strong v-else :class="arrived_style"> 已到達 </strong>
 
     <i class="pi pi-arrow-right p-mx-1" :class="arrived_arrow_style"></i>
 
     <Button
       @click="confirm_picked_up"
-      v-if="arrived"
+      v-if="the_order['may_to_picked_up?']"
       label="確認取貨"
       class="
         p-button-raised p-button-info p-button-sm p-lg-fixed p-col-3 p-px-2
@@ -49,27 +42,24 @@
       style="width: 100px"
     />
 
-    <strong
-      v-if="in_preparation || shipping || picked_up"
-      :class="picked_up_style"
-    >
-      已取貨
-    </strong>
+    <strong v-else :class="picked_up_style"> 已取貨 </strong>
     <i v-if="picked_up" class="pi pi-check-circle success-color p-ml-1"> </i>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+import Cookies from "js-cookie";
+
 export default {
+  data() {
+    return {
+      the_order: {},
+    };
+  },
   props: {
-    shippingStatus: {
-      type: String,
-      default() {
-        return;
-      },
-    },
-    orderStatus: {
-      type: String,
+    orderData: {
+      type: Object,
       default() {
         return;
       },
@@ -79,27 +69,79 @@ export default {
   inject: ["emitter"],
   methods: {
     confirm_shipped() {
-      this.emitter.emit("update_shipping_status", "shipping");
+      const api = `${process.env.VUE_APP_API}/admin/orders/${this.the_order.id}/shipping_status`;
+      const headers = { Authorization: Cookies.get("lemonToken") };
+      const data = { shipping_status: "shipping" };
+      axios
+        .put(api, data, { headers })
+        .then((response) => {
+          this.the_order = response.data;
+          this.emitter.emit("updateOrderAllStatus");
+          this.emitter.emit("updateCancelBtnStatus", this.the_order.id);
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            Cookies.remove("lemonToken");
+            this.showErrorToast("請重新登入");
+            this.$router.push("/entrance/login");
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
     confirm_arrived() {
-      this.emitter.emit("update_shipping_status", "arrived");
+      const api = `${process.env.VUE_APP_API}/admin/orders/${this.the_order.id}/shipping_status`;
+      const headers = { Authorization: Cookies.get("lemonToken") };
+      const data = { shipping_status: "arrived" };
+      axios
+        .put(api, data, { headers })
+        .then((response) => {
+          this.the_order = response.data;
+          this.emitter.emit("updateOrderAllStatus");
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            Cookies.remove("lemonToken");
+            this.showErrorToast("請重新登入");
+            this.$router.push("/entrance/login");
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
     confirm_picked_up() {
-      this.emitter.emit("update_shipping_status", "picked_up");
+      const api = `${process.env.VUE_APP_API}/admin/orders/${this.the_order.id}/shipping_status`;
+      const headers = { Authorization: Cookies.get("lemonToken") };
+      const data = { shipping_status: "picked_up" };
+      axios
+        .put(api, data, { headers })
+        .then((response) => {
+          this.the_order = response.data;
+          this.emitter.emit("updateOrderAllStatus");
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            Cookies.remove("lemonToken");
+            this.showErrorToast("請重新登入");
+            this.$router.push("/entrance/login");
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
   },
   computed: {
-    in_preparation() {
-      return this.shippingStatus === "in_preparation";
-    },
     shipping() {
-      return this.shippingStatus === "shipping";
+      return this.the_order.shipping_status === "shipping";
     },
     arrived() {
-      return this.shippingStatus === "arrived";
+      return this.the_order.shipping_status === "arrived";
     },
     picked_up() {
-      return this.shippingStatus === "picked_up";
+      return this.the_order.shipping_status === "picked_up";
     },
     arrived_style() {
       if (this.arrived || this.picked_up) {
@@ -130,8 +172,16 @@ export default {
       }
     },
     canceled() {
-      return this.orderStatus === "canceled";
+      return this.the_order.status === "canceled";
     },
+  },
+  watch: {
+    orderData() {
+      this.the_order = { ...this.orderData };
+    },
+  },
+  mounted() {
+    this.the_order = { ...this.orderData };
   },
 };
 </script>

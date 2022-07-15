@@ -5,7 +5,7 @@
     :breakpoints="{ '960px': '100vw' }"
     style="width: 60%"
   >
-    <h4 class="p-mt-0">成立時間 {{ order.created_at }}</h4>
+    <h4 class="p-mt-0">成立時間 {{ updateDateFormat(order.created_at) }}</h4>
     <div
       v-for="item in order.items"
       :key="item.id"
@@ -89,7 +89,7 @@
         </strong>
 
         <Button
-          v-if="outstanding && !canceled"
+          v-if="oneOrder['may_pay?'] && !canceled"
           @click="confirm_paid"
           label="確認付款"
           class="
@@ -100,20 +100,17 @@
       </div>
 
       <div class="p-col-12 p-lg-1 p-text-bold">訂單狀態</div>
-      <OrderStatus :orderStatus="oneOrder.status" />
+      <OrderStatus :orderData="oneOrder" />
 
       <div class="p-col-12 p-lg-1 p-text-bold">物流狀態</div>
-      <ShippingStatus
-        :shippingStatus="oneOrder.shipping_status"
-        :orderStatus="oneOrder.status"
-      />
+      <ShippingStatus :orderData="oneOrder" />
     </div>
 
     <template #footer>
       <div class="p-d-flex p-jc-end">
         <Button
-          :disabled="!(outstanding && inPreparation && (pending || confirmed))"
-          @click.prevent="cancelTheOreder()"
+          :disabled="!oneOrder['may_cancel?']"
+          @click.prevent="cancelTheOreder"
           label="取消訂單"
           icon="pi pi-times"
           class="p-button-danger p-ml-3"
@@ -132,6 +129,8 @@
 <script>
 import ShippingStatus from "@/components/ShippingStatus.vue";
 import OrderStatus from "@/components/OrderStatus.vue";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 export default {
   data() {
@@ -156,6 +155,11 @@ export default {
     },
   },
   methods: {
+    updateDateFormat(time) {
+      const oldStyle = new Date(Date.parse(time)).toLocaleString();
+      const newStyle = oldStyle.replace("/", "-").replace("/", "-");
+      return newStyle;
+    },
     groundText(ground_result) {
       if (ground_result === true) {
         return "磨粉";
@@ -164,7 +168,25 @@ export default {
       }
     },
     confirm_paid() {
-      this.oneOrder.payment_status = "paid";
+      const api = `${process.env.VUE_APP_API}/admin/orders/${this.oneOrder.id}/payment_status`;
+      const headers = { Authorization: Cookies.get("lemonToken") };
+      const data = { payment_status: "paid" };
+      axios
+        .put(api, data, { headers })
+        .then((response) => {
+          this.oneOrder = response.data;
+          this.emitter.emit("updateOrderAllStatus");
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            Cookies.remove("lemonToken");
+            this.showErrorToast("請重新登入");
+            this.$router.push("/entrance/login");
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
     caculateSubtotal(order) {
       return order.items.reduce((acc, current_item) => {
@@ -185,7 +207,25 @@ export default {
       this.isOpen = false;
     },
     cancelTheOreder() {
-      this.oneOrder.status = "canceled";
+      const api = `${process.env.VUE_APP_API}/admin/orders/${this.oneOrder.id}/status`;
+      const headers = { Authorization: Cookies.get("lemonToken") };
+      const data = { status: "canceled" };
+      axios
+        .put(api, data, { headers })
+        .then((response) => {
+          this.oneOrder = response.data;
+          this.emitter.emit("updateOrderAllStatus");
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            Cookies.remove("lemonToken");
+            this.showErrorToast("請重新登入");
+            this.$router.push("/entrance/login");
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
   },
   inject: ["emitter"],
@@ -242,14 +282,6 @@ export default {
     inPreparation() {
       return this.oneOrder.shipping_status === "in_preparation";
     },
-  },
-  created() {
-    this.emitter.on("update_shipping_status", (current_shipping_status) => {
-      this.oneOrder.shipping_status = current_shipping_status;
-    });
-    this.emitter.on("update_order_status", (current_order_status) => {
-      this.oneOrder.status = current_order_status;
-    });
   },
 };
 </script>

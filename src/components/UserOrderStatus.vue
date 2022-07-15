@@ -11,7 +11,7 @@
     <i :class="pendingAndConfirmedArrowStyle" class="pi pi-arrow-right p-mx-1">
     </i>
     <Button
-      :disabled="!(pickedUp && paid)"
+      :disabled="!the_order['may_finish?']"
       @click="finishedOrder"
       v-if="confirmed"
       label="完成訂單"
@@ -26,51 +26,62 @@
 </template>
 
 <script>
+import axios from "axios";
+import Cookies from "js-cookie";
+
 export default {
+  data() {
+    return {
+      the_order: {},
+    };
+  },
   props: {
-    shippingStatus: {
-      type: String,
-      default() {
-        return;
-      },
-    },
-    orderStatus: {
-      type: String,
-      default() {
-        return;
-      },
-    },
-    paymentStatus: {
-      type: String,
-      default() {
-        return;
-      },
+    orderData: {
+      type: Object,
     },
   },
   inject: ["emitter"],
   methods: {
     finishedOrder() {
-      this.emitter.emit("update_order_status", "finished");
+      const api = `${process.env.VUE_APP_API}/admin/orders/${this.the_order.id}/status`;
+      const headers = { Authorization: Cookies.get("lemonToken") };
+      const data = { status: "finished" };
+      axios
+        .put(api, data, { headers })
+        .then((response) => {
+          this.the_order = response.data;
+          this.emitter.emit("updateUserOrderAllStatus");
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            Cookies.remove("lemonToken");
+            this.showErrorToast("請重新登入");
+            this.$router.push("/entrance/login");
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
   },
   computed: {
     pending() {
-      return this.orderStatus === "pending";
+      return this.the_order.status === "pending";
     },
     confirmed() {
-      return this.orderStatus === "confirmed";
+      return this.the_order.status === "confirmed";
     },
     pickedUp() {
-      return this.shippingStatus === "picked_up";
+      return this.the_order.shipping_status === "picked_up";
     },
     finished() {
-      return this.orderStatus === "finished";
+      return this.the_order.status === "finished";
     },
     canceled() {
-      return this.orderStatus === "canceled";
+      return this.the_order.status === "canceled";
     },
     paid() {
-      return this.paymentStatus === "paid";
+      return this.the_order.payment_status === "paid";
     },
     pendingAndConfirmedArrowStyle() {
       if (this.confirmed || this.finished) {
@@ -93,6 +104,14 @@ export default {
         return "disabled-color";
       }
     },
+  },
+  watch: {
+    orderData() {
+      this.the_order = { ...this.orderData };
+    },
+  },
+  mounted() {
+    this.the_order = { ...this.orderData };
   },
 };
 </script>
