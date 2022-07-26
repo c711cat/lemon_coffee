@@ -46,7 +46,7 @@ export default {
           if (response.status === 200) {
             this.showSuccessToast("登入成功");
             this.getCart();
-            history.back();
+            this.jumpUrl();
             this.emitter.emit("changeUserNavbarIconBtn");
           }
         })
@@ -76,6 +76,13 @@ export default {
             this.$router.push("/entrance/login");
           }
         });
+    },
+    jumpUrl() {
+      if (window.history.state.back === "/entrance/register") {
+        this.$router.push("/");
+      } else {
+        history.back();
+      }
     },
     showErrorToast(text) {
       this.$toast.add({
