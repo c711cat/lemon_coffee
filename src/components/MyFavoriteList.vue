@@ -57,11 +57,7 @@ import Roast from "@/components/Roast.vue";
 export default {
   data() {
     return {
-      buy_more_discount: 0,
-      cartItems: [],
-      origin_shipping_fee: 0,
       isLoading: false,
-      loadingItem: "",
       myFavoriteData: {},
       favoriteIsNull: "",
     };
@@ -91,67 +87,12 @@ export default {
       this.getMyFavorite();
       this.showSuccessToast("已移除收藏清單");
     },
-    showErrorToast(text) {
-      this.$toast.add({
-        severity: "error",
-        summary: text,
-        life: 5000,
-      });
-    },
     showSuccessToast(text) {
       this.$toast.add({
         severity: "success",
         summary: text,
         life: 2000,
       });
-    },
-    typeText(package_type) {
-      if (package_type === "drip_bag") {
-        return "耳掛";
-      }
-      if (package_type === "half_pound") {
-        return "半磅";
-      }
-      if (package_type === "one_pound") {
-        return "一磅";
-      }
-    },
-    groundText(ground_result) {
-      if (ground_result === true) {
-        return "磨粉";
-      }
-      if (ground_result === false) {
-        return "原豆";
-      }
-    },
-    updateShippingFee(shippingMethod) {
-      switch (shippingMethod) {
-        case "home_delivery":
-          this.origin_shipping_fee = 100;
-          break;
-        default:
-          this.origin_shipping_fee = 0;
-          break;
-      }
-    },
-  },
-  computed: {
-    subtotal() {
-      let total = 0;
-      this.cartItems.forEach((item) => {
-        total += item.unit_price * item.quantity;
-      });
-      return total;
-    },
-    final_shipping_fee() {
-      if (this.subtotal >= 1000) {
-        return 0;
-      } else {
-        return this.origin_shipping_fee;
-      }
-    },
-    free_shipping() {
-      return this.final_shipping_fee === 0;
     },
   },
   created() {
@@ -161,9 +102,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-* {
-  border: 1px solid black;
-}
 .wrap {
   max-width: 1200px;
 }
@@ -174,31 +112,6 @@ export default {
 
 .product-image {
   width: 60px;
-}
-
-.subtotal-container {
-  line-height: 1.5;
-}
-
-.del-content {
-  color: #999;
-}
-
-.discount-container {
-  font-size: 15px;
-}
-
-.discount-content {
-  color: #db2828;
-}
-
-.discount-mark {
-  background: #db2828;
-  color: #fff;
-}
-
-.checkout-price {
-  color: #0288d1;
 }
 
 .link-content {
