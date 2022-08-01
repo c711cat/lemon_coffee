@@ -5,7 +5,10 @@
       <h4>收藏清單</h4>
     </div>
 
+    <div v-if="favoriteIsNull" class="p-m-6">目前無收藏的商品</div>
+
     <div
+      v-else
       class="p-grid p-m-0 p-py-3 divider p-ai-center p-jc-between"
       v-for="item in myFavoriteData"
       :key="item.id"
@@ -60,6 +63,7 @@ export default {
       isLoading: false,
       loadingItem: "",
       myFavoriteData: {},
+      favoriteIsNull: "",
     };
   },
   components: { Loading, Roast },
@@ -69,6 +73,15 @@ export default {
       const myFavoriteData =
         JSON.parse(localStorage.getItem("myFavorite")) || {};
       this.myFavoriteData = myFavoriteData;
+      this.myFavoriteIsNull();
+    },
+    myFavoriteIsNull() {
+      let data = Object.keys(JSON.parse(localStorage.getItem("myFavorite")));
+      if (data[0] === undefined) {
+        this.favoriteIsNull = true;
+      } else {
+        this.favoriteIsNull = false;
+      }
     },
     delMyFavorite(item) {
       item.myFavorite = false;
