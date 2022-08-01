@@ -36,7 +36,7 @@
           class="p-col-12 p-lg-2 p-text-center p-d-flex p-jc-end p-ai-center"
         >
           <Button
-            @click.prevent="delMyFavorite(product)"
+            @click.prevent="delMyFavorite(item)"
             label="移除收藏"
             icon="pi pi-heart-fill"
             class="p-button-outlined p-button-warning btn-container"
@@ -69,9 +69,15 @@ export default {
       const myFavoriteData =
         JSON.parse(localStorage.getItem("myFavorite")) || {};
       this.myFavoriteData = myFavoriteData;
-      console.log(this.myFavoriteData);
     },
-
+    delMyFavorite(item) {
+      item.myFavorite = false;
+      const data = JSON.parse(localStorage.getItem("myFavorite"));
+      delete data[item.id];
+      localStorage.setItem("myFavorite", JSON.stringify(data));
+      this.getMyFavorite();
+      this.showSuccessToast("已移除收藏清單");
+    },
     showErrorToast(text) {
       this.$toast.add({
         severity: "error",
