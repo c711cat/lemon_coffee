@@ -81,6 +81,11 @@ export default {
           to: "/admin",
         },
         {
+          label: "收藏清單",
+          icon: "pi pi-fw pi-heart",
+          to: "/favorite",
+        },
+        {
           label: "訂單",
           icon: "pi pi-fw pi-book",
           to: "/orders",
