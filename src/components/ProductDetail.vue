@@ -207,7 +207,7 @@ export default {
       const data = JSON.parse(localStorage.getItem("myFavorite")) || {};
       delete data[product.id];
       localStorage.setItem("myFavorite", JSON.stringify(data));
-      this.showErrorToast("已移除收藏清單");
+      this.showInfoToast("已移除收藏");
     },
     showErrorToast(text) {
       this.$toast.add({
@@ -219,6 +219,13 @@ export default {
     showSuccessToast(text) {
       this.$toast.add({
         severity: "success",
+        summary: text,
+        life: 2000,
+      });
+    },
+    showInfoToast(text) {
+      this.$toast.add({
+        severity: "info",
         summary: text,
         life: 2000,
       });

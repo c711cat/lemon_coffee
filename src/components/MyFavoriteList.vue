@@ -85,11 +85,18 @@ export default {
       delete data[item.id];
       localStorage.setItem("myFavorite", JSON.stringify(data));
       this.getMyFavorite();
-      this.showSuccessToast("已移除收藏清單");
+      this.showInfoToast("已移除收藏");
     },
     showSuccessToast(text) {
       this.$toast.add({
         severity: "success",
+        summary: text,
+        life: 2000,
+      });
+    },
+    showInfoToast(text) {
+      this.$toast.add({
+        severity: "info",
         summary: text,
         life: 2000,
       });
