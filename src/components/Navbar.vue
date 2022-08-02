@@ -71,6 +71,11 @@ export default {
           icon: "pi pi-fw pi-book",
           to: "/beanlist",
         },
+        {
+          label: "收藏清單",
+          icon: "pi pi-fw pi-heart",
+          to: "/favorite",
+        },
       ],
       token: "",
       numberOfCartItems: "",
@@ -79,11 +84,6 @@ export default {
           label: "管理員頁面",
           icon: "pi pi-fw pi-user-edit",
           to: "/admin",
-        },
-        {
-          label: "收藏清單",
-          icon: "pi pi-fw pi-heart",
-          to: "/favorite",
         },
         {
           label: "訂單",
