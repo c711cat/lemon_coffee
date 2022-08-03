@@ -100,6 +100,7 @@
       </div>
     </div>
   </div>
+  <SimilarProducts class="wrap"></SimilarProducts>
 </template>
 
 <script>
@@ -107,6 +108,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import Roast from "@/components/Roast.vue";
 import Loading from "@/components/Loading.vue";
+import SimilarProducts from "@/components/SimilarProducts.vue";
 
 export default {
   data() {
@@ -133,7 +135,7 @@ export default {
       btnIsLoading: false,
     };
   },
-  components: { Roast, Loading },
+  components: { Roast, Loading, SimilarProducts },
   inject: ["emitter"],
   methods: {
     getProduct() {
@@ -275,6 +277,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+* {
+  border: 1px solid black;
+}
 .wrap {
   max-width: 950px;
 }
