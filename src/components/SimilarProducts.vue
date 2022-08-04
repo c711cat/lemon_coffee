@@ -8,7 +8,7 @@
     :circular="true"
   >
     <template #header>
-      <h2>你可能也喜歡</h2>
+      <h2 class="p-mb-0">你可能也喜歡</h2>
     </template>
     <template #item="products">
       <div class="product-item">
@@ -17,7 +17,7 @@
             <img
               src="https://images.unsplash.com/photo-1602497475068-c901dc99942c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
               :alt="products.data.name"
-              class="product-image"
+              class="product-image p-pt-0"
             />
           </div>
           <div class="">
