@@ -161,7 +161,7 @@ a {
 }
 
 .price-num {
-  width: 65px;
+  width: 75px;
   display: inline-block;
 }
 
