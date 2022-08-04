@@ -1,6 +1,6 @@
 <template>
   <Carousel
-    :value="products"
+    :value="similarProducts"
     :numVisible="3"
     :numScroll="1"
     :responsiveOptions="responsiveOptions"
@@ -8,30 +8,32 @@
     :circular="true"
   >
     <template #header>
-      <h2 class="p-mb-0">你可能也喜歡</h2>
+      <h2 class="p-mb-0 p-pl-4">你可能也喜歡</h2>
     </template>
-    <template #item="products">
+    <template #item="similarProducts">
       <div class="product-item">
         <div class="product-item-content">
           <div class="p-mb-3">
             <img
               src="https://images.unsplash.com/photo-1602497475068-c901dc99942c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
-              :alt="products.data.name"
+              :alt="similarProducts.data.name"
               class="product-image p-pt-0"
             />
           </div>
           <div class="">
-            <h4 class="p-my-0 p-mx-auto name-body">{{ products.data.name }}</h4>
+            <h4 class="p-my-0 p-mx-auto name-body">
+              {{ similarProducts.data.name }}
+            </h4>
 
             <Roast
-              :roast="products.data.roast"
+              :roast="similarProducts.data.roast"
               class="p-text-bold p-d-flex p-jc-center"
             >
             </Roast>
 
             <h4 class="p-mt-2 p-mb-3">
-              ${{ products.data.drip_bag_price }} ~ ${{
-                products.data.one_pound_price
+              ${{ similarProducts.data.drip_bag_price }} ~ ${{
+                similarProducts.data.one_pound_price
               }}
             </h4>
           </div>
@@ -48,7 +50,9 @@ import axios from "axios";
 export default {
   data() {
     return {
-      products: {},
+      similarProducts: [],
+      allProducts: {},
+      currentProduct: {},
       responsiveOptions: [
         {
           breakpoint: "1024px",
@@ -70,22 +74,50 @@ export default {
   },
   components: { Roast },
   methods: {
-    getProducts() {
+    getCurrentProduct() {
+      const api = `${process.env.VUE_APP_API}/products/${this.$route.params.id}`;
+      this.isLoading = true;
+      axios
+        .get(api)
+        .then((response) => {
+          this.currentProduct = { ...response.data };
+          this.getAllProducts();
+        })
+        .catch((error) => {
+          return error;
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
+    },
+    getAllProducts() {
       const api = `${process.env.VUE_APP_API}/products`;
       this.isLoading = true;
       axios
         .get(api)
         .then((response) => {
-          this.products = response.data;
-          console.log(this.products);
+          this.allProducts = response.data;
+          this.foreachSimilarProducts();
         })
         .catch((error) => {
           return error;
         });
     },
+    foreachSimilarProducts() {
+      this.allProducts.forEach((item) => {
+        if (
+          (item.id !== this.currentProduct.id &&
+            item.roast === this.currentProduct.roast) ||
+          this.currentProduct.roast - 1 === item.roast ||
+          this.currentProduct.roast + 1 === item.roast
+        ) {
+          this.similarProducts.push(item);
+        }
+      });
+    },
   },
   created() {
-    this.getProducts();
+    this.getCurrentProduct();
   },
 };
 </script>
