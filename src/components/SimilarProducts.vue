@@ -1,5 +1,6 @@
 <template>
   <Carousel
+    :key="similarProducts"
     :value="similarProducts"
     :numVisible="3"
     :numScroll="1"
