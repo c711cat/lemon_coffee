@@ -97,14 +97,14 @@ export default {
         .get(api)
         .then((response) => {
           this.allProducts = response.data;
-          this.foreachSimilarProducts();
+          this.filterchSimilarProducts();
         })
         .catch((error) => {
           return error;
         });
     },
-    foreachSimilarProducts() {
-      this.allProducts.forEach((item) => {
+    filterchSimilarProducts() {
+      this.allProducts.filter((item) => {
         if (
           (item.id !== this.currentProduct.id &&
             item.roast === this.currentProduct.roast) ||
