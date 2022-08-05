@@ -102,15 +102,13 @@ export default {
         });
     },
     filterchSimilarProducts() {
-      this.allProducts.filter((item) => {
-        if (
+      this.similarProducts = this.allProducts.filter((item) => {
+        return (
           (item.id !== this.currentProduct.id &&
             item.roast === this.currentProduct.roast) ||
           this.currentProduct.roast - 1 === item.roast ||
           this.currentProduct.roast + 1 === item.roast
-        ) {
-          this.similarProducts.push(item);
-        }
+        );
       });
     },
     goToTheProductPage(id) {
