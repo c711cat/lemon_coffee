@@ -100,7 +100,11 @@
       </div>
     </div>
   </div>
-  <SimilarProducts @go-to-the-product-page="getProduct" class="wrap">
+  <SimilarProducts
+    :currentItem="product"
+    @go-to-the-product-page="getProduct"
+    class="wrap"
+  >
   </SimilarProducts>
 </template>
 

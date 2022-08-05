@@ -76,23 +76,18 @@ export default {
     };
   },
   components: { Roast },
-  methods: {
-    getCurrentProduct() {
-      const api = `${process.env.VUE_APP_API}/products/${this.$route.params.id}`;
-      this.isLoading = true;
-      axios
-        .get(api)
-        .then((response) => {
-          this.currentProduct = { ...response.data };
-          this.getAllProducts();
-        })
-        .catch((error) => {
-          return error;
-        })
-        .finally(() => {
-          this.isLoading = false;
-        });
+  props: {
+    currentItem: {
+      type: Object,
     },
+  },
+  watch: {
+    currentItem() {
+      this.currentProduct = { ...this.currentItem };
+      this.getAllProducts();
+    },
+  },
+  methods: {
     getAllProducts() {
       const api = `${process.env.VUE_APP_API}/products`;
       this.isLoading = true;
@@ -119,11 +114,9 @@ export default {
       });
     },
     goToTheProductPage(id) {
+      this.$router.push(`/products/${id}`);
       this.$emit("go-to-the-product-page", id);
     },
-  },
-  created() {
-    this.getCurrentProduct();
   },
 };
 </script>
