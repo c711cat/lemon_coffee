@@ -12,7 +12,10 @@
     </template>
     <template #item="similarProducts">
       <div class="product-item">
-        <div class="product-item-content">
+        <div
+          @click.prevent="goToTheProductPage(similarProducts.data.id)"
+          class="product-item-content"
+        >
           <div class="p-mb-3">
             <img
               src="https://images.unsplash.com/photo-1602497475068-c901dc99942c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
@@ -115,6 +118,9 @@ export default {
         }
       });
     },
+    goToTheProductPage(id) {
+      this.$emit("go-to-the-product-page", id);
+    },
   },
   created() {
     this.getCurrentProduct();
@@ -129,6 +135,10 @@ export default {
     margin: 0.3rem;
     text-align: center;
     padding: 2rem 0;
+    cursor: pointer;
+  }
+  .product-item-content:hover {
+    background-color: #fdf7ee;
   }
 
   .product-image {

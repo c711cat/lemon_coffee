@@ -100,7 +100,8 @@
       </div>
     </div>
   </div>
-  <SimilarProducts class="wrap"></SimilarProducts>
+  <SimilarProducts @go-to-the-product-page="getProduct" class="wrap">
+  </SimilarProducts>
 </template>
 
 <script>
@@ -138,8 +139,14 @@ export default {
   components: { Roast, Loading, SimilarProducts },
   inject: ["emitter"],
   methods: {
-    getProduct() {
-      const api = `${process.env.VUE_APP_API}/products/${this.$route.params.id}`;
+    getProduct(id) {
+      let paramsId = "";
+      if (id === undefined) {
+        paramsId = this.$route.params.id;
+      } else {
+        paramsId = id;
+      }
+      const api = `${process.env.VUE_APP_API}/products/${paramsId}`;
       this.isLoading = true;
       axios
         .get(api)
