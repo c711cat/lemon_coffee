@@ -72,6 +72,11 @@ export default {
           to: "/beanlist",
         },
         {
+          label: "商品總覽",
+          icon: "pi pi-fw pi-table",
+          to: "/products_overview",
+        },
+        {
           label: "收藏清單",
           icon: "pi pi-fw pi-heart",
           to: "/favorite",
