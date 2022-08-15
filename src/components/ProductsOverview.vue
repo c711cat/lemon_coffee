@@ -52,12 +52,14 @@ import Loading from "@/components/Loading.vue";
 export default {
   data() {
     return {
-      products: null,
+      products: [],
       currentPageItems: null,
       isLoading: false,
+      allProductsRecord: [],
     };
   },
   components: { Roast, Pagination, Loading },
+  inject: ["emitter"],
   methods: {
     filterData(data) {
       this.currentPageItems = data;
@@ -69,6 +71,7 @@ export default {
         .get(api)
         .then((response) => {
           this.products = response.data;
+          this.allProductsRecord = response.data;
         })
         .catch((error) => {
           return error;
@@ -77,10 +80,22 @@ export default {
           this.isLoading = false;
         });
     },
+    filterDifferentRoast(roast) {
+      const allItems = this.allProductsRecord;
+      this.products = allItems.filter((item) => {
+        return item.roast === roast;
+      });
+    },
   },
 
   created() {
     this.getAllProducts();
+    this.emitter.on("get-all-products", () => {
+      this.getAllProducts();
+    });
+    this.emitter.on("filter-different-roast", (data) => {
+      this.filterDifferentRoast(data);
+    });
   },
 };
 </script>
