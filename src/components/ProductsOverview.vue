@@ -20,7 +20,7 @@
         alt=""
       />
 
-      <div class="p-text-bold p-py-2">{{ item.name }}</div>
+      <div class="p-text-bold p-py-2 name-container">{{ item.name }}</div>
       <Roast
         :roast="item.roast"
         class="p-text-bold p-d-flex p-jc-center p-pb-2"
@@ -102,5 +102,9 @@ export default {
 .link-content {
   text-decoration: none;
   color: #2c3e50;
+}
+
+.name-container {
+  height: 60px;
 }
 </style>
