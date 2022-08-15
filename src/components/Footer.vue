@@ -1,5 +1,7 @@
 <template>
-  <div class="p-grid nested-grid p-jc-evenly p-ai-center footer-body p-py-5">
+  <div
+    class="p-grid nested-grid p-jc-evenly p-ai-center footer-body p-py-5 p-m-0"
+  >
     <router-link
       to="/"
       class="
@@ -77,7 +79,7 @@
       </div>
     </div>
   </div>
-  <div class="p-grid p-jc-center p-py-2 practice-tag">
+  <div class="p-grid p-jc-center p-py-2 practice-tag p-m-0">
     此網站僅為練習使用，不具商業行為
   </div>
 </template>
