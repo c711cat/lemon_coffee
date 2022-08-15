@@ -34,6 +34,7 @@ import ProgressSpinner from "primevue/progressspinner";
 import Dialog from "primevue/dialog";
 import Skeleton from "primevue/skeleton";
 import ScrollTop from "primevue/scrolltop";
+import Carousel from "primevue/carousel";
 
 const app = createApp(App);
 app.use(router);
@@ -68,5 +69,6 @@ app.component("ProgressSpinner", ProgressSpinner);
 app.component("Dialog", Dialog);
 app.component("Skeleton", Skeleton);
 app.component("ScrollTop", ScrollTop);
+app.component("Carousel", Carousel);
 
 app.mount("#app");

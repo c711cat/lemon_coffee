@@ -43,7 +43,7 @@
         </div>
       </router-link>
 
-      <div class="p-col-fixed p-pl-4" style="width: 130px">
+      <div class="p-col-fixed p-pl-4" style="width: 140px">
         $ {{ item.unit_price }} / {{ typeText(item.package_type) }}
       </div>
 

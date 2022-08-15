@@ -100,6 +100,12 @@
       </div>
     </div>
   </div>
+  <SimilarProducts
+    :currentItem="product"
+    @go-to-the-product-page="getProduct"
+    class="wrap"
+  >
+  </SimilarProducts>
 </template>
 
 <script>
@@ -107,6 +113,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import Roast from "@/components/Roast.vue";
 import Loading from "@/components/Loading.vue";
+import SimilarProducts from "@/components/SimilarProducts.vue";
 
 export default {
   data() {
@@ -133,11 +140,17 @@ export default {
       btnIsLoading: false,
     };
   },
-  components: { Roast, Loading },
+  components: { Roast, Loading, SimilarProducts },
   inject: ["emitter"],
   methods: {
-    getProduct() {
-      const api = `${process.env.VUE_APP_API}/products/${this.$route.params.id}`;
+    getProduct(id) {
+      let paramsId = "";
+      if (id === undefined) {
+        paramsId = this.$route.params.id;
+      } else {
+        paramsId = id;
+      }
+      const api = `${process.env.VUE_APP_API}/products/${paramsId}`;
       this.isLoading = true;
       axios
         .get(api)
