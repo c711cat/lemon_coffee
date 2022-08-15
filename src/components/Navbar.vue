@@ -71,6 +71,11 @@ export default {
           icon: "pi pi-fw pi-book",
           to: "/beanlist",
         },
+        {
+          label: "收藏清單",
+          icon: "pi pi-fw pi-heart",
+          to: "/favorite",
+        },
       ],
       token: "",
       numberOfCartItems: "",
