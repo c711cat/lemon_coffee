@@ -37,7 +37,7 @@
     </router-link>
   </div>
   <Pagination
-    :row="9"
+    :row="6"
     :allProducts="products"
     @filter-current-page-data="filterData"
   ></Pagination>
