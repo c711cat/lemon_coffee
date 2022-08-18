@@ -72,45 +72,27 @@ export default {
           items: [
             {
               label: "全部商品",
-              to: "/products_overview",
-              command: () => {
-                this.getAllProducts();
-              },
+              to: "/products_overview/all",
             },
             {
               label: "淺焙",
-              to: "/products_overview",
-              command: () => {
-                this.filterRoast(1);
-              },
+              to: "/products_overview/1",
             },
             {
               label: "中淺焙",
-              to: "/products_overview",
-              command: () => {
-                this.filterRoast(2);
-              },
+              to: "/products_overview/2",
             },
             {
               label: "中焙",
-              to: "/products_overview",
-              command: () => {
-                this.filterRoast(3);
-              },
+              to: "/products_overview/3",
             },
             {
               label: "中深焙",
-              to: "/products_overview",
-              command: () => {
-                this.filterRoast(4);
-              },
+              to: "/products_overview/4",
             },
             {
               label: "深焙",
-              to: "/products_overview",
-              command: () => {
-                this.filterRoast(5);
-              },
+              to: "/products_overview/5",
             },
           ],
         },
@@ -151,12 +133,6 @@ export default {
   inject: ["emitter"],
   emits: ["change-visible"],
   methods: {
-    filterRoast(roast) {
-      this.emitter.emit("filter-different-roast", roast);
-    },
-    getAllProducts() {
-      this.emitter.emit("get-all-products");
-    },
     getCart() {
       const api = `${process.env.VUE_APP_API}/users/cart_items`;
       const headers = { Authorization: Cookies.get("lemonToken") };

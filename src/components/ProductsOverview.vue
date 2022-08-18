@@ -55,7 +55,7 @@ export default {
       products: [],
       currentPageItems: null,
       isLoading: false,
-      allProductsRecord: [],
+      roast: null,
     };
   },
   components: { Roast, Pagination, Loading },
@@ -71,7 +71,11 @@ export default {
         .get(api)
         .then((response) => {
           this.products = response.data;
-          this.allProductsRecord = response.data;
+          if (this.$route.params.roast !== "all") {
+            this.filterDifferentRoast();
+          } else {
+            return;
+          }
         })
         .catch((error) => {
           return error;
@@ -80,22 +84,23 @@ export default {
           this.isLoading = false;
         });
     },
-    filterDifferentRoast(roast) {
-      const allItems = this.allProductsRecord;
+    filterDifferentRoast() {
+      const allItems = this.products;
       this.products = allItems.filter((item) => {
-        return item.roast === roast;
+        return item.roast == this.$route.params.roast;
       });
     },
   },
-
+  watch: {
+    roast() {
+      this.getAllProducts();
+    },
+  },
   created() {
     this.getAllProducts();
-    this.emitter.on("get-all-products", () => {
-      this.getAllProducts();
-    });
-    this.emitter.on("filter-different-roast", (data) => {
-      this.filterDifferentRoast(data);
-    });
+  },
+  updated() {
+    this.roast = this.$route.params.roast;
   },
 };
 </script>
