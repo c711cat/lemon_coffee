@@ -29,7 +29,17 @@
       <div class="p-text-bold p-py-2 p-mb-2">
         $ {{ item.drip_bag_price }} ~ $ {{ item.one_pound_price }}
       </div>
+
       <Button
+        v-if="isMyFavorite(item.id)"
+        @click.prevent="delMyFavorite(item)"
+        label="移除收藏"
+        icon="pi pi-heart-fill"
+        class="p-button-outlined p-button-warning"
+      />
+      <Button
+        v-else
+        @click.prevent="addMyFavorite(item)"
         label="加入收藏"
         icon="pi pi-heart"
         class="p-button-outlined p-button-warning"
@@ -56,11 +66,36 @@ export default {
       currentPageItems: null,
       isLoading: false,
       roast: null,
+      myFavoriteList: null,
     };
   },
   components: { Roast, Pagination, Loading },
   inject: ["emitter"],
+  computed: {},
   methods: {
+    isMyFavorite(id) {
+      let favorite = "";
+      this.myFavoriteList.forEach((item) => {
+        if (item.id === id) {
+          favorite = true;
+        }
+      });
+      return favorite;
+    },
+    addMyFavorite(item) {
+      this.myFavoriteList.push(item);
+      localStorage.setItem("myList", JSON.stringify(this.myFavoriteList));
+      this.showSuccessToast("已加入收藏清單");
+    },
+    delMyFavorite(item) {
+      this.myFavoriteList.filter((myListItem, index) => {
+        if (myListItem.id === item.id) {
+          return this.myFavoriteList.splice(index, 1);
+        }
+      });
+      localStorage.setItem("myList", JSON.stringify(this.myFavoriteList));
+      this.showInfoToast("已移除收藏");
+    },
     filterData(data) {
       this.currentPageItems = data;
     },
@@ -71,6 +106,8 @@ export default {
         .get(api)
         .then((response) => {
           this.products = response.data;
+          this.myFavoriteList =
+            JSON.parse(localStorage.getItem("myList")) || [];
           if (this.$route.params.roast !== "all") {
             this.filterDifferentRoast();
           } else {
@@ -88,6 +125,20 @@ export default {
       const allItems = this.products;
       this.products = allItems.filter((item) => {
         return item.roast == this.$route.params.roast;
+      });
+    },
+    showSuccessToast(text) {
+      this.$toast.add({
+        severity: "success",
+        summary: text,
+        life: 2000,
+      });
+    },
+    showInfoToast(text) {
+      this.$toast.add({
+        severity: "info",
+        summary: text,
+        life: 2000,
       });
     },
   },
