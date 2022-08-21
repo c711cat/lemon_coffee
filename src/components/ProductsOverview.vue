@@ -94,16 +94,16 @@ export default {
     },
     addMyFavorite(item) {
       this.myFavoriteList.push(item);
-      localStorage.setItem("myList", JSON.stringify(this.myFavoriteList));
+      localStorage.setItem("myFavorite", JSON.stringify(this.myFavoriteList));
       this.showSuccessToast("已加入收藏清單");
     },
     delMyFavorite(item) {
-      this.myFavoriteList.filter((myListItem, index) => {
-        if (myListItem.id === item.id) {
+      this.myFavoriteList.filter((myFavoriteItem, index) => {
+        if (myFavoriteItem.id === item.id) {
           return this.myFavoriteList.splice(index, 1);
         }
       });
-      localStorage.setItem("myList", JSON.stringify(this.myFavoriteList));
+      localStorage.setItem("myFavorite", JSON.stringify(this.myFavoriteList));
       this.showInfoToast("已移除收藏");
     },
     filterData(data) {
@@ -117,7 +117,7 @@ export default {
         .then((response) => {
           this.products = response.data;
           this.myFavoriteList =
-            JSON.parse(localStorage.getItem("myList")) || [];
+            JSON.parse(localStorage.getItem("myFavorite")) || [];
           if (
             this.$route.params.roast !== "all" &&
             this.$route.params.roast !== "for_milk"
