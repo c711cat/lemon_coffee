@@ -67,14 +67,48 @@ export default {
     return {
       items: [
         {
-          label: "豆單",
-          icon: "pi pi-fw pi-book",
-          to: "/beanlist",
+          label: "商品分類",
+          icon: "pi pi-fw pi-table",
+          items: [
+            {
+              label: "全部商品",
+              to: "/products_overview/all",
+            },
+            {
+              label: "加奶適合",
+              to: "/products_overview/for_milk",
+            },
+            {
+              label: "淺焙",
+              to: "/products_overview/1",
+            },
+            {
+              label: "中淺焙",
+              to: "/products_overview/2",
+            },
+            {
+              label: "中焙",
+              to: "/products_overview/3",
+            },
+            {
+              label: "中深焙",
+              to: "/products_overview/4",
+            },
+            {
+              label: "深焙",
+              to: "/products_overview/5",
+            },
+          ],
         },
         {
           label: "收藏清單",
           icon: "pi pi-fw pi-heart",
           to: "/favorite",
+        },
+        {
+          label: "豆單",
+          icon: "pi pi-fw pi-book",
+          to: "/beanlist",
         },
       ],
       token: "",
