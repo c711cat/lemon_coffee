@@ -67,6 +67,16 @@ export default {
       isLoading: false,
       roast: null,
       myFavoriteList: null,
+      forMilkId: {
+        2: true,
+        4: true,
+        5: true,
+        6: true,
+        7: true,
+        8: true,
+        9: true,
+        148: true,
+      },
     };
   },
   components: { Roast, Pagination, Loading },
@@ -108,8 +118,14 @@ export default {
           this.products = response.data;
           this.myFavoriteList =
             JSON.parse(localStorage.getItem("myList")) || [];
-          if (this.$route.params.roast !== "all") {
+          if (
+            this.$route.params.roast !== "all" &&
+            this.$route.params.roast !== "for_milk"
+          ) {
             this.filterDifferentRoast();
+          }
+          if (this.$route.params.roast === "for_milk") {
+            this.filterForMlik();
           } else {
             return;
           }
@@ -120,6 +136,12 @@ export default {
         .finally(() => {
           this.isLoading = false;
         });
+    },
+    filterForMlik() {
+      const allItems = this.products;
+      this.products = allItems.filter((item) => {
+        return this.forMilkId[item.id] === true;
+      });
     },
     filterDifferentRoast() {
       const allItems = this.products;

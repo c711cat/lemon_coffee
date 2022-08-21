@@ -75,6 +75,10 @@ export default {
               to: "/products_overview/all",
             },
             {
+              label: "加奶適合",
+              to: "/products_overview/for_milk",
+            },
+            {
               label: "淺焙",
               to: "/products_overview/1",
             },
