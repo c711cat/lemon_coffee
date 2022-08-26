@@ -5,12 +5,12 @@
       <h4>收藏清單</h4>
     </div>
 
-    <div v-if="favoriteIsNull" class="p-m-6">目前無收藏的商品</div>
+    <div v-if="myFavoriteIsNull" class="p-m-6">目前無收藏的商品</div>
 
     <div
       v-else
       class="p-grid p-m-0 p-py-3 divider p-ai-center p-jc-between"
-      v-for="item in myFavoriteData"
+      v-for="item in myFavoriteList"
       :key="item.id"
     >
       <router-link
@@ -58,34 +58,26 @@ export default {
   data() {
     return {
       isLoading: false,
-      myFavoriteData: {},
-      favoriteIsNull: "",
+      myFavoriteList: null,
     };
   },
   components: { Loading, Roast },
   inject: ["emitter"],
   methods: {
     getMyFavorite() {
-      const myFavoriteData =
-        JSON.parse(localStorage.getItem("myFavorite")) || {};
-      this.myFavoriteData = myFavoriteData;
-      this.myFavoriteIsNull();
-    },
-    myFavoriteIsNull() {
-      let data = Object.keys(JSON.parse(localStorage.getItem("myFavorite")));
-      if (data[0] === undefined) {
-        this.favoriteIsNull = true;
-      } else {
-        this.favoriteIsNull = false;
-      }
+      this.myFavoriteList =
+        JSON.parse(localStorage.getItem("myFavorite")) || [];
     },
     delMyFavorite(item) {
-      item.myFavorite = false;
-      const data = JSON.parse(localStorage.getItem("myFavorite"));
-      delete data[item.id];
-      localStorage.setItem("myFavorite", JSON.stringify(data));
-      this.getMyFavorite();
+      this.myFavoriteList.filter((myFavoriteItem, index) => {
+        if (myFavoriteItem.id === item.id) {
+          return this.myFavoriteList.splice(index, 1);
+        }
+      });
+      localStorage.setItem("myFavorite", JSON.stringify(this.myFavoriteList));
       this.showInfoToast("已移除收藏");
+      this.myFavoriteList =
+        JSON.parse(localStorage.getItem("myFavorite")) || [];
     },
     showSuccessToast(text) {
       this.$toast.add({
@@ -100,6 +92,11 @@ export default {
         summary: text,
         life: 2000,
       });
+    },
+  },
+  computed: {
+    myFavoriteIsNull() {
+      return this.myFavoriteList.length === 0;
     },
   },
   created() {

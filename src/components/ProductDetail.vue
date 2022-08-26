@@ -61,17 +61,17 @@
           </div>
           <div class="p-col-12">
             <Button
-              v-if="!product.myFavorite"
-              @click.prevent="addMyFavorite(product)"
-              label="加入收藏"
-              icon="pi pi-heart"
+              v-if="isMyFavorite(product.id)"
+              @click.prevent="delMyFavorite(product)"
+              label="移除收藏"
+              icon="pi pi-heart-fill"
               class="p-button-outlined p-button-warning"
             />
             <Button
               v-else
-              @click.prevent="delMyFavorite(product)"
-              label="移除收藏"
-              icon="pi pi-heart-fill"
+              @click.prevent="addMyFavorite(product)"
+              label="加入收藏"
+              icon="pi pi-heart"
               class="p-button-outlined p-button-warning"
             />
           </div>
@@ -138,6 +138,7 @@ export default {
       is_error: false,
       isLoading: false,
       btnIsLoading: false,
+      myFavoriteList: null,
     };
   },
   components: { Roast, Loading, SimilarProducts },
@@ -156,11 +157,8 @@ export default {
         .get(api)
         .then((response) => {
           this.product = { ...response.data };
-          const myFavoriteData =
-            JSON.parse(localStorage.getItem("myFavorite")) || {};
-          if (myFavoriteData[this.product.id] !== undefined) {
-            this.product.myFavorite = true;
-          }
+          this.myFavoriteList =
+            JSON.parse(localStorage.getItem("myFavorite")) || [];
         })
         .catch(() => {
           this.is_error = !this.is_error;
@@ -208,18 +206,27 @@ export default {
           this.btnIsLoading = false;
         });
     },
+    isMyFavorite(id) {
+      let favorite = "";
+      this.myFavoriteList.forEach((item) => {
+        if (item.id === id) {
+          favorite = true;
+        }
+      });
+      return favorite;
+    },
     addMyFavorite(product) {
-      product.myFavorite = true;
-      const data = JSON.parse(localStorage.getItem("myFavorite")) || {};
-      data[product.id] = product;
-      localStorage.setItem("myFavorite", JSON.stringify(data));
+      this.myFavoriteList.push(product);
+      localStorage.setItem("myFavorite", JSON.stringify(this.myFavoriteList));
       this.showSuccessToast("已加入收藏清單");
     },
     delMyFavorite(product) {
-      product.myFavorite = false;
-      const data = JSON.parse(localStorage.getItem("myFavorite")) || {};
-      delete data[product.id];
-      localStorage.setItem("myFavorite", JSON.stringify(data));
+      this.myFavoriteList.filter((myFavoriteItem, index) => {
+        if (myFavoriteItem.id === product.id) {
+          return this.myFavoriteList.splice(index, 1);
+        }
+      });
+      localStorage.setItem("myFavorite", JSON.stringify(this.myFavoriteList));
       this.showInfoToast("已移除收藏");
     },
     showErrorToast(text) {
